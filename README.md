@@ -1,4 +1,4 @@
 # Paima Standalone Docs
 
-Repository for standalone docs to be packed in the executable.
+Everything placed in this repository (apart from images) will be packed in the paima standalone executable.
 
