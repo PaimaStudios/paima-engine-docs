@@ -23,13 +23,13 @@ To deploy the contract, you will need the following:
 
 First we will get access to the smart contract (specifically its whole project) and make sure all dependencies are installed to be able to compile/deploy it.
 
-1. Run `./paima-engine contract` which emits the _smart-contract_ folder.
-2. Navigate to the _smart-contract_ directory;
+1. Run `./paima-engine contract` which emits the _contracts_ folder.
+2. Navigate to the _contracts/paima-l2-contract_ directory;
 3. Run `npm i` to install all needed dependencies.
 
 ## Editing Truffle Config
 
-You will notice a `truffle-config.js` file in the _smart-contract_ folder. This is a config file which holds all the needed info to deploy the Paima L2 smart contract onto a target blockchain.
+You will notice a `truffle-config.js` file in the _paima-l2-contract_ folder. This is a config file which holds all the needed info to deploy the Paima L2 smart contract onto a target blockchain.
 
 Specifically, the fields you will want to look at editing are:
 
