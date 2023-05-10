@@ -204,3 +204,11 @@ BEGIN;
 -- UPDATE ...; 
 COMMIT;
 ```
+## Batcher Inputs 
+
+The Batcher allows end users to simply sign an input and it will post it for them to the blockchain.
+
+To write only valid data into the blockchain, by default, batcher inputs will be first tested by running through the game backend (The DB will not be updated), any input that is extranous or do not have any effect are ignored. E.g., Try to buy a item, but the user has no gold. 
+
+* You can disable this behaviour by setting the environment variable in your .env file: `DISABLE_DRY_RUN=true`.
+* You can also detect dry runs in your game by reading the `dry_run` flag in the game inputs you recieve in the state transformer.
