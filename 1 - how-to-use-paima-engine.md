@@ -204,3 +204,13 @@ BEGIN;
 -- UPDATE ...; 
 COMMIT;
 ```
+## Paima Engine Dry Running
+
+For context, Paima Batcher allows end users to sign game inputs without manually posting transactions themselves. It enables the cross-chain Paima Whirlpool functionality to be possible in Paima Engine.
+
+For Paima Batcher to work well in production, game inputs can be validated before posting on-chain to save on transaction fees & increase throughput. To support this validation Paima Engine ships with a "dry run" endpoint which allows directly submitting a game input via HTTP, and having it processed by the STF (returning success or fail) without saving any of the resulting SQL queries. As such this allows the batcher (or any external tooling) to check that a game input validates before posting it on-chain.
+
+This functionality is enabled by default to encourage debugging/testing during development, however game nodes in production which are user-facing should have dry running disabled (as this is a DoS vector). 
+
+* You can disable this behaviour by setting the environment variable in your .env file: `DISABLE_DRY_RUN=true`.
+* You can also detect dry run game inputs in your game logic (if you want to do advanced testing using dry running) by reading the `dry_run` field in the game input you receive in your STF
