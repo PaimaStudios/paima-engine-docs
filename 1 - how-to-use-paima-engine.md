@@ -204,11 +204,13 @@ BEGIN;
 -- UPDATE ...; 
 COMMIT;
 ```
-## Batcher Inputs 
+## Paima Engine Dry Running
 
-The Batcher allows end users to simply sign an input and it will post it for them to the blockchain.
+For context, Paima Batcher allows end users to sign game inputs without manually posting transactions themselves. It enables the cross-chain Paima Whirlpool functionality to be possible in Paima Engine.
 
-To write only valid data into the blockchain, by default, batcher inputs will be first tested by running through the game backend (The DB will not be updated), any input that is extranous or do not have any effect are ignored. E.g., Try to buy a item, but the user has no gold. 
+For Paima Batcher to work well in production, game inputs can be validated before posting on-chain to save on transaction fees & increase throughput. To support this validation Paima Engine ships with a "dry run" endpoint which allows directly submitting a game input via HTTP, and having it processed by the STF (returning success or fail) without saving any of the resulting SQL queries. As such this allows the batcher (or any external tooling) to check that a game input validates before posting it on-chain.
+
+This functionality is enabled by default to encourage debugging/testing during development, however game nodes in production which are user-facing should have dry running disabled (as this is a DoS vector). 
 
 * You can disable this behaviour by setting the environment variable in your .env file: `DISABLE_DRY_RUN=true`.
-* You can also detect dry runs in your game by reading the `dry_run` flag in the game inputs you recieve in the state transformer.
+* You can also detect dry run game inputs in your game logic (if you want to do advanced testing using dry running) by reading the `dry_run` field in the game input you receive in your STF
