@@ -212,5 +212,5 @@ For Paima Batcher to work well in production, game inputs can be validated befor
 
 This functionality is enabled by default to encourage debugging/testing during development, however game nodes in production which are user-facing should have dry running disabled (as this is a DoS vector). 
 
-* You can disable this behaviour by setting the environment variable in your .env file: `DISABLE_DRY_RUN=true`.
+* You can enable this behaviour by setting the environment variable in your .env file: `ENABLE_DRY_RUN=true`.
 * You can also detect dry run game inputs in your game logic (if you want to do advanced testing using dry running) by reading the `dry_run` field in the game input you receive in your STF
