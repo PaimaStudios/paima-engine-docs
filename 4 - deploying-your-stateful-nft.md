@@ -65,7 +65,7 @@ After this, your NFT contract is almost ready for deployment. One final preparat
 
 ## Configuration
 
-Whether you are deploying or simply performing some admin functions, most of the data is taken from `contracts/nft/deploy-config.json`. Notice that the file contains separate configurations for testnet and mainnet, so you can have different configurations for different networks. You can use
+Whether you are deploying or simply performing some admin functions, most of the data is taken from `contracts/nft/deploy-config.json`. Notice that the file contains separate configurations for testnet and mainnet, so you can have different configurations for different networks.
 
 Note that the `owner` fields in the configuration are only used with the transfer ownership admin functionality; when first deploying the contracts, the deployment account is set as the owner. Be aware that only the owner can perform certain admin operations with the contracts (config updates, fund withdrawal). Once you change it, you cannot perform these operations as described in this file unless you use the new owner account as the deployment account.
 
@@ -129,4 +129,5 @@ Simply follow the script's instructions, this time choosing to perform admin ope
 Note that to execute these admin operations with a smart contract, you need to be its owner, meaning that when the script asks you for the deployment private key, you need to supply the private key of the owner account. You do not need to worry about this if you didn't explicitly change the owner and are using the same private key as you deployed with.
 
 ## Accessing the NFT data from your game node
+
 Open up our NFT LvlUp game template - `./paima-engine-linux init template nft-lvlup` to learn more.
