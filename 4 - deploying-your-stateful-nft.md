@@ -13,13 +13,13 @@ To deploy the contracts, you will need the following:
 
 First we will get access to the smart contracts and make sure all dependencies are installed to be able to compile/deploy them:
 
-1. Run `./paima-engine contract` which emits the _contracts_ directory.
+1. Run `./paima-engine contracts` which emits the _contracts_ directory.
 2. Navigate to the `contracts/nft/` directory;
 3. Run `npm install` to install all needed dependencies.
 
 ## State customization
 
-Before you deploy your contracts, you may want to customize what strings the NFTs get minted with. To achieve this, you will need to make some simple changes to two source files found in the `contracts/nft/src/` directory:
+Before you deploy your contracts, you may want to customize what strings the NFTs get minted with. To achieve this, you will need to make a few simple changes to two source files found in the `contracts/nft/src/` directory:
 
 First, in `contracts/nft/src/NftType.sol`, you will find the following enum:
 
@@ -65,11 +65,11 @@ After this, your NFT contract is almost ready for deployment. One final preparat
 
 ## Configuration
 
-Whether you are deploying or simply performing some admin functions, most of the data is taken from `contracts/nft/src/deploy-config.json`. Notice that the file contains separate configurations for testnet and mainnet, so you can have different configurations for different networks. You can use
+Whether you are deploying or simply performing some admin functions, most of the data is taken from `contracts/nft/deploy-config.json`. Notice that the file contains separate configurations for testnet and mainnet, so you can have different configurations for different networks. You can use
 
-Note that the `owner` fields in the configuration are only used with the transfer ownership admin functionality; when first deploying the contracts, the deployment account is set as the owner. Be aware that only the owner can perform certain admin operations with the contracts (config updates, fund withdrawal), so once you change it, you cannot perform these operations as described in this file unless you use the new owner account as the deployment account.
+Note that the `owner` fields in the configuration are only used with the transfer ownership admin functionality; when first deploying the contracts, the deployment account is set as the owner. Be aware that only the owner can perform certain admin operations with the contracts (config updates, fund withdrawal). Once you change it, you cannot perform these operations as described in this file unless you use the new owner account as the deployment account.
 
-Another configuration file used for deployment is `contracts/nft/src/contract-addresses.json`. In the vast majority of cases, especially when first deploying, you will not need to update this file or think about it at all, as it gets updated automatically whenever a new contract is deployed. If you are nevertheless interested in more details, consult `contracts/nft/README.md`.
+Another configuration file used for deployment is `contracts/nft/contract-addresses.json`. In the vast majority of cases, especially when first deploying, you will not need to update this file or think about it at all, as it gets updated automatically whenever a new contract is deployed. If you are nevertheless interested in more details, consult `contracts/nft/README.md`.
 
 ## Deployment
 
@@ -124,8 +124,9 @@ cd contracts/nft/
 ./deploy.sh
 ```
 
-Simply follow the script's instructions, this time choosing to perform admin operations rather than deployment, select which operation you want to perform and then simply wait for it to finish.
+Simply follow the script's instructions, this time choosing to perform admin operations rather than deployment, select which operation you want to perform and then just wait for it to finish.
 
 Note that to execute these admin operations with a smart contract, you need to be its owner, meaning that when the script asks you for the deployment private key, you need to supply the private key of the owner account. You do not need to worry about this if you didn't explicitly change the owner and are using the same private key as you deployed with.
 
 ## Accessing the NFT data from your game node
+Open up our NFT LvlUp game template - `./paima-engine-linux init template nft-lvlup` to learn more.
