@@ -65,7 +65,23 @@ After this, your NFT contract is almost ready for deployment. One final preparat
 
 ## Configuration
 
-Whether you are deploying or simply performing some admin functions, most of the data is taken from `contracts/nft/deploy-config.json`. Notice that the file contains separate configurations for testnet and mainnet, so you can have different configurations for different networks.
+Whether you are deploying or simply performing some admin functions, most of the data is taken from `contracts/nft/deploy-config.json`. Notice that the file contains separate configurations for testnet and mainnet, so you can have different configurations for different networks. A brief overview of the fields expected in this file follows:
+
+- `Nft`:
+  - `name`
+  - `symbol`
+  - `supply` &ndash; the maximum number of NFTs that can be minted;
+  - `owner` &ndash; the owner of the contract. Only used for the "transfer ownership" admin function, during deployment, the address of the deploying wallet will be used;
+  - `minter` &ndash; intended primarily for the "add minter" admin function, also used during deployment if not empty;
+  - `baseUri`
+- `NftSale`:
+  - `price` &ndash; the price of buying an NFT through the sale contract, used both for `NativeNftSale` and `Erc20NftSale`. For native sale the price is multiplied by `10^decimals`;
+- `NativeNftSale`:
+  - `decimals` &ndash; decimals of the underlying base currency of the chain, used for price calculation;
+  - `owner` &ndash; see `Nft`'s `owner` field;
+- `Erc20NftSale`:
+  - `currencies` &ndash; an object mapping symbols of supported ERC20 tokens to addresses of their contracts;
+  - `owner` &ndash; see `Nft`'s `owner` field;
 
 Note that the `owner` fields in the configuration are only used with the transfer ownership admin functionality; when first deploying the contracts, the deployment account is set as the owner. Be aware that only the owner can perform certain admin operations with the contracts (config updates, fund withdrawal). Once you change it, you cannot perform these operations as described in this file unless you use the new owner account as the deployment account.
 
