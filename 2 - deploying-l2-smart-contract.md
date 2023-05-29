@@ -23,7 +23,7 @@ To deploy the contract, you will need the following:
 
 First we will get access to the smart contract (specifically its whole project) and make sure all dependencies are installed to be able to compile/deploy it.
 
-1. Run `./paima-engine contract` which emits the _contracts_ folder.
+1. Run `./paima-engine contracts` which emits the _contracts_ folder.
 2. Navigate to the _contracts/paima-l2-contract_ directory;
 3. Run `npm i` to install all needed dependencies.
 
