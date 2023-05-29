@@ -70,10 +70,10 @@ where:
 
 - `prefix` is the `initializationPrefix` specified in the config file,
 - `contractAddress` is the address of the contract (also specified in the config file),
-- `tokenId` is the ID of the newly minted token in base 10,
-- `mintData` is, for PaimaERC721 NFTs, the string with which the NFT was minted; for other ERC721 contracts, it will always be an empty string.
+- `tokenId` is the ID of the newly minted token (in base 10),
+- `mintData` is the string emitted when the NFT was minted for PaimaERC721 NFTs (used for specifying the type of Stateful NFT). For classical ERC721 contracts, it will always be an empty string.
 
-Paima SDK provides you with the following functions you can use to access ERC721 data:
+Paima SDK provides you with the following functions you can use to access ERC721 NFT data when using CDEs:
 
 - `getNftOwner`, to fetch the address which owns the NFT with the specified token ID:
 
@@ -96,7 +96,7 @@ export async function isNftOwner(
 ): Promise<boolean>;
 ```
 
-- `getAllOwnedNfts`, to fetch a list of token IDs of NFTs owned by the specified address:
+- `getAllOwnedNfts`, to fetch a list of token IDs of NFTs owned by the specified wallet address:
 
 ```ts
 export async function getAllOwnedNfts(
@@ -109,11 +109,11 @@ export async function getAllOwnedNfts(
 
 ## ERC20
 
-This extension allows you to track the balances of a specified ERC20 token for all wallets that interact with it by processing `Transfer` events the contract emits. It does not schedule any inputs, so the `initializationPrefix` field can be omitted.
+This extension allows you to track the balances of a specified ERC20 token for all wallets by processing `Transfer` events the contract emits. It does not schedule any inputs, so the `initializationPrefix` field can be omitted.
 
 Paima SDK provides you with the following functions you can use to access ERC20 data:
 
-- `getFungibleTokenBalance`, to fetch the balance of a specified address:
+- `getFungibleTokenBalance`, to fetch the balance of a specified wallet address:
 
 ```ts
 export async function getFungibleTokenBalance(
