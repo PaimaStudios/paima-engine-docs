@@ -23,8 +23,8 @@ This section lists the environment variables that are mandatory to be filled in 
   - `DB_PORT`
 - `CONTRACT_ADDRESS`: The address of your Paima L2 contract.
 - `START_BLOCKHEIGHT`: The block height at which the syncing process starts. This is usually the block height at which the contract was deployed.
-- `BLOCK_TIME`: The frequency at which new blocks are emitted, based on the chain used for contract deployment.
-- `BACKEND_URI`: The URL of the deployed game node server.
+- `BLOCK_TIME`: The number of seconds it takes for new blocks to be created on the chain you deployed your L2 contract on.
+- `BACKEND_URI`: The URL of where your game node server will be deployed. This is used by the Middleware to interact with your game node.
 - `WEBSERVER_PORT`: The port to use for running your game node server.
 
 ## Optional Variables
@@ -32,9 +32,9 @@ This section lists the environment variables that are mandatory to be filled in 
 This section includes optional environment variables that have sensible default values if not explicitly set.
 
 - `BATCHER_URI`: The URL of the deployed batcher, if used.
-- `DEFAULT_FEE`: The fee used for transactions.
-- `ENABLE_DRY_RUN`: Adds a `GET /dry_run` endpoint for input testing. Use it to post game input and wallet address to validate it. It does not modify the game state.
-- `DEFAULT_FUNNEL_GROUP_SIZE`: The number of blocks queried in one funnel sync step. If not set, a value of 100 is used.
+- `DEFAULT_FEE`: The blockchain fee to be set in transactions created by the Middleware.
+- `ENABLE_DRY_RUN`: Adds a `GET /dry_run` endpoint for input testing. Use it to post game inputs to validate them without modifying the game state.
+- `DEFAULT_FUNNEL_GROUP_SIZE`: The number of blocks queried in one funnel sync step. If not set, a value of 100 is used. Generally no need to change this value.
 - `NODE_ENV`: Used across modules to determine which .env file to read (`.env.$NODE_ENV`). Must be set separately if needed.
 - `FORCE_INVALID_PAIMA_DB_TABLE_DELETION`: Instead of failing during DB initialization, it deletes invalid tables and recreates them (without the previous content). If turned off, resync from scratch is needed after a major `paima-sdk` update that affects internal tables.
 - `STORE_HISTORICAL_GAME_INPUTS`: If enabled, one of the internal tables stores all of the posted game inputs. Note that the table is currently accessible only through a direct DB connection.
@@ -48,8 +48,8 @@ This section includes optional environment variables that have sensible default 
 - `GAME_NODE_VERSION`: defined statically in paima-sdk. Check used to ensure your game node is running with a compatible version of paima-engine. After a major upgrade and necessary adjustments, you should adjust the version on your side.
 - `NATIVE_NFT_SALE_PROXY`: used in the NFT LvlUp template. It represents the contract address for your NFT sale proxy. See [4 - deploying-your-stateful-nft.md](4%20-%20deploying-your-stateful-nft.md)
 - [Chain data extensions](5%20-%20chain-data-extensions.md):
-  - `DEFAULT_PRESYNC_STEP_SIZE`: number of blocks to process in each step during initial presync phase. If not provided, a value of 1000 is used.
-  - `CDE_CONFIG_PATH`: custom location of `extensions.yml` that is used to initialize chain data extensions
+  - `DEFAULT_PRESYNC_STEP_SIZE`: number of blocks to process in each step during initial presync phase. If not provided, a value of 1000 is used. Generally no need to change this value.
+  - `CDE_CONFIG_PATH`: allows you to specify a custom location for your `extensions.yml` that is used to initialize chain data extensions
 
 ## Customization
 
