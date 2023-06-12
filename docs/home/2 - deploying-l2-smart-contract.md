@@ -1,3 +1,7 @@
+---
+sidebar_position: 2
+---
+
 # Deploying The Paima L2 Smart Contract
 
 The Paima L2 Contract is built for developers to deploy their own game as an L2 which seamlessly works with Paima Engine.

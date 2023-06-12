@@ -1,3 +1,7 @@
+---
+sidebar_position: 4
+---
+
 # Deploying Your Own Stateful NFT Contract
 
 Stateful NFTs are a minor extension of the ERC721 standard that allows you to specify a pre-selected string when minting the NFT. This feature enables developers to create NFTs with customized state information, making them more flexible and versatile for different use cases.

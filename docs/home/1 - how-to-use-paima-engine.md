@@ -1,3 +1,8 @@
+---
+sidebar_position: 1
+slug: /
+---
+
 # How To Use Paima Engine
 
 Paima Engine is as an all-in-one batteries-included executable which provides you with everything you need to get started writing your own trustless Web3 game.
@@ -71,7 +76,7 @@ One side note, as you begin writing your game logic (or when building a template
 
 Each game built with Paima Engine is its very own Layer 2. This means that you will need to deploy the Paima L2 Smart Contract for your game, to whichever chain you wish to launch on.
 
-Reference the [Deploying L2 Smart Contract](./2%20-%20deploying-l2-smart-contract.md) documentation to easily deploy the contract.
+Reference the [Deploying L2 Smart Contract](2%20-%20deploying-l2-smart-contract.md) documentation to easily deploy the contract.
 
 ## Setting Up Your Game Node Config
 
@@ -113,7 +118,7 @@ These logs denote the block height numbers that the game node is syncing from th
 
 Now that your game node is syncing, we recommend testing to ensure that both the contract you deployed and the node itself are all in working order/configured properly.
 
-Simply follow the [posting test game inputs to L2 contract tutorial](./3%20-%20posting-test-game-inputs.md) and within a couple minutes you'll have experienced the end-to-end loop of using Paima Engine!
+Simply follow the [posting test game inputs to L2 contract tutorial](3%20-%20posting-test-game-inputs.md) and within a couple minutes you'll have experienced the end-to-end loop of using Paima Engine!
 
 Of note, the above tutorial teaches you an easy way to manually submit custom-crafted game inputs, which is also useful when implementing new features as you develop your games/apps.
 

@@ -1,3 +1,7 @@
+---
+sidebar_position: 3
+---
+
 # Posting Test Game Inputs To L2 Contract
 
 Once you have the Paima L2 contract deployed for your game together with your game node up and running, you will inevitably want to test sending game inputs to the blockchain
@@ -44,7 +48,7 @@ To run the truffle console and connect to the target network, do the following:
 3. Set the deployment account private key to an environment variable called `PRIVATE_KEY` and export it. For example, in Bash, run `export PRIVATE_KEY=...` with your private key (without an `0x` prefix) instead of the ellipsis.
 4. Start the interactive console by running `npx truffle console --network testnet`.
 
-Reminder, the connection info truffle will use is found in `truffle-config.js`. If you followed the deployment instructions, this config file will be good-to-go, otherwise, please reference [the deployment guide](./deploying-l2-smart-contract.md) for more details.
+Reminder, the connection info truffle will use is found in `truffle-config.js`. If you followed the deployment instructions, this config file will be good-to-go, otherwise, please reference [the deployment guide](2 - deploying-l2-smart-contract.md) for more details.
 
 ### Interacting With Your Deployed L2 Contract
 

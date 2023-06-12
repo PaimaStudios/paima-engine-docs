@@ -1,3 +1,7 @@
+---
+sidebar_position: 6
+---
+
 # Environment Configuration Variables
 
 The following is a list of possible environment variables that can be configured for your project. These variables are read in the ENV class, located in `paima-sdk/paima-utils/config.js`. Please refer to that file for more information on default values.

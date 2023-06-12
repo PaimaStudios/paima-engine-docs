@@ -1,3 +1,7 @@
+---
+sidebar_position: 5
+---
+
 # Chain Data Extensions
 
 When you are looking to add deep blockchain integration to your game, you will likely be interested in accessing information about ownership of ERC721s (NFTs) or a wallet's balance of ERC20 tokens for example. Paima Engine enables this by automatically doing the heavy work for you via a feature called _Chain Data Extensions_. CDEs allow you to read data trustlessly from the underlying L1.
