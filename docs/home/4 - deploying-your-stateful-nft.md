@@ -4,7 +4,11 @@ sidebar_position: 4
 
 # Deploying Your Own Stateful NFT Contract
 
-Stateful NFTs are a minor extension of the ERC721 standard that allows you to specify a pre-selected string when minting the NFT. This feature enables developers to create NFTs with customized state information, making them more flexible and versatile for different use cases.
+Paima Engine supports both classical ERC721 NFT contracts and Paima Extended ERC721 NFT contracts for Stateful NFTs.
+
+To provide developers more power in customizing how Stateful NFTs are initialized in their game, we have extended the ERC721 standard to allow selecting a pre-defined string when minting the NFT. This string gets routed through the Paima stack and ends up as a part of the scheduled input which your STF reads to initialize the NFT state (ex. "Warrior", "Mage", "Archer").
+
+The instructions below will walk you through all the steps required to deploy your own Paima Extended ERC721 NFT contract, together with an NFT Sale contract which will allow anyone to purchase your Stateful NFTs (and have it all automatically integrate with Paima Engine seamlessly).
 
 ## Pre-requisites
 
