@@ -147,8 +147,8 @@ Of note, unlike in the Web2/2.5 world, these snapshots are _not vital_. You are 
 Paima-Engine includes 4 binaries:
 
 * Linux production `paima-engine-linux`
-* Linux development `paima-engine-macos`
-* Macos x64 production `dev-paima-engine-linux`
+* Linux development `dev-paima-engine-linux`
+* Macos x64 production `paima-engine-macos`
 * Macos x64 development `dev-paima-engine-macos`
 
 The binaries named `dev-*` run a node.js inspector and should only be used for development and not for production environments.
