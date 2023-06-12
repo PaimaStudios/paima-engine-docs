@@ -1,15 +1,18 @@
-# Paima Standalone Docs
-
-Everything placed in this repository (apart from images) will be packed in the paima standalone executable.
-
-
 <p align="center">
   <img width="300px" src="./static/img/paima-banner.png" alt="Paima logo">
 </p>
 
-<h1 align="center">Getting started with Paima</h1>
+<h1 align="center">Getting started with Paima Engine</h1>
 
-You can find the Paima Engine Documentation [on the website](https://docs.paimastudios.com)
+
+This repository holds the current developer documentation for Paima Engine, which is accessible [on the website](https://docs.paimastudios.com).
+
+Everything placed in this repository (apart from images) is also packed in the Paima Engine executable, meaning you can also read them locally via `./paima-engine docs`.
+
+
+## Building This Repostiory
+
+Note, the below instructions are for building this repository, and do not relate to Paima Engine.
 
 ### Installation
 
