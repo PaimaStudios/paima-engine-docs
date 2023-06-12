@@ -9,11 +9,15 @@ Paima Engine is as an all-in-one batteries-included executable which provides yo
 
 ## Accessing Documentation
 
-If you are reading this, you likely already have access to the Paima Engine documentation. Nonetheless, if you need a new copy simply call the `docs` command and Paima Engine will save a copy of the docs locally.
+Paima Engine docs are available from two sources:
+1. Embedded inside Paima Engine itself (`./paima-engine docs`)
+2. Hosted on [docs.paimastudios.com](https://docs.paimastudios.com)
 
-```bash
-./paima-engine docs
-```
+# Accessing Paima Engine
+
+Paima Engine is under developer preview at the moment. Notably, anybody can access it by [contacting us](https://paimastudios.com/contact/).
+
+If you do not have Paima Engine yet, but want to follow along, you can find public templates using Paima [here](https://github.com/PaimaStudios/paima-game-templates)
 
 ## Initializing Your Project
 
