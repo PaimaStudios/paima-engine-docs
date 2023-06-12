@@ -70,7 +70,7 @@
 h1 {
     background: #19B17B;
     -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    -webkit-text-fill-color: #19b17b;
     background-clip: text;
     width: max-content;
     max-width: 100%;
