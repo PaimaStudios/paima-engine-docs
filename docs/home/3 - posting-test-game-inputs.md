@@ -25,7 +25,7 @@ j|*Xs6Q9GAqZVwe
 
 After clicking the submit button, you will have a transaction pop up in your wallet, which you can then confirm to submit on-chain.
 
-If you have your game node configured properly, you will new logs as it detects the posted game input and attempts to process it.
+If you have your game node configured properly, you will see new logs printed as it detects/reads the posted game input (and attempts to process it).
 
 Congratulations, you have gone through a full end-to-end loop of using Paima Engine!
 
