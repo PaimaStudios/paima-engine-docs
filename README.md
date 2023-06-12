@@ -4,7 +4,7 @@ Everything placed in this repository (apart from images) will be packed in the p
 
 
 <p align="center">
-  <img width="300px" src="/static/img/paima-banner.jpg" alt="Paima logo">
+  <img width="300px" src="./static/img/paima-banner.png" alt="Paima logo">
 </p>
 
 <h1 align="center">Getting started with Paima</h1>
