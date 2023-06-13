@@ -28,16 +28,20 @@ We allow creating these L2s using Web2 skills such as Javascript, Unity or Game 
 
 For Paima, the inputs are stored on-chain (which guarantees determinism), the function definition is packaged as an executable for running the app, and the function output is the resulting state machine after applying the transition (which can then be queried through an indexer)
 
-You may sometimes hear this referred to as a "pessimistic rollup" because nodes need to re-execute transactions to check the validity of the chain instead of optimistically being able to assume correctness
+You may sometimes hear this referred to as a "pessimistic rollup" because nodes need to re-execute transactions to check the validity of the chain instead of optimistically being able to assume correctness.
 
 ## Projective rollups
 
 These state machines can evolve based on L1 updates such as
 - New blocks/transactions
 - Contracts on the L1 being updated
+- Accessing historical on-chain state
+- Reading updates from other L2s/rollups deployed on the blockchain
 Or even more complex transition rules.
 
 This is possible as sovereign rollups can [project](https://www.youtube.com/watch?v=XgOK4Gf9tO8) L1 state to the L2.
+
+These types of rollups shine for use cases where users need to use their assets (ex. use a NFT character to play a game made with Paima Engine), while typical optimistic/zk rollups shine for use cases where users need to exchange assets (ex. using a DEX on a blockchain ledger-based L2 VM).
 
 ## Stateful NFTs and NFT compression
 
@@ -47,13 +51,13 @@ In a sense, you can think of this as an NFT compression protocol. Instead of hav
 
 ## Cross-chain and sequencing with Paima Whirlpool
 
-Natively Paima supports users individually submitting inputs onchain on the specific chain the app is hosted on. However, we also support more efficient setups that also work cross-chain with Paima Whirlpool - a suite of tools to help translate complex interactions to something that Paima can handle
+Natively Paima supports users individually submitting inputs onchain on the specific chain the app is hosted on. However, we also support more efficient setups that also work cross-chain with Paima Whirlpool - a suite of tools to help translate complex interactions to something that integrate seamlessly with Paima Engine.
 
 ### L2-level Account Abstraction
 
-Currently there is a large focus on account abstraction which powers smart contract wallets to create systems more flexible than the default public-key wallets created by most cryptocurrencies
+Currently there is a large focus on account abstraction which powers smart contract wallets to create systems more flexible than the default public-key wallets created by most cryptocurrencies.
 
-Paima can enable much more flexible account abstraction by providing this functionality at the L2 level when needed, which allows easily validating cryptographic primitives that would not otherwise be available at the L1
+Paima Engine can enable much more flexible account abstraction by providing this functionality at the L2 level when needed, which allows easily validating cryptographic primitives that would not otherwise be available at the L1.
 
 ### Sequencer SDKs
 
