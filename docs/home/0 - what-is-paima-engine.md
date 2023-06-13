@@ -26,7 +26,7 @@ We allow creating these L2s using Web2 skills such as Javascript, Unity or Game 
 2. Function definition
 3. Function outputs
 
-For Paima, the inputs are stored on-chain (which guarantees determinism), the function definition is package as an executable for running the app, and the function output is the resulting state machine after applying the transition (which can then be queried through an indexer)
+For Paima, the inputs are stored on-chain (which guarantees determinism), the function definition is packaged as an executable for running the app, and the function output is the resulting state machine after applying the transition (which can then be queried through an indexer)
 
 You may sometimes hear this referred to as a "pessimistic rollup" because nodes need to re-execute transactions to check the validity of the chain instead of optimistically being able to assume correctness
 
@@ -37,7 +37,7 @@ These state machines can evolve based on L1 updates such as
 - Contracts on the L1 being updated
 Or even more complex transition rules.
 
-This is possible as sovereign rollups can [project](https://www.youtube.com/watch?v=XgOK4Gf9tO8) L1 state to the L2
+This is possible as sovereign rollups can [project](https://www.youtube.com/watch?v=XgOK4Gf9tO8) L1 state to the L2.
 
 ## Stateful NFTs and NFT compression
 
