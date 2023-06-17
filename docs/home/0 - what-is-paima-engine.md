@@ -15,11 +15,13 @@ Notably, its key features are that it
 
 # Key technologies that enable this
 
+If you prefer explanations in video form, we have [a video](https://www.youtube.com/watch?v=HtvemijxF-0) that explains some of the benefits of Paima Engine.
+
 ## Sovereign rollups
 
 Paima is a framework for creating app-specific layer 2s (L2s) as sovereign rollups. That is to say: apps publish transactions to a blockchain for ordering and data availability, but uses its own code to determine the correct app state
 
-## State machines as L2s as pessimistic rollups
+## State machines as pessimistic rollup L2s
 
 We allow creating these L2s using Web2 skills such as Javascript, Unity or Game Maker by essentially turning state machines into L2s. The key insight is that every mathematical function has 3 key properties:
 1. Function inputs
@@ -37,11 +39,12 @@ These state machines can evolve based on L1 updates such as
 - Contracts on the L1 being updated
 - Accessing historical on-chain state
 - Reading updates from other L2s/rollups deployed on the blockchain
+- Passive time and timers
 Or even more complex transition rules.
 
-This is possible as sovereign rollups can [project](https://www.youtube.com/watch?v=XgOK4Gf9tO8) L1 state to the L2.
+A great example of this is using the L1 blockchain as the source of randomness, which avoids every game having to re-implement a randomness oracle from scratch.
 
-These types of rollups shine for use cases where users need to use their assets (ex. use a NFT character to play a game made with Paima Engine), while typical optimistic/zk rollups shine for use cases where users need to exchange assets (ex. using a DEX on a blockchain ledger-based L2 VM).
+This is possible as sovereign rollups can [project](https://www.youtube.com/watch?v=XgOK4Gf9tO8) L1 state to the L2.
 
 ## Stateful NFTs and NFT compression
 
@@ -63,7 +66,9 @@ Paima Engine can enable much more flexible account abstraction by providing this
 
 Although apps may not always need sequencers, they can improve scalability and also help user onboarding. Notably, they can
 - Batch transactions together to amortize transaction fees
-- Cover the transaction fees for specified users through meta-transactions (ex: users who hold a specific NFT or who paid on a separate chain)
+- Cover the transaction fees for specified users through meta-transactions (ex: free txs for users who hold a specific NFT, who delegate to a stake pool, or who paid on a separate chain).
+
+Thanks to the flexibility of the batcher system, Paima supports games built without an enshrined sequencer - that is to say, anybody can choose to run their own decentralized sequencer for the game and monetize it how they want. This give the benefit of sequencing without the centralization.
 
 ### Cross-chain NFTs: Projected NFTs
 
@@ -73,6 +78,24 @@ Projects may want to allow users to play games with NFTs hosted on chains separa
 To enable this, we will enable users to time-lock their NFTs (self-custodial) to project their NFTs directly into the game. Note that thanks to Paima being powered by a Sovereign Rollup architecture, this scheme isn't required for projecting L1 NFTs to L2s (if for example deploying a Paima game as a L3 on top of a L2 like Arbitrum)
 
 You can find more about this idea [here](https://github.com/dcSpark/projected-nft-whirlpool/)
+
+## Non-custodial L2s
+
+Most blockchain apps and L2s are custodial in nature. That is to say, to use them you first have to deposit your funds into the app/L2. This is dangerous because it means that if the contract that is custodying user funds gets hacked, all user funds are at risk. 
+
+Paima however, thanks to its projective rollup support, can allow users to keep full custody of their assets while using games & apps written using Paima. That is to say, even if your app gets hacked, user L1 assets are not at risk. This makes Paima a very safe way for brands to deploy onchain applications and brand reputation risk in the case of a hack is minimal.
+
+Additionally, this also helps a lot with user acquisition as empirically most users are not comfortable bridging their NFTs from L1→L2 due to bridge security concerns.
+
+Lastly, it also helps with liquidity & composability, as its means you don't have to fracture assets between L1 and L2.
+
+## Parallelization to handle over 10k tps per game
+
+Paima state machine L2s are not only significantly more efficient than the EVM, they also supports optionally running state machine updates in parallel (not natively available in the EVM), allowing games and apps to massively scale by, for example, having different PVP matches or different maps in an MMO run in parallel.
+
+## Financing of decentralized games
+
+Although Paima allows games to subsidize gameplay, games can also choose to specify that users must pay a fee to submit moves in-game. This allows DAOs to gain funding to drive development of their game or app.
 
 ### Data availability layer support
 
@@ -90,16 +113,6 @@ We are working with partners to help enable use-cases that require private secti
 
 (Coming in the future)
 We are working to allow games to easily build state channels to facilitate use-cases like 5v5 fights where a state channel could be opened between participants and settled when the game is over
-
-## Non-custodial L2s
-
-Most blockchain apps and L2s are custodial in nature. That is to say, to use them you first have to deposit your funds into the app/L2. This is dangerous because it means that if the contract that is custodying user funds gets hacked, all user funds are at risk. 
-
-Paima however, thanks to its projective rollup support, can allow users to keep full custody of their assets while using games & apps written using Paima. That is to say, even if your app gets hacked, user L1 assets are not at risk. This makes Paima a very safe way for brands to deploy onchain applications and brand reputation risk in the case of a hack is minimal
-
-Additionally, this also helps a lot with user acquisition as empirically most users are not comfortable bridging their NFTs from L1→L2 due to bridge security concerns.
-
-Lastly, it also helps with liquidity & composability, as its means you don't have to fracture assets between L1 and L2
 
 # Why Sovereign rollups?
 
@@ -127,6 +140,30 @@ If ZK is enforced or if the whole application needs to be written as one giant Z
 1. ZK platforms typically enforce a global maximum on circuit sizes for zkApps deployed to their platform, which complex games will exceed
 1. ZK circuits are currently still hard to write. There are some languages and efforts to simplify this, but they generally still require manual fine-tuning to try and minimize circuit size as much as possible
 1. No support for passive time. This may be, depending in the use-case, replaceable by a Verifiable Delay Function, but this is much more complicated and not as powerful
+
+## Sovereign Rollup disadvantages
+
+Unfortunately there is no "free lunch", and so usage of Paima comes with some disadvantages as well.
+
+### Low DeFi support on the L2
+
+You cannot trustlessly bridge from the L2 back to the L1 (that is to say, you cannot put $5 into the game, make some money, then take $10 out). This isn't a requirement to build in-game economies, and this also isn't required for the overwhelming majority of non-DeFi applications and so it's not as problematic as one might think.
+
+If you do want this functionality, there are two key ways to do it:
+1. Provide a centralized "redemption" service. For example, if you build a casino with Paima, players would play the game with chips, and then would turn their chips back into money through a centralized redemption service (that possibly does KYC). This is no different than the way the overwhelming majority of casinos work in the real world.
+2. Simply don't bridge the asset to the L2. Even if the user funds stay on the L1 (non-custodially), you can project the state into the Paima game, which means you can still build in-game economies. In fact, building it this way is significantly safer as it means user funds are not at risk if your game gets hacked!
+
+### Low compatibility with other L1 dApps by default
+
+Paima gains a lot of its strength from shifting game state management into the L2, which cannot be read from other L1 dApps. We think this is actually a benefit though, as it avoids web3 developers making the single most common mistake in web3 games: overly focusing on compatibility when they do not have a product-market fit yet.
+
+That is to say, Paima allows you to start by building your entire app / game on the L2 and then, once you know users love the experience, you can migrate parts of your game state to the L1 (which requires you to write it in the L1 language like Solidity) and then projecting its state to the L2. This makes bootstrapping your game significantly faster, cheaper, safer, and makes it easier to update. Only focus on compatibility once users love your system and truly desire connecting it with other experiences.
+
+### Trickier cross-game indexing
+
+Unlike games that are built as one giant recursive SNARK circuit, there is no way to succinctly prove a summary of game state. Additionally, unlike optimistic rollups, it's harder to leverage any L1 light client infrastructure to prove game state. This is a consequence of being a pessimistic rollup by default.
+
+This makes it harder to do things like peer-discovery of RPC nodes for a game and build cross-game indexing services like a platform to see all achievements earned across games written with Paima. We do, however, have some standards planned to help alleviate this issue.
 
 # Architecture overview
 
