@@ -21,7 +21,7 @@ If you prefer explanations in video form, we have [a video](https://www.youtube.
 
 Paima is a framework for creating app-specific layer 2s (L2s) as sovereign rollups. That is to say: apps publish transactions to a blockchain for ordering and data availability, but uses its own code to determine the correct app state
 
-## State machines as pessimistic rollup L2s
+## State machines as Sovereign Rollup L2s
 
 We allow creating these L2s using Web2 skills such as Javascript, Unity or Game Maker by essentially turning state machines into L2s. The key insight is that every mathematical function has 3 key properties:
 1. Function inputs
@@ -32,7 +32,7 @@ For Paima, the inputs are stored on-chain (which guarantees determinism), the fu
 
 You may sometimes hear this referred to as a "pessimistic rollup" because nodes need to re-execute transactions to check the validity of the chain instead of optimistically being able to assume correctness.
 
-## Projective rollups
+## Data Projections
 
 These state machines can evolve based on L1 updates such as
 - New blocks/transactions
@@ -44,7 +44,7 @@ Or even more complex transition rules.
 
 A great example of this is using the L1 blockchain as the source of randomness, which avoids every game having to re-implement a randomness oracle from scratch.
 
-This is possible as sovereign rollups can [project](https://www.youtube.com/watch?v=XgOK4Gf9tO8) L1 state to the L2.
+This is possible as sovereign rollups can project L1 state to the L2. A deep dive into data projections and the full modular gaming rollup stack [can be found in this video.](https://www.youtube.com/watch?v=t9En_PR3NCA) 
 
 ## Stateful NFTs and NFT compression
 
@@ -77,7 +77,7 @@ Projects may want to allow users to play games with NFTs hosted on chains separa
 
 To enable this, we will enable users to time-lock their NFTs (self-custodial) to project their NFTs directly into the game. Note that thanks to Paima being powered by a Sovereign Rollup architecture, this scheme isn't required for projecting L1 NFTs to L2s (if for example deploying a Paima game as a L3 on top of a L2 like Arbitrum)
 
-You can find more about this idea [here](https://github.com/dcSpark/projected-nft-whirlpool/)
+You can find more about the idea [in this github repo.](https://github.com/dcSpark/projected-nft-whirlpool/)
 
 ## Non-custodial L2s
 
@@ -164,6 +164,10 @@ That is to say, Paima allows you to start by building your entire app / game on 
 Unlike games that are built as one giant recursive SNARK circuit, there is no way to succinctly prove a summary of game state. Additionally, unlike optimistic rollups, it's harder to leverage any L1 light client infrastructure to prove game state. This is a consequence of being a pessimistic rollup by default.
 
 This makes it harder to do things like peer-discovery of RPC nodes for a game and build cross-game indexing services like a platform to see all achievements earned across games written with Paima. We do, however, have some standards planned to help alleviate this issue.
+
+## The Modular Gaming Rollup Stack
+
+
 
 # Architecture overview
 
