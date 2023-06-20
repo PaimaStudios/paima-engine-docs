@@ -15,7 +15,7 @@ Notably, its key features are that it
 
 # Key technologies that enable this
 
-If you prefer explanations in video form, we have [a video](https://www.youtube.com/watch?v=HtvemijxF-0) that explains some of the benefits of Paima Engine.
+If you prefer explanations in video form, we have [a high-level summary video](https://www.youtube.com/watch?v=HtvemijxF-0) that explains some of the core benefits of Paima Engine.
 
 ## Sovereign rollups
 
