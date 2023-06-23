@@ -26,12 +26,12 @@ extensions:
     type: "erc721"
     contractAddress: "0x01...EF"
     startBlockHeight: 7654321
-    initializationPrefix: "newnft"
+    scheduledPrefix: "newnft"
   - name: "My SpecialCoin"
     type: "erc20-deposit"
     contractAddress: "0xFE...10"
     startBlockHeight: 4567123
-    initializationPrefix: "dp"
+    scheduledPrefix: "dp"
     depositAddress: "0xAB...CD"
 ```
 
@@ -44,7 +44,7 @@ Note that extensions of different types often require slightly different fields 
   - `"erc20-deposit"`;
 - `contractAddress`: The address of the contract to read data from;
 - `startBlockHeight`: The starting blockheight from which you want the data to be read, zero by default; You should always set this to the block height that the smart contract was deployed on when in production.
-- `initializationPrefix`: For extensions that trigger scheduled inputs (ERC721 and ERC20Deposit) specifies the prefix used with these scheduled inputs;
+- `scheduledPrefix`: For extensions that trigger scheduled inputs (ERC721 and ERC20Deposit) specifies the prefix used with these scheduled inputs;
 - `depositAddress`: This field is only used by the ERC20Deposit extension type to specify the target address of transactions you are interested in tracking.
 
 If you try to run your game node with an invalid or non-existent CDE config file, Paima Engine will report the problem to you and then carry on as if no chain data extensions were specified.
@@ -58,7 +58,7 @@ Each extension may provide data to your game in one (or both) of the two ways be
 
 The data collected and functions used to access it are specific to each type of extension and you can find more information about that in their respective sections. In general, be aware that these functions will read directly from the game state database (which is what the `readonlyDBConn` parameter is for), and you will need to specify the extension name (which is what the `cdeName` parameter in each function is for) which needs to correspond to the name you specified in the configuration file.
 
-Scheduled inputs are triggered by events specific to each extension type, with the circumstances and the format of the scheduled input described in their respective sections. The inputs are always scheduled either for the current blockheight (which enables them to be processed immediately, as scheduled inputs are processed before the state transition function is called), or, if they are triggered before the overall `START_BLOCKHEIGHT` of the game node (specified in the `.env` file), in the so-called _pre-sync_ phase, they are scheduled for `START_BLOCKHEIGHT + 1` (which is the first blockheight for which the state transition function is called). The scheduled inputs will always start with the prefix specified in the config as `initializationPrefix`.
+Scheduled inputs are triggered by events specific to each extension type, with the circumstances and the format of the scheduled input described in their respective sections. The inputs are always scheduled either for the current blockheight (which enables them to be processed immediately, as scheduled inputs are processed before the state transition function is called), or, if they are triggered before the overall `START_BLOCKHEIGHT` of the game node (specified in the `.env` file), in the so-called _pre-sync_ phase, they are scheduled for `START_BLOCKHEIGHT + 1` (which is the first blockheight for which the state transition function is called). The scheduled inputs will always start with the prefix specified in the config as `scheduledPrefix`.
 
 To learn by example, please consult the NFT LvlUp game template &ndash; `./paima-engine-linux init template nft-lvlup` to learn more.
 
@@ -74,7 +74,7 @@ prefix|contractAddress|tokenId|mintData
 
 where:
 
-- `prefix` is the `initializationPrefix` specified in the config file,
+- `prefix` is the `scheduledPrefix` specified in the config file,
 - `contractAddress` is the address of the contract (also specified in the config file),
 - `tokenId` is the ID of the newly minted token (in base 10),
 - `mintData` is the string emitted when the NFT was minted for PaimaERC721 NFTs (used for specifying the type of Stateful NFT). For classical ERC721 contracts, it will always be an empty string.
@@ -128,7 +128,7 @@ export async function getAllOwnedNfts(
 
 ## ERC20
 
-This extension allows you to track the balances of a specified ERC20 token for all wallets by processing `Transfer` events the contract emits. It does not schedule any inputs, so the `initializationPrefix` field can be omitted.
+This extension allows you to track the balances of a specified ERC20 token for all wallets by processing `Transfer` events the contract emits. It does not schedule any inputs, so the `scheduledPrefix` field can be omitted.
 
 Paima SDK provides you with the following functions you can use to access ERC20 data:
 
@@ -154,7 +154,7 @@ prefix|fromAddr|value
 
 where:
 
-- `prefix` is the `initializationPrefix` specified in the config file,
+- `prefix` is the `scheduledPrefix` specified in the config file,
 - `fromAddr` is the address from which tokens have been sent to the deposit address,
 - `value` is the amount transferred in base 10.
 
