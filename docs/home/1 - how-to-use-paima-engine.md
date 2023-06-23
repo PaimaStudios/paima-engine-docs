@@ -75,6 +75,12 @@ For those who prefer an automated solution, simply proceed with the following st
 
 One side note, as you begin writing your game logic (or when building a template) you likely will end up changing the DB schema from the base template you started off with. When you do this, make sure to update the `init.sql` file to properly initialize your DB schema so that future game nodes either you or others deploy for your game will be able to properly work with your game logic.
 
+### Updating Your DB Queries
+
+When you update your DB schema or you want to add or edit some of the queries in the `db/` directory of your game, you will want to use the `pgtyped` tool to process the `.sql` code to generate `.ts` code for the queries to be used by your game and the engine. To do this, simply navigate to the `db/` directory and execute `npm run compile`. Note that you will need to provide the credentials of a running Postgres DB initialized with your schema in the `db/pgtypedconfig.json` file.
+
+Furthermore, note that the version of `@pgtyped/query` in `db/package.json` is set to a specific value, which should be the same as the version specified in `paima-sdk/paima-db/package.json`. These versions need to stay the same to avoid compatibility issues.
+
 ## Deploying Your Game's L2 Smart Contract
 
 Each game built with Paima Engine is its very own Layer 2. This means that you will need to deploy the Paima L2 Smart Contract for your game, to whichever chain you wish to launch on.
