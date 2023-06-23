@@ -12,7 +12,8 @@ Paima Engine currently supports the following types of chain data extensions, ea
 
 - [ERC721](#erc721), keeping track of NFT ownership for a specified ERC721 contract at the currently processed blockheight, as well as generating scheduled inputs for newly minted NFTs;
 - [ERC20](#erc20), keeping track of wallet balances for a specified ERC20 contract;
-- [ERC20Deposit](#erc20deposit), keeping track of the total amount of a specified ERC20 contract sent by wallets to a specified address, as well as generating scheduled inputs when such transfers happen.
+- [ERC20Deposit](#erc20deposit), keeping track of the total amount of a specified ERC20 contract sent by wallets to a specified address, as well as generating scheduled inputs when such transfers happen;
+- [Generic](#generic), allowing you to provide an arbitrary contract ABI and the signature of the event to track, allowing you to collect data even from smart contracts not directly supported by the above types.
 
 ## Configuration
 
@@ -38,10 +39,11 @@ extensions:
 Note that extensions of different types often require slightly different fields &ndash; this will be described in their respective sections. However, here is a quick overview of the purposes of each field in the above config:
 
 - `name`: This field allows you to refer to this particular extension when using the Paima SDK functions for accessing the data it has collected;
-- `type`: This specifies which extension you want to use, currently supporting three values corresponding to the three types of extensions described in later subsections:
+- `type`: This specifies which extension you want to use, currently supporting values corresponding to the types of extensions described in later subsections:
   - `"erc721"`,
   - `"erc20"`,
-  - `"erc20-deposit"`;
+  - `"erc20-deposit"`,
+  - `"generic"`;
 - `contractAddress`: The address of the contract to read data from;
 - `startBlockHeight`: The starting blockheight from which you want the data to be read, zero by default; You should always set this to the block height that the smart contract was deployed on when in production.
 - `scheduledPrefix`: For extensions that trigger scheduled inputs (ERC721 and ERC20Deposit) specifies the prefix used with these scheduled inputs;
@@ -179,3 +181,6 @@ export async function findUsersWithDepositsGreaterThan(
   thresholdAmount: bigint
 ): Promise<string[]>;
 ```
+
+## Generic
+
