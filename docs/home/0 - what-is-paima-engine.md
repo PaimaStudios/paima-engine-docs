@@ -30,7 +30,7 @@ We allow creating these L2s using Web2 skills such as Javascript, Unity or Game 
 
 For Paima, the inputs are stored on-chain (which guarantees determinism), the function definition is packaged as an executable for running the app, and the function output is the resulting state machine after applying the transition (which can then be queried through an indexer)
 
-You may sometimes hear this referred to as a "pessimistic rollup" because nodes need to re-execute transactions to check the validity of the chain instead of optimistically being able to assume correctness.
+You may sometimes hear this referred to as a "pessimistic rollup" because nodes need to re-execute transactions to check the validity of the chain instead of optimistically being able to assume correctness. This mirrors many ideas of [replicated state machines](https://en.wikipedia.org/wiki/State_machine_replication).
 
 ## Data Projections
 
@@ -39,7 +39,7 @@ These state machines can evolve based on L1 updates such as
 - Contracts on the L1 being updated
 - Accessing historical on-chain state
 - Reading updates from other L2s/rollups deployed on the blockchain
-- Passive time and timers
+- Passive time and timers \
 Or even more complex transition rules.
 
 A great example of this is using the L1 blockchain as the source of randomness, which avoids every game having to re-implement a randomness oracle from scratch.
@@ -52,6 +52,10 @@ Thanks to projections, we can access the state of L1 NFTs from Paima. We can the
 
 In a sense, you can think of this as an NFT compression protocol. Instead of having to mint a lot of static NFTs on the L1, you can instead mint a minimal set of NFTs on the L1 and then evolve them based off the state of the L2.
 
+## Parallelization to handle over 10k tps per game
+
+Paima state machine L2s are not only significantly more efficient than the EVM, they also supports optionally running state machine updates in parallel (not natively available in the EVM), allowing games and apps to massively scale by, for example, having different PVP matches or different maps in an MMO run in parallel.
+
 ## Cross-chain and sequencing with Paima Whirlpool
 
 Natively Paima supports users individually submitting inputs onchain on the specific chain the app is hosted on. However, we also support more efficient setups that also work cross-chain with Paima Whirlpool - a suite of tools to help translate complex interactions to something that integrate seamlessly with Paima Engine.
@@ -62,13 +66,15 @@ Currently there is a large focus on account abstraction which powers smart contr
 
 Paima Engine can enable much more flexible account abstraction by providing this functionality at the L2 level when needed, which allows easily validating cryptographic primitives that would not otherwise be available at the L1.
 
-### Sequencer SDKs
+### Based rollup & Sequencer SDKs
 
-Although apps may not always need sequencers, they can improve scalability and also help user onboarding. Notably, they can
+L2s created with Paima run as a [based rollup](https://ethresear.ch/t/based-rollups-superpowers-from-l1-sequencing/15016) - that is to say its sequencing is simply done by the DA layer. This means that Paima L2s can be run without a sequencer and fully inherit the decentralization and security of the L1, and do this without the downsides traditionally associated with based rollups thanks to Paima's support for parallelization.
+
+Although apps may not always need sequencers, they can still improve scalability and also help user onboarding. Notably, they can
 - Batch transactions together to amortize transaction fees
 - Cover the transaction fees for specified users through meta-transactions (ex: free txs for users who hold a specific NFT, who delegate to a stake pool, or who paid on a separate chain).
 
-Thanks to the flexibility of the batcher system, Paima supports games built without an enshrined sequencer - that is to say, anybody can choose to run their own decentralized sequencer for the game and monetize it how they want. This give the benefit of sequencing without the centralization.
+Thanks to the flexibility of the batcher system, Paima can even support games built without an enshrined sequencer - that is to say environments with multiple sequencers where anybody can choose to run their own decentralized sequencer for the game and monetize it how they want. This give the benefit of sequencing without the centralization.
 
 ### Cross-chain NFTs: Projected NFTs
 
@@ -88,10 +94,6 @@ Paima however, thanks to its projective rollup support, can allow users to keep 
 Additionally, this also helps a lot with user acquisition as empirically most users are not comfortable bridging their NFTs from L1→L2 due to bridge security concerns.
 
 Lastly, it also helps with liquidity & composability, as its means you don't have to fracture assets between L1 and L2.
-
-## Parallelization to handle over 10k tps per game
-
-Paima state machine L2s are not only significantly more efficient than the EVM, they also supports optionally running state machine updates in parallel (not natively available in the EVM), allowing games and apps to massively scale by, for example, having different PVP matches or different maps in an MMO run in parallel.
 
 ## Financing of decentralized games
 
@@ -164,10 +166,6 @@ That is to say, Paima allows you to start by building your entire app / game on 
 Unlike games that are built as one giant recursive SNARK circuit, there is no way to succinctly prove a summary of game state. Additionally, unlike optimistic rollups, it's harder to leverage any L1 light client infrastructure to prove game state. This is a consequence of being a pessimistic rollup by default.
 
 This makes it harder to do things like peer-discovery of RPC nodes for a game and build cross-game indexing services like a platform to see all achievements earned across games written with Paima. We do, however, have some standards planned to help alleviate this issue.
-
-## The Modular Gaming Rollup Stack
-
-
 
 # Architecture overview
 
