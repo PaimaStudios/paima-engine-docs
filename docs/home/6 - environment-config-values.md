@@ -48,7 +48,6 @@ This section includes optional environment variables that have sensible default 
 - `STOP_BLOCKHEIGHT`: The block at which the funnel stops syncing. This can be useful during development or tests.
 - `SERVER_ONLY_MODE`: Set this to run the game node without syncing new blocks.
 
-
 ## Other Variables
 
 - `DEPLOYMENT`: was used in the past to determine how often new blocks are emitted. It is now _deprecated_ and replaced with `BLOCK_TIME`.
