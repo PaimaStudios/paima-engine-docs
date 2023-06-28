@@ -91,6 +91,11 @@ CHAIN_CURRENCY_DECIMALS=""
 # Example: "2.0"
 BLOCK_TIME=""
 
+## SECURITY
+# Unique Game Security Prefix
+# Example: "MyGame"
+CONCISE_SECURITY_PREFIX=""
+
 ## CONTRACT DEPLOYMENT
 # Example: "0xA02F7744868945A346Ee6994068F54D039683445"
 CONTRACT_ADDRESS=""
@@ -111,8 +116,6 @@ WEBSERVER_PORT=""
 # This is primarily useful for development, devops, or testing other edge cases where you want to interact with
 # the game node but not have the game state progress forward.
 SERVER_ONLY_MODE="false"
-# Unique Game Security Prefix
-CONCISE_SECURITY_PREFIX=""
 
 ## DATABASE
 DB_NAME="postgres"
