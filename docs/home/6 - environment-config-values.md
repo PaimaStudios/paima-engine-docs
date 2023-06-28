@@ -30,6 +30,8 @@ This section lists the environment variables that are mandatory to be filled in 
 - `BLOCK_TIME`: The number of seconds it takes for new blocks to be created on the chain you deployed your L2 contract on.
 - `BACKEND_URI`: The URL of where your game node server will be deployed. This is used by the Middleware to interact with your game node.
 - `WEBSERVER_PORT`: The port to use for running your game node server.
+- Security variables:
+- `CONCISE_SECURITY_PREFIX`: This value will be prefixed to each concise command sent and should be a unique string for each game. E.g., "TDWOTJ" for Tower Defense: Wrath of the Jungle. This prevents replay attacks between different games. This is a mandatory requirement for Gaming Accounts Automatic Signing. 
 
 ## Optional Variables
 
@@ -45,6 +47,7 @@ This section includes optional environment variables that have sensible default 
 - `POLLING_RATE`: The frequency at which to check for new block data. If not filled in, a value of `BLOCK_TIME - 0.1` is used.
 - `STOP_BLOCKHEIGHT`: The block at which the funnel stops syncing. This can be useful during development or tests.
 - `SERVER_ONLY_MODE`: Set this to run the game node without syncing new blocks.
+
 
 ## Other Variables
 
@@ -109,6 +112,8 @@ WEBSERVER_PORT=""
 # This is primarily useful for development, devops, or testing other edge cases where you want to interact with
 # the game node but not have the game state progress forward.
 SERVER_ONLY_MODE="false"
+# Unique Game Security Prefix
+CONCISE_SECURITY_PREFIX=""
 
 ## DATABASE
 DB_NAME="postgres"
