@@ -30,6 +30,8 @@ This section lists the environment variables that are mandatory to be filled in 
 - `BLOCK_TIME`: The number of seconds it takes for new blocks to be created on the chain you deployed your L2 contract on.
 - `BACKEND_URI`: The URL of where your game node server will be deployed. This is used by the Middleware to interact with your game node.
 - `WEBSERVER_PORT`: The port to use for running your game node server.
+- Security variables:
+- `CONCISE_GAME_NAME`: This value will be prefixed to each concise command sent and should be a unique string for each game. E.g., "TDWOTJ" for Tower Defense: Wrath of the Jungle. This prevents replay attacks between different games. This is a mandatory requirement for Gaming Accounts Automatic Signing. 
 
 ## Optional Variables
 
@@ -88,6 +90,11 @@ CHAIN_CURRENCY_DECIMALS=""
 # Note: This is in seconds as a float
 # Example: "2.0"
 BLOCK_TIME=""
+
+## SECURITY
+# Unique Game Security Prefix
+# Example: "MyGame"
+CONCISE_GAME_NAME=""
 
 ## CONTRACT DEPLOYMENT
 # Example: "0xA02F7744868945A346Ee6994068F54D039683445"
