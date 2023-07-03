@@ -68,13 +68,13 @@ Paima Engine can enable much more flexible account abstraction by providing this
 
 ### Based rollup & Sequencer SDKs
 
-L2s created with Paima run as a [based rollup](https://ethresear.ch/t/based-rollups-superpowers-from-l1-sequencing/15016) - that is to say its sequencing is simply done by the DA layer. This means that Paima L2s can be run without a sequencer and fully inherit the decentralization and security of the L1, and do this without the downsides traditionally associated with based rollups thanks to Paima's support for parallelization.
+L2s created with Paima run as a [based rollup](https://ethresear.ch/t/based-rollups-superpowers-from-l1-sequencing/15016) - that is to say its sequencing is simply done by the DA layer (which is generally the underlying L1) and so it fully inherits its finality. This means that Paima L2s can be run without a sequencer (sometimes to as "self sequencing") and fully inherit the decentralization and security of the L1, and do this without the downsides traditionally associated with based rollups thanks to Paima's support for parallelization.
 
 Although apps may not always need sequencers, they can still improve scalability and also help user onboarding. Notably, they can
 - Batch transactions together to amortize transaction fees
 - Cover the transaction fees for specified users through meta-transactions (ex: free txs for users who hold a specific NFT, who delegate to a stake pool, or who paid on a separate chain).
 
-Thanks to the flexibility of the batcher system, Paima can even support games built without an enshrined sequencer - that is to say environments with multiple sequencers where anybody can choose to run their own decentralized sequencer for the game and monetize it how they want. This give the benefit of sequencing without the centralization.
+Thanks to the flexibility of the batcher system, Paima can even support games built without an enshrined sequencer - that is to say environments with multiple sequencers where anybody can choose to run their own decentralized sequencer for the game and monetize it how they want. This give the benefit of sequencing without the centralization or censorship concerns.
 
 ### Cross-chain NFTs: Projected NFTs
 
@@ -87,9 +87,9 @@ You can find more about the idea [in this github repo.](https://github.com/dcSpa
 
 ## Non-custodial L2s
 
-Most blockchain apps and L2s are custodial in nature. That is to say, to use them you first have to deposit your funds into the app/L2. This is dangerous because it means that if the contract that is custodying user funds gets hacked, all user funds are at risk. 
+Most blockchain apps and L2s are custodial in nature. That is to say, to use them you first have to deposit your funds into the app/L2. This is dangerous because it means that user funds are at risk if the contract that is custodying user funds gets hacked, or if the L2 goes offline (sometimes called a "proposer failure" if nobody can bridge L2 funds back to the L1, or "sequencer failure" / "liveness failure" if the L2 state itself can no longer be advanced).
 
-Paima however, thanks to its projective rollup support, can allow users to keep full custody of their assets while using games & apps written using Paima. That is to say, even if your app gets hacked, user L1 assets are not at risk. This makes Paima a very safe way for brands to deploy onchain applications and brand reputation risk in the case of a hack is minimal.
+Paima however, thanks to its projective rollup support, can allow users to keep full custody of their assets while using games & apps written using Paima. That is to say, even if your app gets hacked or all batchers for a game go offline, user L1 assets are not at risk. This makes Paima a very safe way for brands to deploy onchain applications and brand reputation risk in the case of a hack is minimal. Technically speaking, it means liveness is ensured thanks to self sequencing and proposer failures are simply not possible as there is no need for proposers in the first place.
 
 Additionally, this also helps a lot with user acquisition as empirically most users are not comfortable bridging their NFTs from L1→L2 due to bridge security concerns.
 
@@ -99,19 +99,21 @@ Lastly, it also helps with liquidity & composability, as its means you don't hav
 
 Although Paima allows games to subsidize gameplay, games can also choose to specify that users must pay a fee to submit moves in-game. This allows DAOs to gain funding to drive development of their game or app.
 
+## Future work
+
 ### Data availability layer support
 
 (Coming in the future)
-Projects may want the blockchain used as the Data Availability (DA) layer to be different from the primary chain used for their app.
+Projects may want the blockchain used as the Data Availability (DA) layer to be different from the primary chain used for their app (either as a volition or a validium)
 
 To enable this, Paima will facilitate storing state machine inputs on a DA layer, significantly lowering costs for data-hungry use-cases
 
-## ZK and FHE
+### ZK and FHE
 
 (Coming in the future)
 We are working with partners to help enable use-cases that require private sections of their state machine
 
-## State Channels
+### State Channels
 
 (Coming in the future)
 We are working to allow games to easily build state channels to facilitate use-cases like 5v5 fights where a state channel could be opened between participants and settled when the game is over
