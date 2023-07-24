@@ -47,6 +47,8 @@ cat .env.devnet >> ../.env.production
 
 Of note, one key variable that needs to be set manually to use the batcher is the `BATCHER_PRIVATE_KEY`. This needs to be set as the private key of the wallet intended to be used for creating and posting the batched transactions (note, the wallet needs sufficient funds for posting to the contract). The expected format of the variable is a hex string without the `0x` prefix (ie. exactly what you get from MetaMask under Account details -> Export private key).
 
+If you plan to use the batcher in web 2.5 environment, you also need to turn on the self signing feature by setting `SELF_SIGNING_ENABLED="true"` and filling in `API_KEY` value of your choice in `SELF_SIGNING_API_KEY` variable. You'll use this key afterwards on the server communicating with the batcher.
+
 ## Usage
 
 With all of that said and done, to compile and run the batcher using docker simply run the following in the `batcher` directory:
