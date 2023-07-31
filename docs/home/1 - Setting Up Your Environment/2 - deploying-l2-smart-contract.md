@@ -1,5 +1,5 @@
 ---
-sidebar_position: 3
+sidebar_position: 2
 ---
 
 # Deploying The Paima L2 Smart Contract
@@ -29,7 +29,7 @@ First we will get access to the smart contract (specifically its whole project) 
 
 1. Run `./paima-engine contracts` which emits the _contracts_ folder.
 2. Navigate to the _contracts/paima-l2-contract_ directory;
-3. Run `npm i` to install all needed dependencies.
+3. Run `npm i` to install all needed dependencies (otherwise you will get a `Cannot find module` error)
 
 ## Editing Truffle Config
 

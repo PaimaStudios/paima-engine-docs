@@ -1,5 +1,5 @@
 ---
-sidebar_position: 5
+sidebar_position: 3
 ---
 
 # Deploying Your Own Stateful NFT Contract
