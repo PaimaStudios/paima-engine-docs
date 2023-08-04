@@ -135,6 +135,18 @@ export async function getAllOwnedNfts(
 >;
 ```
 
+### Capturing nft burn events
+There is no separate nft burn event in the ERC721 contract, but a burn is just a transfer to the zero address (`'0x0000000000000000000000000000000000000000'`). Transfer events can be captured using a generic CDE and then filtered based on the `to` address. Note that you will need to provide a built abi (it is built during deployment). Example of a generic extension entry:
+```yaml
+  - name: "NFT transfer"
+    type: generic
+    contractAddress: "0x01...EF"
+    startBlockHeight: 7654321
+    abiPath: "./abis/ERC721.json"
+    eventSignature: "Transfer(address,address,uint256)"
+    scheduledPrefix: nftTransfer
+``` 
+
 ## ERC20
 
 This extension allows you to track the balances of a specified ERC20 token for all wallets by processing `Transfer` events the contract emits. It does not schedule any inputs, so the `scheduledPrefix` field can be omitted.
