@@ -38,8 +38,6 @@ userAddress/userSignature/input/millisecondTimestamp~
 userAddress/userSignature/input/millisecondTimestamp~
 ```
 
-TODO: maybe not? Why is `batchedToString` using `/`?
-
 Key notes:
 - `B` is used to denote this is a batched game input transaction. It is simply the ASCII character `B`.
 - `~` in practice is actually the `\x02` ASCII character
