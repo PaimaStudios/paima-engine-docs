@@ -156,6 +156,8 @@ The `PaimaParser` grammar supports UTF8, but generally has the following reserve
 - `@` Implicitly use the address that submitted the wallet for [parallelism](./2%20-%20parallelism.md). That is, for parallelism purposes, `@x|a` is equivalent to `x|*wallet|a`, but no actual modifications is done to the onchain format
 - `?` Optional entry
 - `|` , `=` Used to define the grammar
+- `-` Used for PaimaParser array notation
+- ASCII 0x02 and 0x03. Use for [batched-mode](./5%20-%20batched-mode.md)
 
 ## Concise Builder
 

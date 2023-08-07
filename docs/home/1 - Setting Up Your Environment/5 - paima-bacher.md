@@ -16,6 +16,15 @@ Furthermore, batcher support is fully integrated into Paima Engine, including th
 
 Of note, because Paima Engine games are full fledged Sovereign Rollups, this means we have a built-in mechanism for democratization & decentralization of batching (unlike the majority of rollups today). In other words, anyone can run a batcher for any game built with Paima Engine, opening up opportunities for your community & 3rd party developers to create their own web/mobile game clients, tools, websites, and services that provide players with completely novel gameplay experiences!
 
+## Benefits
+
+Game input batching provides us with a few major benefits, primarily in the realm of UX:
+
+1. We get some scaling/efficiency benefits in regards to on-chain processing.
+2. We can allow users on mobile to merely generate a new keypair without owning any crypto, pay the batcher via in-app purchases, and play the games.
+3. We can build "bridges" on any L1 blockchain (ex. Ethereum, Cardano, Algorand, Solana, ...) where users pay the bridge (on-chain) to have the ability to use the batcher (off-chain) to submit their game input for them.
+4. We can subsidize users who meet certain requirements to play for free (ex. they own a Paima NFT)
+
 ## Preparation
 
 To begin using Paima Batcher, first you will need to emit it from the Paima Engine executable. Simply call:
