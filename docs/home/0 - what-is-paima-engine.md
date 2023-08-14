@@ -39,8 +39,10 @@ These state machines can evolve based on L1 updates such as
 - Contracts on the L1 being updated
 - Accessing historical on-chain state
 - Reading updates from other L2s/rollups deployed on the blockchain
-- Passive time and timers \
+- Passive time and timers (game ticks) \
 Or even more complex transition rules.
+
+In other words, it allows building event-driven (or sometimes called loop-driven) architectures.
 
 A great example of this is using the L1 blockchain as the source of randomness, which avoids every game having to re-implement a randomness oracle from scratch.
 
@@ -52,11 +54,11 @@ Thanks to projections, we can access the state of L1 NFTs from Paima. We can the
 
 In a sense, you can think of this as an NFT compression protocol. Instead of having to mint a lot of static NFTs on the L1, you can instead mint a minimal set of NFTs on the L1 and then evolve them based off the state of the L2.
 
-## Parallelization to handle over 10k tps per game
+## Parallelization (asynchronous compute) to handle over 10k+ tps per game
 
 Paima state machine L2s are not only significantly more efficient than the EVM, they also supports optionally running state machine updates in parallel (not natively available in the EVM), allowing games and apps to massively scale by, for example, having different PVP matches or different maps in an MMO run in parallel.
 
-## Cross-chain and sequencing with Paima Whirlpool
+## Cross-chain/multichain and sequencing with Paima Whirlpool
 
 Natively Paima supports users individually submitting inputs onchain on the specific chain the app is hosted on. However, we also support more efficient setups that also work cross-chain with Paima Whirlpool - a suite of tools to help translate complex interactions to something that integrate seamlessly with Paima Engine.
 
@@ -97,7 +99,7 @@ Lastly, it also helps with liquidity & composability, as its means you don't hav
 
 ## Financing of decentralized games
 
-Although Paima allows games to subsidize gameplay, games can also choose to specify that users must pay a fee to submit moves in-game. This allows DAOs to gain funding to drive development of their game or app.
+Although Paima allows games to subsidize gameplay, games can also choose to specify that users must pay a fee to submit moves in-game (the standard business model for L2s). This allows DAOs to gain funding to drive development of their game or app.
 
 ## Future work
 
@@ -106,17 +108,49 @@ Although Paima allows games to subsidize gameplay, games can also choose to spec
 (Coming in the future)
 Projects may want the blockchain used as the Data Availability (DA) layer to be different from the primary chain used for their app (either as a volition or a validium)
 
-To enable this, Paima will facilitate storing state machine inputs on a DA layer, significantly lowering costs for data-hungry use-cases
+To enable this, Paima will facilitate storing state machine inputs on a DA layer, significantly lowering costs for data-hungry use-cases. We plan to integrate Avail and Celestia for this
 
-### ZK and FHE
+### ZK (Zero-Knowledge Cryptography)
 
-(Coming in the future)
-We are working with partners to help enable use-cases that require private sections of their state machine
+ZK cryptography is often used in Web3 for two different properties:
+- Its ability to succinctly prove the state of a system (kind of like a very efficient compression system)
+- Its ability to handle functions with private inputs
 
-### State Channels
+Both these use-cases are of interest in games, as being able to prove world state helps with composability of worlds, and private inputs allow games with private state (ex: fog of war) and can also help with compliance (ex: being able to prove you know information without revealing the sensitive information publicly)
 
-(Coming in the future)
-We are working to allow games to easily build state channels to facilitate use-cases like 5v5 fights where a state channel could be opened between participants and settled when the game is over
+Paima is working with [Zeko](http://zeko.io/) (based on Mina Protocol) to implement its first ZK Layer
+
+### State Channels and Sharding
+
+Paima's parallelism feature already serves as the first step towards a future system to have game shards to help games scale as needed. These shards could be long-lived, or be ephemeral such as state channels that facilitate use-cases like 5v5 fights where a state channel could be opened between participants and settled when the game is over.
+
+### AI
+
+A few common demands have emerged for integration of AI into autonomous worlds:
+- Affecting the appearance of user's NFTs
+- Affecting the game world state (either as NPCs like in [Smallville](https://www.youtube.com/watch?v=aIDSmgsT4p8) or as a god that controls the world)
+
+Since autonomous worlds do not necessarily have a central company driving the evolution of a game, this kind of autonomous action powered via AI and LLMs is an interesting alternative. However, since AI is not something that can be run computationally onchain, the AI is often run similarly to a sovereign rollup - as a uni-directional bridge. This is not ideal as it means you cannot "close the loop" by having the AI result come back and modify the in-game world.
+
+Paima is tackling both of these use-cases:
+- Paima already supports basic deterministic AI integration and you can see an example of this in a proof-of-concept game called [Oracle RPG](https://github.com/dcSpark/paima-ai-text-adventure) where user Stateful NFTs dynamically evolve based on AI computation
+- We hope to expand AI support to allow more complex use-cases such as villages powered by AI agents that hold Stateful NFTs. This will be done through integration with [Shinkai Network](https://twitter.com/shinkai_network).
+
+### P2P layer
+
+Currently, Paima works by updating the world based off on-chain transactions. However, a P2P layer between players could improve the experience.
+
+Notably,
+1. Currently, the game tick rate to that of the underlying chain (1~2 seconds on many L1s/L2s). In the future, we will build a way to connect Paima games to a P2P layer so that transactions can be broadcast between users faster than it takes for the txs to appear on-chain, allowing for a faster experience assuming players have honestly submitted their transactions (optimistic updates).
+1. Users want to send visual updates to each other that do not be to settled on-chain, such as chat boxes.
+
+
+### Commit-reveal
+
+Currently, for most commit-reveal schemes, users have to be online to make the reveal. In online games where everybody has 24hrs to commit their next move, this is not ideal as it means all players need to come online at the end of the round to reveal their move.
+
+Solutions for this problem often involves more complex cryptography and too many "reveal" transactions to scale properly. However, Paima can very naturally integrate [decentralized timelock encryption protocols](https://www.youtube.com/watch?v=z7wSFe5t7nc) for games that need it.
+
 
 # Why Sovereign rollups?
 
@@ -153,9 +187,10 @@ Unfortunately there is no "free lunch", and so usage of Paima comes with some di
 
 You cannot trustlessly bridge from the L2 back to the L1 (that is to say, you cannot put $5 into the game, make some money, then take $10 out). This isn't a requirement to build in-game economies, and this also isn't required for the overwhelming majority of non-DeFi applications and so it's not as problematic as one might think.
 
-If you do want this functionality, there are two key ways to do it:
+If you do want this functionality, there are three key ways to do it:
 1. Provide a centralized "redemption" service. For example, if you build a casino with Paima, players would play the game with chips, and then would turn their chips back into money through a centralized redemption service (that possibly does KYC). This is no different than the way the overwhelming majority of casinos work in the real world.
 2. Simply don't bridge the asset to the L2. Even if the user funds stay on the L1 (non-custodially), you can project the state into the Paima game, which means you can still build in-game economies. In fact, building it this way is significantly safer as it means user funds are not at risk if your game gets hacked!
+3. Write your games using ZK circuits with Zeko or any other ZK layer tha Paima plans to support
 
 ### Low compatibility with other L1 dApps by default
 
