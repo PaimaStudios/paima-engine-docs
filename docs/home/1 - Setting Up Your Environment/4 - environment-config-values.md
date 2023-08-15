@@ -47,6 +47,8 @@ This section includes optional environment variables that have sensible default 
 - `POLLING_RATE`: The frequency at which to check for new block data. If not filled in, a value of `BLOCK_TIME - 0.1` is used.
 - `STOP_BLOCKHEIGHT`: The block at which the funnel stops syncing. This can be useful during development or tests.
 - `SERVER_ONLY_MODE`: Set this to run the game node without syncing new blocks.
+- `EMULATED_BLOCKS`: Set this to `true` to enable _emulated blocks_ mode, to automatically generate virtual blocks with the period `BLOCK_TIME` regardless of how often blocks are created on the underlying deployment chain.
+- `EMULATED_BLOCKS_MAX_WAIT`: The maximum expected delay between a deployment chain block being created and the game node knowing about it &ndash; if no blocks are reported for a time frame after this period has passed, it is assumed that no blocks exist. By default, `BLOCK_TIME * 2.5` is used, if your game node keeps getting into invalid states, you can try increasing this value.
 
 ## Other Variables
 
