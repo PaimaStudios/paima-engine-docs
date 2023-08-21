@@ -31,7 +31,7 @@ Essentially, you are switching the underlying unit of time for your application:
 
 <BaseSwitch className="img-full" style={{ height: 'auto', marginBottom: '48px' }} />
 
-Note that emulated blocks have a many:many relationship with the underlying chain:
+Note that emulated blocks have a [one-to-many relationship](https://en.wikipedia.org/wiki/One-to-many_(data_model)) with the underlying chain:
 1. There might be some emulated blocks that contain zero real blocks (ex: emulated block every 5 seconds for an underlying chain with a block approximtely every 20 seconds)
 2. There might be some emulated blocks that contain multiple real blocks (ex: emulated block every 20 seconds for an underlying chain with a block approximate every 5 seconds)
 

@@ -80,7 +80,6 @@ Thanks to the flexibility of the batcher system, Paima can even support games bu
 
 ### Cross-chain NFTs: Projected NFTs
 
-(Coming in the future)
 Projects may want to allow users to play games with NFTs hosted on chains separate from where the app was deployed. For example, the game is deployed on Milkomeda, but is playable from NFT living on Ethereum L1.
 
 To enable this, we will enable users to time-lock their NFTs (self-custodial) to project their NFTs directly into the game. Note that thanks to Paima being powered by a Sovereign Rollup architecture, this scheme isn't required for projecting L1 NFTs to L2s (if for example deploying a Paima game as a L3 on top of a L2 like Arbitrum)
@@ -105,7 +104,6 @@ Although Paima allows games to subsidize gameplay, games can also choose to spec
 
 ### Data availability layer support
 
-(Coming in the future)
 Projects may want the blockchain used as the Data Availability (DA) layer to be different from the primary chain used for their app (either as a volition or a validium)
 
 To enable this, Paima will facilitate storing state machine inputs on a DA layer, significantly lowering costs for data-hungry use-cases. We plan to integrate Avail and Celestia for this
