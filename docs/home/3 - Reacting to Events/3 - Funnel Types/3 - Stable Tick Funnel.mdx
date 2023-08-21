@@ -59,8 +59,7 @@ Since the new base for the state machine is time intervals, the `ChainData` type
 - `submittedData`: Aggregation of all submitted data in blocks that happened during the interval
 - `extensionDatums`: Aggregation of all extensions datums in blocks that happened during the interval
 
-Typically syncing starts with `START_BLOCKHEIGHT`. This means but with emulated blocks you can think of syncing as starting from genesis as it needs to create emulated blocks for the whole history of the chain. This is not just about properly creating the emulated blocks - 
-
+Typically syncing starts with `START_BLOCKHEIGHT`, but with emulated blocks it starts with the timestamp of the block at that height.
 
 ## Tricky points
 
