@@ -4,7 +4,7 @@ A core library which allows a consumer to initialize a chain funnel object which
 
 - The blockchain node (`CHAIN_URI`)
 - The deployed Paima Contract address (`CONTRACT_ADDRESS`)
-- The set of [Chain Data Extension (CDEs)](./2%20-%20chain-data-extensions.md) that the developer provided
+- The set of [Chain Data Extension (CDEs)](../2%20-%20chain-data-extensions.md) that the developer provided
 
 Notably, funnels play a key role in allowing Paima to not just synchronize a single chain, but also combine multiple different data sources together such as DA layers, merging L1+L2 data together, or merging NFT data from different chains.
 
