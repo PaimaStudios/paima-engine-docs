@@ -1,0 +1,55 @@
+<svg viewBox="0.0 0.0 414.0 243.0" width="414" height="243" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" stroke-miterlimit="10" stroke-linecap="square" fill="none" version="1.1">
+ <clipPath id="id_0">
+  <path id="svg_1" clip-rule="nonzero" d="m0,0l624,0l0,243l-624,0l0,-243z"/>
+ </clipPath>
+
+ <clipPath id="id_1">
+  <path id="svg_2" clip-rule="nonzero" d="m0,0l624,0l0,243l-624,0l0,-243z"/>
+ </clipPath>
+ <clipPath id="id_2">
+  <path id="svg_3" clip-rule="nonzero" d="m0,0l624,0l0,243l-624,0l0,-243z"/>
+ </clipPath>
+ <clipPath id="id_3">
+  <path id="svg_4" clip-rule="nonzero" d="m0,0l624,0l0,243l-624,0l0,-243z"/>
+ </clipPath>
+ <g>
+  <title>Layer 1</title>
+  <path id="svg_6" fill-rule="evenodd" d="m-53.44832,82.57571l436.3384,0" clip-path="url(#id_0)" fill-opacity="0" fill="#FFFFFF"/>
+  <path id="svg_7" fill-rule="evenodd" d="m6.89051,82.57571l373.71313,0" clip-path="url(#id_0)" stroke-linejoin="round" stroke-width="0.66835" stroke="#FFFFFF"/>
+  <path id="svg_8" fill-rule="evenodd" d="m380.60365,82.57571l-0.75027,0.75295l2.06137,-0.75295l-2.06137,-0.75294l0.75027,0.75294z" clip-path="url(#id_0)" stroke-width="0.66835" stroke="#FFFFFF" fill="#FFFFFF"/>
+  <path id="svg_11" fill-rule="evenodd" d="m-53.44832,191.91693l436.3384,0" clip-path="url(#id_0)" fill-opacity="0" fill="#FFFFFF"/>
+  <path id="svg_12" fill-rule="evenodd" d="m7.56848,191.91693l373.03517,0" clip-path="url(#id_0)" stroke-linejoin="round" stroke-width="0.66835" stroke="#FFFFFF"/>
+  <path id="svg_13" fill-rule="evenodd" d="m380.60365,191.91693l-0.75027,0.75295l2.06137,-0.75295l-2.06137,-0.75294l0.75027,0.75294z" clip-path="url(#id_0)" stroke-width="0.66835" stroke="#FFFFFF" fill="#FFFFFF"/>
+  <path id="svg_19" fill-rule="evenodd" d="m29.49415,45.50539l0,50.3573" clip-path="url(#id_0)" fill-opacity="0" fill="#FFFFFF"/>
+  <path id="svg_20" fill-rule="evenodd" d="m29.49415,45.50539l0,50.3573" clip-path="url(#id_0)" stroke-linejoin="round" stroke-width="0.66835" stroke="#FFFFFF"/>
+  <path id="svg_21" fill-rule="evenodd" d="m76.41305,45.50539l0,50.3573" clip-path="url(#id_0)" fill-opacity="0" fill="#FFFFFF"/>
+  <path id="svg_22" fill-rule="evenodd" d="m76.41305,45.50539l0,50.3573" clip-path="url(#id_0)" stroke-linejoin="round" stroke-width="0.66835" stroke="#FFFFFF"/>
+  <path id="svg_23" fill-rule="evenodd" d="m123.33195,45.50539l0,50.3573" clip-path="url(#id_0)" fill-opacity="0" fill="#FFFFFF"/>
+  <path id="svg_24" fill-rule="evenodd" d="m123.33195,45.50539l0,50.3573" clip-path="url(#id_0)" stroke-linejoin="round" stroke-width="0.66835" stroke="#FFFFFF"/>
+  <path id="svg_37" fill-rule="evenodd" d="m64.78226,161.84067l0,50.3573" clip-path="url(#id_0)" fill-opacity="0" fill="#FFFFFF"/>
+  <path id="svg_38" fill-rule="evenodd" d="m64.78226,161.84067l0,50.3573" clip-path="url(#id_0)" stroke-linejoin="round" stroke-width="0.66835" stroke="#FFFFFF"/>
+  <path id="svg_39" fill-rule="evenodd" d="m88.59544,161.84067l0,50.3573" clip-path="url(#id_0)" fill-opacity="0" fill="#FFFFFF"/>
+  <path id="svg_40" fill-rule="evenodd" d="m114.22661,161.84067l0,50.3573" clip-path="url(#id_0)" stroke-linejoin="round" stroke-width="0.66835" stroke="#FFFFFF"/>
+  <path id="svg_43" fill-rule="evenodd" d="m104.64851,162.85762l0,50.3573" clip-path="url(#id_0)" fill-opacity="0" fill="#FFFFFF"/>
+  <path id="svg_44" fill-rule="evenodd" d="m104.64851,145.9085l0,85.61145" clip-path="url(#id_0)" stroke-linejoin="round" stroke-width="0.66835" stroke="#AAAAAA"/>
+  <path id="svg_55" fill-rule="evenodd" d="m29.49766,82.81822l0,155.98534" clip-path="url(#id_0)" fill-opacity="0" fill="#FFFFFF"/>
+  <path id="svg_56" fill-rule="evenodd" d="m29.49766,82.81822l0,155.98534" clip-path="url(#id_0)" stroke-dasharray="0.6683493946765215,2.005048184029565" stroke-linejoin="round" stroke-width="0.66835" stroke="#FFFFFF"/>
+  <path id="svg_57" fill-rule="evenodd" d="m364.76625,88.17448l23.47168,0l0,28.13093l-23.47168,0l0,-28.13093z" clip-path="url(#id_0)" fill-opacity="0" fill="#FFFFFF"/>
+  <path id="svg_58" fill-rule="nonzero" d="m373.98148,105.21493l0.15638,0.97292q-0.45868,0.09415 -0.82355,0.09415q-0.59417,0 -0.92776,-0.1883q-0.32315,-0.18831 -0.45867,-0.49169q-0.13554,-0.31385 -0.13554,-1.29722l0,-3.73475l-0.80266,0l0,-0.84737l0.80266,0l0,-1.6006l1.08417,-0.65907l0,2.25967l1.10497,0l0,0.84737l-1.10497,0l0,3.79751q0,0.46031 0.05212,0.59631q0.06253,0.13599 0.18763,0.21969q0.13552,0.07323 0.38572,0.07323q0.1772,0 0.4795,-0.04185z" clip-path="url(#id_2)" fill="#FFFFFF"/>
+  <path id="svg_59" fill-rule="evenodd" d="m364.76625,191.91693l23.47168,0l0,28.13092l-23.47168,0l0,-28.13092z" clip-path="url(#id_0)" fill-opacity="0" fill="#FFFFFF"/>
+  <path id="svg_60" fill-rule="nonzero" d="m373.98148,208.95738l0.15638,0.97292q-0.45868,0.09414 -0.82355,0.09414q-0.59417,0 -0.92776,-0.1883q-0.32315,-0.18831 -0.45867,-0.49169q-0.13554,-0.31384 -0.13554,-1.29722l0,-3.73475l-0.80266,0l0,-0.84736l0.80266,0l0,-1.6006l1.08417,-0.65908l0,2.25968l1.10497,0l0,0.84736l-1.10497,0l0,3.79752q0,0.4603 0.05212,0.5963q0.06253,0.136 0.18763,0.2197q0.13552,0.07322 0.38572,0.07322q0.1772,0 0.4795,-0.04184z" clip-path="url(#id_2)" fill="#FFFFFF"/>
+  <path transform="rotate(13.1763, 39.1407, 32.0995)" id="svg_67" fill-rule="evenodd" d="m45.33777,21.90038l-12.39425,20.39823" clip-path="url(#id_0)" stroke-linejoin="round" stroke-width="0.66835" stroke="#FFFFFF"/>
+  <path transform="rotate(109.672, 30.391, 41.5118)" id="svg_68" fill-rule="evenodd" d="m28.78063,42.56099l3.22076,-0.08882l-2.52413,-2.00957l-0.69663,2.09839z" clip-path="url(#id_0)" stroke-width="0.66835" stroke="#FFFFFF" fill="#FFFFFF"/>
+  <path id="svg_70" fill-rule="evenodd" d="m47.43645,22.8033l18.32489,15.68035" clip-path="url(#id_0)" stroke-linejoin="round" stroke-width="0.66835" stroke="#FFFFFF"/>
+  <path transform="rotate(34.6391, 66.8108, 39.1617)" id="svg_71" fill-rule="evenodd" d="m65.22194,40.24905l3.17759,-0.53486l-2.77677,-1.64003l-0.40082,2.17489z" clip-path="url(#id_0)" stroke-width="0.66835" stroke="#FFFFFF" fill="#FFFFFF"/>
+  <path id="svg_72" fill-rule="evenodd" d="m76.41217,82.81822l0,160.18178" clip-path="url(#id_0)" fill-opacity="0" fill="#FFFFFF"/>
+  <path id="svg_73" fill-rule="evenodd" d="m76.41217,82.81822l0,160.18178" clip-path="url(#id_0)" stroke-dasharray="0.6683493946765215,2.005048184029565" stroke-linejoin="round" stroke-width="0.66835" stroke="#FFFFFF"/>
+  <path id="svg_75" fill-rule="evenodd" d="m123.33282,82.81822l0,155.98534" clip-path="url(#id_0)" stroke-dasharray="0.6683493946765215,2.005048184029565" stroke-linejoin="round" stroke-width="0.66835" stroke="#FFFFFF"/>
+  <text style="cursor: move;" font-style="italic" xml:space="preserve" text-anchor="start" font-family="'Besley'" font-size="10" stroke-width="0" id="svg_89" y="126.77608" x="130.75901" fill="#ffffff">BLOCK_TIME + EMULATED_BLOCKS_MAX_WAIT</text>
+  <text font-style="italic" xml:space="preserve" text-anchor="start" font-family="'Besley'" font-size="10" stroke-width="0" id="svg_91" y="18.84495" x="27.31065" fill="#ffffff">BLOCK_TIME</text>
+  <path transform="rotate(18.6051, 119.831, 131.065)" id="svg_94" fill-rule="evenodd" d="m126.0275,120.86598l-12.39425,20.39823" clip-path="url(#id_0)" stroke-linejoin="round" stroke-width="0.66835" stroke="#FFFFFF"/>
+  <path transform="rotate(109.672, 110.046, 140.477)" id="svg_95" fill-rule="evenodd" d="m108.43587,141.5266l3.22076,-0.08882l-2.52413,-2.00957l-0.69663,2.09839z" clip-path="url(#id_0)" stroke-width="0.66835" stroke="#FFFFFF" fill="#FFFFFF"/>
+  <text font-style="italic" xml:space="preserve" text-anchor="start" font-family="'Besley'" font-size="10" id="svg_96" y="77.12086" x="48.17264" stroke-width="0" fill="#FFFFFF">n</text>
+  <text font-style="italic" xml:space="preserve" text-anchor="start" font-family="'Besley'" font-size="10" id="svg_97" y="77.12086" x="91.62095" stroke-width="0" fill="#FFFFFF">n+1</text>
+ </g>
+</svg>

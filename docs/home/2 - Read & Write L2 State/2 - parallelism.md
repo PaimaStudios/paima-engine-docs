@@ -37,7 +37,7 @@ For example, maybe a game needs to update each user's wins/losses/ties record. W
 
 As such, we need a new approach for how we can apply global side effects in a principled manner. Lucky for us, we already have a great piece of functionality implemented in Paima Engine exactly suited for this job: scheduled inputs.
 
-Using scheduled inputs, whenever a global side effect needs to be applied, we simply create a new scheduled input for `[current block height] + 1` (see [passive events](../3%20-%20Reacting%20to%20events/1%20-%20scheduled-events.md) to learn more) and ensure that it also carries a state identifier inside. Thus in our grammar, we can simply define a new type of valid (scheduled) game input which specifies that the given user's stats need to be updated with the resulting win/tie/loss:
+Using scheduled inputs, whenever a global side effect needs to be applied, we simply create a new scheduled input for `[current block height] + 1` (see [passive events](../3%20-%20Reacting%20to%20Events/1%20-%20scheduled-events.md) to learn more) and ensure that it also carries a state identifier inside. Thus in our grammar, we can simply define a new type of valid (scheduled) game input which specifies that the given user's stats need to be updated with the resulting win/tie/loss:
 
 ```typescript
 const myGrammar = `
