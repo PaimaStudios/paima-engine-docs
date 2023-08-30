@@ -13,8 +13,6 @@ Of note, whenever a new block is generated there are a few pieces of information
 
 As such, these are the pieces of data which we can start to build randomness from.
 
-Paima works by annotating every block with a `seed`. This seed can then be combined with a utility class called `Prando` for most of the common randomness requirements
-
 ## Seed generation for a given block
 
 1. Get the most recent 25 random seeds from previous blocks
@@ -24,7 +22,13 @@ Paima works by annotating every block with a `seed`. This seed can then be combi
 
 The goal of this algorithm including bits of `ChainData` for the block is because Paima may have multiple [funnels](../3%20-%20Reacting%20to%20Events/3%20-%20Funnel%20Types/1%20-%20Intro.md) that aggregate data from multiple locations and so this would ensure some parts of every funnel get included in the randomness generation. However, most likely we'll improve this seed generation process in the future.
 
-## Example prando usage
+## Prando (deterministic stateful randomness generation from a seed)
+
+Seeds such as those stored in blocks can be combined with a utility class called `Prando` for most of the common randomness requirements
+
+`Prando` takes inspiration from the same randomness generation trick [used in old video games](https://www.gamedeveloper.com/programming/how-classic-games-make-smart-use-of-random-number-generation), where actions taken by the player updates internal state of the randomness generator which modifies its subsequent actions. That means calling Prando twice given the same block seed will give different (yet still deterministic) results.
+
+Note this also means that you can to be careful using Prando if your game is leveraging [parallelism](../2%20-%20Read%20&%20Write%20L2%20State/2%20-%20parallelism.md) or optimistic updates.
 
 ```typescript
 import Prando from '@paima/prando';
