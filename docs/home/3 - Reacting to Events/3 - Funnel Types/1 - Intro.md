@@ -12,15 +12,17 @@ All Paima Funnels implement a simple interface
 
 ```typescript
 interface ChainFunnel {
-  getExtensions: () => ChainDataExtension[];
-  extensionsAreValid: () => boolean;
-  recoverState: () => Promise<void>;
   readData: (blockHeight: number) => Promise<ChainData[]>;
   readPresyncData: (fromBlock: number, toBlock: number) => Promise<PresyncChainData[]>;
+  getDbTx(): PoolClient;
 }
 ```
 
-Multiple funnels are combined together based on the developer's needs using the [decorator pattern](https://en.wikipedia.org/wiki/Decorator_pattern), allowing to mix-and-match funnel types depending on the game's setup to get all the data they need.
+Funnels are meant to be stateless between blocks to avoid subtle bugs in the case of errors during the sync process (so that state properly gets reset), as well as to encapsulate the fact that funnels are executed together in a joint SQL transaction. Funnels that need state should use:
+- For persistent storage, use the Paima SQL database. This can be use to hydrate the funnel type using a custom-defined `recoverState`. If used, you should NOT assume that data for your funnel being persisted in the database implies the game state machine will successfully be updated. Fetching data (funnels) and update the game machine are done in separate SQL transactions (so it's possible fetching data succeeds, but updating the game fails so re-fetching the data is required)
+- A custom cache entry in `FunnelCacheManager` for state that either needs to be persisted (ex: query a batch of data that gets processed across multiple blocks) or that needs to be shared between funnels
+
+Multiple funnels are combined together based on the developer's needs using a combination of the [composite pattern](https://en.wikipedia.org/wiki/Composite_pattern) and the [decorator pattern](https://en.wikipedia.org/wiki/Decorator_pattern), allowing to mix-and-match funnel types depending on the game's setup to get all the data they need.
 
 At its core, Paima will call the `readData` function according to `POLLING_RATE` (which by default is based on `BLOCK_TIME`), and pass in the next expected block height (based off what is stored on disk by the Paima state machine).
 
