@@ -72,6 +72,6 @@ Nonce checking and saving works as such:
 1. Every time a game input is processed by Paima SM, it goes through a nonce checking process where it looks up whether the nonce exists in the `nonces` table (the nonce is the primary key).
 2. If yes, throw away the game input and don't run the STF, it would replay the game input (bad actor replaying a batched tx, or the db crashed while processing a block).
 3. If no (or empty string nonce, aka. scheduled input), continue using the game input in the STF.
-4. After the game input has finished processing in the STF and returns a set of SQL queries, add one update query to add the nonce to the `nonces` table, where the primary key is the nonce and the value is the current block height (from the ChainData that contained this game input).
+4. After the game input has finished processing in the STF and returns a set of SQL queries, add one update query to add the nonce to the `nonces` table, where the primary key is the nonce and the value is the current block height (from the `ChainData` that contained this game input).
 
 As such, we prevent all replaying thanks to nonces, whether it is by a bad actor, or due to the backend dying while processing a block.

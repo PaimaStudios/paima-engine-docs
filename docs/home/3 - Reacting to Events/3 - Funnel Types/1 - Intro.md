@@ -8,7 +8,7 @@ A core library which allows a consumer to initialize a chain funnel object which
 
 Notably, funnels play a key role in allowing Paima to not just synchronize a single chain, but also combine multiple different data sources together such as DA layers, merging L1+L2 data together, or merging NFT data from different chains.
 
-All Paima Funnels implement a simple interface
+All Paima Funnels implement a simple interface:
 
 ```typescript
 interface ChainFunnel {
@@ -24,6 +24,8 @@ Funnels are meant to be stateless between blocks to avoid subtle bugs in the cas
 
 Multiple funnels are combined together based on the developer's needs using a combination of the [composite pattern](https://en.wikipedia.org/wiki/Composite_pattern) and the [decorator pattern](https://en.wikipedia.org/wiki/Decorator_pattern), allowing to mix-and-match funnel types depending on the game's setup to get all the data they need.
 
+## readData function
+
 At its core, Paima will call the `readData` function according to `POLLING_RATE` (which by default is based on `BLOCK_TIME`), and pass in the next expected block height (based off what is stored on disk by the Paima state machine).
 
 Paima funnel is in charge of filling the `ChainData` which represents the combined output of all the different funnels for a block. Its type is as follows
@@ -37,3 +39,12 @@ export interface ChainData {
   extensionDatums?: ChainDataExtensionDatum[];
 }
 ```
+## readPresyncData function
+
+When extensions are used, the runtime must start polling from a block height that was before any of the contracts referenced in the CDEs were deployed. Thus all events that take place (ie. all NFT mints/transfer events) are accounted for and are saved in the DB so the state machine has proper access to a valid copy of the current state of the contract. We call this the _pre-sync_ phase.
+
+In other words, this function is meant to gather events for [CDEs](../2%20-%20Chain%20Data%20Extensions/1%20-%20introduction.md#accessing-the-collected-data) that happened before `START_BLOCKHEIGHT`
+
+## getDbTx
+
+Gets the database transaction used when executing this funnel

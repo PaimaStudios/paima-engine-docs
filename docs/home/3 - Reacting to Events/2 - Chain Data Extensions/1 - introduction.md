@@ -40,7 +40,7 @@ If you try to run your game node with an invalid or non-existent CDE config file
 
 Each extension may provide data to your game in one (or both) of the two ways below:
 
-1. By collecting the data and saving it into your game database directly, which you can access using Paima SDK functions described below;
+1. By collecting the data and saving it into your game database directly, which you can access using Paima SDK functions described in the corresponding sections;
 2. By [scheduling inputs](../1%20-%20scheduled-events.md) when certain events happen, which you can then react to in your state transition function.
 
 The data collected and functions used to access it are specific to each type of extension and you can find more information about that in their respective sections. In general, be aware that these functions will read directly from the game state database (which is what the `readonlyDBConn` parameter is for), and you will need to specify the extension name (which is what the `cdeName` parameter in each function is for) which needs to correspond to the name you specified in the configuration file.
@@ -49,3 +49,6 @@ Scheduled inputs are triggered by events specific to each extension type, with t
 
 To learn by example, please consult the NFT LvlUp game template &ndash; `./paima-engine-linux init template nft-lvlup` to learn more.
 
+## Relation to funnels
+
+Paima [funnels](../3%20-%20Funnel%20Types/1%20-%20Intro.md) are in charge of fetching data from various sources for your game, including data for CDEs which are stored as part of `ChainData`.. Depending on where the data you want to access comes from, you may have to add an extra funnel to your game.
