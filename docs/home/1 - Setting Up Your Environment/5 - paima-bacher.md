@@ -16,6 +16,8 @@ Furthermore, batcher support is fully integrated into Paima Engine, including th
 
 Of note, because Paima Engine games are full fledged Sovereign Rollups, this means we have a built-in mechanism for democratization & decentralization of batching (unlike the majority of rollups today). In other words, anyone can run a batcher for any game built with Paima Engine, opening up opportunities for your community & 3rd party developers to create their own web/mobile game clients, tools, websites, and services that provide players with completely novel gameplay experiences!
 
+You can learn more about the architecture of the batcher [here](../2%20-%20Read%20&%20Write%20L2%20State/5%20-%20batched-mode.md)
+
 ## Benefits
 
 Game input batching provides us with a few major benefits, primarily in the realm of UX:
@@ -33,20 +35,17 @@ To begin using Paima Batcher, first you will need to emit it from the Paima Engi
 ./paima-engine batcher
 ```
 
-This will pop out a `batcher` folder with all of the Paima Batcher code inside for you to build/deploy.
-
-Change into the `batcher` directory and make sure to install all of the dependencies:
+This will pop out a `batcher` folder with all of the Paima Batcher code inside for you to build/deploy, and you can then change into the `batcher` directory using
 
 ```
 cd batcher
-npm i
 ```
 
 With that out of the way, we can move forward with deploying the batcher. In summary, you need to:
 
 1. Prepare your root `.env.*` config file to support the batcher,
 2. Add your batcher wallet account private key to it,
-3. Run the batcher using `npm start`.
+3. Run the batcher using `./start.sh`.
 
 First, ensure you have a config file `.env.*` ready in the root directory of your project (where you called `./paima-engine batcher`). Presumably, you already have one there for your game, you just need to add the additional variables required by the batcher. The simplest approach to do this is to append the existing batcher env file into your env file in the directory above:
 
@@ -63,7 +62,7 @@ If you plan to use the batcher in web 2.5 environment, you also need to turn on 
 With all of that said and done, to compile and run the batcher using docker simply run the following in the `batcher` directory:
 
 ```
-npm start
+sh ./start.sh
 ```
 
 If your env file was set up properly, it will boot the batcher up and have it ready to be used with your game.
@@ -75,5 +74,5 @@ Of note, the IP/port (or domain name) that the batcher is running/accessible on 
 At any point after stopping the batcher, you can clean up via the following command:
 
 ```
-npm stop
+sh ./shutdown.sh
 ```

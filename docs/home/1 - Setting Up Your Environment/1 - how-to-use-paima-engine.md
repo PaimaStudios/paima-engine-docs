@@ -28,10 +28,17 @@ You can see the available options by using:
 ./paima-engine init
 ```
 
-To initialize a game using a basic game template use the following command and select the `generic` template:
+Option A: To initialize a game using a basic game template use the following command and select the `generic` template:
 
 ```
 ./paima-engine init template
+```
+
+Option B: To initialize a game using the `paima-sdk`:
+```
+./paima-engine init sdk
+cd paima-sdk
+npm ci
 ```
 
 Once the command has finished, you will notice two new folders have been created, `paima-sdk` and `generic-game-template` (name varies based on template selected). The SDK is directly used by the game template, and so all code you write will be in the `generic-game-template` folder.

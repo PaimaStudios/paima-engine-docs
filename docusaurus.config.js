@@ -38,6 +38,7 @@ const config = {
   },
   themes: [
     // ... Your other themes.
+    '@docusaurus/theme-mermaid',
     [
       require.resolve("@easyops-cn/docusaurus-search-local"),
       {
@@ -131,6 +132,9 @@ const config = {
         disableSwitch: true,
         respectPrefersColorScheme: false,
       },
+      mermaid: {
+        theme: {light: 'neutral', dark: 'forest'},
+      },
       image: 'img/paima-banner.png',
       navbar: {
         title: "Paima",
@@ -209,6 +213,9 @@ const config = {
         darkTheme: darkCodeTheme,
       },
     }),
+    markdown: {
+      mermaid: true,
+    },
 };
 
 module.exports = config;

@@ -191,3 +191,8 @@ img {
 
 } */
 
+[id^="mermaid-svg-"] {
+  background-color: #030909;  /* Change to your desired color */
+  border-radius: 10px;
+  overflow: hidden;  /* To ensure the SVG inside respects the rounded corners */
+}
