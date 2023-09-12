@@ -14,7 +14,7 @@ To tackle this, Paima introduces three different auto-sign methods that all guar
 
 ## 1. Data-only auto-signing
 
-For apps that run [Paima batchers](../1%20-%20Setting%20Up%20Your%20Environment/5%20-%20paima-bacher.md) or similar systems (meta-transactions, account-abstraction or sequencers), signing data is often enough for the game 
+For apps that run [Paima batchers](../1-setting-up-your-environment/5%20-%20paima-bacher.md) or similar systems (meta-transactions, account-abstraction or sequencers), signing data is often enough for the game 
 
 Concrete examples of cases where this is sufficient:
 - Blockchains with zero transaction fees (Immutable, Oasys, etc.) where you can simply have somebody submit the transaction for you

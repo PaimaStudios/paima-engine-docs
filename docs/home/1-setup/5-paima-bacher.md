@@ -16,7 +16,7 @@ Furthermore, batcher support is fully integrated into Paima Engine, including th
 
 Of note, because Paima Engine games are full fledged Sovereign Rollups, this means we have a built-in mechanism for democratization & decentralization of batching (unlike the majority of rollups today). In other words, anyone can run a batcher for any game built with Paima Engine, opening up opportunities for your community & 3rd party developers to create their own web/mobile game clients, tools, websites, and services that provide players with completely novel gameplay experiences!
 
-You can learn more about the architecture of the batcher [here](../2%20-%20Read%20&%20Write%20L2%20State/5%20-%20batched-mode.md)
+You can learn more about the architecture of the batcher [here](../2-read-write-L2-state/5-batched-mode.md)
 
 ## Benefits
 

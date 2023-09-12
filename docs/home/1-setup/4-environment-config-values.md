@@ -52,8 +52,8 @@ This section includes optional environment variables that have sensible default 
 
 - `DEPLOYMENT`: was used in the past to determine how often new blocks are emitted. It is now _deprecated_ and replaced with `BLOCK_TIME`.
 - `GAME_NODE_VERSION`: defined statically in paima-sdk. Check used to ensure your game node is running with a compatible version of paima-engine. After a major upgrade and necessary adjustments, you should adjust the version on your side.
-- `NATIVE_NFT_SALE_PROXY`: used in the NFT LvlUp template. It represents the contract address for your NFT sale proxy. See [deploying-your-stateful-nft](./3%20-%20deploying-your-stateful-nft.md)
-- [Chain data extensions](../3%20-%20Reacting%20to%20Events/2%20-%20Chain%20Data%20Extensions/1%20-%20introduction.md):
+- `NATIVE_NFT_SALE_PROXY`: used in the NFT LvlUp template. It represents the contract address for your NFT sale proxy. See [deploying-your-stateful-nft](./3-deploying-your-stateful-nft.md)
+- [Chain data extensions](../3-react-to-events/2-chain-data-extensions/1-introduction.md):
   - `DEFAULT_PRESYNC_STEP_SIZE`: number of blocks to process in each step during initial presync phase. If not provided, a value of 1000 is used. Generally no need to change this value.
   - `CDE_CONFIG_PATH`: allows you to specify a custom location for your `extensions.yml` that is used to initialize chain data extensions
 

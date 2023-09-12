@@ -7,4 +7,4 @@ Notably, block funnel will do the following:
 1. Fetch a group of `DEFAULT_FUNNEL_GROUP_SIZE` blocks (or less if we're already at the tip)
 1. Fetch all the block numbers needed in parallel using `eth_getBlockByNumber`
 1. Fetch all the `PaimaGameInteraction` Solidity events for the block range using `eth_getLogs`
-1. Fetch all the [Chain Data Extension (CDEs)](../2%20-%20Chain%20Data%20Extensions/1%20-%20introduction.md) for the block range using `eth_getLogs`
+1. Fetch all the [Chain Data Extension (CDEs)](../2-chain-data-extensions/1-introduction.md) for the block range using `eth_getLogs`

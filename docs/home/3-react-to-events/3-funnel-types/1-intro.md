@@ -4,7 +4,7 @@ A core library which allows a consumer to initialize a chain funnel object which
 
 - The blockchain node (`CHAIN_URI`)
 - The deployed Paima Contract address (`CONTRACT_ADDRESS`)
-- The set of [Chain Data Extension (CDEs)](../2%20-%20Chain%20Data%20Extensions/1%20-%20introduction.md) that the developer provided
+- The set of [Chain Data Extension (CDEs)](../2-chain-data-extensions/1-introduction.md) that the developer provided
 
 Notably, funnels play a key role in allowing Paima to not just synchronize a single chain, but also combine multiple different data sources together such as DA layers, merging L1+L2 data together, or merging NFT data from different chains.
 
@@ -43,7 +43,7 @@ export interface ChainData {
 
 When extensions are used, the runtime must start polling from a block height that was before any of the contracts referenced in the CDEs were deployed. Thus all events that take place (ie. all NFT mints/transfer events) are accounted for and are saved in the DB so the state machine has proper access to a valid copy of the current state of the contract. We call this the _pre-sync_ phase.
 
-In other words, this function is meant to gather events for [CDEs](../2%20-%20Chain%20Data%20Extensions/1%20-%20introduction.md#accessing-the-collected-data) that happened before `START_BLOCKHEIGHT`
+In other words, this function is meant to gather events for [CDEs](../2-chain-data-extensions/1-introduction.md#accessing-the-collected-data) that happened before `START_BLOCKHEIGHT`
 
 ## getDbTx
 
