@@ -9,8 +9,8 @@ Paima supports two different modes for inputs:
 2. Batched mode. Users sign data, and transactions are crafted by the batcher. This allows users to use the app with different EVM networks or wallets from different cryptocurrencies.
 
 We protect batched mode users by calculating `sign(securityPrefix || input || timestamp)` where:
-1. `securityPrefix` is described [here](./7%20-%20autosign.md)
-2. `timestamp` is used for replay protection. You can learn more about replay protection [here](./6%20-%20replay-protection.md)
+1. `securityPrefix` is described [here](./7-autosign.md)
+2. `timestamp` is used for replay protection. You can learn more about replay protection [here](./6-replay-protection.md)
 
 The idea behind it is that rather than each user submitting their own transactions directly on-chain, instead they:
 

@@ -14,7 +14,7 @@ To tackle this, Paima introduces three different auto-sign methods that all guar
 
 ## 1. Data-only auto-signing
 
-For apps that run [Paima batchers](../1-setting-up-your-environment/5%20-%20paima-bacher.md) or similar systems (meta-transactions, account-abstraction or sequencers), signing data is often enough for the game 
+For apps that run [Paima batchers](../1-setup/5-paima-bacher.md) or similar systems (meta-transactions, account-abstraction or sequencers), signing data is often enough for the game 
 
 Concrete examples of cases where this is sufficient:
 - Blockchains with zero transaction fees (Immutable, Oasys, etc.) where you can simply have somebody submit the transaction for you
@@ -30,7 +30,7 @@ To tackle this, Paima forces all games that want to use auto-sign to specify a `
 1. The contract address
 2. A unique name. This is useful if your platform consists of multiple apps that you want to share the same auto-sign namespace
 
-The format of these namespaces is `namespace || rest` (learn more [here](./6%20-%20replay-protection.md)). Paima Engine will not actually store these prefixes on-chain. Rather, it generates the signature `sign(namespace || rest)`, but only posts the user command onchain. This is because the app knows its own prefix, so it can implicitly add the prefix to make sure the signature matches. This means even if a long string or contract address is used for the security namespace, it does not lead to chain bloat.
+The format of these namespaces is `namespace || rest` (learn more [here](./6-replay-protection.md)). Paima Engine will not actually store these prefixes on-chain. Rather, it generates the signature `sign(namespace || rest)`, but only posts the user command onchain. This is because the app knows its own prefix, so it can implicitly add the prefix to make sure the signature matches. This means even if a long string or contract address is used for the security namespace, it does not lead to chain bloat.
 
 ### Defining your namespace
 

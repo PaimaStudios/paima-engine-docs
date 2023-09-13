@@ -13,7 +13,7 @@ In our case, there are a few scenarios where replays can happen:
 1. If our backend crashes in the middle of processing a block, it will re-pull the block via the funnel and re-process all game inputs again (even the ones it processed half-way through prior to crashing).
 
 We handle the base replay protection by having the user calculate `sign(securityPrefix || input || timestamp)` where:
-1. `securityPrefix` is described [here](./7%20-%20autosign.md)
+1. `securityPrefix` is described [here](./7-autosign.md)
 2. `timestamp` is used for replay protection
 
 However, just storing this signature is not enough to protect against [signature malleability](https://github.com/kadenzipfel/smart-contract-vulnerabilities/blob/master/vulnerabilities/signature-malleability.md). As such, we require introducing the concept of nonces to game inputs to address the replay vectors above.
