@@ -7,7 +7,7 @@
 
 This repository holds the current developer documentation for Paima Engine, which is accessible [on the website](https://docs.paimastudios.com).
 
-Everything placed in this repository (apart from images) is also packed in the Paima Engine executable, meaning you can also read them locally via `./paima-engine docs`.
+Everything placed in this repository (apart from images) is also packed in the Paima Engine executable, meaning you can also read them locally via `./paima-engine docs`. You can find the Paima Engine code and executable [here](https://github.com/PaimaStudios/paima-engine/)
 
 
 ## Building This Repostiory
