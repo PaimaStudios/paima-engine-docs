@@ -1,0 +1,25 @@
+import CrosschainNft from "./crosschain-nft.png";
+import SinglechainNft from "./singlechain-nft.png";
+
+# Introduction
+
+The Projected NFT Whirlpool system allows existing NFTs to be used in games written with Paima without requiring an NFT bridge - even if the NFT lives on a different layer of the same chain, or on a different chain entirely.
+
+**Motivation**: many games, due to being data and computation heavy applications, run on sidechains, L2s and appchain as opposed to popular L1 blockchains. This is problematic because popular NFT collections (which people generally want to use in-game) live on the L1 (a different environment). A common solution to this problem is building an NFT bridge, but bridges not only have a bad reputation for fungible tokens which limits usage, the problem is even worse for NFTs where there is also a philosophical disconnect (if a bridge gets hacked, which is the canonical NFT? The one the hacker stole, or the bridged asset?)
+
+**Solution**: instead of bridging NFTs, we instead encourage users to *project* their NFT directly into the game, allowing them to access their asset in-game without having to bridge it to the game chain. Although the main use-case is projecting a single NFT, we support projecting multiple NFTs at once as well (think of this as an extended version of [CDEs](../../3-react-to-events/2-chain-data-extensions/1-introduction.md)
+
+**No free lunch**: note that using this solution means that running the game requires synchronizing multiple blockchains, as you need to run both the chain the game is hosted on, as well as the game where the NFTs are stored. This only requires checking the state of a single contract though.
+
+This solution comes in two flavors depending on the situation:
+
+## 1) Same underlying L1
+
+When using the same underlying L1, projected NFTs are non-custodial and requires no locking, giving the best user experience possible.
+
+<img src={SinglechainNft} className="img-full" />
+
+## 2) Different chains
+
+<img src={CrosschainNft} className="img-full" />
+

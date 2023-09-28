@@ -1,0 +1,51 @@
+import CrosschainNft from "../crosschain-nft.png";
+import HighLevelFlow from "./high-level-flow.png";
+import FinalityPeriod from "./finality-period.png";
+import RollbackIssue from "./rollback-issue.png";
+import DuplicationIssue from "./duplication-issue.png";
+
+# Basics
+
+The goal of cross-chain NFTs is to allow people to play with NFTs from one chain in a game hosted on a different chain without requiring any bridge of centralized solution.
+
+<img src={CrosschainNft} className="img-full" />
+
+# High-level flow
+
+To access their stateful NFT in-game, users need to put their NFT on the L1 in a *whirlpool hololocker*. This locker can be unlocked anytime by the user, but doing so removes access to the NFT from the game.
+
+<img src={HighLevelFlow} className="img-full" />
+
+# Finality period
+
+Since the L1 and Paima run on different chains, we have to take L1 finality into account before actions in the hololocker are actionable in-game
+
+<img src={FinalityPeriod} className="img-full" />
+
+## Issue #1: rollbacks
+
+Note that updates in the hololocker cannot instantaneously be reflected in the game since it is possible the L1 rolls back. Therefore, projections need to wait a certain amount of time until they are confident that no rollback will occur (represented by `minimum_lock_time`).
+
+Failing to take into account, rollbacks could lead to the game getting into an invalid state as seen in the picture below
+
+<img src={RollbackIssue} className="img-full" />
+
+## Issue #2: temporary duplication
+
+If we did not have a special "Unlocking" state that requires users to wait for finality on the L1 before withdrawing their NFT, it could cause a situation where the same NFT is used in two places at once, which is unexpected
+
+This means that withdrawing your NFT is done in two steps:
+1. Shutting down the projection
+2. Withdraw your NFT from the hololocker
+
+Failing to take into account, the same NFT can be used in two places at once as seen in the picture below
+
+<img src={DuplicationIssue} className="img-full" />
+
+## Timing seconds instead of blocks
+
+Finality is typically defined in terms of blocks. For example, in Bitcoin, people heuristically define finality as 6 blocks.
+
+However, this definition is sightly problematic for our use case, because there is no guarantee every node running the game sees the 6th block at the same time (due to differences in block propagation in a global decentralized network). Notably, Paima runs on the clock of the chain hosting the game, and so there is no way for Paima to rely on the chain hosting the game to globally determine the block number of the chain where the hololocker exists. Additionally, there are blockchains like Cardano where you cannot even refer to blocks from smart contracts (to maintain determinism), and so knowing progress towards finality cannot be known. 
+
+Therefore, it is easier to define the finality heuristically in terms of seconds since the transaction was made on the L1, which can be known. Note that this will not work for blockchains where you cannot define a deterministic mapping of blocks to timestamps with a precision lower than half the block time on the chain hosting the game, but in practice this exists for all major blockchains
