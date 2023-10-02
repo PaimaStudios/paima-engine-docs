@@ -4,7 +4,7 @@
 
 In Cardano, finality is measured by `ttl` + `minimum_lock_time`
 
-`ttl` and `minimum_lock_time` are measured in *slots*, despite the fact that finality is measured in *blocks*. These are not the same thing, since there can be many empty slots in Cardano (which contribute nothing to finality). However, in order to ensure determinism, Cardano smart contracts only have access to slots, which last an undefined period of time (which may change in future hardforks) and where the current duration of a slot cannot be known from a smart contract (as of Babbage)
+`ttl` and `minimum_lock_time` are measured in *slots*, despite the fact that finality is measured in *blocks*. These are not the same thing, since there can be many empty slots in Cardano (which contribute nothing to finality). However, in order to ensure determinism, Cardano smart contracts only have access to POSIX millisecond timestamps (conversion is done by the Cardano node internally before being forwarded to the contract). The current duration of a slot cannot be known from a smart contract (as of Babbage) and no mapping of time to blocks is available to contracts either.
 
 ## Multi-asset projection
 
