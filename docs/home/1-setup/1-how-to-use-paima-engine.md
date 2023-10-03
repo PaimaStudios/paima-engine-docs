@@ -20,13 +20,7 @@ If you do not have Paima Engine yet, but want to follow along, you can find publ
 
 ## Initializing Your Project
 
-When starting a new project with Paima Engine, the developer can choose to either go completely barebones (by only initializing `paima-sdk`) or use an included template to bootstrap with all of the essentials. Initializing the SDK by itself may also be useful in cases where the developer is upgrading their project to use a new version of Paima Engine which has introduced new incompatibilities in the SDK.
-
-You can see the available options by using:
-
-```
-./paima-engine init
-```
+When starting a new project with Paima Engine, you can choose to either go completely barebones, or use an included template to bootstrap with all of the essentials
 
 Option A: To initialize a game using a basic game template use the following command and select the `generic` template:
 
@@ -34,18 +28,13 @@ Option A: To initialize a game using a basic game template use the following com
 ./paima-engine init template
 ```
 
-Option B: To initialize a game using the `paima-sdk`:
-```
-./paima-engine init sdk
-cd paima-sdk
-npm ci
-```
+Option B: Create everything from scratch and add [@paima/sdk](https://www.npmjs.com/package/@paima/sdk) to your project
 
-Once the command has finished, you will notice two new folders have been created, `paima-sdk` and `generic-game-template` (name varies based on template selected). The SDK is directly used by the game template, and so all code you write will be in the `generic-game-template` folder.
+Once the command has finished, you will notice a new folder have been created called `generic-game-template` (name varies based on template selected). The SDK is directly used by the game template, and so all code you write will be in the `generic-game-template` folder.
 
 Lastly to finish the initialization process off, simply go into the `generic-game-template` folder and run `npm run initialize`. This will install all of the packages and set the project up to be ready for you to start coding.
 
-Of note, feel free to rename the `generic-game-template` folder to the name of your game (or whatever you prefer), but make sure to not change the folder name of `paima-sdk`.
+Of note, feel free to rename the `generic-game-template` folder to the name of your game (or whatever you prefer)
 
 ## Packing Your Game Code
 
@@ -86,7 +75,7 @@ One side note, as you begin writing your game logic (or when building a template
 
 When you update your DB schema or you want to add or edit some of the queries in the `db/` directory of your game, you will want to use the `pgtyped` tool to process the `.sql` code to generate `.ts` code for the queries to be used by your game and the engine. To do this, simply navigate to the `db/` directory and execute `npm run compile`. Note that you will need to provide the credentials of a running Postgres DB initialized with your schema in the `db/pgtypedconfig.json` file.
 
-Furthermore, note that the version of `@pgtyped/query` in `db/package.json` is set to a specific value, which should be the same as the version specified in `paima-sdk/paima-db/package.json`. These versions need to stay the same to avoid compatibility issues.
+Furthermore, note that the version of `@pgtyped/runtime` in `db/package.json` is set to a specific value, which should be the same as the version specified in `@paima/db/package.json`. These versions need to stay the same to avoid compatibility issues.
 
 ## Deploying Your Game's L2 Smart Contract
 
@@ -147,7 +136,7 @@ If you wish to deploy your game on a server/move into a production environment, 
 - `.env.*` (Your game node config)
 - `paima-engine` (The Paima Engine executable)
 
-In other words, you do not require your unpacked game code or `paima-sdk`, allowing you to easily run your game node wherever you deem best (without even needing node installed or any external dependencies).
+In other words, you do not require your unpacked game code, allowing you to easily run your game node wherever you deem best (without even needing node installed or any external dependencies).
 
 ## Snapshots
 
@@ -202,7 +191,6 @@ File structure:
 
 ```
 root_folder
-   | --- paima-sdk
    | --- paima-engine-{linux|macos}
    | --- packaged
              | --- endpoints.cjs

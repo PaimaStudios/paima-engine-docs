@@ -59,7 +59,7 @@ TBD. This is still in development: https://github.com/PaimaStudios/paima-engine/
 It's up to you as a developer to check if the versions match in the place that makes the most sense for your game, and handle it the way you want.
 
 ```typescript
-import { localRemoteVersionsCompatible } from 'paima-sdk/paima-mw-core';
+import { localRemoteVersionsCompatible } from '@paima/sdk/mw-core';
 
 async function someAction() {
   // check if versions match

@@ -14,9 +14,9 @@ Paima has its own format for representing L2 data called Paima Concise that rese
 Paima comes with two classes to help generate these bar-separated strings
 ```javascript
 // create the bar-separated string
-import { builder } from 'paima-engine/paima-concise';
+import { builder } from '@paimas/sdk/concise';
 // parse the bar-separated string
-import { consumer } from 'paima-engine/paima-concise';
+import { consumer } from '@paima/sdk/concise';
 ```
 
 ## Read data
@@ -28,8 +28,8 @@ We allow defining more complex grammars on top of this notation using `PaimaPars
 2. Define how to parse tokens in this grammar (recursively defined)
 
 ```typescript
-import type { ParserRecord } from 'paima-sdk/paima-concise';
-import { PaimaParser } from 'paima-sdk/paima-concise';
+import type { ParserRecord } from '@paima/concise';
+import { PaimaParser } from '@paima/sdk/concise';
 
 // First, define your grammar which Paima will turn into EBNF form internally
 const myGrammar = `
@@ -113,7 +113,7 @@ If you want to define your own parse functions, we suggest the [parsimmon](https
 
 ```typescript
 import P from 'parsimmon';
-import { consumer } from 'paima-engine/paima-concise';
+import { consumer } from '@paima/sdk/concise';
 
 const pRoundNumber = P.digits.map(Number).chain(n => {
   if (n >= 1 && n <= 1000) return P.succeed(n);
@@ -164,13 +164,13 @@ The `PaimaParser` grammar supports UTF8, but generally has the following reserve
 Writing data is much simpler
 
 ```typescript
-import { builder } from 'paima-engine/paima-concise';
+import { builder } from '@paima/sdk/concise';
 import {
   awaitBlock,
   getActiveAddress,
   PaimaMiddlewareErrorCode,
   postConciseData,
-} from 'paima-sdk/paima-mw-core';
+} from '@paima/sdk/mw-core';
 
 
 const conciseBuilder = builder.initialize();

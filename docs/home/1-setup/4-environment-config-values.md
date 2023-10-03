@@ -4,7 +4,7 @@ sidebar_position: 4
 
 # Environment Configuration Variables
 
-The following is a list of possible environment variables that can be configured for your project. These variables are read in the ENV class, located in `paima-sdk/paima-utils/config.js`. Please refer to that file for more information on default values.
+The following is a list of possible environment variables that can be configured for your project. These variables are read in the ENV class, located in `@paima/utils/config.js`. Please refer to that file for more information on default values.
 
 ## Required Variables
 
@@ -42,7 +42,7 @@ This section includes optional environment variables that have sensible default 
 - `ENABLE_DRY_RUN`: Adds a `GET /dry_run` endpoint for input testing. Use it to post game inputs to validate them without modifying the game state.
 - `DEFAULT_FUNNEL_GROUP_SIZE`: The number of blocks queried in one funnel sync step. If not set, a value of 100 is used. Generally no need to change this value.
 - `NODE_ENV`: Used across modules to determine which .env file to read (`.env.$NODE_ENV`). Must be set separately if needed.
-- `FORCE_INVALID_PAIMA_DB_TABLE_DELETION`: Instead of failing during DB initialization, it deletes invalid tables and recreates them (without the previous content). If turned off, resync from scratch is needed after a major `paima-sdk` update that affects internal tables.
+- `FORCE_INVALID_PAIMA_DB_TABLE_DELETION`: Instead of failing during DB initialization, it deletes invalid tables and recreates them (without the previous content). If turned off, resync from scratch is needed after a major `@paima/sdk` update that affects internal tables.
 - `STORE_HISTORICAL_GAME_INPUTS`: If enabled, one of the internal tables stores all of the posted game inputs. Note that the table is currently accessible only through a direct DB connection.
 - `POLLING_RATE`: The frequency at which to check for new block data. If not filled in, a value of `BLOCK_TIME - 0.1` is used.
 - `STOP_BLOCKHEIGHT`: The block at which the funnel stops syncing. This can be useful during development or tests.
@@ -51,7 +51,7 @@ This section includes optional environment variables that have sensible default 
 ## Other Variables
 
 - `DEPLOYMENT`: was used in the past to determine how often new blocks are emitted. It is now _deprecated_ and replaced with `BLOCK_TIME`.
-- `GAME_NODE_VERSION`: defined statically in paima-sdk. Check used to ensure your game node is running with a compatible version of paima-engine. After a major upgrade and necessary adjustments, you should adjust the version on your side.
+- `GAME_NODE_VERSION`: defined statically in `@paima/sdk`. Check used to ensure your game node is running with a compatible version of paima-engine. After a major upgrade and necessary adjustments, you should adjust the version on your side.
 - `NATIVE_NFT_SALE_PROXY`: used in the NFT LvlUp template. It represents the contract address for your NFT sale proxy. See [deploying-your-stateful-nft](./3-deploying-your-stateful-nft.md)
 - [Chain data extensions](../3-react-to-events/2-chain-data-extensions/1-introduction.md):
   - `DEFAULT_PRESYNC_STEP_SIZE`: number of blocks to process in each step during initial presync phase. If not provided, a value of 1000 is used. Generally no need to change this value.

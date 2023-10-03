@@ -12,14 +12,14 @@ Errors are unavoidable. Notably, be sure to take into accounts the following err
 To handle errors, Paima has a system to allow define error codes for your application that extend the built-in error handling in Paima
 
 ```typescript
-import type { ErrorMessageFxn } from 'paima-sdk/paima-utils';
-import { buildErrorCodeTranslator } from 'paima-sdk/paima-utils';
-import type { EndpointErrorFxn } from 'paima-sdk/paima-mw-core';
+import type { ErrorMessageFxn } from '@paima/sdk/utils';
+import { buildErrorCodeTranslator } from '@paima/sdk/utils';
+import type { EndpointErrorFxn } from '@paima/sdk/mw-core';
 import {
   PaimaMiddlewareErrorCode,
   PAIMA_MIDDLEWARE_ERROR_MESSAGES,
   buildAbstractEndpointErrorFxn,
-} from 'paima-sdk/paima-mw-core';
+} from '@paima/sdk/mw-core';
 
 export const enum MiddlewareErrorCode {
   // start your error codes after the reserved namespace for Paima Engine's internal system

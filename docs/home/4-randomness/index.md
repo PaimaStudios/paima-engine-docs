@@ -31,7 +31,7 @@ Seeds such as those stored in blocks can be combined with a utility class called
 Note this also means that you can to be careful using Prando if your game is leveraging [parallelism](../2-read-write-L2-state/2-parallelism.md) or optimistic updates.
 
 ```typescript
-import Prando from '@paima/prando';
+import Prando from '@paima/sdk/prando';
 
 const prando = new Prando(block.seed);
 const diceRoll = prando.nextInt(1, 6);
