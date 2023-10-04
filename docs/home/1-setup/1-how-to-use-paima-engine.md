@@ -14,7 +14,9 @@ Paima Engine docs are available from two sources:
 
 # Accessing Paima Engine
 
-Paima Engine is under developer preview at the moment. Notably, anybody can access it by [contacting us](https://paimastudios.com/contact/).
+Paima Engine binaries can be found on Github in the [release page](https://github.com/PaimaStudios/paima-engine/releases) of the project.
+
+If you need any support beyond the core engine, you can reach us through our [contacting us](https://paimastudios.com/contact/) page.
 
 If you do not have Paima Engine yet, but want to follow along, you can find public templates using Paima [here](https://github.com/PaimaStudios/paima-game-templates)
 
