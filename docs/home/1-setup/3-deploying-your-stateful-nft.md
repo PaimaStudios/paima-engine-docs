@@ -81,9 +81,9 @@ Whether you are deploying or simply performing some admin functions, most of the
   - `supply` &ndash; the maximum number of NFTs that can be minted;
   - `owner` &ndash; the owner of the contract. Only used for the "transfer ownership" admin function, during deployment, the address of the deploying wallet will be used;
   - `minter` &ndash; intended primarily for the "add minter" admin function, also used during deployment if not empty;
-  - `baseUri`
+  - `baseUri` &ndash; the base URI used for all your NFTs (keep as "" if you don't want to use this feature)
 - `NftSale`:
-  - `price` &ndash; the price of buying an NFT through the sale contract, used both for `NativeNftSale` and `Erc20NftSale`. For native sale the price is multiplied by `10^decimals`;
+  - `price` &ndash; the price of buying an NFT through the sale contract, used both for `NativeNftSale` and `Erc20NftSale`. For native sale the price is multiplied by `10^decimals`. Ex: `price: 3, decimals: 5` → `300000`;
 - `NativeNftSale`:
   - `decimals` &ndash; decimals of the underlying base currency of the chain, used for price calculation;
   - `owner` &ndash; see `Nft`'s `owner` field;

@@ -11,7 +11,7 @@ const sidebars = {
     },
     {
       type: 'link',
-      label: 'Paima Engine code',
+      label: 'Paima Engine Code',
       href: 'https://github.com/PaimaStudios/paima-engine/',
     },
     {

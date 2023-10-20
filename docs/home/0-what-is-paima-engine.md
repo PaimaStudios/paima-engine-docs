@@ -13,13 +13,15 @@ Notably, its key features are that it
 3. Enables cross-wallet gameplay, meaning you can deploy your game to one chain yet have it be playable from across many blockchains
 4. Speeds you up to make weekly releases a reality instead of most web3 games which are release-and-pray
 
+Paima supports any EVM chain, and comes with some features for multichain support as well.
+
 # Key technologies that enable this
 
 If you prefer explanations in video form, we have [a high-level summary video](https://www.youtube.com/watch?v=HtvemijxF-0) that explains some of the core benefits of Paima Engine.
 
 ## Sovereign rollups
 
-Paima is a framework for creating app-specific layer 2s (L2s) as sovereign rollups. That is to say: apps publish transactions to a blockchain for ordering and data availability, but uses its own code to determine the correct app state
+Paima is a framework for creating app-specific layer 2s (L2s) as sovereign rollups. That is to say: apps publish transactions to a blockchain for ordering and data availability, but uses its own code to determine the correct app state.
 
 ## State machines as Sovereign Rollup L2s
 
@@ -104,7 +106,7 @@ Although Paima allows games to subsidize gameplay, games can also choose to spec
 
 ### Data availability layer support
 
-Projects may want the blockchain used as the Data Availability (DA) layer to be different from the primary chain used for their app (either as a volition or a validium)
+Paima, by default, uses EVM both as the settlement and Data Availability (DA) layer. However, some games may want to separate these concerns by using a different layers for settlement and DA (either as a volition or a validium)
 
 To enable this, Paima will facilitate storing state machine inputs on a DA layer, significantly lowering costs for data-hungry use-cases. We plan to integrate Avail and Celestia for this
 
