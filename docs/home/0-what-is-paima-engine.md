@@ -13,7 +13,7 @@ Notably, its key features are that it
 3. Enables cross-wallet gameplay, meaning you can deploy your game to one chain yet have it be playable from across many blockchains
 4. Speeds you up to make weekly releases a reality instead of most web3 games which are release-and-pray
 
-Paima supports any EVM chain, and comes with some features for multichain support as well.
+Paima supports any EVM chain, and comes with a rich feature set for multichain support as well.
 
 # Key technologies that enable this
 
