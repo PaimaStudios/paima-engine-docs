@@ -1,0 +1,44 @@
+---
+sidebar_position: 1
+---
+
+# Basics
+
+Paima, although being EVM based, uses account abstraction to support wallets from multiple different cryptocurrencies. You can learn how to setup the batchers for account abstraction [here](../../1-setup/5-paima-bacher.md).
+
+The wallet layer supports two different modes:
+
+1. Non-batched mode (self-sequencing). This only supports EVM wallets set to the same network as used for the settlement layer of the app. Transaction are submitted directly by the user (and they cover the transaction fees)
+2. Batched mode. Users sign data, and transactions are crafted by the batcher. This allows users to use the app with different EVM networks or wallets from different cryptocurrencies.
+
+Notably, Paima supports account abstraction through its batcher (similar to how [EIP-4337](https://eips.ethereum.org/EIPS/eip-4337) relies on bundlers)
+
+## Supported wallets
+
+Paima currently supports a few different wallet types (found in `@paima/providers`):
+
+| Type                   | Based on                                                                                                                                                                                                              |
+| ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `EvmInjectedConnector` | [EIP1193](https://eips.ethereum.org/EIPS/eip-1193) (used by Metamask and more)<br /> Wallet detection using [EIP6963](https://eips.ethereum.org/EIPS/eip-6963) and [EIP5749](https://eips.ethereum.org/EIPS/eip-5749) |
+| `EthersConnector`      | Ethers.js ([@ethersproject/abstract-signer](https://www.npmjs.com/package/@ethersproject/abstract-signer))                                                                                                            |
+| `PolkadotConnector`    | [@polkadot/extension-dapp](https://www.npmjs.com/package/@polkadot/extension-dapp)                                                                                                                                    |
+| `CardanoConnector`     | [CIP30](https://cips.cardano.org/cips/cip30)                                                                                                                                                                          |
+| `AlgorandConnector`    | [@perawallet/connect](https://www.npmjs.com/package/@perawallet/connect)                                                                                                                                              |
+
+You can get all the different login options for the user with the following utility functions:
+
+- `allInjectedWallets`: get all injected wallets regardless of cryptocurrency
+- `[connectorType].getWalletOptions`: get all injected for that specific connector type
+
+### Thirdweb support
+
+TODO: examples
+
+## Adding a new wallet type
+
+Adding support for a new cryptocurrency to be used as a wallet in Paima requires modifying the following components:
+
+- `@paima/crypto`: add the necessary cryptography
+- `@paima/providers`: add wallet standard support
+- `@paima/mw-core`: expose the new logic to frontends written with Paima
+- `@paima/batcher-address-validator`: add support for the new crypto to the batcher system

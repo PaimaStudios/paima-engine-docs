@@ -67,4 +67,4 @@ async function someAction() {
 }
 ```
 
-The only place Paima will check for you is inside the built-in `userWalletLogin` utility function, which will throw a `PaimaMiddlewareErrorCode.BACKEND_VERSION_INCOMPATIBLE` if the major versions do not match.
+The only place Paima will check for you is inside the built-in `userWalletLogin` utility function, which will throw a `PaimaMiddlewareErrorCode.BACKEND_VERSION_INCOMPATIBLE` if the major versions do not match. This won't be enough to warn users already playing a game to refresh their app if the backend version changes.
