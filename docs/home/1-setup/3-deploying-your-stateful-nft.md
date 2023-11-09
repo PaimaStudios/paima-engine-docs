@@ -115,7 +115,7 @@ After executing the two commands above, you will be asked to select the target n
 Deployed contract addresses:
    Nft: 0xfB7...a13
 
-To automatically add this contract's Data to your game node database, you can copy and paste the following to your CDE config file:
+To automatically add this contract's Data to your game node database, you can copy and paste the following to your Primitive Catalogue config file:
   - name: Test NFT contract
     type: erc721
     contractAddress: 0xfB7...a13
@@ -123,7 +123,7 @@ To automatically add this contract's Data to your game node database, you can co
     initializationPrefix: nftmint
 ```
 
-Note down the contract address denoted on the second line, and also copy the final five lines, which you can later use as part of your _CDE config file_ to use your NFT data in your game node. Afterwards, you can run the deploy script again:
+Note down the contract address denoted on the second line, and also copy the final five lines, which you can later use as part of your _Primitive Catalogue config file_ to use your NFT data in your game node. Afterwards, you can run the deploy script again:
 
 ```sh
 ./deploy.sh

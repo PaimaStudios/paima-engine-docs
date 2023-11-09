@@ -2,17 +2,19 @@
 sidebar_position: 2
 ---
 
-# Chain Data Extensions (CDEs)
+# Primitive Catalogue
 
-When you are looking to add deep blockchain integration to your game, you will likely be interested in accessing information about ownership of ERC721s (NFTs) or a wallet's balance of ERC20 tokens for example. Paima Engine enables this by automatically doing the heavy work for you via a feature called _Chain Data Extensions_. CDEs allow you to read data trustlessly from multiple locations such as the underlying L1.
+Paima, by default, can provide standard transaction types (ex: EVM transactions), but for usability it is useful to refine this raw data type into something more meaningful (ex: know it's an ERC20 transfer). These refinements acts as a sort of primitive that games can easily leverage without having to write the parsing logic themselves, and since these primitives live on the underlying chains they are composable (within that chain)
 
-The basic approach is simple: you set up a config file where you specify what contracts you want to collect data from (in the L1) and Paima Engine automatically projects the emitted event data to your game node. In other words, when you then run your game node, it will automatically acquire the data for you along with a simple-to-use interface in the Paima SDK to allow you to access this data.
+Paima Engine enables this by automatically doing the heavy work for you via a feature called the _Primitive Catalogue_. Primitives allow you to read data trustlessly from multiple locations such as various L1/L2s.
 
-Paima Engine currently supports many different kinds of CDEs that you can find in this section of the documentation.
+The basic approach is simple: you set up a config file where you specify what contracts you want to collect data from, and Paima Engine automatically projects the emitted event data to your game node. In other words, when you then run your game node, it will automatically acquire the data for you along with a simple-to-use interface in the Paima SDK to allow you to access this data.
+
+Paima Engine currently supports many different kinds of primitives that you can find in this section of the documentation.
 
 ## Configuration
 
-To specify which chain data extensions you are using for your game, you need to provide a configuration file. By default, a file named `extensions.yml` in your root directory (same place as the `.env` file) is expected, but you may adjust this path using the `CDE_CONFIG_PATH` environment variable.
+To specify which Primitives you are using for your game, you need to provide a configuration file. By default, a file named `extensions.yml` in your root directory (same place as the `.env` file) is expected, but you may adjust this path using the `CDE_CONFIG_PATH` environment variable.
 
 Here is an example `extensions.yml` that you can copy paste into the root folder of your project:
 
@@ -34,7 +36,7 @@ Note that extensions of different types often require slightly different fields 
 - `scheduledPrefix`: For extensions that trigger scheduled inputs (ERC721 and ERC20Deposit) specifies the prefix used with these scheduled inputs;
 - `depositAddress`: This field is only used by the ERC20Deposit extension type to specify the target address of transactions you are interested in tracking.
 
-If you try to run your game node with an invalid or non-existent CDE config file, Paima Engine will report the problem to you and then carry on as if no chain data extensions were specified.
+If you try to run your game node with an invalid or non-existent Primitive Catalogue config file, Paima Engine will report the problem to you and then carry on as if no Primitives were specified.
 
 ## Accessing the collected data
 
@@ -51,4 +53,4 @@ To learn by example, please consult the NFT LvlUp game template &ndash; `./paima
 
 ## Relation to funnels
 
-Paima [funnels](../3-funnel-types/1-intro.md) are in charge of fetching data from various sources for your game, including data for CDEs which are stored as part of `ChainData`.. Depending on where the data you want to access comes from, you may have to add an extra funnel to your game.
+Paima [funnels](../3-funnel-types/1-intro.md) are in charge of fetching data from various sources for your game, including data for the Primitive Catalogue which are stored as part of `ChainData`.. Depending on where the data you want to access comes from, you may have to add an extra funnel to your game.

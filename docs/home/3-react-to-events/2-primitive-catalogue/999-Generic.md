@@ -1,4 +1,4 @@
-# Generic CDE
+# Generic Primitives
 
 - [Generic](#generic), allowing you to provide an arbitrary contract ABI and the signature of the event to track, allowing you to collect data even from smart contracts not directly supported by the above types.
 
@@ -19,18 +19,18 @@ extensions:
 
 ### Meaning
 
-The other CDE types described work great for many common use cases, but we also want to allow game developers to read state from smart contracts and events not supported by these types. For this reason, we provide a generic CDE type, which allows you to specify the ABI of a contract and the signature of an event to track such events emitted from such a contract. In the config file, you will thus need to provide the following two values compared to other CDE types (as seen in the example earlier):
+The other primitive types described work great for many common use cases, but we also want to allow game developers to read state from smart contracts and events not supported by these types. For this reason, we provide a generic primitive type, which allows you to specify the ABI of a contract and the signature of an event to track such events emitted from such a contract. In the config file, you will thus need to provide the following two values compared to other primitive types (as seen in the example earlier):
 
 - `abiPath`, specifying a path to a .json file describing the compiled contract &ndash; the only field required in this file is the `abi` field in the top-level object;
 - `eventSignature`, specifying the signature of the event consisting only of the event name followed by parameter types (without names) in order, enclosed in parentheses and separated by commas.
 
-Each event tracked by this CDE will then be represented by a single JSON object containing each parameter of the event twice, under two separate keys &ndash; once under the index of the parameter within the event signature (starting from `0`) and once under the parameter's name as specified in the provided ABI file.
+Each event tracked by this primitive will then be represented by a single JSON object containing each parameter of the event twice, under two separate keys &ndash; once under the index of the parameter within the event signature (starting from `0`) and once under the parameter's name as specified in the provided ABI file.
 
 When storing the event objects in the database, the block height at which the triggering event occurred is also included.
 
 ### Paima Concise format
 
-The scheduled input for each event is of the following form, where `prefix` is the `scheduledPrefix` specified in the CDE config file:
+The scheduled input for each event is of the following form, where `prefix` is the `scheduledPrefix` specified in the Primitive Catalogue config file:
 
 ```
 prefix|stringifiedJsonObject

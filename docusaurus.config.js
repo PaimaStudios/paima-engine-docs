@@ -113,6 +113,20 @@ const config = {
         },
       };
     },
+    [
+      '@docusaurus/plugin-client-redirects',
+      {
+        createRedirects(existingPath) {
+          if (existingPath.includes('/chain-data-extensions')) {
+            // Redirect from /docs/team/X to /community/X and /docs/support/X to /community/X
+            return [
+              existingPath.replace('/primitive-catalogue', '/chain-data-extensions'),
+            ];
+          }
+          return undefined; // Return a falsy value: no redirect created
+        },
+      }
+    ],
   ],
   stylesheets: [
     {
