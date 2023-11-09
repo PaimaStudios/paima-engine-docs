@@ -6,7 +6,11 @@ sidebar_position: 2
 
 Paima, by default, can provide standard transaction types (ex: EVM transactions), but for usability it is useful to refine this raw data type into something more meaningful (ex: know it's an ERC20 transfer). These refinements acts as a sort of primitive that games can easily leverage without having to write the parsing logic themselves, and since these primitives live on the underlying chains they are composable (within that chain)
 
-Paima Engine enables this by automatically doing the heavy work for you via a feature called the _Primitive Catalogue_. Primitives allow you to read data trustlessly from multiple locations such as various L1/L2s.
+Paima Engine enables this by automatically doing the heavy work for you via a feature called the _Primitive Catalogue_. Primitives allow you to read data trustlessly from multiple locations such as various L1/L2s. The goal is the Primitive Catalogue is to be the Library of Alexandria of primitives necessary to build onchain games.
+
+<div style={{textAlign: 'center'}}>
+![](./primitive-catalogue.png)
+</div>
 
 The basic approach is simple: you set up a config file where you specify what contracts you want to collect data from, and Paima Engine automatically projects the emitted event data to your game node. In other words, when you then run your game node, it will automatically acquire the data for you along with a simple-to-use interface in the Paima SDK to allow you to access this data.
 
