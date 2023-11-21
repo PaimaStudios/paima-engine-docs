@@ -206,14 +206,12 @@ root_folder
 5500.sql will be applied at block-height START_BLOCKHEIGHT + 5500.  
 Both will be applied before any other inputs are processed for that block-height.
 
-The *.sql files are PGSQL scripts. We ABSOLUTELY recommend writing your SQL script as a transaction, so if it fails the block-process-loop will stop and the script can be fixed and reapplied.
+The *.sql files are PGSQL scripts. SQL scripts are automatically ran as transactions, if they fail the block-process-loop will stop and the script must be fixed and will be reapplied.
 
 1000.sql example:
 ```
-BEGIN; 
--- INSERT... ; 
--- UPDATE ...; 
-COMMIT;
+INSERT INTO items (name) VALUES ('potion') ;
+INSERT INTO items (name) VALUES ('book') ;
 ```
 ## Paima Engine Dry Running
 
