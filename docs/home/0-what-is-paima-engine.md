@@ -50,6 +50,10 @@ A great example of this is using the L1 blockchain as the source of randomness, 
 
 This is possible as sovereign rollups can project L1 state to the L2. A deep dive into data projections and the full modular gaming rollup stack [can be found in this video.](https://www.youtube.com/watch?v=t9En_PR3NCA) 
 
+## Sharded rollups
+
+Paima allows you to shard your rollup to multiple networks. This allows you to, for example, deploy your game to a cheaper chain yet still leverage NFT marketplace / DeFi liquidity from larger networks without requiring a bridge or giving up sovereignty of your game logic. This is powered by having *data projections* from different networks aggregated into the same state machine. This allows your games to scale like DEX aggregators in the sense that they can leverage and aggregate features from multiple ecosystems to provide the best experience for their users.
+
 ## Stateful NFTs and NFT compression
 
 Thanks to projections, we can access the state of L1 NFTs from Paima. We can then interpret the output of the state machine as extra information associated to these NFTs allowing them to evolve over time based on user actions on the L2.
@@ -86,7 +90,7 @@ Projects may want to allow users to play games with NFTs hosted on chains separa
 
 To enable this, we will enable users to time-lock their NFTs (self-custodial) to project their NFTs directly into the game. Note that thanks to Paima being powered by a Sovereign Rollup architecture, this scheme isn't required for projecting L1 NFTs to L2s (if for example deploying a Paima game as a L3 on top of a L2 like Arbitrum)
 
-You can find more about the idea [in this github repo.](https://github.com/dcSpark/projected-nft-whirlpool/)
+You can find more about the idea [here](./7-multichain-support/1-projected-nfts/1-introduction.mdx)
 
 ## Non-custodial L2s
 
@@ -120,7 +124,7 @@ Both these use-cases are of interest in games, as being able to prove world stat
 
 Paima is working with [Zeko](http://zeko.io/) (based on Mina Protocol) to implement its first ZK Layer
 
-### State Channels and Sharding
+### State Channels (Short-lived Shards)
 
 Paima's parallelism feature already serves as the first step towards a future system to have game shards to help games scale as needed. These shards could be long-lived, or be ephemeral such as state channels that facilitate use-cases like 5v5 fights where a state channel could be opened between participants and settled when the game is over.
 
