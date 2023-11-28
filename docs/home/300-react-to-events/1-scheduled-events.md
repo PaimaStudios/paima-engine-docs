@@ -20,4 +20,4 @@ Notably, `deleteScheduledData` is very useful to cancel timers. For example, a u
 
 ## 2. Synchronizing access to a shared state
 
-See [parallelism](../2-read-write-L2-state/2-parallelism.md)
+See [parallelism](../200-read-write-L2-state/2-parallelism.md)

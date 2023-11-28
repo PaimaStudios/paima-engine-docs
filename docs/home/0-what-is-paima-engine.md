@@ -90,7 +90,7 @@ Projects may want to allow users to play games with NFTs hosted on chains separa
 
 To enable this, we will enable users to time-lock their NFTs (self-custodial) to project their NFTs directly into the game. Note that thanks to Paima being powered by a Sovereign Rollup architecture, this scheme isn't required for projecting L1 NFTs to L2s (if for example deploying a Paima game as a L3 on top of a L2 like Arbitrum)
 
-You can find more about the idea [here](./7-multichain-support/1-projected-nfts/1-introduction.mdx)
+You can find more about the idea [here](./700-multichain-support/1-projected-nfts/1-introduction.mdx)
 
 ## Non-custodial L2s
 
