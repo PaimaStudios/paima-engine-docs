@@ -35,6 +35,7 @@ You can get all the different login options for the user with the following util
 Every connector type has different options on how to connect with it that are exposed through the `userWalletLogin` function. We'll cover some of the main configurations here:
 
 - `preferBatchedMode`: whether or not to use the [here](../../1-setup/5-paima-bacher.md). This is optional for EVM wallets
+- `checkChainId`: defaults to `true`. Change to `false` if your game only requires signing data (and never transactions) as this will make your game compatible with wallets that do not follow [EIP3326](https://eips.ethereum.org/EIPS/eip-3326)
 - `InjectionPreference`: for wallets, you can either have
     - No preference (Paima will try and pick the best wallet for you)
     - A name (Paima will try and connect to the wallet with that name)
