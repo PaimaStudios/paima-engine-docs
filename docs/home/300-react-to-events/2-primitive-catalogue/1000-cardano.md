@@ -10,7 +10,7 @@
 extensions:
    - name: "Cardano Stake Delegation"
      type: cardano-stake-delegation
-     pools: 
+     pools:
        - "00000000000000000000000000000000000000000000000000000001"
        - "00000000000000000000000000000000000000000000000000000002"
      startSlot: 32815320
@@ -41,10 +41,18 @@ where:
 
 ### Utility functions
 
-`getCardanoAddressDelegation` can be used to get the current pool (if any). It must be called with the stake credential of the address.
+`getCardanoAddressDelegation` can be used to get the current pool (if any). It
+must be called with the stake credential of the address. This is the state up to
+the last delegation transaction associated to this address, but this doesn't
+mean that the there is an epoch boundary between this delegation event an the
+current epoch, so this address may still not be receiving rewards from the pool
+returned by this function.
 
 ```ts
-export declare function getCardanoAddressDelegation(readonlyDBConn: Pool, address: string): Promise<string | null>;
+export declare function getCardanoAddressDelegation(
+  readonlyDBConn: Pool,
+  address: string
+): Promise<string | null>;
 ```
 
 Example using cml:
@@ -55,11 +63,9 @@ const stakingCred = address.staking_cred();
 
 let credential: Buffer;
 
-if(stakingCred) {
-    credential = Buffer.from(stakingCred.to_bytes());
-    stakingCred.free();
+if (stakingCred) {
+  credential = Buffer.from(stakingCred.to_bytes());
 }
-address.free();
 
 getCardanoAddressDelegation(dbConn, walletAddress);
 ```
