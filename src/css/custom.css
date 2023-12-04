@@ -87,7 +87,7 @@ h3 a {
 }
 
 img {
-  @apply max-w-[300px] mb-3;
+  @apply mb-3;
 }
 
 .img-full {
