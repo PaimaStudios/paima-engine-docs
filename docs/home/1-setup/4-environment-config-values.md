@@ -57,6 +57,12 @@ This section includes optional environment variables that have sensible default 
   - `DEFAULT_PRESYNC_STEP_SIZE`: number of blocks to process in each step during initial presync phase. If not provided, a value of 1000 is used. Generally no need to change this value.
   - `CDE_CONFIG_PATH`: allows you to specify a custom location for your `extensions.yml` that is used to initialize primitive catalogue entries
 
+## Cardano extensions
+  - `CARP_URL`: The URL of a Carp instace, required when using Cardano primitives.
+  - `CARDANO_NETWORK`: One of `preview`, `preprod`, `mainnet`. It needs to match the network indexed by the Carp instance.
+  - `BATCHER_CARDANO_ENABLED_POOLS`: A comma separated list of pool credentials, only users delegating to one of these pools will be able to post to the batcher. The expected format is the public key hash (28 bytes) as a hexadecimal string (56 characters).
+
+
 ## Customization
 
 You can extend the ENV class in your game to add your own game variables. Here's an example snippet:
@@ -128,4 +134,15 @@ DB_PORT="5432"
 # Note: This is the address of the native nft sale proxy contract
 # Example: "0xbD9e6bA880d6302A0B93456308a5A998Ffd8eb5E"
 NATIVE_NFT_SALE_PROXY=""
+```
+
+### Cardano
+
+```
+BATCHER_CARDANO_ENABLED_POOLS="095dd39da2d8534f9ddb93759a1931288e5dd79ae04fa5914e157bd6,093de39da2d8534f9ddb93759a1931288e5dd79a404fa5914e157b99"
+BATCHER_CARP_URL=http://127.0.0.1:3000
+
+CARP_URL=http://127.0.0.1:3000
+CARDANO_NETWORK=preview
+CARDANO_CONFIRMATION_DEPTH=10
 ```

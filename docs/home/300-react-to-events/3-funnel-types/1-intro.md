@@ -13,9 +13,17 @@ All Paima Funnels implement a simple interface:
 ```typescript
 interface ChainFunnel {
   readData: (blockHeight: number) => Promise<ChainData[]>;
-  readPresyncData: (fromBlock: number, toBlock: number) => Promise<PresyncChainData[]>;
+  readPresyncData: (
+    args: ReadPresyncDataFrom
+  ) => Promise<{ [network: number]: PresyncChainData[] | 'finished' }>;
   getDbTx(): PoolClient;
 }
+
+type ReadPresyncDataFrom = {
+  network: Network;
+  from: number;
+  to: number;
+}[];
 ```
 
 Funnels are meant to be stateless between blocks to avoid subtle bugs in the case of errors during the sync process (so that state properly gets reset), as well as to encapsulate the fact that funnels are executed together in a joint SQL transaction. Funnels that need state should use:
@@ -43,7 +51,7 @@ export interface ChainData {
 
 When extensions are used, the runtime must start polling from a block height that was before any of the contracts referenced in the Primitives were deployed. Thus all events that take place (ie. all NFT mints/transfer events) are accounted for and are saved in the DB so the state machine has proper access to a valid copy of the current state of the contract. We call this the _pre-sync_ phase.
 
-In other words, this function is meant to gather events for [Primitives](../2-primitive-catalogue/1-introduction.md#accessing-the-collected-data) that happened before `START_BLOCKHEIGHT`
+In other words, this function is meant to gather events for [Primitives](../2-primitive-catalogue/1-introduction.md#accessing-the-collected-data) that happened before `START_BLOCKHEIGHT`, or the equivalent point if other primitives from other chains are used.
 
 ## getDbTx
 
