@@ -42,17 +42,25 @@ where:
 ### Utility functions
 
 `getCardanoAddressDelegation` can be used to get the current pool (if any). It
-must be called with the stake credential of the address. This is the state up to
-the last delegation transaction associated to this address, but this doesn't
-mean that the there is an epoch boundary between this delegation event an the
-current epoch, so this address may still not be receiving rewards from the pool
-returned by this function.
+must be called with the stake credential of the address. The result of this call
+will be `null` if the address didn't delegate to any of the indexed pools in the
+indexed. Otherwise, `events` can have two forms:
+
+- A sorted array with two entries. If this happens, the second entry would have
+the same `epoch` as `currentEpoch`. This means the delegation didn't cross the
+epoch boundary at this point. The first entry would be the delegation state
+up to `currentEpoch - 1`.
+- An array with a single entry. In this case the `epoch` field can be compared
+to `currentEpoch` to decide if the delegation did cross the epoch boundary or
+not. The only case where `epoch == currentEpoch` is true is when that's the
+first delegation for the given address.
+
 
 ```ts
 export declare function getCardanoAddressDelegation(
   readonlyDBConn: Pool,
   address: string
-): Promise<string | null>;
+): Promise<{ events: { pool: string | null; epoch: number }[]; currentEpoch: number } | null>;
 ```
 
 Example using cml:
