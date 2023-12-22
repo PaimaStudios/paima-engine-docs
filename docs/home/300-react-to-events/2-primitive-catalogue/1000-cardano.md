@@ -43,18 +43,22 @@ where:
 
 `getCardanoAddressDelegation` can be used to get the current pool (if any). It
 must be called with the stake credential of the address. The result of this call
-will be `null` if the address didn't delegate to any of the indexed pools in the
-indexed. Otherwise, `events` can have two forms:
+will be `null` if the address didn't delegate to any of the indexed pools.
+Otherwise, `events` will be one of:
 
-- A sorted array with two entries. If this happens, the second entry would have
-the same `epoch` as `currentEpoch`. This means the delegation didn't cross the
-epoch boundary at this point. The first entry would be the delegation state
-up to `currentEpoch - 1`.
-- An array with a single entry. In this case the `epoch` field can be compared
-to `currentEpoch` to decide if the delegation did cross the epoch boundary or
-not. The only case where `epoch == currentEpoch` is true is when that's the
-first delegation for the given address.
+**User changed delegation this epoch:** A sorted array with two entries. First
+entry is their last delegation before the current epoch, and the 2nd entry is
+for *currentEpoch*.
 
+**User hasn't changed delegation this epoch:** An array with a single entry
+representing the last delegation.
+
+**User first-time delegation:** An array with a single entry representing when
+they first delegated. Note that it's possible for `epoch` to be `currentEpoch`.
+
+For a particular entry in the array, `pool` will be `null` when: first, the
+stake is delegated to a pool in the configuration. Then the stake gets
+re-delegated to a non-indexed pool, or the stake key is deregistered.
 
 ```ts
 export declare function getCardanoAddressDelegation(
