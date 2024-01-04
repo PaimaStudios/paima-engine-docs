@@ -1,0 +1,116 @@
+# Getting Started
+
+We are going to implement a workflow to delegate a Local Wallet to an EVM Wallet. 
+
+
+## In your middleware
+
+1. First implement a [Local Wallet](../wallet-layer/introduction#thirdweb-support) 
+
+2. Create a function to sign messages with your local wallet. `WalletConnectHelper` and `getActiveAddress` is provided by @paima/sdk. `LocalWallet` is provided by `thirdweb`.
+```js
+const signMessageWithLocalWallet = async (message: string) => {
+  const toSign = new WalletConnectHelper().buildMessageToSign(message);
+
+  return {
+    message: toSign,
+    walletAddress: getActiveAddress(WalletMode.EvmEthers).toLocaleLowerCase(),
+    /* localWallet is an instance of LocalWallet from the previous step */
+    signedMessage: await localWallet.signMessage(message),
+  };
+};
+```
+
+3. Now create a function to get User Wallets. `allInjectedWallets` is provided by `@paima/sdk`.
+```js
+const getWallets = async () => {
+  /* "wallets" is a map of connected wallets */
+  const wallets = await allInjectedWallets({
+    gameName: 'GameName',
+    gameChainId: undefined,
+  });
+  return wallets;
+}
+```
+
+4. Create a final function to sign messages with an external wallet. `WalletConnectHelper` is provided by `@paima/sdk`.
+```js
+const connectAndSignExternalWallet = async (
+  walletType: AddressType,
+  walletName: string, /* Provided in wallets[WalletMode].metadata.name */
+  otherAddress: string  
+) => {
+  return await new WalletConnectHelper().connectExternalWalletAndSign(walletType, walletName, message);
+};
+```
+
+5. Put it all together. `walletConnectPromise` is provided by `@paima/sdk`.
+```js
+const localWalletMessage = await signMessageWithLocalWallet();
+const wallets = getWallets();
+
+// This is to use only the first EVM wallet.
+// You should check the contents of "wallets" and display the necessary options.
+const injectedWalletMessage = await connectAndSignExternalWallet(
+  AddressType.EVM,
+  wallets[WalletMode.EvmInjected].metadata.name,
+  localWalletSignedMessage.walletAddress
+);
+
+// Send message to blockchain.
+await walletConnectPromise(
+    injectedWalletMessage.walletAddress,
+    null, // localWalletMessage.walletAddress,
+    injectedWalletMessage.signedMessage,
+    localWalletMessage.signedMessage
+);
+```
+
+
+## In your backend
+
+
+1. In the default API index: `/backend/api/index.ts`
+Add the following code:
+```js
+// Clear wallet-connection cache.
+clearDelegateWalletCacheOnChanges(requirePersistentConnection());
+```
+This allows to clear the API cache when the user changes the wallet connection.
+
+2. STF Changes
+As user wallet might change over time, as they can delegate, migrate and cancel delegations, we need to use `userId` instead of `userAddress` or `realAddress` for user identification in our STF.
+```js
+export default async function (
+  inputData: SubmittedChainData,
+  blockHeight: number,
+  randomnessGenerator: Prando,
+  dbConn: Pool
+): Promise<SQLUpdate[]> {
+  const user = String(inputData.userId);
+  /* use user to identify user instead of userAddress or realAddress */
+  ...
+}
+```
+* userAddress: contains the main wallet address.
+* realAddress: contains the real wallet address that sent the transaction.
+* userId: contains the user id, which is the same for all wallets of the same user.
+
+
+3. API Controllers
+In your API, if receiving user wallet address, convert them into the USER ID.
+```js
+@Route('items')
+export class ItemController extends Controller {
+  @Get('/user')
+  public async getItemsForUser(
+    @Query() wallet: string
+  ): Promise<{ items: IGetAllItemsForUserResult[] }> {
+    const pool = requirePool();
+    const address = await getMainAddress(wallet, pool);
+    /* now use address, instead of wallet */
+    const items = await getAllItemsForUser.run({ wallet: address }, pool);
+    return { items };
+  }
+}
+```
