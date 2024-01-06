@@ -1,6 +1,6 @@
 # Create your own Primitive
 
-Although custom Primitives do not have to be added to Paima (people can just use the [generic Primitive](./999-Generic.md), adding a Primitive to Paima itself helps both with usability and with type inference.
+Although custom Primitives do not always have to be added to Paima (people can just use the [Generic EVM Primitive](./10-evm/999-Generic.md)), adding a Primitive to Paima itself helps both with usability and with type inference.
 
 To add a custom Primitive to Paima, you need to do the following:
 
