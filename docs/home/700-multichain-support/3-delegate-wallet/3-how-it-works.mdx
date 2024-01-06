@@ -1,0 +1,87 @@
+# How it works
+
+
+## Wallet Delegate API
+
+The user must send a transaction to delegate their wallet address to another wallet address, through a concise command.
+IMPORTANT: This functionally is automatically provided by the SDK helpers.
+```
+    delegate            =   &wd|from?|to?|from_signature|to_signature
+    migrate             =   &wm|from?|to?|from_signature|to_signature
+    cancelDelegations   =   &wc|to_signature
+```
+They must sign the transaction with the following message:
+```
+DELEGATE-WALLET:<other-address-lowercase>:<env-contract-address>`
+```
+* from: the main address that will be 
+* to 
+* other-address-lowercase: is "to" or "from" for "from" and "to" respectively address in lowercase.
+* env-contract-address: is defined in .env CONTRACT_ADDRESS
+
+## STF
+
+STF data is slightly changed:
+* userAddress: contains the main wallet address.
+* realAddress: contains the real wallet address that sent the transaction.
+* userId: contains the user id, which is the same for all wallets of the same user.
+
+userAddress and realAddress will be the same for the main wallet or if there are no delegations.
+
+## Wallet Delegate Tables
+
+There will to managed tables
+* addresses: maps a unique user id to each wallet address.
+* delegations: maps delegated wallet addresses.
+
+## API
+
+1. This function delegates Wallet "to" to "from".
+null "from" or "to" gets replace by wallet that sends (or signs if using the batcher) the transaction.
+```js
+function walletConnect(
+  from: string | null,
+  to: string | null,
+  from_signature: string,
+  to_signature: string
+): Promise<SuccessfulResult<PostDataResponse> | FailedResult>
+```
+
+2. This function removes any current delegation to the sender address.
+The message has the format:
+```js
+DELEGATE-WALLET::<env-contract-address>`;
+```
+
+```js
+function walletConnectCancelDelegations(
+  to_signature: string
+): Promise<SuccessfulResult<PostDataResponse> | FailedResult> {
+```
+
+3. This function migrates the address "from" to "to".
+null "from" or "to" gets replace by wallet that sends (or signs if using the batcher) the transaction.
+```js
+function walletConnectMigrate(
+  from: string | null,
+  to: string | null,
+  from_signature: string,
+  to_signature: string
+): Promise<SuccessfulResult<PostDataResponse> | FailedResult> 
+```
+
+4. This class contains helper functions to sign with injected or generate the message for local wallets.
+```js
+class WalletConnectHelper {
+    buildMessageToSign(subMessage: string): string;
+    connectExternalWalletAndSign(
+    walletType: AddressType,
+    walletName: string,
+    subMessage: string
+  ): Promise<{
+    message: string;
+    signedMessage: string;
+    walletAddress: string;
+  }>
+}
+```
