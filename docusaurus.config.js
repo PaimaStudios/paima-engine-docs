@@ -223,6 +223,19 @@ const config = {
       },
       prism: {
         darkTheme: themes.dracula,
+        additionalLanguages: ['solidity'],
+        magicComments: [
+          {
+            className: 'theme-code-block-highlighted-line',
+            line: 'highlight-next-line',
+            block: {start: 'highlight-start', end: 'highlight-end'},
+          },
+          {
+            className: 'code-block-alternate-color-line',
+            line: 'alternate-color-next-line',
+            block: {start: 'alternate-color-start', end: 'alternate-color-end'},
+          },
+        ]
       },
     }),
     markdown: {

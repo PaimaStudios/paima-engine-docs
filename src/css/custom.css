@@ -196,3 +196,14 @@ img {
   border-radius: 10px;
   overflow: hidden;  /* To ensure the SVG inside respects the rounded corners */
 }
+
+.code-block-alternate-color-line {
+  background-color: #2D2836;
+  display: block;
+  margin: 0 calc(-1 * var(--ifm-pre-padding));
+  padding: 0 var(--ifm-pre-padding);
+}
+
+.code-block-alternate-color-line:nth-child(odd) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
