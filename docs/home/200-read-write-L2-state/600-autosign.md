@@ -1,7 +1,3 @@
----
-sidebar_position: 7
----
-
 # Auto-signing for apps
 
 **Note**: wallets that use this feature are still in development
@@ -30,7 +26,7 @@ To tackle this, Paima forces all games that want to use auto-sign to specify a `
 1. The contract address
 2. A unique name. This is useful if your platform consists of multiple apps that you want to share the same auto-sign namespace
 
-The format of these namespaces is `namespace || rest` (learn more [here](./6-replay-protection.md)). Paima Engine will not actually store these prefixes on-chain. Rather, it generates the signature `sign(namespace || rest)`, but only posts the user command onchain. This is because the app knows its own prefix, so it can implicitly add the prefix to make sure the signature matches. This means even if a long string or contract address is used for the security namespace, it does not lead to chain bloat.
+The format of these namespaces is `namespace || rest` (learn more [here](./500-replay-protection.md)). Paima Engine will not actually store these prefixes on-chain. Rather, it generates the signature `sign(namespace || rest)`, but only posts the user command onchain. This is because the app knows its own prefix, so it can implicitly add the prefix to make sure the signature matches. This means even if a long string or contract address is used for the security namespace, it does not lead to chain bloat.
 
 ### Defining your namespace
 

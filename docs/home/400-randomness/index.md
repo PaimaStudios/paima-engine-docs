@@ -28,7 +28,7 @@ Seeds such as those stored in blocks can be combined with a utility class called
 
 `Prando` takes inspiration from the same randomness generation trick [used in old video games](https://www.gamedeveloper.com/programming/how-classic-games-make-smart-use-of-random-number-generation), where actions taken by the player updates internal state of the randomness generator which modifies its subsequent actions. That means calling Prando twice given the same block seed will give different (yet still deterministic) results.
 
-Note this also means that you have to be careful using Prando if your game is leveraging [parallelism](../200-read-write-L2-state/2-parallelism.md) or optimistic updates.
+Note this also means that you have to be careful using Prando if your game is leveraging [parallelism](../200-read-write-L2-state/200-parallelism.md) or optimistic updates.
 
 ```typescript
 import Prando from '@paima/sdk/prando';

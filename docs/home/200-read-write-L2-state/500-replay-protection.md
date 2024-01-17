@@ -1,7 +1,3 @@
----
-sidebar_position: 6
----
-
 # Replay protection
 
 Given that games made with Paima Engine are technically "open" (meaning anyone can submit valid game input), one thing which we need to look out for is replaying attacks. Replaying attacks are situations classically in blockchains (but liable to any openly accessible state machine) where a previous valid input is resubmitted to the state machine/blockchain. Usually this is done by bad actors, and can cause various issues.
@@ -13,7 +9,7 @@ In our case, there are a few scenarios where replays can happen:
 1. If our backend crashes in the middle of processing a block, it will re-pull the block via the funnel and re-process all game inputs again (even the ones it processed half-way through prior to crashing).
 
 We handle the base replay protection by having the user calculate `sign(securityPrefix || input || timestamp)` where:
-1. `securityPrefix` is described [here](./7-autosign.md)
+1. `securityPrefix` is described [here](./600-autosign.md)
 2. `timestamp` is used for replay protection
 
 However, just storing this signature is not enough to protect against [signature malleability](https://github.com/kadenzipfel/smart-contract-vulnerabilities/blob/master/vulnerabilities/signature-malleability.md). As such, we require introducing the concept of nonces to game inputs to address the replay vectors above.
