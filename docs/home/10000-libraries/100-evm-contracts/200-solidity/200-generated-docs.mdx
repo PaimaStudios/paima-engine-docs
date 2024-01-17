@@ -1360,7 +1360,7 @@ Facilitates selling NFTs for specific ERC20s that accepts extra data when buying
           anchor: "xref-Erc20NftSale-RemoveWhitelistedToken-address-"
         },
         {
-          text: "WhitelistTokens(token)",
+          text: "WhitelistTokens(tokens)",
           anchor: "xref-Erc20NftSale-WhitelistTokens-address---"
         },
         {
@@ -1433,7 +1433,7 @@ Emits the `RemoveWhitelistedToken` event.
     visibility="external"
     anchor="xref-Erc20NftSale-whitelistTokens-contract-ERC20---"
 >
-    Sets `_tokens` array as the `supportedCurrencies` array.
+    Adds `_tokens` to the `supportedCurrencies` array.
 Callable only by the contract owner.
 Emits the `WhitelistTokens` event.
 </SolidityDetailBlock>
@@ -1525,11 +1525,11 @@ Callable only by the contract owner.
 
 <SolidityDetailBlock
     title="WhitelistTokens"
-    params="(address[] indexed token)"
+    params="(address[] indexed tokens)"
     visibility="event"
     anchor="xref-Erc20NftSale-WhitelistTokens-address---"
 >
-    Emitted when the `token` array is set as the `supportedCurrencies`.
+    Emitted when the `tokens` are added as the `supportedCurrencies`.
 </SolidityDetailBlock>
 
 <SolidityDetailBlock
