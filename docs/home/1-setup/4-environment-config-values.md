@@ -30,8 +30,6 @@ This section lists the environment variables that are mandatory to be filled in 
 - `BLOCK_TIME`: The number of seconds it takes for new blocks to be created on the chain you deployed your L2 contract on.
 - `BACKEND_URI`: The URL of where your game node server will be deployed. This is used by the Middleware to interact with your game node.
 - `WEBSERVER_PORT`: The port to use for running your game node server.
-- Security variables:
-- `CONCISE_GAME_NAME`: This value will be prefixed to each concise command sent and should be a unique string for each game. E.g., "TDWOTJ" for Tower Defense: Wrath of the Jungle. This prevents replay attacks between different games. This is a mandatory requirement for Gaming Accounts Automatic Signing. 
 
 ## Optional Variables
 
@@ -41,18 +39,20 @@ This section includes optional environment variables that have sensible default 
 - `DEFAULT_FEE`: The blockchain fee to be set in transactions created by the Middleware.
 - `ENABLE_DRY_RUN`: Adds a `GET /dry_run` endpoint for input testing. Use it to post game inputs to validate them without modifying the game state.
 - `DEFAULT_FUNNEL_GROUP_SIZE`: The number of blocks queried in one funnel sync step. If not set, a value of 100 is used. Generally no need to change this value.
-- `NODE_ENV`: Used across modules to determine which .env file to read (`.env.$NODE_ENV`). Must be set separately if needed.
+- `NETWORK`: Used across modules to determine which .env file to read (`.env.$NETWORK`). Must be set separately if needed.
 - `FORCE_INVALID_PAIMA_DB_TABLE_DELETION`: Instead of failing during DB initialization, it deletes invalid tables and recreates them (without the previous content). If turned off, resync from scratch is needed after a major `@paima/sdk` update that affects internal tables.
 - `STORE_HISTORICAL_GAME_INPUTS`: If enabled, one of the internal tables stores all of the posted game inputs. Note that the table is currently accessible only through a direct DB connection.
 - `POLLING_RATE`: The frequency at which to check for new block data. If not filled in, a value of `BLOCK_TIME - 0.1` is used.
 - `STOP_BLOCKHEIGHT`: The block at which the funnel stops syncing. This can be useful during development or tests.
 - `SERVER_ONLY_MODE`: Set this to run the game node without syncing new blocks.
 
+- Security variables:
+- `CONCISE_GAME_NAME`: This value will be prefixed to each concise command sent and should be a unique string for each game. E.g., "TDWOTJ" for Tower Defense: Wrath of the Jungle. This prevents replay attacks between different games. This is a mandatory requirement for Gaming Accounts Automatic Signing. 
+
 ## Other Variables
 
 - `DEPLOYMENT`: was used in the past to determine how often new blocks are emitted. It is now _deprecated_ and replaced with `BLOCK_TIME`.
 - `GAME_NODE_VERSION`: defined statically in `@paima/sdk`. Check used to ensure your game node is running with a compatible version of paima-engine. After a major upgrade and necessary adjustments, you should adjust the version on your side.
-- `NATIVE_NFT_SALE_PROXY`: used in the NFT LvlUp template. It represents the contract address for your NFT sale proxy. See [deploying-your-stateful-nft](./3-deploying-your-stateful-nft.md)
 - [Primitive Catalogue](../300-react-to-events/2-primitive-catalogue/1-introduction.md):
   - `DEFAULT_PRESYNC_STEP_SIZE`: number of blocks to process in each step during initial presync phase. If not provided, a value of 1000 is used. Generally no need to change this value.
   - `CDE_CONFIG_PATH`: allows you to specify a custom location for your `extensions.yml` that is used to initialize primitive catalogue entries
@@ -77,7 +77,7 @@ export class GameENV extends ENV {
 
 ## Example config file
 
-```
+```shell
 ## CHAIN DATA
 # Example: "https://rpc-devnet-cardano-evm.c1.milkomeda.com"
 CHAIN_URI=""
@@ -138,7 +138,7 @@ NATIVE_NFT_SALE_PROXY=""
 
 ### Cardano
 
-```
+```bash
 BATCHER_CARDANO_ENABLED_POOLS="095dd39da2d8534f9ddb93759a1931288e5dd79ae04fa5914e157bd6,093de39da2d8534f9ddb93759a1931288e5dd79a404fa5914e157b99"
 BATCHER_CARP_URL=http://127.0.0.1:3000
 

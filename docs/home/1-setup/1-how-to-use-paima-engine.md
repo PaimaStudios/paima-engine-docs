@@ -12,7 +12,7 @@ Paima Engine docs are available from two sources:
 1. Embedded inside Paima Engine itself (`./paima-engine docs`)
 2. Hosted on [docs.paimastudios.com](https://docs.paimastudios.com)
 
-# Accessing Paima Engine
+## Accessing Paima Engine
 
 Paima Engine binaries can be found on Github in the [release page](https://github.com/PaimaStudios/paima-engine/releases) of the project.
 
@@ -20,17 +20,33 @@ If you need any support beyond the core engine, you can reach us through our [co
 
 If you do not have Paima Engine yet, but want to follow along, you can find public templates using Paima [here](https://github.com/PaimaStudios/paima-game-templates)
 
+## tl;dr
+
+If you're running a template and just want to know which commands to run without having to know what they do, simply run the following
+
+```bash
+npm run pack # build your state machine
+npm run pack:middleware # create middleware to connect your state machine to your UI
+npm run chain:start # separate terminal - creates a local blockchain for your app
+npm run chain:deploy # deploys contracts to your local chain
+npm run database:up # separate terminal - starts the DB to cache the onchain data to speed up queries
+./paima-engine run # separate terminal - runs your game L2 node
+# see `frontend` folder in your project for launching the UI for your game
+```
+
+Next, (if running on a local chain), set hardhat and your browser wallet to use the same private key (see more info [here](#metamask)).
+
 ## Initializing Your Project
 
 When starting a new project with Paima Engine, you can choose to either go completely barebones, or use an included template to bootstrap with all of the essentials
 
-Option A: To initialize a game using a basic game template use the following command and select the `generic` template:
+*Option A*: To initialize a game using a basic game template use the following command and select the `generic` template:
 
-```
+```bash
 ./paima-engine init template
 ```
 
-Option B: Create everything from scratch and add [@paima/sdk](https://www.npmjs.com/package/@paima/sdk) to your project
+*Option B*: Create everything from scratch. Although you can find all the Paima Engine packages to do this (ex: [@paima/sdk](https://www.npmjs.com/package/@paima/sdk)), we strongly recommend starting from a template.
 
 Once the command has finished, you will notice a new folder have been created called `generic-game-template` (name varies based on template selected). The SDK is directly used by the game template, and so all code you write will be in the `generic-game-template` folder.
 
@@ -44,7 +60,7 @@ The specifics of writing your game code is outside of the scope of this current 
 
 As the `generic-game-template` folder has already been initialized in the previous section, we can move forward with packing the game code (you can pack the generic game template without writing any new code initially to test). Simply use the following command in the folder:
 
-```
+```bash
 npm run pack
 ```
 
@@ -52,51 +68,75 @@ This will generate two files (`gameCode.cjs` and `endpoints.cjs`) which will be 
 
 Both of these files need to remain in the `packaged` folder (which is required to be in the same root folder as the Paima Engine executable itself).
 
-## Setting Up Your Game Node DB
-
-Paima Engine requires you to deploy a Postgres database which will be used to store all state of your game node.
-
-For those already experienced with setting up a Postgres DB, feel free to skip over the majority of this section. One important note however is that each game template also includes a `init.sql` file in the `/db/migrations/init` folder which you should use to initialize the database.
-
-### Using Docker To Setup A Postgres DB
-
-For those who prefer an automated solution, simply proceed with the following steps to have a local Postgres database ready-to-use with your game node:
-
-1. Install docker/docker compose on your computer (https://docs.docker.com/compose/install/)
-2. Go into the root folder of your game code (ie. `generic-game-template`) in your terminal.
-3. Run `npm run database:up`
-4. Docker compose will automatically download and setup Postgres for you, while also using the `init.sql` from your game code to initialize the DB.
-5. Your DB will be up and running, and can be closed via `Ctrl + c` like any CLI application.
-6. Any time you want to bring the DB back online, simply re-run `npm run database:up`.
-
-### Updating Your init.sql
-
-One side note, as you begin writing your game logic (or when building a template) you likely will end up changing the DB schema from the base template you started off with. When you do this, make sure to update the `init.sql` file to properly initialize your DB schema so that future game nodes either you or others deploy for your game will be able to properly work with your game logic.
-
-### Updating Your DB Queries
-
-When you update your DB schema or you want to add or edit some of the queries in the `db/` directory of your game, you will want to use the `pgtyped` tool to process the `.sql` code to generate `.ts` code for the queries to be used by your game and the engine. To do this, simply navigate to the `db/` directory and execute `npm run compile`. Note that you will need to provide the credentials of a running Postgres DB initialized with your schema in the `db/pgtypedconfig.json` file.
-
-Furthermore, note that the version of `@pgtyped/runtime` in `db/package.json` is set to a specific value, which should be the same as the version specified in `@paima/db/package.json`. These versions need to stay the same to avoid compatibility issues.
-
-## Deploying Your Game's L2 Smart Contract
-
-Each game built with Paima Engine is its very own Layer 2. This means that you will need to deploy the Paima L2 Smart Contract for your game, to whichever chain you wish to launch on.
-
-Reference the [Deploying L2 Smart Contract](./2-deploying-l2-smart-contract.md) documentation to easily deploy the contract.
-
 ## Setting Up Your Game Node Config
 
-You may have noticed that during the initialization process a `.env.development` file was created in the root folder. The Paima Engine executable will read this file (or specifically `.env.${process.env.NODE_ENV || development})` when attempting to start running your game node.
+You may have noticed that during the initialization process a `.env.localhost` file was created in the root folder. The Paima Engine executable will read this file (or specifically `.env.${process.env.NETWORK || localhost})`) when attempting to start running your game node.
 
-Thus you must fill out this env file with all of the pre-requisites to proceed forward.
+Thus you must fill out this env file with all of the pre-requisites to proceed forward (see how [here](./4-environment-config-values.md)).
 
-Specifically with the included barebones config, you must specify:
+## Building your Middleware
 
-- `CHAIN_URI` (A URL to the RPC of an EVM chain node of the network you are targeting)
-- `CONTRACT_ADDRESS` (The contract address of your deployed Paima L2 Smart Contract for your game)
-- `START_BLOCKHEIGHT` (The block height that your smart contact was deployed on, so Paima Engine knows from what block height to start syncing)
-- Postgres DB Credentials
+Depending on which framework you use for your frontend, it may not be able to connect to the Paima SDK directly, in which case you need a middleware that acts as the connection: `Paima <> Middleware <> Frontend`
+
+If you need this for the template you are building, run
+```bash
+npm run pack:middleware
+```
+
+## Deploying Your Game's Contracts
+
+Each game built with Paima Engine is its very own Layer 2. This means that you will need to deploy the Paima L2 Smart Contract for your game, to whichever chain you wish to launch on on top of any other contract necessary for your app.
+
+For templates, this usually involves simply running:
+1. `npm run chain:start` to start a chain on the local network
+2. `npm run chain:deploy` to deploy contracts to the local network (see `hardhat.config.ts` for network names)
+
+If you are running the local network, you should see an output that starts like this
+
+```
+WARNING: These accounts, and their private keys, are publicly known.
+Any funds sent to them on Mainnet or any other live network WILL BE LOST.
+
+Account #0: 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266 (10000 ETH)
+Private Key: 0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80
+```
+
+Keep `Private Key` in mind here, because you will need to include this in MetaMask (or your browser extension of choice) later for interacting with your local game node.
+
+Reference the [Deploying L2 Smart Contract](../50-smart-contracts/200-evm/100-introduction.md) documentation to learn more.
+
+## Running Your Frontend
+
+Depending on which template you are using, there may be a `frontend` folder. Run the framework-specific steps in that folder to start your game's frontend
+
+### Connecting Metamask to Your Frontend {#metamask}
+
+Key points to keep in mind:
+1. These steps are **only required if running on a localhost network** (not required on mainnet / testnet)
+2. You will need to reset your nonce often for this by going to `Settings > Advanced > Clear activity and nonce data`
+
+There are two ways to connect MetaMask to your local network
+
+#### Option 1:`Hardhat Private Key → MetaMask`
+If you're using [MetaMask](https://metamask.io/), you can interact with your contract from your frontend with these steps:
+1. Open the MetaMask extension
+2. Click on the account selector at the top of the screen
+3. Click "add account"
+4. Select "import account"
+5. Paste in the private key seen when running `npm run chain:deploy`
+
+#### Option 2: `MetaMask mnemonic → Hardhat`
+
+See the Metamask guide for this [here](https://docs.metamask.io/wallet/how-to/get-started-building/run-devnet/)
+
+## Setting Up Your Game Node DB
+
+If you're using a template, all you need to do is:
+1. Have [Docker](https://docs.docker.com/compose/install/) installed on your machine
+2. Run (in a separate terminal instance) `npm run database:up`
+3. Use `ctrl + c` to close the database at any time
+
+To learn how to edit your app's database, read more about database management [here](../500-database-management/200-setup.md).
 
 ## Running Your Game Node
 
@@ -104,20 +144,13 @@ Now that your game code is packed, contract and DB deployed, and your config is 
 
 Simply go into the root folder and run the following command:
 
-```
+```bash
 ./paima-engine run
 ```
 
 If you forgot to pack your code, your config is not properly setup, or anything else as such, you will get an error.
 
-Otherwise if everything was setup correctly then you will have officially started your game node for the very first time! You will see some initial boot logs, and after a few seconds see the progress of your game node syncing from the blockchain as such:
-
-```bash
-q125-q225
-q225-q325
-q325-q425
-...
-```
+Otherwise if everything was setup correctly then you will have officially started your game node for the very first time! You will see some initial boot logs, and after a few seconds see the progress of your game node syncing from the blockchain.
 
 These logs denote the block height numbers that the game node is syncing from the deployed L2 smart contract on the blockchain. Other logs will also pop up, such as when game inputs are read from the contract. Of note, logs are also saved in the `logs.log` file for easy access.
 
@@ -129,93 +162,15 @@ Simply follow the [posting test game inputs to L2 contract tutorial](../200-read
 
 Of note, the above tutorial teaches you an easy way to manually submit custom-crafted game inputs, which is also useful when implementing new features as you develop your games/apps.
 
-## Deploying Your Game Node
+## Releasing your game
 
-If you wish to deploy your game on a server/move into a production environment, the following files are all that is needed for Paima Engine to run your game node:
-
-- `packaged/gameCode.cjs` (packed game code)
-- `packaged/endpoints.cjs` (packed webserver code)
-- `.env.*` (Your game node config)
-- `paima-engine` (The Paima Engine executable)
-
-In other words, you do not require your unpacked game code, allowing you to easily run your game node wherever you deem best (without even needing node installed or any external dependencies).
-
-## Snapshots
-
-If you have `pg_dump` installed on the machine running your game node (typically included in the postgres package of your OS), then Paima Engine will automatically take snapshots every day of your game node DB and store them in a `snapshots` folder. The last 3 days of snapshots are maintained, and everything older is automatically deleted.
-
-If `pg_dump` is not available, then when you start your game node an error will be printed in the terminal denoting of such, however the game node will still function perfectly fine nonetheless (and will simply skip taking snapshots).
-
-Of note, unlike in the Web2/2.5 world, these snapshots are _not vital_. You are building a trustless Web3 game using Paima Engine, which means that even if your entire DB gets corrupted or deleted, a brand new game node can be synced from scratch by just reading from the blockchain. These snapshots are simply a quality-of-life enhancement, as they allow you to deploy new game nodes much faster without having to resync from scratch.
-
+You can learn more about the steps to releasing your game publicly [here](../600-releasing-a-game/1-generate-build.md).
 
 ## Debugging 
 
-Paima-Engine includes 4 binaries:
+### Paima Engine Dry Running
 
-* Linux production `paima-engine-linux`
-* Linux development `dev-paima-engine-linux`
-* Macos x64 production `paima-engine-macos`
-* Macos x64 development `dev-paima-engine-macos`
-
-The binaries named `dev-*` run a node.js inspector and should only be used for development and not for production environments.
-
-### How to debug
-
-1. Launching your game with the `./dev-paima-engine-linux run` or `./dev-paima-engine-macos run` you will see a message similar to:  
-
-```
-Debugger listening on ws://127.0.0.1:9229/e6e784f8-bcd8-4ace-8b17-9b515ae45f7d
-For help, see: https://nodejs.org/en/docs/inspector
-```
-
-2. Open in a Google Chrome browser: `chrome://inspect`  
-You should see a `Remote Target` entry with the name `PKG_DUMMY_ENTRYPOINT file:///` click on `inspect`.  
-NOTE: If you do not see the entry: in `Configure...` add `localhost:9229` where the actual port is the one informed in the message in step 1.  
-A new debug "DevTools" window will pop up. 
-
-3. In the new DevTools, go to the `Sources` tab and click on `+ Add folder to workspace` select the folder `packaged` where your compiled game is located you should see `endpoints.cjs` and `gameCode.cjs` select this folder.  
-The first time DevTools might request permission to access your hard drive: allow access.
-
-4. Now you are ready to DEBUG.
-In the `sources` tab you can place breakpoints in endpoint.cjs and gameCode.cjs by clicking on line-number on the left side of the line. 
-
-
-## Data Migrations
-
-Data Migrations allow game developers to add data to the database e.g., World Setup, NPC, Items, and other system tables.  
-
-IMPORTANT: You should never add data to the database manually. It should be done only through state-transitions and data migrations.
-
-Data Migrations are applied at a specific block-height. The file name indicates the OFFSET from the START_BLOCKHEIGHT (defined in the .env file).
-
-File structure:
-
-```
-root_folder
-   | --- paima-engine-{linux|macos}
-   | --- packaged
-             | --- endpoints.cjs
-             | --- gameCode.cjs
-             | --- migrations
-                          | --- 1000.sql
-                          | --- 5500.sql
-``` 
-
-1000.sql will be applied at block-height START_BLOCKHEIGHT + 1000.  
-5500.sql will be applied at block-height START_BLOCKHEIGHT + 5500.  
-Both will be applied before any other inputs are processed for that block-height.
-
-The *.sql files are PGSQL scripts. SQL scripts are automatically ran as transactions, if they fail the block-process-loop will stop and the script must be fixed and will be reapplied.
-
-1000.sql example:
-```
-INSERT INTO items (name) VALUES ('potion') ;
-INSERT INTO items (name) VALUES ('book') ;
-```
-## Paima Engine Dry Running
-
-For context, Paima Batcher allows end users to sign game inputs without manually posting transactions themselves. It enables the cross-chain Paima Whirlpool functionality to be possible in Paima Engine.
+For context, [Paima Batcher](./5-paima-bacher.md) allows end users to sign game inputs without manually posting transactions themselves. It enables the cross-chain Paima Whirlpool functionality to be possible in Paima Engine.
 
 For Paima Batcher to work well in production, game inputs can be validated before posting on-chain to save on transaction fees & increase throughput. To support this validation Paima Engine ships with a "dry run" endpoint which allows directly submitting a game input via HTTP, and having it processed by the STF (returning success or fail) without saving any of the resulting SQL queries. As such this allows the batcher (or any external tooling) to check that a game input validates before posting it on-chain.
 

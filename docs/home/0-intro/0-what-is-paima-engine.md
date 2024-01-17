@@ -213,7 +213,7 @@ If ZK is enforced or if the whole application needs to be written as one giant Z
 
 ## Sovereign Rollup disadvantages
 
-Unfortunately there is no "free lunch", and so usage of Paima comes with some disadvantages as well.
+Unfortunately there is no "free lunch", and so usage of sovereign rollups comes with some disadvantages as well. Keep in mind while reading this that Paima overcome these deficiencies by combining its sovereign rollup layer with its native support for L1 smart contracts and its ZK layer. 
 
 ### Trickier DeFi support on the L2
 

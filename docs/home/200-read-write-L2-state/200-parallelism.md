@@ -1,7 +1,3 @@
----
-sidebar_position: 2
----
-
 # Sequential State Identifier
 
 By default, updates to Paima state may be applied in parallel. This is powerful as it allows different matches played by different players to be run in parallel. However, moves by players in the same lobby need to be made sequential.

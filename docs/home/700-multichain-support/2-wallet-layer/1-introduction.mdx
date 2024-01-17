@@ -55,7 +55,9 @@ Once you have wallet(s) connected, there are a few utility functions available:
 
 - `checkWalletStatus`: checks if an injected wallet is still connected (some wallets like Metamask allow users to switch networks / wallets while using the dApp, and this function will detect these kinds of cases and either resolve them or throw)
 - `getActiveAddress` / `getDefaultActiveAddress`: get the address for a connection type
+- `WalletModeMap` to get the underlying API for a wallet. For example, if you want to get the underlying EIP-1193 provider, you can do `WalletModeMap[WalletMode.EvmInjected].getOrThrowProvider().getConnection().api` (prefer this as a replacement for `window.ethereum` your app)
 
+You can also access 
 ### Thirdweb support
 
 Thirdweb provides many different [wallet types](https://portal.thirdweb.com/wallet/). Wallet types that are backed by Ethers can leverage the `EthersConnector`

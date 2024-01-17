@@ -1,7 +1,3 @@
----
-sidebar_position: 3
----
-
 # Error Handling
 
 Errors are unavoidable. Notably, be sure to take into accounts the following error types:
