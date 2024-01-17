@@ -158,7 +158,7 @@ These logs denote the block height numbers that the game node is syncing from th
 
 Now that your game node is syncing, we recommend testing to ensure that both the contract you deployed and the node itself are all in working order/configured properly.
 
-Simply follow the [posting test game inputs to L2 contract tutorial](../200-read-write-L2-state/4-posting-test-game-inputs.md) and within a couple minutes you'll have experienced the end-to-end loop of using Paima Engine!
+Simply follow the [posting test game inputs to L2 contract tutorial](../200-read-write-L2-state/20-write-data.md#writing-data-from-an-external-source) and within a couple minutes you'll have experienced the end-to-end loop of using Paima Engine!
 
 Of note, the above tutorial teaches you an easy way to manually submit custom-crafted game inputs, which is also useful when implementing new features as you develop your games/apps.
 

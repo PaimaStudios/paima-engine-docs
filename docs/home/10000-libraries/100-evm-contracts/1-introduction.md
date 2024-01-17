@@ -7,7 +7,7 @@ NPM package: [@paima/evm-contracts](https://www.npmjs.com/package/@paima/evm-con
 
 This package contains 3 core folders:
 
-- [`contracts`](./200-solidity/introduction.md) which holds all the Solidity contracts for Paima
+- [`contracts`](./200-solidity/200-generated-docs.mdx) which holds all the Solidity contracts for Paima
 - `abi` which holds the ABI for all the contracts
 - [`plugin`](./300-hardhat-tasks.md) which contains a Hardhat plugin containing [Hardhat tasks](https://hardhat.org/hardhat-runner/docs/advanced/create-task) to easily interact with these contracts from the command line
 

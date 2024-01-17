@@ -1,6 +1,6 @@
 # Deploying a Stateful NFT
 
-Paima Engine supports both standard NFT contracts (such as [ERC721](https://eips.ethereum.org/EIPS/eip-721)) and [Paima Extended ERC721 NFT](../../10000-libraries/100-evm-contracts/200-solidity/200-generated-docs.mdx#Nft) contracts for Stateful NFTs.
+Paima Engine supports both standard NFT contracts (such as [ERC721](https://eips.ethereum.org/EIPS/eip-721)) and [Paima Extended ERC721 NFT](../../10000-libraries/100-evm-contracts/200-solidity/200-generated-docs.mdx#AnnotatedMintNft) contracts for Stateful NFTs.
 
 To provide developers more power in customizing how Stateful NFTs are initialized in their game, we have extended the ERC721 standard to allow selecting a pre-defined string when minting the NFT. This string gets routed through the Paima stack and ends up as a part of the scheduled input which your STF reads to initialize the NFT state (ex. "Warrior", "Mage", "Archer").
 
@@ -35,9 +35,9 @@ Add the following to your `hardhat.config.ts` config:
 ```ts
 dependencyCompiler: {
     paths: [
-      '@paima/evm-contracts/contracts/Nft.sol',
+      '@paima/evm-contracts/contracts/AnnotatedMintNft.sol',
       '@paima/evm-contracts/contracts/NativeNftSale.sol',
-      '@paima/evm-contracts/contracts/Proxy/NativeProxy.sol',
+      '@paima/evm-contracts/contracts/Proxy/NativeNftSaleProxy.sol',
     ],
   },
 ```

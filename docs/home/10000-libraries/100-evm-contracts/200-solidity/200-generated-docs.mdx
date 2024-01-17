@@ -4,22 +4,22 @@ import ContractHeader from '@site/src/components/ContractHeader';
 
 # Generated Docs
 
-Solidity contracts provided as part of Paima Engine
+Solidity contracts provided as part of Paima Engine.
 
 Core contracts
 
 <ul>
-  <li>[PaimaL2Contract](#PaimaL2Contract): The main L2 contract for a Paima L2</li>
+  <li>[PaimaL2Contract](#PaimaL2Contract): The main L2 contract for a Paima L2.</li>
 </ul>
 State-annotated contracts
 <ul>
-  <li>[Nft](#Nft): A standard ERC721 that accepts calldata in the mint function for any initialization data needed in a Paima dApp</li>
+  <li>[AnnotatedMintNft](#AnnotatedMintNft): A standard ERC721 that accepts calldata in the mint function for any initialization data needed in a Paima dApp.</li>
 </ul>
 Facilitating monetization
 <ul>
-  <li>[NativeNftSale](#NativeNftSale): Facilitates selling NFTs that accepts extra data when buying for any initialization data needed in a Paima dApp</li>
-  <li>[GenericPayment](#GenericPayment): Facilitates accepting payment that accepts extra data to know what the payment was for inside a Paima dApp</li>
-  <li>[Erc20NftSale](#Erc20NftSale): Facilitates selling NFTs for specific ERC20s that accepts extra data when buying for any initialization data needed in a Paima dApp</li>
+  <li>[NativeNftSale](#NativeNftSale): Facilitates selling NFTs that accepts extra data when buying for any initialization data needed in a Paima dApp.</li>
+  <li>[GenericPayment](#GenericPayment): Facilitates accepting payment that accepts extra data to know what the payment was for inside a Paima dApp.</li>
+  <li>[Erc20NftSale](#Erc20NftSale): Facilitates selling NFTs for specific ERC20s that accepts extra data when buying for any initialization data needed in a Paima dApp.</li>
 </ul>
 
 ## Core contracts
@@ -31,6 +31,8 @@ Facilitating monetization
 ```solidity
 import "@paima/evm-contracts/contracts/PaimaL2Contract.sol";
 ```
+
+The main L2 contract for a Paima L2.
 
 <SolidityOutlineBlock
   type="Functions"
@@ -94,7 +96,7 @@ import "@paima/evm-contracts/contracts/PaimaL2Contract.sol";
     visibility="public"
     anchor="xref-PaimaL2Contract-constructor-address-uint256-"
 >
-    No description given
+    Sets the contract owner to `_owner` and payment fee to `_fee`.
 </SolidityDetailBlock>
 
 <SolidityDetailBlock
@@ -103,7 +105,8 @@ import "@paima/evm-contracts/contracts/PaimaL2Contract.sol";
     visibility="public"
     anchor="xref-PaimaL2Contract-paimaSubmitGameInput-bytes-"
 >
-    No description given
+    Emits the `PaimaGameInteraction` event, logging the `msg.sender`, `data`, and `msg.value`.
+Revert if `msg.value` is less than set `fee`.
 </SolidityDetailBlock>
 
 <SolidityDetailBlock
@@ -112,7 +115,8 @@ import "@paima/evm-contracts/contracts/PaimaL2Contract.sol";
     visibility="public"
     anchor="xref-PaimaL2Contract-withdrawFunds--"
 >
-    No description given
+    Withdraws the contract balance to the `owner`.
+Callable only by the contract owner.
 </SolidityDetailBlock>
 
 <SolidityDetailBlock
@@ -121,7 +125,8 @@ import "@paima/evm-contracts/contracts/PaimaL2Contract.sol";
     visibility="public"
     anchor="xref-PaimaL2Contract-setOwner-address-"
 >
-    No description given
+    Sets the `newOwner` as the contract owner.
+Callable only by the contract owner.
 </SolidityDetailBlock>
 
 <SolidityDetailBlock
@@ -130,7 +135,8 @@ import "@paima/evm-contracts/contracts/PaimaL2Contract.sol";
     visibility="public"
     anchor="xref-PaimaL2Contract-setFee-uint256-"
 >
-    No description given
+    Sets the `newFee` as the required payment fee.
+Callable only by the contract owner.
 </SolidityDetailBlock>
 
 <SolidityDetailBlock
@@ -139,7 +145,7 @@ import "@paima/evm-contracts/contracts/PaimaL2Contract.sol";
     visibility="public"
     anchor="xref-PaimaL2Contract-owner-address"
 >
-    No description given
+    Contract owner.
 </SolidityDetailBlock>
 
 <SolidityDetailBlock
@@ -148,7 +154,7 @@ import "@paima/evm-contracts/contracts/PaimaL2Contract.sol";
     visibility="public"
     anchor="xref-PaimaL2Contract-fee-uint256"
 >
-    No description given
+    Amount in wei that is required to be paid when calling `paimaSubmitGameInput`.
 </SolidityDetailBlock>
 
 <SolidityDetailBlock
@@ -157,18 +163,23 @@ import "@paima/evm-contracts/contracts/PaimaL2Contract.sol";
     visibility="event"
     anchor="xref-PaimaL2Contract-PaimaGameInteraction-address-bytes-uint256-"
 >
-    No description given
+    Emitted when `paimaSubmitGameInput` function is called with `data`.
+`userAddress` is the transaction sender and `value` is the transaction value.
 </SolidityDetailBlock>
 
 ## State-annotated contracts
 
-<ContractHeader githubLink="https://github.com/PaimaStudios/paima-engine/tree/master/packages/evm-contracts/contracts/Nft.sol" anchor="Nft">
-    ### Nft
+<ContractHeader githubLink="https://github.com/PaimaStudios/paima-engine/tree/master/packages/evm-contracts/contracts/AnnotatedMintNft.sol" anchor="AnnotatedMintNft">
+    ### AnnotatedMintNft
 </ContractHeader>
 
 ```solidity
-import "@paima/evm-contracts/contracts/Nft.sol";
+import "@paima/evm-contracts/contracts/AnnotatedMintNft.sol";
 ```
+
+A standard ERC721 that accepts calldata in the mint function for any initialization data needed in a Paima dApp.
+Upon deployment only the contract owner (specified in constructor parameter) is able to mint tokens. Additional
+minters (e.g. NativeNftSale contract) need to be added by using the `setMinter` function.
 
 <SolidityOutlineBlock
   type="Modifiers"
@@ -178,15 +189,15 @@ import "@paima/evm-contracts/contracts/Nft.sol";
       lines: [
         {
           text: "canMint()",
-          anchor: "xref-Nft-canMint--"
+          anchor: "xref-AnnotatedMintNft-canMint--"
         },
         {
           text: "onlyExistingTokenId(tokenId)",
-          anchor: "xref-Nft-onlyExistingTokenId-uint256-"
+          anchor: "xref-AnnotatedMintNft-onlyExistingTokenId-uint256-"
         },
         {
           text: "onlyTokenOwner(tokenId)",
-          anchor: "xref-Nft-onlyTokenOwner-uint256-"
+          anchor: "xref-AnnotatedMintNft-onlyTokenOwner-uint256-"
         },
       ]
     }
@@ -202,79 +213,79 @@ import "@paima/evm-contracts/contracts/Nft.sol";
       lines: [
         {
           text: "constructor(name, symbol, supply, owner)",
-          anchor: "xref-Nft-constructor-string-string-uint256-address-"
+          anchor: "xref-AnnotatedMintNft-constructor-string-string-uint256-address-"
         },
         {
           text: "supportsInterface(interfaceID)",
-          anchor: "xref-Nft-supportsInterface-bytes4-"
+          anchor: "xref-AnnotatedMintNft-supportsInterface-bytes4-"
         },
         {
           text: "mint(_to, initialData)",
-          anchor: "xref-Nft-mint-address-string-"
+          anchor: "xref-AnnotatedMintNft-mint-address-string-"
         },
         {
           text: "burn(_tokenId)",
-          anchor: "xref-Nft-burn-uint256-"
+          anchor: "xref-AnnotatedMintNft-burn-uint256-"
         },
         {
           text: "setMinter(_minter)",
-          anchor: "xref-Nft-setMinter-address-"
+          anchor: "xref-AnnotatedMintNft-setMinter-address-"
         },
         {
           text: "removeMinter(_minter)",
-          anchor: "xref-Nft-removeMinter-address-"
+          anchor: "xref-AnnotatedMintNft-removeMinter-address-"
         },
         {
           text: "_baseURI()",
-          anchor: "xref-Nft-_baseURI--"
+          anchor: "xref-AnnotatedMintNft-_baseURI--"
         },
         {
           text: "tokenURI(tokenId)",
-          anchor: "xref-Nft-tokenURI-uint256-"
+          anchor: "xref-AnnotatedMintNft-tokenURI-uint256-"
         },
         {
           text: "setBaseURI(_URI)",
-          anchor: "xref-Nft-setBaseURI-string-"
+          anchor: "xref-AnnotatedMintNft-setBaseURI-string-"
         },
         {
           text: "setBaseExtension(_newBaseExtension)",
-          anchor: "xref-Nft-setBaseExtension-string-"
+          anchor: "xref-AnnotatedMintNft-setBaseExtension-string-"
         },
         {
           text: "updateMaxSupply(_maxSupply)",
-          anchor: "xref-Nft-updateMaxSupply-uint256-"
+          anchor: "xref-AnnotatedMintNft-updateMaxSupply-uint256-"
         },
         {
           text: "exists(_tokenId)",
-          anchor: "xref-Nft-exists-uint256-"
+          anchor: "xref-AnnotatedMintNft-exists-uint256-"
         },
         {
           text: "isMinter(_account)",
-          anchor: "xref-Nft-isMinter-address-"
+          anchor: "xref-AnnotatedMintNft-isMinter-address-"
         },
         {
           text: "currentTokenId()",
-          anchor: "xref-Nft-currentTokenId-uint256"
+          anchor: "xref-AnnotatedMintNft-currentTokenId-uint256"
         },
         {
           text: "baseURI()",
-          anchor: "xref-Nft-baseURI-string"
+          anchor: "xref-AnnotatedMintNft-baseURI-string"
         },
         {
           text: "totalSupply()",
-          anchor: "xref-Nft-totalSupply-uint256"
+          anchor: "xref-AnnotatedMintNft-totalSupply-uint256"
         },
         {
           text: "maxSupply()",
-          anchor: "xref-Nft-maxSupply-uint256"
+          anchor: "xref-AnnotatedMintNft-maxSupply-uint256"
         },
         {
           text: "baseExtension()",
-          anchor: "xref-Nft-baseExtension-string"
+          anchor: "xref-AnnotatedMintNft-baseExtension-string"
         },
         {
           text: "minters()",
-          anchor: "xref-Nft-minters-mapping-address----bool-"
+          anchor: "xref-AnnotatedMintNft-minters-mapping-address----bool-"
         },
       ]
     },
@@ -444,23 +455,23 @@ import "@paima/evm-contracts/contracts/Nft.sol";
       lines: [
         {
           text: "UpdateMaxSupply(oldMaxSupply, newMaxSupply)",
-          anchor: "xref-Nft-UpdateMaxSupply-uint256-uint256-"
+          anchor: "xref-AnnotatedMintNft-UpdateMaxSupply-uint256-uint256-"
         },
         {
           text: "SetMinter(newMinter)",
-          anchor: "xref-Nft-SetMinter-address-"
+          anchor: "xref-AnnotatedMintNft-SetMinter-address-"
         },
         {
           text: "RemoveMinter(oldMinter)",
-          anchor: "xref-Nft-RemoveMinter-address-"
+          anchor: "xref-AnnotatedMintNft-RemoveMinter-address-"
         },
         {
           text: "SetBaseURI(oldUri, newUri)",
-          anchor: "xref-Nft-SetBaseURI-string-string-"
+          anchor: "xref-AnnotatedMintNft-SetBaseURI-string-string-"
         },
         {
           text: "Minted(tokenId, initialData)",
-          anchor: "xref-Nft-Minted-uint256-string-"
+          anchor: "xref-AnnotatedMintNft-Minted-uint256-string-"
         },
       ]
     },
@@ -518,245 +529,257 @@ import "@paima/evm-contracts/contracts/Nft.sol";
     title="canMint"
     params="()"
     visibility="modifier"
-    anchor="xref-Nft-canMint--"
+    anchor="xref-AnnotatedMintNft-canMint--"
 >
-    No description given
+    Reverts if `msg.sender` is neither a minter nor the contract owner.
 </SolidityDetailBlock>
 
 <SolidityDetailBlock
     title="onlyExistingTokenId"
     params="(uint256 tokenId)"
     visibility="modifier"
-    anchor="xref-Nft-onlyExistingTokenId-uint256-"
+    anchor="xref-AnnotatedMintNft-onlyExistingTokenId-uint256-"
 >
-    No description given
+    Reverts if the `tokenId` does not exist (has not been minted).
 </SolidityDetailBlock>
 
 <SolidityDetailBlock
     title="onlyTokenOwner"
     params="(uint256 tokenId)"
     visibility="modifier"
-    anchor="xref-Nft-onlyTokenOwner-uint256-"
+    anchor="xref-AnnotatedMintNft-onlyTokenOwner-uint256-"
 >
-    No description given
+    Reverts if `msg.sender` is not the specified token's owner.
 </SolidityDetailBlock>
 
 <SolidityDetailBlock
     title="constructor"
     params="(string name, string symbol, uint256 supply, address owner)"
     visibility="public"
-    anchor="xref-Nft-constructor-string-string-uint256-address-"
+    anchor="xref-AnnotatedMintNft-constructor-string-string-uint256-address-"
 >
-    contract constructor
+    Sets the NFT's `name`, `symbol`, `maxSupply` to `supply`, and transfers ownership to `owner`.
+Also sets `currentTokenId` to 1 and `baseExtension` to `".json"`.
 </SolidityDetailBlock>
 
 <SolidityDetailBlock
     title="supportsInterface"
     params="(bytes4 interfaceID) → bool"
     visibility="public"
-    anchor="xref-Nft-supportsInterface-bytes4-"
+    anchor="xref-AnnotatedMintNft-supportsInterface-bytes4-"
 >
-    No description given
+    Returns true if this contract implements the interface defined by `interfaceID`. See EIP165.
 </SolidityDetailBlock>
 
 <SolidityDetailBlock
     title="mint"
     params="(address _to, string initialData) → uint256"
     visibility="external"
-    anchor="xref-Nft-mint-address-string-"
+    anchor="xref-AnnotatedMintNft-mint-address-string-"
 >
-    No description given
+    Mints a new token to address `_to`, passing `initialData` to be emitted in the event.
+Increases the `totalSupply` and `currentTokenId`.
+Reverts if `totalSupply` is not less than `maxSupply` or if `_to` is a zero address.
+Emits the `Minted` event.
 </SolidityDetailBlock>
 
 <SolidityDetailBlock
     title="burn"
     params="(uint256 _tokenId)"
     visibility="external"
-    anchor="xref-Nft-burn-uint256-"
+    anchor="xref-AnnotatedMintNft-burn-uint256-"
 >
-    No description given
+    Burns token of ID `_tokenId`. Callable only by the owner of the specified token.
+Reverts if `_tokenId` is not existing.
 </SolidityDetailBlock>
 
 <SolidityDetailBlock
     title="setMinter"
     params="(address _minter)"
     visibility="external"
-    anchor="xref-Nft-setMinter-address-"
+    anchor="xref-AnnotatedMintNft-setMinter-address-"
 >
-    No description given
+    Adds `_minter` to the mapping of allowed `minters` of this NFT.
+Callable only by the contract owner.
+Emits the `SetMinter` event.
 </SolidityDetailBlock>
 
 <SolidityDetailBlock
     title="removeMinter"
     params="(address _minter)"
     visibility="external"
-    anchor="xref-Nft-removeMinter-address-"
+    anchor="xref-AnnotatedMintNft-removeMinter-address-"
 >
-    No description given
+    Removes `_minter` from the mapping of allowed `minters` of this NFT.
+Callable only by the contract owner.
+Emits the `RemoveMinter` event.
 </SolidityDetailBlock>
 
 <SolidityDetailBlock
     title="_baseURI"
     params="() → string"
     visibility="internal"
-    anchor="xref-Nft-_baseURI--"
+    anchor="xref-AnnotatedMintNft-_baseURI--"
 >
-    Base URI for computing \{tokenURI\}. If set, the resulting URI for each
-token will be the concatenation of the `baseURI` and the `tokenId`. Empty
-by default, can be overridden in child contracts.
+    Returns the `baseURI` of this NFT.
 </SolidityDetailBlock>
 
 <SolidityDetailBlock
     title="tokenURI"
     params="(uint256 tokenId) → string"
     visibility="public"
-    anchor="xref-Nft-tokenURI-uint256-"
+    anchor="xref-AnnotatedMintNft-tokenURI-uint256-"
 >
-    See \{IERC721Metadata-tokenURI\}.
+    Returns the token URI of specified `tokenId`.
 </SolidityDetailBlock>
 
 <SolidityDetailBlock
     title="setBaseURI"
     params="(string _URI)"
     visibility="external"
-    anchor="xref-Nft-setBaseURI-string-"
+    anchor="xref-AnnotatedMintNft-setBaseURI-string-"
 >
-    No description given
+    Sets `_URI` as the `baseURI` of the NFT.
+Callable only by the contract owner.
+Emits the `SetBaseURI` event.
 </SolidityDetailBlock>
 
 <SolidityDetailBlock
     title="setBaseExtension"
     params="(string _newBaseExtension)"
     visibility="public"
-    anchor="xref-Nft-setBaseExtension-string-"
+    anchor="xref-AnnotatedMintNft-setBaseExtension-string-"
 >
-    No description given
+    Sets `_newBaseExtension` as the `baseExtension` of the NFT.
+Callable only by the contract owner.
 </SolidityDetailBlock>
 
 <SolidityDetailBlock
     title="updateMaxSupply"
     params="(uint256 _maxSupply)"
     visibility="external"
-    anchor="xref-Nft-updateMaxSupply-uint256-"
+    anchor="xref-AnnotatedMintNft-updateMaxSupply-uint256-"
 >
-    No description given
+    Sets `_maxSupply` as the `maxSupply` of the NFT.
+Callable only by the contract owner.
+Emits the `UpdateMaxSupply` event.
 </SolidityDetailBlock>
 
 <SolidityDetailBlock
     title="exists"
     params="(uint256 _tokenId) → bool"
     visibility="external"
-    anchor="xref-Nft-exists-uint256-"
+    anchor="xref-AnnotatedMintNft-exists-uint256-"
 >
-    No description given
+    Returns true if specified `_tokenId` exists.
 </SolidityDetailBlock>
 
 <SolidityDetailBlock
     title="isMinter"
     params="(address _account) → bool"
     visibility="public"
-    anchor="xref-Nft-isMinter-address-"
+    anchor="xref-AnnotatedMintNft-isMinter-address-"
 >
-    No description given
+    Returns true if `_account` is in the mapping of allowed `minters`.
 </SolidityDetailBlock>
 
 <SolidityDetailBlock
     title="currentTokenId"
     params="() → uint256"
     visibility="public"
-    anchor="xref-Nft-currentTokenId-uint256"
+    anchor="xref-AnnotatedMintNft-currentTokenId-uint256"
 >
-    No description given
+    The token ID that will be minted when calling the `mint` function.
 </SolidityDetailBlock>
 
 <SolidityDetailBlock
     title="baseURI"
     params="() → string"
     visibility="public"
-    anchor="xref-Nft-baseURI-string"
+    anchor="xref-AnnotatedMintNft-baseURI-string"
 >
-    No description given
+    Base URI that is used in the `tokenURI` function to form the start of the token URI.
 </SolidityDetailBlock>
 
 <SolidityDetailBlock
     title="totalSupply"
     params="() → uint256"
     visibility="public"
-    anchor="xref-Nft-totalSupply-uint256"
+    anchor="xref-AnnotatedMintNft-totalSupply-uint256"
 >
-    No description given
+    Total token supply, increased by minting and decreased by burning.
 </SolidityDetailBlock>
 
 <SolidityDetailBlock
     title="maxSupply"
     params="() → uint256"
     visibility="public"
-    anchor="xref-Nft-maxSupply-uint256"
+    anchor="xref-AnnotatedMintNft-maxSupply-uint256"
 >
-    No description given
+    Maximum amount of tokens that is allowed to exist.
 </SolidityDetailBlock>
 
 <SolidityDetailBlock
     title="baseExtension"
     params="() → string"
     visibility="public"
-    anchor="xref-Nft-baseExtension-string"
+    anchor="xref-AnnotatedMintNft-baseExtension-string"
 >
-    No description given
+    Base extension that is used in the `tokenURI` function to form the end of the token URI.
 </SolidityDetailBlock>
 
 <SolidityDetailBlock
     title="minters"
     params="() → mapping(address &#x3D;&gt; bool)"
     visibility="public"
-    anchor="xref-Nft-minters-mapping-address----bool-"
+    anchor="xref-AnnotatedMintNft-minters-mapping-address----bool-"
 >
-    No description given
+    Returns true for addresses that are allowed to mint this token.
 </SolidityDetailBlock>
 
 <SolidityDetailBlock
     title="UpdateMaxSupply"
     params="(uint256 indexed oldMaxSupply, uint256 indexed newMaxSupply)"
     visibility="event"
-    anchor="xref-Nft-UpdateMaxSupply-uint256-uint256-"
+    anchor="xref-AnnotatedMintNft-UpdateMaxSupply-uint256-uint256-"
 >
-    No description given
+    Emitted when max supply is updated from `oldMaxSupply` to `newMaxSupply`.
 </SolidityDetailBlock>
 
 <SolidityDetailBlock
     title="SetMinter"
     params="(address indexed newMinter)"
     visibility="event"
-    anchor="xref-Nft-SetMinter-address-"
+    anchor="xref-AnnotatedMintNft-SetMinter-address-"
 >
-    No description given
+    Emitted when `newMinter` is added to the mapping of allowed `minters`.
 </SolidityDetailBlock>
 
 <SolidityDetailBlock
     title="RemoveMinter"
     params="(address indexed oldMinter)"
     visibility="event"
-    anchor="xref-Nft-RemoveMinter-address-"
+    anchor="xref-AnnotatedMintNft-RemoveMinter-address-"
 >
-    No description given
+    Emitted when `oldMinter` is removed from the mapping of allowed `minters`
 </SolidityDetailBlock>
 
 <SolidityDetailBlock
     title="SetBaseURI"
-    params="(string indexed oldUri, string indexed newUri)"
+    params="(string oldUri, string newUri)"
     visibility="event"
-    anchor="xref-Nft-SetBaseURI-string-string-"
+    anchor="xref-AnnotatedMintNft-SetBaseURI-string-string-"
 >
-    No description given
+    Emitted when `baseUri` is updated from `oldUri` to `newUri`.
 </SolidityDetailBlock>
 
 <SolidityDetailBlock
     title="Minted"
     params="(uint256 indexed tokenId, string initialData)"
     visibility="event"
-    anchor="xref-Nft-Minted-uint256-string-"
+    anchor="xref-AnnotatedMintNft-Minted-uint256-string-"
 >
-    No description given
+    Emitted when a new token with ID `tokenId` is minted, with `initialData` provided in the `mint` function parameters.
 </SolidityDetailBlock>
 
 ## Facilitating monetization
@@ -768,6 +791,8 @@ by default, can be overridden in child contracts.
 ```solidity
 import "@paima/evm-contracts/contracts/NativeNftSale.sol";
 ```
+
+Facilitates selling NFTs that accepts extra data when buying for any initialization data needed in a Paima dApp.
 
 <SolidityOutlineBlock
   type="Functions"
@@ -879,10 +904,6 @@ import "@paima/evm-contracts/contracts/NativeNftSale.sol";
           anchor: "xref-NativeNftSale-UpdatePrice-uint256-uint256-"
         },
         {
-          text: "UpdateNftProxy(oldProxy, newProxy)",
-          anchor: "xref-NativeNftSale-UpdateNftProxy-address-address-"
-        },
-        {
           text: "BuyNFT(tokenId, PRICE, receiver, buyer)",
           anchor: "xref-NativeNftSale-BuyNFT-uint256-uint256-address-address-"
         },
@@ -917,7 +938,10 @@ import "@paima/evm-contracts/contracts/NativeNftSale.sol";
     visibility="public"
     anchor="xref-NativeNftSale-initialize-address-address-uint256-"
 >
-    No description given
+    Initializes the contract with the requested price `_price` in native tokens for specified NFT `_nft`,
+transferring ownership to the specified `owner`.
+Callable only once.
+Emits the `Initialized` event.
 </SolidityDetailBlock>
 
 <SolidityDetailBlock
@@ -926,7 +950,9 @@ import "@paima/evm-contracts/contracts/NativeNftSale.sol";
     visibility="public"
     anchor="xref-NativeNftSale-buyNft-address-string-"
 >
-    No description given
+    Purchases NFT for address `receiverAddress`, paying required price in native token.
+This function calls the `mint` function on the `AnnotatedMintNft` contract, passing provided `initialData`.
+Emits the `BuyNFT` event.
 </SolidityDetailBlock>
 
 <SolidityDetailBlock
@@ -935,7 +961,9 @@ import "@paima/evm-contracts/contracts/NativeNftSale.sol";
     visibility="external"
     anchor="xref-NativeNftSale-updatePrice-uint256-"
 >
-    No description given
+    Changes the sale price to `_nftPrice`.
+Callable only by the contract owner.
+Emits the `UpdatePrice` event.
 </SolidityDetailBlock>
 
 <SolidityDetailBlock
@@ -944,7 +972,8 @@ import "@paima/evm-contracts/contracts/NativeNftSale.sol";
     visibility="external"
     anchor="xref-NativeNftSale-withdraw-address-payable-"
 >
-    No description given
+    Withdraws the contract balance to `_account`.
+Callable only by the contract owner.
 </SolidityDetailBlock>
 
 <SolidityDetailBlock
@@ -953,7 +982,8 @@ import "@paima/evm-contracts/contracts/NativeNftSale.sol";
     visibility="external"
     anchor="xref-NativeNftSale-upgradeContract-address-"
 >
-    No description given
+    Upgrades the contract implementation to `_newContract`.
+Callable only by the contract owner.
 </SolidityDetailBlock>
 
 <SolidityDetailBlock
@@ -962,7 +992,7 @@ import "@paima/evm-contracts/contracts/NativeNftSale.sol";
     visibility="external"
     anchor="xref-NativeNftSale-receive--"
 >
-    No description given
+    Function allowing the contract to receive native tokens.
 </SolidityDetailBlock>
 
 <SolidityDetailBlock
@@ -971,7 +1001,7 @@ import "@paima/evm-contracts/contracts/NativeNftSale.sol";
     visibility="event"
     anchor="xref-NativeNftSale-Initialized-address-address-"
 >
-    No description given
+    Emitted when the contract is initialized.
 </SolidityDetailBlock>
 
 <SolidityDetailBlock
@@ -980,16 +1010,7 @@ import "@paima/evm-contracts/contracts/NativeNftSale.sol";
     visibility="event"
     anchor="xref-NativeNftSale-UpdatePrice-uint256-uint256-"
 >
-    No description given
-</SolidityDetailBlock>
-
-<SolidityDetailBlock
-    title="UpdateNftProxy"
-    params="(address indexed oldProxy, address indexed newProxy)"
-    visibility="event"
-    anchor="xref-NativeNftSale-UpdateNftProxy-address-address-"
->
-    No description given
+    Emitted when the NFT price is updated from `oldPrice` to `newPrice`.
 </SolidityDetailBlock>
 
 <SolidityDetailBlock
@@ -998,7 +1019,7 @@ import "@paima/evm-contracts/contracts/NativeNftSale.sol";
     visibility="event"
     anchor="xref-NativeNftSale-BuyNFT-uint256-uint256-address-address-"
 >
-    No description given
+    Emitted when an NFT of `tokenId` is minted to `receiver` by `buyer` paying `PRICE` in native tokens.
 </SolidityDetailBlock>
 
 <ContractHeader githubLink="https://github.com/PaimaStudios/paima-engine/tree/master/packages/evm-contracts/contracts/GenericPayment.sol" anchor="GenericPayment">
@@ -1008,6 +1029,8 @@ import "@paima/evm-contracts/contracts/NativeNftSale.sol";
 ```solidity
 import "@paima/evm-contracts/contracts/GenericPayment.sol";
 ```
+
+Facilitates accepting payment that accepts extra data to know what the payment was for inside a Paima dApp.
 
 <SolidityOutlineBlock
   type="Functions"
@@ -1123,7 +1146,9 @@ import "@paima/evm-contracts/contracts/GenericPayment.sol";
     visibility="public"
     anchor="xref-GenericPayment-initialize-address-"
 >
-    No description given
+    Initializes the contracts, transferring ownership to the specified `owner`.
+Callable only once.
+Emits the `Initialized` event.
 </SolidityDetailBlock>
 
 <SolidityDetailBlock
@@ -1132,7 +1157,8 @@ import "@paima/evm-contracts/contracts/GenericPayment.sol";
     visibility="external"
     anchor="xref-GenericPayment-pay-string-"
 >
-    No description given
+    Transfers native tokens to the contract, providing `message`.
+Emits the `Pay` event.
 </SolidityDetailBlock>
 
 <SolidityDetailBlock
@@ -1141,7 +1167,8 @@ import "@paima/evm-contracts/contracts/GenericPayment.sol";
     visibility="external"
     anchor="xref-GenericPayment-withdraw-address-payable-"
 >
-    No description given
+    Withdraws the contract balance to `_account`.
+Callable only by the contract owner.
 </SolidityDetailBlock>
 
 <SolidityDetailBlock
@@ -1150,7 +1177,8 @@ import "@paima/evm-contracts/contracts/GenericPayment.sol";
     visibility="external"
     anchor="xref-GenericPayment-upgradeContract-address-"
 >
-    No description given
+    Upgrades the contract implementation to `_newContract`.
+Callable only by the contract owner.
 </SolidityDetailBlock>
 
 <SolidityDetailBlock
@@ -1159,7 +1187,7 @@ import "@paima/evm-contracts/contracts/GenericPayment.sol";
     visibility="public"
     anchor="xref-GenericPayment-initialized-bool"
 >
-    No description given
+    True if contract has been initialized via the `initialize` function.
 </SolidityDetailBlock>
 
 <SolidityDetailBlock
@@ -1168,7 +1196,7 @@ import "@paima/evm-contracts/contracts/GenericPayment.sol";
     visibility="event"
     anchor="xref-GenericPayment-Initialized-address-"
 >
-    No description given
+    Emitted when the contract is initialized.
 </SolidityDetailBlock>
 
 <SolidityDetailBlock
@@ -1177,7 +1205,7 @@ import "@paima/evm-contracts/contracts/GenericPayment.sol";
     visibility="event"
     anchor="xref-GenericPayment-Pay-uint256-address-string-"
 >
-    No description given
+    Emitted when payment of `amount` if made by `payer` with `message`.
 </SolidityDetailBlock>
 
 <ContractHeader githubLink="https://github.com/PaimaStudios/paima-engine/tree/master/packages/evm-contracts/contracts/Erc20NftSale.sol" anchor="Erc20NftSale">
@@ -1187,6 +1215,8 @@ import "@paima/evm-contracts/contracts/GenericPayment.sol";
 ```solidity
 import "@paima/evm-contracts/contracts/Erc20NftSale.sol";
 ```
+
+Facilitates selling NFTs for specific ERC20s that accepts extra data when buying for any initialization data needed in a Paima dApp.
 
 <SolidityOutlineBlock
   type="Functions"
@@ -1326,16 +1356,12 @@ import "@paima/evm-contracts/contracts/Erc20NftSale.sol";
           anchor: "xref-Erc20NftSale-UpdatePrice-uint256-uint256-"
         },
         {
-          text: "UpdateNftProxy(oldProxy, newProxy)",
-          anchor: "xref-Erc20NftSale-UpdateNftProxy-address-address-"
+          text: "RemoveWhitelistedToken(token)",
+          anchor: "xref-Erc20NftSale-RemoveWhitelistedToken-address-"
         },
         {
-          text: "RemoveWhiteListedToken(token)",
-          anchor: "xref-Erc20NftSale-RemoveWhiteListedToken-address-"
-        },
-        {
-          text: "WhiteListTokens(token)",
-          anchor: "xref-Erc20NftSale-WhiteListTokens-address---"
+          text: "WhitelistTokens(tokens)",
+          anchor: "xref-Erc20NftSale-WhitelistTokens-address---"
         },
         {
           text: "BuyWithToken(tokenId, PRICE, receiver, buyer)",
@@ -1372,7 +1398,10 @@ import "@paima/evm-contracts/contracts/Erc20NftSale.sol";
     visibility="public"
     anchor="xref-Erc20NftSale-initialize-contract-ERC20---address-address-uint256-"
 >
-    No description given
+    Initializes the contract with the requested price `_price` in tokens of `currencies` for specified NFT `_nft`,
+transferring ownership to the specified `owner`.
+Callable only once.
+Emits the `Initialized` event.
 </SolidityDetailBlock>
 
 <SolidityDetailBlock
@@ -1381,7 +1410,10 @@ import "@paima/evm-contracts/contracts/Erc20NftSale.sol";
     visibility="public"
     anchor="xref-Erc20NftSale-buyWithToken-contract-ERC20-address-string-"
 >
-    Purchases an NFT using approved token. NFTs are sold based on FIFO
+    Purchases NFT for address `receiverAddress`, paying required price in token of `_tokenAddress`,
+if it is one of the `supportedCurrencies`.
+This function calls the `mint` function on the `AnnotatedMintNft` contract, passing provided `initialData`.
+Emits the `BuyWithToken` event.
 </SolidityDetailBlock>
 
 <SolidityDetailBlock
@@ -1390,7 +1422,9 @@ import "@paima/evm-contracts/contracts/Erc20NftSale.sol";
     visibility="external"
     anchor="xref-Erc20NftSale-removeWhitelistedToken-contract-ERC20-"
 >
-    No description given
+    Removes `_token` from the list of `supportedCurrencies`.
+Callable only by the contract owner.
+Emits the `RemoveWhitelistedToken` event.
 </SolidityDetailBlock>
 
 <SolidityDetailBlock
@@ -1399,7 +1433,9 @@ import "@paima/evm-contracts/contracts/Erc20NftSale.sol";
     visibility="external"
     anchor="xref-Erc20NftSale-whitelistTokens-contract-ERC20---"
 >
-    No description given
+    Adds `_tokens` to the `supportedCurrencies` array.
+Callable only by the contract owner.
+Emits the `WhitelistTokens` event.
 </SolidityDetailBlock>
 
 <SolidityDetailBlock
@@ -1408,7 +1444,9 @@ import "@paima/evm-contracts/contracts/Erc20NftSale.sol";
     visibility="external"
     anchor="xref-Erc20NftSale-updatePrice-uint256-"
 >
-    No description given
+    Changes the sale price to `_nftPrice`.
+Callable only by the contract owner.
+Emits the `UpdatePrice` event.
 </SolidityDetailBlock>
 
 <SolidityDetailBlock
@@ -1417,7 +1455,8 @@ import "@paima/evm-contracts/contracts/Erc20NftSale.sol";
     visibility="external"
     anchor="xref-Erc20NftSale-withdraw-address-"
 >
-    No description given
+    Withdraws the contract balance of `depositedCurrencies` to `_account`.
+Callable only by the contract owner.
 </SolidityDetailBlock>
 
 <SolidityDetailBlock
@@ -1426,7 +1465,8 @@ import "@paima/evm-contracts/contracts/Erc20NftSale.sol";
     visibility="external"
     anchor="xref-Erc20NftSale-upgradeContract-address-"
 >
-    No description given
+    Upgrades the contract implementation to `_newContract`.
+Callable only by the contract owner.
 </SolidityDetailBlock>
 
 <SolidityDetailBlock
@@ -1435,7 +1475,7 @@ import "@paima/evm-contracts/contracts/Erc20NftSale.sol";
     visibility="public"
     anchor="xref-Erc20NftSale-tokenIsWhitelisted-contract-ERC20-"
 >
-    No description given
+    Returns true if `_token` is part of the `supportedCurrencies`.
 </SolidityDetailBlock>
 
 <SolidityDetailBlock
@@ -1444,7 +1484,7 @@ import "@paima/evm-contracts/contracts/Erc20NftSale.sol";
     visibility="public"
     anchor="xref-Erc20NftSale-getDepositedCurrencies--"
 >
-    No description given
+    Returns the token addresses that have been used as a payment in the NFT purchases.
 </SolidityDetailBlock>
 
 <SolidityDetailBlock
@@ -1453,7 +1493,7 @@ import "@paima/evm-contracts/contracts/Erc20NftSale.sol";
     visibility="public"
     anchor="xref-Erc20NftSale-getSupportedCurrencies--"
 >
-    No description given
+    Returns an array of token addresses that are accepted as payment in the NFT purchase.
 </SolidityDetailBlock>
 
 <SolidityDetailBlock
@@ -1462,7 +1502,7 @@ import "@paima/evm-contracts/contracts/Erc20NftSale.sol";
     visibility="event"
     anchor="xref-Erc20NftSale-Initialized-contract-ERC20---address-address-"
 >
-    No description given
+    Emitted when the contract is initialized.
 </SolidityDetailBlock>
 
 <SolidityDetailBlock
@@ -1471,34 +1511,25 @@ import "@paima/evm-contracts/contracts/Erc20NftSale.sol";
     visibility="event"
     anchor="xref-Erc20NftSale-UpdatePrice-uint256-uint256-"
 >
-    No description given
+    Emitted when the NFT price is updated from `oldPrice` to `newPrice`.
 </SolidityDetailBlock>
 
 <SolidityDetailBlock
-    title="UpdateNftProxy"
-    params="(address indexed oldProxy, address indexed newProxy)"
-    visibility="event"
-    anchor="xref-Erc20NftSale-UpdateNftProxy-address-address-"
->
-    No description given
-</SolidityDetailBlock>
-
-<SolidityDetailBlock
-    title="RemoveWhiteListedToken"
+    title="RemoveWhitelistedToken"
     params="(address indexed token)"
     visibility="event"
-    anchor="xref-Erc20NftSale-RemoveWhiteListedToken-address-"
+    anchor="xref-Erc20NftSale-RemoveWhitelistedToken-address-"
 >
-    No description given
+    Emitted when the `token` is removed from the list of `supportedCurrencies`.
 </SolidityDetailBlock>
 
 <SolidityDetailBlock
-    title="WhiteListTokens"
-    params="(address[] indexed token)"
+    title="WhitelistTokens"
+    params="(address[] indexed tokens)"
     visibility="event"
-    anchor="xref-Erc20NftSale-WhiteListTokens-address---"
+    anchor="xref-Erc20NftSale-WhitelistTokens-address---"
 >
-    No description given
+    Emitted when the `tokens` are added as the `supportedCurrencies`.
 </SolidityDetailBlock>
 
 <SolidityDetailBlock
@@ -1507,7 +1538,7 @@ import "@paima/evm-contracts/contracts/Erc20NftSale.sol";
     visibility="event"
     anchor="xref-Erc20NftSale-BuyWithToken-uint256-uint256-address-address-"
 >
-    No description given
+    Emitted when an NFT of `tokenId` is minted to `receiver` by `buyer` paying `PRICE` in tokens of `supportedCurrencies`.
 </SolidityDetailBlock>
 
 ## Utilities
@@ -1550,7 +1581,7 @@ import "@paima/evm-contracts/contracts/BaseState.sol";
     visibility="public"
     anchor="xref-BaseState-nftPrice-uint256"
 >
-    No description given
+    Required payment for the NFT in sale.
 </SolidityDetailBlock>
 
 <SolidityDetailBlock
@@ -1559,7 +1590,7 @@ import "@paima/evm-contracts/contracts/BaseState.sol";
     visibility="public"
     anchor="xref-BaseState-initialized-bool"
 >
-    No description given
+    True if contract has been initialized via `initialize` function.
 </SolidityDetailBlock>
 
 <SolidityDetailBlock
@@ -1568,7 +1599,7 @@ import "@paima/evm-contracts/contracts/BaseState.sol";
     visibility="public"
     anchor="xref-BaseState-nftAddress-address"
 >
-    No description given
+    Address of the NFT for sale.
 </SolidityDetailBlock>
 
 <ContractHeader githubLink="https://github.com/PaimaStudios/paima-engine/tree/master/packages/evm-contracts/contracts/State.sol" anchor="State">
@@ -1621,7 +1652,7 @@ import "@paima/evm-contracts/contracts/State.sol";
     visibility="public"
     anchor="xref-State-nftPrice-uint256"
 >
-    No description given
+    Required payment for the NFT in sale.
 </SolidityDetailBlock>
 
 <SolidityDetailBlock
@@ -1630,7 +1661,7 @@ import "@paima/evm-contracts/contracts/State.sol";
     visibility="public"
     anchor="xref-State-initialized-bool"
 >
-    No description given
+    True if contract has been initialized via `initialize` function.
 </SolidityDetailBlock>
 
 <SolidityDetailBlock
@@ -1639,7 +1670,7 @@ import "@paima/evm-contracts/contracts/State.sol";
     visibility="public"
     anchor="xref-State-nftAddress-address"
 >
-    No description given
+    Address of the NFT for sale.
 </SolidityDetailBlock>
 
 <SolidityDetailBlock
@@ -1648,7 +1679,7 @@ import "@paima/evm-contracts/contracts/State.sol";
     visibility="public"
     anchor="xref-State-depositedCurrencies-contract-ERC20--"
 >
-    No description given
+    Array of addresses of tokens that have been deposited to the contract via NFT sales.
 </SolidityDetailBlock>
 
 <SolidityDetailBlock
@@ -1657,7 +1688,7 @@ import "@paima/evm-contracts/contracts/State.sol";
     visibility="public"
     anchor="xref-State-depositedCurrenciesMap-mapping-contract-ERC20----bool-"
 >
-    No description given
+    Mapping that returns true for address of token that has been deposited to the contract via NFT sale.
 </SolidityDetailBlock>
 
 <SolidityDetailBlock
@@ -1666,7 +1697,7 @@ import "@paima/evm-contracts/contracts/State.sol";
     visibility="public"
     anchor="xref-State-supportedCurrencies-contract-ERC20--"
 >
-    No description given
+    Array of addresses of tokens that are accepted as payment for the NFT sale.
 </SolidityDetailBlock>
 
 <ContractHeader githubLink="https://github.com/PaimaStudios/paima-engine/tree/master/packages/evm-contracts/contracts/ERC1967.sol" anchor="ERC1967">
@@ -1731,12 +1762,12 @@ Made as a small subset of https://github.com/OpenZeppelin/openzeppelin-contracts
     Stores a new address in the EIP1967 implementation slot.
 </SolidityDetailBlock>
 
-<ContractHeader githubLink="https://github.com/PaimaStudios/paima-engine/tree/master/packages/evm-contracts/contracts/Proxy/NativeProxy.sol" anchor="NativeProxy">
-    ### NativeProxy
+<ContractHeader githubLink="https://github.com/PaimaStudios/paima-engine/tree/master/packages/evm-contracts/contracts/Proxy/NativeNftSaleProxy.sol" anchor="NativeNftSaleProxy">
+    ### NativeNftSaleProxy
 </ContractHeader>
 
 ```solidity
-import "@paima/evm-contracts/contracts/Proxy/NativeProxy.sol";
+import "@paima/evm-contracts/contracts/Proxy/NativeNftSaleProxy.sol";
 ```
 
 Proxy contract mostly based on https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/proxy/Proxy.sol
@@ -1749,23 +1780,23 @@ Proxy contract mostly based on https://github.com/OpenZeppelin/openzeppelin-cont
       lines: [
         {
           text: "constructor(implementation, owner, nftAddress, nftPrice)",
-          anchor: "xref-NativeProxy-constructor-address-address-address-uint256-"
+          anchor: "xref-NativeNftSaleProxy-constructor-address-address-address-uint256-"
         },
         {
           text: "_delegate(target)",
-          anchor: "xref-NativeProxy-_delegate-address-"
+          anchor: "xref-NativeNftSaleProxy-_delegate-address-"
         },
         {
           text: "_fallback()",
-          anchor: "xref-NativeProxy-_fallback--"
+          anchor: "xref-NativeNftSaleProxy-_fallback--"
         },
         {
           text: "fallback()",
-          anchor: "xref-NativeProxy-fallback--"
+          anchor: "xref-NativeNftSaleProxy-fallback--"
         },
         {
           text: "receive()",
-          anchor: "xref-NativeProxy-receive--"
+          anchor: "xref-NativeNftSaleProxy-receive--"
         },
       ]
     },
@@ -1794,17 +1825,17 @@ Proxy contract mostly based on https://github.com/OpenZeppelin/openzeppelin-cont
     title="constructor"
     params="(address implementation, address owner, address nftAddress, uint256 nftPrice)"
     visibility="public"
-    anchor="xref-NativeProxy-constructor-address-address-address-uint256-"
+    anchor="xref-NativeNftSaleProxy-constructor-address-address-address-uint256-"
 >
-    this is normally not needed as runtime bytecode is deployed in
-genesis file and implementation storage slot defined there too
+    Sets `implementation` address and calls the `NativeNftSale.initialize` function with the parameters
+`owner`, `nftAddress`, `nftPrice`.
 </SolidityDetailBlock>
 
 <SolidityDetailBlock
     title="_delegate"
     params="(address target)"
     visibility="internal"
-    anchor="xref-NativeProxy-_delegate-address-"
+    anchor="xref-NativeNftSaleProxy-_delegate-address-"
 >
     Delegates the current call to `implementation`.
 This function does not return to its internal call site, it will return
@@ -1815,134 +1846,30 @@ directly to the external caller.
     title="_fallback"
     params="()"
     visibility="internal"
-    anchor="xref-NativeProxy-_fallback--"
+    anchor="xref-NativeNftSaleProxy-_fallback--"
 >
-    No description given
-</SolidityDetailBlock>
-
-<SolidityDetailBlock
-    title="fallback"
-    params="()"
-    visibility="external"
-    anchor="xref-NativeProxy-fallback--"
->
-    No description given
-</SolidityDetailBlock>
-
-<SolidityDetailBlock
-    title="receive"
-    params="()"
-    visibility="external"
-    anchor="xref-NativeProxy-receive--"
->
-    No description given
-</SolidityDetailBlock>
-
-<ContractHeader githubLink="https://github.com/PaimaStudios/paima-engine/tree/master/packages/evm-contracts/contracts/Proxy/Proxy.sol" anchor="Proxy">
-    ### Proxy
-</ContractHeader>
-
-```solidity
-import "@paima/evm-contracts/contracts/Proxy/Proxy.sol";
-```
-
-Proxy contract mostly based on https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/proxy/Proxy.sol
-
-<SolidityOutlineBlock
-  type="Functions"
-  lists={[
-    {
-      category: "",
-      lines: [
-        {
-          text: "constructor(implementation, currencies, owner, nftAddress, nftPrice)",
-          anchor: "xref-Proxy-constructor-address-contract-ERC20---address-address-uint256-"
-        },
-        {
-          text: "_delegate(target)",
-          anchor: "xref-Proxy-_delegate-address-"
-        },
-        {
-          text: "_fallback()",
-          anchor: "xref-Proxy-_fallback--"
-        },
-        {
-          text: "fallback()",
-          anchor: "xref-Proxy-fallback--"
-        },
-        {
-          text: "receive()",
-          anchor: "xref-Proxy-receive--"
-        },
-      ]
-    },
-    {
-      category: "ERC1967",
-      lines: [
-        {
-          text: "_assertCorrectImplementationSlot()",
-          anchor: "xref-ERC1967-_assertCorrectImplementationSlot--"
-        },
-        {
-          text: "_getImplementation()",
-          anchor: "xref-ERC1967-_getImplementation--"
-        },
-        {
-          text: "_setImplementation(newImplementation)",
-          anchor: "xref-ERC1967-_setImplementation-address-"
-        },
-      ]
-    },
-  ]}
->
-</SolidityOutlineBlock>
-
-<SolidityDetailBlock
-    title="constructor"
-    params="(address implementation, contract ERC20[] currencies, address owner, address nftAddress, uint256 nftPrice)"
-    visibility="public"
-    anchor="xref-Proxy-constructor-address-contract-ERC20---address-address-uint256-"
->
-    this is normally not needed as runtime bytecode is deployed in
-genesis file and implementation storage slot defined there too
-</SolidityDetailBlock>
-
-<SolidityDetailBlock
-    title="_delegate"
-    params="(address target)"
-    visibility="internal"
-    anchor="xref-Proxy-_delegate-address-"
->
-    Delegates the current call to `implementation`.
+    Delegates the current call to the address returned by `_implementation()`.
 This function does not return to its internal call site, it will return
 directly to the external caller.
 </SolidityDetailBlock>
 
 <SolidityDetailBlock
-    title="_fallback"
-    params="()"
-    visibility="internal"
-    anchor="xref-Proxy-_fallback--"
->
-    No description given
-</SolidityDetailBlock>
-
-<SolidityDetailBlock
     title="fallback"
     params="()"
     visibility="external"
-    anchor="xref-Proxy-fallback--"
+    anchor="xref-NativeNftSaleProxy-fallback--"
 >
-    No description given
+    Fallback function that delegates calls to the address returned by `_implementation()`.
+Will run if no other function in the contract matches the call data.
 </SolidityDetailBlock>
 
 <SolidityDetailBlock
     title="receive"
     params="()"
     visibility="external"
-    anchor="xref-Proxy-receive--"
+    anchor="xref-NativeNftSaleProxy-receive--"
 >
-    No description given
+    Called if this contract is receiving native tokens and `msg.data` is empty
 </SolidityDetailBlock>
 
 <ContractHeader githubLink="https://github.com/PaimaStudios/paima-engine/tree/master/packages/evm-contracts/contracts/Proxy/GenericPaymentProxy.sol" anchor="GenericPaymentProxy">
@@ -2006,8 +1933,8 @@ Proxy contract mostly based on https://github.com/OpenZeppelin/openzeppelin-cont
     visibility="public"
     anchor="xref-GenericPaymentProxy-constructor-address-address-"
 >
-    this is normally not needed as runtime bytecode is deployed in
-genesis file and implementation storage slot defined there too
+    Sets `implementation` address and calls the `GenericPayment.initialize` function with the parameter
+`owner`.
 </SolidityDetailBlock>
 
 <SolidityDetailBlock
@@ -2027,7 +1954,9 @@ directly to the external caller.
     visibility="internal"
     anchor="xref-GenericPaymentProxy-_fallback--"
 >
-    No description given
+    Delegates the current call to the address returned by `_implementation()`.
+This function does not return to its internal call site, it will return
+directly to the external caller.
 </SolidityDetailBlock>
 
 <SolidityDetailBlock
@@ -2036,6 +1965,117 @@ directly to the external caller.
     visibility="external"
     anchor="xref-GenericPaymentProxy-fallback--"
 >
-    No description given
+    Fallback function that delegates calls to the address returned by `_implementation()`.
+Will run if no other function in the contract matches the call data.
+</SolidityDetailBlock>
+
+<ContractHeader githubLink="https://github.com/PaimaStudios/paima-engine/tree/master/packages/evm-contracts/contracts/Proxy/Erc20NftSaleProxy.sol" anchor="Erc20NftSaleProxy">
+    ### Erc20NftSaleProxy
+</ContractHeader>
+
+```solidity
+import "@paima/evm-contracts/contracts/Proxy/Erc20NftSaleProxy.sol";
+```
+
+Proxy contract mostly based on https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/proxy/Proxy.sol
+
+<SolidityOutlineBlock
+  type="Functions"
+  lists={[
+    {
+      category: "",
+      lines: [
+        {
+          text: "constructor(implementation, currencies, owner, nftAddress, nftPrice)",
+          anchor: "xref-Erc20NftSaleProxy-constructor-address-contract-ERC20---address-address-uint256-"
+        },
+        {
+          text: "_delegate(target)",
+          anchor: "xref-Erc20NftSaleProxy-_delegate-address-"
+        },
+        {
+          text: "_fallback()",
+          anchor: "xref-Erc20NftSaleProxy-_fallback--"
+        },
+        {
+          text: "fallback()",
+          anchor: "xref-Erc20NftSaleProxy-fallback--"
+        },
+        {
+          text: "receive()",
+          anchor: "xref-Erc20NftSaleProxy-receive--"
+        },
+      ]
+    },
+    {
+      category: "ERC1967",
+      lines: [
+        {
+          text: "_assertCorrectImplementationSlot()",
+          anchor: "xref-ERC1967-_assertCorrectImplementationSlot--"
+        },
+        {
+          text: "_getImplementation()",
+          anchor: "xref-ERC1967-_getImplementation--"
+        },
+        {
+          text: "_setImplementation(newImplementation)",
+          anchor: "xref-ERC1967-_setImplementation-address-"
+        },
+      ]
+    },
+  ]}
+>
+</SolidityOutlineBlock>
+
+<SolidityDetailBlock
+    title="constructor"
+    params="(address implementation, contract ERC20[] currencies, address owner, address nftAddress, uint256 nftPrice)"
+    visibility="public"
+    anchor="xref-Erc20NftSaleProxy-constructor-address-contract-ERC20---address-address-uint256-"
+>
+    Sets `implementation` address and calls the `Erc20NftSale.initialize` function with the parameters
+`currencies`, `owner`, `nftAddress`, `nftPrice`.
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="_delegate"
+    params="(address target)"
+    visibility="internal"
+    anchor="xref-Erc20NftSaleProxy-_delegate-address-"
+>
+    Delegates the current call to `implementation`.
+This function does not return to its internal call site, it will return
+directly to the external caller.
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="_fallback"
+    params="()"
+    visibility="internal"
+    anchor="xref-Erc20NftSaleProxy-_fallback--"
+>
+    Delegates the current call to the address returned by `_implementation()`.
+This function does not return to its internal call site, it will return
+directly to the external caller.
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="fallback"
+    params="()"
+    visibility="external"
+    anchor="xref-Erc20NftSaleProxy-fallback--"
+>
+    Fallback function that delegates calls to the address returned by `_implementation()`.
+Will run if no other function in the contract matches the call data.
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="receive"
+    params="()"
+    visibility="external"
+    anchor="xref-Erc20NftSaleProxy-receive--"
+>
+    Called if this contract is receiving native tokens and `msg.data` is empty
 </SolidityDetailBlock>
 
