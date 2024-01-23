@@ -7,7 +7,7 @@ sidebar_position: 1
 To be a rollup, Paima state has to eventually be written to the L1. As a sovereign rollup, the way the data is stored is fairly simple (calling a contract function that simply emits its input as an event) and we provide a way to generate a [grammar](https://en.wikipedia.org/wiki/Formal_grammar) for this data.
 
 Paima has its own format for representing L2 data called Paima Concise that resembles a bar-separated string (ex: `c|3|100|`). This was chosen as
-1. It is human-readable, which not only helps with coding & debugging, but also helps users verify the content of the string when signing from their wallet such as Metamask
+1. It is human-readable, which not only helps with coding & debugging, but also helps users verify the content of the string when signing from their wallet such as MetaMask
 2. It is easy to combine with many parsing tools (given the prevalence of CSV) and so it avoids having to write a lot of custom parers to Paima Concise in multiple programming languages & tools
 3. It is easy to combine with other formats if desired. For example, you could use base64 to encode one of the fields in the bar-separated string (although we recommend using PaimaParser defined below instead)
 

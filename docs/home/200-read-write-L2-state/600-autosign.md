@@ -10,7 +10,7 @@ To tackle this, Paima introduces three different auto-sign methods that all guar
 
 ## 1. Data-only auto-signing
 
-For apps that run [Paima batchers](../1-setup/5-paima-bacher.md) or similar systems (meta-transactions, account-abstraction or sequencers), signing data is often enough for the game 
+For apps that run [Paima batchers](../1-setup/20-paima-bacher.md) or similar systems (meta-transactions, account-abstraction or sequencers), signing data is often enough for the game 
 
 Concrete examples of cases where this is sufficient:
 - Blockchains with zero transaction fees (Immutable, Oasys, etc.) where you can simply have somebody submit the transaction for you
@@ -55,7 +55,7 @@ namespace:
 
 ### Wallets that plan to support this format
 
-- Metamask through the [Paima Session Snap](https://github.com/PaimaStudios/paima-session-snap)
+- MetaMask through the [Paima Session Snap](https://github.com/PaimaStudios/paima-session-snap)
 - Flint Wallet ([link](https://flint-wallet.com/)) (for Milkomeda C1 only)
 
 ## 2. Game-specific auto-signing transactions
@@ -66,7 +66,7 @@ However, in this case, adding the security namespace would add a lot of useless 
 
 ### Wallets that plan to support this format
 
-- Metamask through the [Paima Session Snap](https://github.com/PaimaStudios/paima-session-snap)
+- MetaMask through the [Paima Session Snap](https://github.com/PaimaStudios/paima-session-snap)
 
 ## 3. Full auto-signing for all transactions
 
@@ -75,4 +75,4 @@ For some apps, simply auto-signing data may not be enough. Instead, to safely si
 To do this, we plan to generate a deterministic session key for each game.
 
 Wallets that plan to support this format:
-- Metamask through the [Paima Session Snap](https://github.com/PaimaStudios/paima-session-snap)
+- MetaMask through the [Paima Session Snap](https://github.com/PaimaStudios/paima-session-snap)

@@ -35,7 +35,8 @@ npm run database:up # separate terminal - starts the DB to cache the onchain dat
 # see `frontend` folder in your project for launching the UI for your game
 ```
 
-Next, (if running on a local chain), set hardhat and your browser wallet to use the same private key (see more info [here](#metamask)).
+Next, (if running on a local chain), set hardhat and your browser wallet to use the same private key (see more info [here](./10-connecting-wallets.md)).
+
 
 ## Initializing Your Project
 
@@ -113,25 +114,7 @@ Reference the [Deploying L2 Smart Contract](../50-smart-contracts/200-evm/100-in
 
 Depending on which template you are using, there may be a `frontend` folder. Run the framework-specific steps in that folder to start your game's frontend
 
-### Connecting Metamask to Your Frontend {#metamask}
-
-Key points to keep in mind:
-1. These steps are **only required if running on a localhost network** (not required on mainnet / testnet)
-2. You will need to reset your nonce often for this by going to `Settings > Advanced > Clear activity and nonce data`
-
-There are two ways to connect MetaMask to your local network
-
-#### Option 1:`Hardhat Private Key → MetaMask`
-If you're using [MetaMask](https://metamask.io/), you can interact with your contract from your frontend with these steps:
-1. Open the MetaMask extension
-2. Click on the account selector at the top of the screen
-3. Click "add account"
-4. Select "import account"
-5. Paste in the private key seen when running `npm run chain:deploy`
-
-#### Option 2: `MetaMask mnemonic → Hardhat`
-
-See the Metamask guide for this [here](https://docs.metamask.io/wallet/how-to/get-started-building/run-devnet/)
+You can connect any wallet you want for your frontend (but we recommend Rivet). You can see our detailed guide on connecting your wallet [here](./10-connecting-wallets.md)
 
 ## Setting Up Your Game Node DB
 
@@ -174,7 +157,7 @@ You can learn more about the steps to releasing your game publicly [here](../600
 
 ### Paima Engine Dry Running
 
-For context, [Paima Batcher](./5-paima-bacher.md) allows end users to sign game inputs without manually posting transactions themselves. It enables the cross-chain Paima Whirlpool functionality to be possible in Paima Engine.
+For context, [Paima Batcher](./20-paima-bacher.md) allows end users to sign game inputs without manually posting transactions themselves. It enables the cross-chain Paima Whirlpool functionality to be possible in Paima Engine.
 
 For Paima Batcher to work well in production, game inputs can be validated before posting on-chain to save on transaction fees & increase throughput. To support this validation Paima Engine ships with a "dry run" endpoint which allows directly submitting a game input via HTTP, and having it processed by the STF (returning success or fail) without saving any of the resulting SQL queries. As such this allows the batcher (or any external tooling) to check that a game input validates before posting it on-chain.
 

@@ -1,7 +1,3 @@
----
-sidebar_position: 5
----
-
 # Paima Batcher
 
 Paima Batcher is the first key component of the Paima Whirlpool infrastructure which enables cross-chain play (via account abstraction layer), automatically paying transaction fees for users, and decreasing overall fees by batching many game inputs together.
