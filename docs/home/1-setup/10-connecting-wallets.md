@@ -16,6 +16,9 @@ Learn more [here](https://support.google.com/chrome/answer/2364824?hl=en&co=GENI
 
 [Rivet](https://chromewebstore.google.com/detail/rivet/mobmnpcacgadhkjfelhpemphmmnggnod) is a browser extension wallet optimized for developers who are testing making it perfect for developing with Paima Engine.
 
+You can see an example of Rivet being used as the wallet to test a game running on localhost below:
+![Alt text](image-11.png)
+
 ### Step 1: Download Rivet {#rivet}
 
 You can download it [here](https://chromewebstore.google.com/detail/rivet/mobmnpcacgadhkjfelhpemphmmnggnod).
@@ -74,7 +77,7 @@ Just open the settings icon at the top-right and check the two boxes seen below 
 
 Key points to keep in mind:
 1. These steps are **only required if running on a localhost network** (not required on mainnet / testnet)
-2. You will need to reset your nonce often for this by going to `Settings > Advanced > Clear activity and nonce data`
+2. You will need to reset your nonce often for this by going to `Settings > Advanced > Clear activity and nonce data` (more on this later)
 
 There are two ways to connect MetaMask to your local network
 
@@ -87,13 +90,12 @@ There are two ways to connect MetaMask to your local network
 #### 2. Click "Add Account" at the bottom
 
 ![Alt text](image-6.png)
-3. Click "add account"
 
 #### 3. Select "import account"
 
 ![Alt text](image-7.png)
 
-#### 4. Paste in the private key seen when running `npm run chain:deploy`
+#### 4. Paste in the private key seen when running `npm run chain:start`
 
 ![Alt text](image-8.png)
 
@@ -103,7 +105,7 @@ See the MetaMask guide for this [here](https://docs.metamask.io/wallet/how-to/ge
 
 ### **Important** MetaMask Issue
 
-The main issue with MetaMask is that it will not automatically detect if your locally running network got reset. This is problematic because in EVM, every transaction made by an account has an ID that needs to be a continuously increasing value (learn more [here](https://help.myetherwallet.com/en/articles/5461509-what-is-a-nonce)), and so if you restart your local network MetaMask will use the wrong ID and **your transactions will fail** silently.
+The main issue with MetaMask is that it will not automatically detect if your locally running network got reset. This is problematic because in EVM, every transaction made by an account has an ID ("nonce") that needs to be a continuously increasing value (learn more [here](https://help.myetherwallet.com/en/articles/5461509-what-is-a-nonce)), and so if you restart your local network MetaMask will use the wrong nonce and **your transactions will fail** silently.
 
 ![Alt text](image-9.png)
 
