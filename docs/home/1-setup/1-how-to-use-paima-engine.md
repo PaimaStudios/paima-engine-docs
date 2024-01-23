@@ -25,9 +25,10 @@ If you do not have Paima Engine yet, but want to follow along, you can find publ
 If you're running a template and just want to know which commands to run without having to know what they do, simply run the following
 
 ```bash
+npm run initialize # setup the env vars and install dependencies
 npm run pack # build your state machine
 npm run pack:middleware # create middleware to connect your state machine to your UI
-npm run chain:start # separate terminal - creates a local blockchain for your app
+npm run chain:start # separate terminal - creates a local L1 chain for your app
 npm run chain:deploy # deploys contracts to your local chain
 npm run database:up # separate terminal - starts the DB to cache the onchain data to speed up queries
 ./paima-engine run # separate terminal - runs your game L2 node
@@ -40,7 +41,7 @@ Next, (if running on a local chain), set hardhat and your browser wallet to use 
 
 When starting a new project with Paima Engine, you can choose to either go completely barebones, or use an included template to bootstrap with all of the essentials
 
-*Option A*: To initialize a game using a basic game template use the following command and select the `generic` template:
+*Option A*: To initialize a game using a basic game template, either clone git repo [here](https://github.com/PaimaStudios/paima-game-templates) or use the following command and select the `rock-paper-scissors` template:
 
 ```bash
 ./paima-engine init template
@@ -48,17 +49,17 @@ When starting a new project with Paima Engine, you can choose to either go compl
 
 *Option B*: Create everything from scratch. Although you can find all the Paima Engine packages to do this (ex: [@paima/sdk](https://www.npmjs.com/package/@paima/sdk)), we strongly recommend starting from a template.
 
-Once the command has finished, you will notice a new folder have been created called `generic-game-template` (name varies based on template selected). The SDK is directly used by the game template, and so all code you write will be in the `generic-game-template` folder.
+Once the command has finished, you will notice a new folder have been created called `rock-paper-scissors` (name varies based on template selected). The SDK is directly used by the game template, and so all code you write will be in the `rock-paper-scissors` folder.
 
-Lastly to finish the initialization process off, simply go into the `generic-game-template` folder and run `npm run initialize`. This will install all of the packages and set the project up to be ready for you to start coding.
+Lastly to finish the initialization process off, simply go into the `rock-paper-scissors` folder and run `npm run initialize`. This will install all of the packages and set the project up to be ready for you to start coding.
 
-Of note, feel free to rename the `generic-game-template` folder to the name of your game (or whatever you prefer)
+Of note, feel free to rename the `rock-paper-scissors` folder to the name of your game (or whatever you prefer)
 
 ## Packing Your Game Code
 
 The specifics of writing your game code is outside of the scope of this current getting started guide, thus we will move on to packing your game code to be run with Paima Engine.
 
-As the `generic-game-template` folder has already been initialized in the previous section, we can move forward with packing the game code (you can pack the generic game template without writing any new code initially to test). Simply use the following command in the folder:
+As the `rock-paper-scissors` folder has already been initialized in the previous section, we can move forward with packing the game code (you can pack the rock-paper-scissors game template without writing any new code initially to test). Simply use the following command in the folder:
 
 ```bash
 npm run pack
@@ -76,7 +77,10 @@ Thus you must fill out this env file with all of the pre-requisites to proceed f
 
 ## Building your Middleware
 
-Depending on which framework you use for your frontend, it may not be able to connect to the Paima SDK directly, in which case you need a middleware that acts as the connection: `Paima <> Middleware <> Frontend`
+The Paima middleware provides a framework-independent way of writing code for the frontend to consume. This is useful to:
+1. Provide a minimal interface for frontends that cannot natively run Javascript (and therefore cannot use anything in `@paima/sdk` directly) like Unity
+2. Provide a framework-independent way of performing calculations whose result need to be available at compile time from your frontend (using [esbuild](https://github.com/esbuild/community-plugins)) like reading node configuration files.
+3. Allow sharing parts of your node code to your frontend (or other systems)
 
 If you need this for the template you are building, run
 ```bash

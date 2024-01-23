@@ -20,4 +20,3 @@ Users can:
 - Use Paima ABIs from their projects (ex: can easily generate types for the contracts)
 - Pin a specific version of the contracts so that the deployment is reproducible
 - Combine the setup with other Hardhat plugins & tools
-

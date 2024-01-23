@@ -101,7 +101,7 @@ Update your `parameters.json` to use the following
 
 When you run `npm run chain:deploy`, you'll see addresses shown for the deployments (you can also find them later in the `deployed_addresses.json` file)
 
-Use these to populate your yml file base on any [primitive](../../300-react-to-events/2-primitive-catalogue/10-evm/3-ERC721.md) you need
+Use these to populate your `.yml` file base on any [primitive](../../300-react-to-events/2-primitive-catalogue/10-evm/3-ERC721.md) you need
 
 ```yml
 extensions:

@@ -23,10 +23,12 @@ root_folder
 `5500.sql` will be applied at block-height `START_BLOCKHEIGHT + 5500`.  
 Both will be applied before any other inputs are processed for that block-height.
 
-The *.sql files are PGSQL scripts. SQL scripts are automatically ran as transactions, if they fail the block-process-loop will stop and the script must be fixed and will be reapplied.
+The *.sql files are PGSQL scripts. SQL scripts are automatically ran as transactions (no need for `BEGIN` and `END`), and if they fail the block-process-loop will stop and the script must be fixed and will be reapplied.
 
 `1000.sql` example:
 ```sql
 INSERT INTO items (name) VALUES ('potion') ;
 INSERT INTO items (name) VALUES ('book') ;
 ```
+
+**Important**: migrations are included as part of your packaged node when you run `npm run pack`. That means that you must re-run `npm run pack` to have any changes you make to your migrations have any effect.
