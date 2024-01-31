@@ -42,11 +42,13 @@ Next, (if running on a local chain), set hardhat and your browser wallet to use 
 
 When starting a new project with Paima Engine, you can choose to either go completely barebones, or use an included template to bootstrap with all of the essentials
 
-*Option A*: To initialize a game using a basic game template, either clone git repo [here](https://github.com/PaimaStudios/paima-game-templates) or use the following command and select the `rock-paper-scissors` template:
+*Option A*: To initialize a game using a basic game template by cloning the git repo [here](https://github.com/PaimaStudios/paima-game-templates) and going into the the `rock-paper-scissors` template (simple template to start with).
+
+<!-- *Option A*: To initialize a game using a basic game template, either clone git repo [here](https://github.com/PaimaStudios/paima-game-templates) or use the following command and select the `rock-paper-scissors` template:
 
 ```bash
 ./paima-engine init template
-```
+``` -->
 
 *Option B*: Create everything from scratch. Although you can find all the Paima Engine packages to do this (ex: [@paima/sdk](https://www.npmjs.com/package/@paima/sdk)), we strongly recommend starting from a template.
 
