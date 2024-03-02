@@ -1,6 +1,6 @@
-# Paima Funnel
+# Introduction to Paima Funnels
 
-A core library which allows a consumer to initialize a chain funnel object which holds state regarding:
+`paima-funnel` is a core library which allows a consumer to initialize a chain funnel object which holds state regarding:
 
 - The blockchain node (`CHAIN_URI`)
 - The deployed Paima Contract address (`CONTRACT_ADDRESS`)
@@ -32,7 +32,7 @@ Funnels are meant to be stateless between blocks to avoid subtle bugs in the cas
 
 Multiple funnels are combined together based on the developer's needs using a combination of the [composite pattern](https://en.wikipedia.org/wiki/Composite_pattern) and the [decorator pattern](https://en.wikipedia.org/wiki/Decorator_pattern), allowing to mix-and-match funnel types depending on the game's setup to get all the data they need.
 
-## readData function
+### readData function
 
 At its core, Paima will call the `readData` function according to `POLLING_RATE` (which by default is based on `BLOCK_TIME`), and pass in the next expected block height (based off what is stored on disk by the Paima state machine).
 
@@ -47,12 +47,12 @@ export interface ChainData {
   extensionDatums?: ChainDataExtensionDatum[];
 }
 ```
-## readPresyncData function
+### readPresyncData function
 
 When extensions are used, the runtime must start polling from a block height that was before any of the contracts referenced in the Primitives were deployed. Thus all events that take place (ie. all NFT mints/transfer events) are accounted for and are saved in the DB so the state machine has proper access to a valid copy of the current state of the contract. We call this the _pre-sync_ phase.
 
 In other words, this function is meant to gather events for [Primitives](../2-primitive-catalogue/1-introduction.md#accessing-the-collected-data) that happened before `START_BLOCKHEIGHT`, or the equivalent point if other primitives from other chains are used.
 
-## getDbTx
+### getDbTx
 
 Gets the database transaction used when executing this funnel

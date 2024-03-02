@@ -1,25 +1,23 @@
-# Multiple EVM network configuration
-
-In order to be able to sync multiple evm networks, the (per network)
-configuration needs to be provided in a yaml file instead of using the ENV vars.
+# Configuring your Funnel
 
 On startup, Paima Engine will look for a file name either
 `config.${NETWORK}.yml` or `config.${NETWORK}.yaml` for this. If this is not
 provided, the config defaults to the one provided with the environment
-variables.
-
+variables (learn more [here](../../1-setup/4-environment-config-values.md))
 
 ## Format
 
 The format of the config file is a yaml object mapping of a network name to the
 config object. The name is used then in the `extensions.yml` configuration in
-order to associate CDE's with a particular network, and also in some logs.
+order to associate Paima Primitives with a particular network.
 
-Each entry should have a `type` variable, which can be one of `evm-main`,
-`evm-other` or `cardano`.
+Each entry should have a `type` variable, which can be one of
+- `evm-main`
+- `evm-other`
+- `cardano`
 
 There can be only one entry with the `evm-main` type. This network is the one
-that has the paima contract deployed. Currently also there should only be one
+that has the Paima contract deployed. Currently also there should only be one
 entry of type `cardano`.
 
 There can be multiple entries of the `evm-other` type. A funnel is instantiated
@@ -57,7 +55,7 @@ presyncStepSize: number
 
 All the variables except `funnelBlockGroupSize` have the same purpose and
 default values as they have in the environment configuration. Please refer to
-[that section](environment-config-values) for details.
+[that section](../../1-setup/4-environment-config-values.md) for details.
 
 `funnelBlockGroupSize` it's used to control how many blocks are fetched in a
 single request per network, which helps if a network has a lower rate limit.
@@ -97,22 +95,21 @@ Cardano:
 
 ## Extensions
 
-If the config file is present, then the extensions should use the `network` key to assign the primitive to a particular funnel.
+If the config file is present, then the extensions should use the `network` key to assign the primitive to a particular funnel. Learn more about extensions [here](../2-primitive-catalogue/1-introduction.md#configuration)
 
 ```yaml
 # extensions.yml
 extensions:
   - name: "Bar"
     type: "erc20"
-    network: "Hardhat"
     contractAddress: "0x0000000000000000000000000000000000000001"
     startBlockHeight: 0
+    # This is required so that the funnel can know which extensions it should care about
     network: "Hardhat1"
 
   - name: "Foo"
     type: "erc20"
     contractAddress: "0x0000000000000000000000000000000000000002"
     startBlockHeight: 100
-    # This is required so that the funnel can know which extensions should it care about
     network: "Hardhat2"
 ```

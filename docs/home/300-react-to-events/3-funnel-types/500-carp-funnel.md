@@ -1,6 +1,12 @@
-# Carp funnel
+# Carp Funnel
 
-This funnel allows using Cardano Primitives leveraging [Carp](https://dcspark.github.io/carp/docs/intro). It's enabled when the `CARP_URL` variable is present. Additionally, `CARDANO_NETWORK` needs to be set in order to be able to deterministically associate Cardano slots with the EVM blocks, and `CARDANO_CONFIRMATION_DEPTH` needs to be set so that the funnel can know when a block is considered stable.
+This funnel allows using Cardano Primitives leveraging [Carp](https://dcspark.github.io/carp/docs/intro). It's enabled when either Cardano is specified in the [settings](./200-configuration.md) or [.env](../../1-setup/4-environment-config-values.md).
+
+## Configuration
+
+- `network` which Cardano network this funnel will track
+- `confirmationDepth` when a block is considered stable
+- `paginationLimit` used as the pagination limit for underlying Carp queries
 
 ## Requirements
 
