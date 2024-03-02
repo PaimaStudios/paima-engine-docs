@@ -2,9 +2,11 @@
 
 The following is a list of possible environment variables that can be configured for your project. These variables are read in the ENV class, located in `@paima/utils/config.js`. Please refer to that file for more information on default values.
 
-## Required Variables
+## Funnel Configuration
 
-This section lists the environment variables that are mandatory to be filled in for your project to function properly.
+These these variables are used if you only need to synchronize a single network for your application. If you need to synchronize multiple networks, learn more about funnel configuration [here](../300-react-to-events/3-funnel-types/200-configuration.md)
+
+### Required variables
 
 - Chain variables:
   - `CHAIN_URI`: The URI of the chain.
@@ -15,26 +17,41 @@ This section lists the environment variables that are mandatory to be filled in 
   - `CHAIN_CURRENCY_NAME`: The name of the chain currency.
   - `CHAIN_CURRENCY_SYMBOL`: The symbol of the chain currency.
   - `CHAIN_CURRENCY_DECIMALS`: The number of decimals for the chain currency.
+- `CONTRACT_ADDRESS`: The address of your Paima L2 contract.
+- `START_BLOCKHEIGHT`: The block height at which the syncing process starts. This is usually the block height at which the contract was deployed.
+- `BLOCK_TIME`: The number of seconds it takes for new blocks to be created on the chain you deployed your L2 contract on.
+
+#### Optional variables
+
+- [Primitive Catalogue](../300-react-to-events/2-primitive-catalogue/1-introduction.md):
+  - `DEFAULT_PRESYNC_STEP_SIZE`: number of blocks to process in each step during initial presync phase. If not provided, a value of 1000 is used. Generally no need to change this value.
+  - `CDE_CONFIG_PATH`: allows you to specify a custom location for your `extensions.yml` that is used to initialize primitive catalogue entries
+- Cardano extensions
+  - `CARP_URL`: The URL of a Carp instace, required when using Cardano primitives.
+  - `CARDANO_NETWORK`: One of `preview`, `preprod`, `mainnet`. It needs to match the network indexed by the Carp instance.
+  - `BATCHER_CARDANO_ENABLED_POOLS`: A comma separated list of pool credentials, only users delegating to one of these pools will be able to post to the batcher. The expected format is the public key hash (28 bytes) as a hexadecimal string (56 characters).
+- `DEFAULT_FUNNEL_GROUP_SIZE`: The number of blocks queried in one funnel sync step. If not set, a value of 100 is used. Generally no need to change this value.
+
+## Others
+
+### Required variables
+
 - Database connection variables (self explanatory):
   - `DB_USER`
   - `DB_PW`
   - `DB_NAME`
   - `DB_HOST`
   - `DB_PORT`
-- `CONTRACT_ADDRESS`: The address of your Paima L2 contract.
-- `START_BLOCKHEIGHT`: The block height at which the syncing process starts. This is usually the block height at which the contract was deployed.
-- `BLOCK_TIME`: The number of seconds it takes for new blocks to be created on the chain you deployed your L2 contract on.
 - `BACKEND_URI`: The URL of where your game node server will be deployed. This is used by the Middleware to interact with your game node.
 - `WEBSERVER_PORT`: The port to use for running your game node server.
 
-## Optional Variables
+### Optional Variables
 
 This section includes optional environment variables that have sensible default values if not explicitly set.
 
 - `BATCHER_URI`: The URL of the deployed batcher, if used.
 - `DEFAULT_FEE`: The blockchain fee to be set in transactions created by the Middleware.
 - `ENABLE_DRY_RUN`: Adds a `GET /dry_run` endpoint for input testing. Use it to post game inputs to validate them without modifying the game state.
-- `DEFAULT_FUNNEL_GROUP_SIZE`: The number of blocks queried in one funnel sync step. If not set, a value of 100 is used. Generally no need to change this value.
 - `NETWORK`: Used across modules to determine which .env file to read (`.env.$NETWORK`). Must be set separately if needed.
 - `FORCE_INVALID_PAIMA_DB_TABLE_DELETION`: Instead of failing during DB initialization, it deletes invalid tables and recreates them (without the previous content). If turned off, resync from scratch is needed after a major `@paima/sdk` update that affects internal tables.
 - `STORE_HISTORICAL_GAME_INPUTS`: If enabled, one of the internal tables stores all of the posted game inputs. Note that the table is currently accessible only through a direct DB connection.
@@ -43,21 +60,9 @@ This section includes optional environment variables that have sensible default 
 - `SERVER_ONLY_MODE`: Set this to run the game node without syncing new blocks.
 
 - Security variables:
-- `CONCISE_GAME_NAME`: This value will be prefixed to each concise command sent and should be a unique string for each game. E.g., "TDWOTJ" for Tower Defense: Wrath of the Jungle. This prevents replay attacks between different games. This is a mandatory requirement for Gaming Accounts Automatic Signing. 
+  - `CONCISE_GAME_NAME`: This value will be prefixed to each concise command sent and should be a unique string for each game. E.g., "TDWOTJ" for Tower Defense: Wrath of the Jungle. This prevents replay attacks between different games. This is a mandatory requirement for Gaming Accounts Automatic Signing.
 
-## Other Variables
-
-- `DEPLOYMENT`: was used in the past to determine how often new blocks are emitted. It is now _deprecated_ and replaced with `BLOCK_TIME`.
 - `GAME_NODE_VERSION`: defined statically in `@paima/sdk`. Check used to ensure your game node is running with a compatible version of paima-engine. After a major upgrade and necessary adjustments, you should adjust the version on your side.
-- [Primitive Catalogue](../300-react-to-events/2-primitive-catalogue/1-introduction.md):
-  - `DEFAULT_PRESYNC_STEP_SIZE`: number of blocks to process in each step during initial presync phase. If not provided, a value of 1000 is used. Generally no need to change this value.
-  - `CDE_CONFIG_PATH`: allows you to specify a custom location for your `extensions.yml` that is used to initialize primitive catalogue entries
-
-## Cardano extensions
-  - `CARP_URL`: The URL of a Carp instace, required when using Cardano primitives.
-  - `CARDANO_NETWORK`: One of `preview`, `preprod`, `mainnet`. It needs to match the network indexed by the Carp instance.
-  - `BATCHER_CARDANO_ENABLED_POOLS`: A comma separated list of pool credentials, only users delegating to one of these pools will be able to post to the batcher. The expected format is the public key hash (28 bytes) as a hexadecimal string (56 characters).
-
 
 ## Customization
 
@@ -66,7 +71,7 @@ You can extend the ENV class in your game to add your own game variables. Here's
 ```javascript
 export class GameENV extends ENV {
   static get LONG_CONFIG(): string {
-    return process.env.LONG_CONFIG || "defaultdefault";
+    return process.env.LONG_CONFIG || "default";
   }
 }
 ```

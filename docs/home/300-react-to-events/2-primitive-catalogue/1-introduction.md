@@ -39,6 +39,7 @@ Note that extensions of different types often require slightly different fields 
 - `startBlockHeight`: The starting blockheight from which you want the data to be read, zero by default; You should always set this to the block height that the smart contract was deployed on when in production.
 - `scheduledPrefix`: For extensions that trigger scheduled inputs (ERC721 and ERC20Deposit) specifies the prefix used with these scheduled inputs;
 - `depositAddress`: This field is only used by the ERC20Deposit extension type to specify the target address of transactions you are interested in tracking.
+- `network` (see [here](../3-funnel-types/200-configuration.md) to learn about handling primitives for multiple networks)
 
 If you try to run your game node with an invalid or non-existent Primitive Catalogue config file, Paima Engine will report the problem to you and then carry on as if no Primitives were specified.
 
