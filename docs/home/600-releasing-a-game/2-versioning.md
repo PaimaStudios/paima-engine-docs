@@ -8,7 +8,7 @@ Since games written with Paima are typically all onchain, you need to be able to
 
 This is done by allowing games to modify which state machine they use based on the current block number. We call this the `gameStateTransitionRouter`.
 
-The process to [pack your game code](../1-setting-up-your-environment/how-to-use-paima-engine#packing-your-game-code) will set it up so that Paima Engine can easily find this router function, and Paima Engine will automatically call it to know which state transition function to call for a given block height.
+The process to [pack your game code](../1-setup/1-how-to-use-paima-engine.md#packing-your-game-code) will set it up so that Paima Engine can easily find this router function, and Paima Engine will automatically call it to know which state transition function to call for a given block height.
 
 Here is an example of how you can update your transition router to call your new state transition function
 ```typescript
