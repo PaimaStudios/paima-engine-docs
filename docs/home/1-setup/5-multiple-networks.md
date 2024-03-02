@@ -35,7 +35,6 @@ chainId: number
 chainCurrencyName: string
 chainCurrencySymbol: string
 chainCurrencyDecimals: number
-blockTime: number
 ```
 
 Also, if the network is `evm-main`, the paima contract address needs to be provided: 
@@ -48,7 +47,6 @@ There are also some optional variables:
 
 ```js
 chainExplorerUri: string
-pollingRate: number
 funnelBlockGroupSize: number
 presyncStepSize: number
 ```
