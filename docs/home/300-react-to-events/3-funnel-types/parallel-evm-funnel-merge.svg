@@ -1,0 +1,81 @@
+<svg viewBox="0.0 0.0 400.0 200.0" xmlns="http://www.w3.org/2000/svg" version="1.1">
+  <style>
+    .block {
+      fill: #f0f0f0;
+      stroke: #000;
+      stroke-width: 2;
+    }
+    .arrow {
+      fill: none;
+      stroke: #fff;
+      stroke-width: 2;
+      marker-end: url(#arrowhead);
+    }
+    .text {
+      font-size: 12px;
+      text-anchor: middle;
+    }
+  </style>
+
+  <defs>
+    <marker
+      id="arrowhead"
+      viewBox="0 0 10 10"
+      refX="5"
+      refY="5"
+      markerWidth="6"
+      markerHeight="6"
+      fill="#ffffff"
+      orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" />
+    </marker>
+  </defs>
+
+  <g>
+    <text class="text" x="20" y="20" fill="#ffffff"> Main chain timestamps (blocks 1,2,3,4) </text>
+  </g>
+  <g>
+    <rect class="block" x="0" y="50" width="60" height="30" />
+    <text class="text" x="30" y="70">1</text>
+  </g>
+  <g>
+    <rect class="block" x="100" y="50" width="60" height="30" />
+    <text class="text" x="130" y="70">3</text>
+  </g>
+  <g>
+    <rect class="block" x="230" y="50" width="60" height="30" />
+    <text class="text" x="260" y="70">5</text>
+  </g>
+  <g>
+    <rect class="block" x="330" y="50" width="60" height="30" />
+    <text class="text" x="360" y="70">7</text>
+  </g>
+
+  <!-- Draw the parallel chain blocks -->
+  <g>
+    <rect class="block" x="30" y="120" width="60" height="30" />
+    <text class="text" x="60" y="140">2</text>
+  </g>
+  <g>
+    <rect class="block" x="150" y="120" width="60" height="30" />
+    <text class="text" x="180" y="140">4</text>
+  </g>
+  <g>
+    <rect class="block" x="230" y="120" width="60" height="30" />
+    <text class="text" x="260" y="140">5</text>
+  </g>
+  <g>
+    <rect class="block" x="300" y="120" width="60" height="30" />
+    <text class="text" x="330" y="140">6</text>
+  </g>
+  <g>
+    <text class="text" x="25" y="180" fill="#ffffff"> Parallel chain timestamps (blocks 1,2,3,4) </text>
+  </g>
+
+  <!-- Draw the arrows -->
+  <line class="arrow" x2="110" y2="90" x1="60" y1="125" />
+  <line class="arrow" x2="230" y2="90" x1="180" y1="125" />
+  <line class="arrow" x2="260" y2="90" x1="260" y1="125" />
+  <line class="arrow" x2="350" y2="90" x1="330" y1="125" />
+
+</svg>

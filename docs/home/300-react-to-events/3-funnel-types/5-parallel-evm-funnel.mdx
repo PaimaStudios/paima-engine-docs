@@ -1,0 +1,48 @@
+import Merge from "./parallel-evm-funnel-merge.svg";
+
+# Parallel EVM funnel
+
+This funnel processes the same primitives as the [block funnel](block-funnel),
+but over extra companion networks. While there can only be a single instance of
+the block funnel, which is associated to the instance of the Paima l2 contract,
+an instance of this funnel gets instantiated for every extra network.
+
+## Conceptually
+
+This funnel works like this:
+
+1. We ask the wrapped funnel for data. This gives us a list of blocks from the
+main chain, and we can get the timestamp for each one of these.
+2. We use the rpc endpoint of this funnel's configured network to ask for the last block.
+3. We only consider blocks from step 1 with a timestamp that is lower or equal than the last block. 
+4. Now we use `eth_getLogs` to get the primitives configured to this funnel in the block range.
+5. Then we merge the primitives with the blocks from the wrapped funnel. The
+merge is done in a way that ensures that the state transition is deterministic.
+For example, if on the main chain we have blocks 1 and 2 with timestamps 2 and
+4, and on the parallel chain we have blocks with timestamps 3 and 4, the events
+in the parallel chain will look as if they happened in the main chain's block 2
+(with timestamp 4). And this is always the same regardless of the time of the
+sync, since the chains are always processed in tandem. Note that is possible
+that there may not be blocks to merge at a certain point.
+
+<Merge className="img-full" style={{ height: "300px" }} />
+
+## In practice
+
+Unfortunately there is no way to use `eth_getLogs` with a timestamp range, so
+the funnel actually has to find out the block height range. For this, first we
+get the block information in chunks of `funnelBlockGroupSize`. We do this until
+we have a block with a timestamp greater than the last one from the main chain.
+This is needed so that we can be sure that we won't skip a non-yet-produced
+block that would later fall in the range. This part is also what stops the
+events from moving forward if the parallel chain stops producing blocks.
+
+### Starting block 
+
+The process outlined above has one problem, which is that we need to know from
+which point we start fetching blocks in chunks. Technically it would be possible
+to do it from the beginning of the chain in question, but this is a waste of
+time if we are only going to be using recent data. Because of this, the first
+time the funnel is instantiated, we do a binary search for the latest block in
+the parallel chain with a timestamp lower than the main chain's starting block.
+This is also used to figure out when the pre-sync stage should finish.
