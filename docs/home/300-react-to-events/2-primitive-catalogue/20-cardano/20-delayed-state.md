@@ -23,6 +23,7 @@ extensions:
       - "919d4c2c9455016289341b1bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
     startSlot: 22505578
     stopSlot: 32815924
+    network: CardanoNetworkConfigEntryName
 ```
 
 ### Meaning
