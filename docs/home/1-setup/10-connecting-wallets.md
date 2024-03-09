@@ -31,7 +31,7 @@ Unlike other wallets, Rivet does nothing on regular web pages (you cannot tap it
 
 ### Step 3: Go through the Anvil setup
 
-Once you've opened the frontend for your game, you'll see Rivet appear on the screen. We'll walk you through the setup steps.
+Once you've opened the frontend for your game, you may see Rivet appear on the screen, or you may have to tap its icon in the extension bar at the top-right of your browser (it may be hidden by default until you press the extensions icon). We'll walk you through the setup steps.
 
 #### 1. Press the `Create Anvil instance` (it doesn't matter that you're not actually running Anvil. You don't need to know what it is).
 
