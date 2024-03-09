@@ -1,0 +1,106 @@
+import Merge from "./parallel-evm-funnel-merge.svg";
+import ParallelToMain from "./parallel-to-main.svg";
+import DataAddition from "./parallel-data-addition.svg";
+import Finalized from "./parallel-finalized.svg";
+import Search from "./parallel-search.png";
+
+# Parallel EVM funnel
+
+This funnel processes the same primitives as the [block funnel](block-funnel),
+but over extra companion networks. While there can only be a single instance of
+the block funnel, which is associated to the instance of the Paima L2 contract,
+an instance of this funnel gets instantiated for every extra network.
+
+Support for parallel chains allows the game node to update based on events in different networks by actively monitoring them (instead of relying on a bridge).
+For example, this allows you to have your game settle user transactions to a cheap & faster chain ("main chain") while having NFTs for the game live on a separate layer that has higher liquidity and more dApps to compose with.
+
+## Conceptually
+
+<ParallelToMain className="img-full" style={{ height: "200px" }} />
+
+This funnel has the following steps:
+
+1. Fetch blocks & timestamps from the underlying funnel (the main chain you are syncing).
+2. Fetch the latest block from the parallel funnel.
+4. Use `eth_getLogs` to get the [primitives](../2-primitive-catalogue/1-introduction.md) configured to this funnel in the block range.
+5. Merge the primitives fetched from the parallel funnel with the block from the underlying funnel.
+
+<DataAddition className="img-full" style={{ marginTop: "8px" }} />
+
+## Determinism
+
+Merging of data is done in a way to ensure that the state transition is deterministic.
+
+For example,
+if on the main chain we have blocks with timestamps 3 and 5,
+and on the parallel chain we have blocks with timestamps 4 and 5,
+the events in the parallel chain will look as if they happened in the main chain's block that has timestamp 5.
+And this is always the same regardless of the time of the sync, since the chains are always processed in tandem.
+Note that is possible that there may not be blocks to merge at a certain point.
+
+<Merge className="img-full" style={{ height: "auto" }} />
+
+## Finalizing blocks
+
+We cannot go back in time to add information to old blocks that have already been parsed by the game's state machine.
+Therefore, it means that a block can only be considered finalized and ready to be given to the state machine once we're certain we have all the information for all chains being monitored.
+The only way for us to know that we have all the information for a block is if the latest timestamp of all networks we're monitoring is more recent than the timestamp of the main chain block timestamp we're looking at.
+
+*Note*: this behavior helps protect apps built with Paima from getting in a bad state. If an RPC you're connecting to for a network gets stuck, it should stop block production for the entire application.
+Otherwise, it can break determinism because your node (that is missing events from the parallel chain RPC that is stuck) will see a different block history from somebody else running a node connecting to a properly functioning RPC for that parallel chain.
+
+Because of this, leveraging parallel funnels has multiple performance implications. In some cases the performance impact can be mitigated by [emulated blocks](./3-stable-tick-rate-funnel.mdx),
+but we will cover all performance implications in this section
+
+<Finalized className="img-full" style={{ height: "auto" }} />
+
+### Networking overhead
+
+From Paima's perspective, a block can only be considered complete and ready to send to the game's state machine after it's fetched all necessary information.
+That means that fetching blocks is only as fast as your slowest connection when fetching the latest block.
+
+If you're connecting to a public node for a network and receiving data from that node is slow (ex: geographically far from you, running on cheap hardware, etc.),
+the delay in fetching data from that node will delay the final block creation process and cause slowdowns in your game node.
+
+### Connecting to networks that produce blocks on-demand
+
+Some networks only produce blocks if there are actually transactions on the network (otherwise, nothing happens) such as Arbitrum.
+This can be problematic for parallel funnels because it makes it hard to differentiate between a block that hasn't been fetched yet and the case where there simply is no block for that time interval.
+
+The [emulated block funnel](./3-stable-tick-rate-funnel.mdx) can help mitigate this as it forces an empty block to be made if there hasn't been any block in a while
+
+### Connecting to networks with slow blocks
+
+Many networks such as Ethereum L1 have relatively slow block times, making them hard to use as a parallel EVM without slowing down the whole system.
+
+Improving support for these networks is still a roadmap item.
+
+## Finding parallel chain blocks
+
+We want to find blocks in a parallel chain that matches a timestamp range in the main chain.
+However, unfortunately there is no way to use `eth_getLogs` with a timestamp range,
+so the funnel actually has to find out the block height range. 
+
+We achieve this in 2 steps:
+
+### 1) Find key blocks during startup with binary search 
+
+When booting up Paima Engine, there are 2 blocks we are interested in knowing:
+1. When the [presync](./1-intro.md#readpresyncdata-function) ends (the last block in the parallel chain that appears before the main chain starting block height)
+2. Most recent parallel chain block that appears before the next main chain block we have to sync
+
+Syncing blocks one-by-one until we find these points would be too slow.
+To solve this, we instead use [binary search](https://simple.wikipedia.org/wiki/Binary_search) to find and cache these blocks on boot.
+
+<center>
+<img src={Search} />
+*Fig*: A binary search looking for the block with a timestamp of 4
+</center>
+
+### 2) Fetching blocks in chunks
+
+During presync, we fetch parallel chain events in batches defined by [presyncStepSize](./configuration).
+
+After presync, we fetch parallel chain blocks in chunks of [funnelBlockGroupSize](./configuration).
+We keep doing this until we have a block with a timestamp greater than the latest one we've seen from the main chain.
+This allows us to know how to map the parallel chain block number of any event we find to the right block in the main chain.
