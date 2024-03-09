@@ -6,7 +6,7 @@ import Search from "./parallel-search.png";
 
 # Parallel EVM funnel
 
-This funnel processes the same primitives as the [block funnel](block-funnel),
+This funnel processes the same primitives as the [block funnel](./300-block-funnel.md),
 but over extra companion networks. While there can only be a single instance of
 the block funnel, which is associated to the instance of the Paima L2 contract,
 an instance of this funnel gets instantiated for every extra network.
@@ -49,7 +49,7 @@ The only way for us to know that we have all the information for a block is if t
 *Note*: this behavior helps protect apps built with Paima from getting in a bad state. If an RPC you're connecting to for a network gets stuck, it should stop block production for the entire application.
 Otherwise, it can break determinism because your node (that is missing events from the parallel chain RPC that is stuck) will see a different block history from somebody else running a node connecting to a properly functioning RPC for that parallel chain.
 
-Because of this, leveraging parallel funnels has multiple performance implications. In some cases the performance impact can be mitigated by [emulated blocks](./3-stable-tick-rate-funnel.mdx),
+Because of this, leveraging parallel funnels has multiple performance implications. In some cases the performance impact can be mitigated by [emulated blocks](./400-stable-tick-rate-funnel.mdx),
 but we will cover all performance implications in this section
 
 <Finalized className="img-full" style={{ height: "auto" }} />
@@ -67,7 +67,7 @@ the delay in fetching data from that node will delay the final block creation pr
 Some networks only produce blocks if there are actually transactions on the network (otherwise, nothing happens) such as Arbitrum.
 This can be problematic for parallel funnels because it makes it hard to differentiate between a block that hasn't been fetched yet and the case where there simply is no block for that time interval.
 
-The [emulated block funnel](./3-stable-tick-rate-funnel.mdx) can help mitigate this as it forces an empty block to be made if there hasn't been any block in a while
+The [emulated block funnel](./400-stable-tick-rate-funnel.mdx) can help mitigate this as it forces an empty block to be made if there hasn't been any block in a while
 
 ### Connecting to networks with slow blocks
 
@@ -99,8 +99,8 @@ To solve this, we instead use [binary search](https://simple.wikipedia.org/wiki/
 
 ### 2) Fetching blocks in chunks
 
-During presync, we fetch parallel chain events in batches defined by [presyncStepSize](./configuration).
+During presync, we fetch parallel chain events in batches defined by [presyncStepSize](./200-configuration.md).
 
-After presync, we fetch parallel chain blocks in chunks of [funnelBlockGroupSize](./configuration).
+After presync, we fetch parallel chain blocks in chunks of [funnelBlockGroupSize](./200-configuration.md).
 We keep doing this until we have a block with a timestamp greater than the latest one we've seen from the main chain.
 This allows us to know how to map the parallel chain block number of any event we find to the right block in the main chain.
