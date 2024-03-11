@@ -31,10 +31,10 @@ This funnel has the following steps:
 
 Merging of data is done in a way to ensure that the state transition is deterministic.
 
-For example,
-if on the main chain we have blocks with timestamps 3 and 5,
-and on the parallel chain we have blocks with timestamps 4 and 5,
-the events in the parallel chain will look as if they happened in the main chain's block that has timestamp 5.
+For example,<br />
+if on the main chain we have blocks with timestamps <span style={{ color: "red" }}>3</span> and <span style={{ color: "red" }}>5</span>,<br/>
+and on the parallel chain we have blocks with timestamps <span style={{ color: "green" }}>4</span> and <span style={{ color: "green" }}>5</span>,<br />
+the events in the parallel chain will <span style={{ color: "lightblue" }}>look as if</span> they happened in the main chain's block that has timestamp <span style={{ color: "red" }}>5</span>.
 And this is always the same regardless of the time of the sync, since the chains are always processed in tandem.
 Note that is possible that there may not be blocks to merge at a certain point.
 
@@ -44,15 +44,17 @@ Note that is possible that there may not be blocks to merge at a certain point.
 
 We cannot go back in time to add information to old blocks that have already been parsed by the game's state machine.
 Therefore, it means that a block can only be considered finalized and ready to be given to the state machine once we're certain we have all the information for all chains being monitored.
-The only way for us to know that we have all the information for a block is if the latest timestamp of all networks we're monitoring is more recent than the timestamp of the main chain block timestamp we're looking at.
+The only way for us to know that we have all the information for a block is if the latest timestamp of all networks we're monitoring is more recent (not equal since some networks have multiple blocks with the same timestamp) than the timestamp of the main chain block timestamp we're looking at.
 
 *Note*: this behavior helps protect apps built with Paima from getting in a bad state. If an RPC you're connecting to for a network gets stuck, it should stop block production for the entire application.
 Otherwise, it can break determinism because your node (that is missing events from the parallel chain RPC that is stuck) will see a different block history from somebody else running a node connecting to a properly functioning RPC for that parallel chain.
 
-Because of this, leveraging parallel funnels has multiple performance implications. In some cases the performance impact can be mitigated by [emulated blocks](./400-stable-tick-rate-funnel.mdx),
-but we will cover all performance implications in this section
-
 <Finalized className="img-full" style={{ height: "auto" }} />
+
+## Performance implications
+
+Leveraging parallel funnels has multiple performance implications. In some cases the performance impact can be mitigated by [emulated blocks](./400-stable-tick-rate-funnel.mdx),
+but we will cover all performance implications in this section
 
 ### Networking overhead
 
@@ -87,7 +89,7 @@ We achieve this in 2 steps:
 
 When booting up Paima Engine, there are 2 blocks we are interested in knowing:
 1. When the [presync](./1-intro.md#readpresyncdata-function) ends (the last block in the parallel chain that appears before the main chain starting block height)
-2. Most recent parallel chain block that appears before the next main chain block we have to sync
+2. The earliest parallel chain block that whose events might be included in the next main chain block we have to sync
 
 Syncing blocks one-by-one until we find these points would be too slow.
 To solve this, we instead use [binary search](https://simple.wikipedia.org/wiki/Binary_search) to find and cache these blocks on boot.
