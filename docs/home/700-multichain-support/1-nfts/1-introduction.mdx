@@ -1,0 +1,53 @@
+import CrosschainNft from "./crosschain-nft.png";
+import SinglechainNft from "./singlechain-nft.png";
+
+# Introduction
+
+Paima Engine allows connecting NFTs to games without requiring an NFT bridge - even if the NFT lives on a different layer of the same chain, or on a different chain entirely.
+
+**Motivation**: many games, due to being data and computation heavy applications, run on sidechains, L2s and appchain as opposed to popular L1 blockchains. This is problematic because popular NFT collections (which people generally want to use in-game) live on the L1 (a different environment). A common solution to this problem is building an NFT bridge, but bridges not only have a bad reputation for fungible tokens which limits usage, the problem is even worse for NFTs where there is also a philosophical disconnect (if a bridge gets hacked, which is the canonical NFT? The one the hacker stole, or the bridged asset?)
+
+**Solution**: instead of bridging NFTs, we instead provide many ways to connect NFTs directly into the game optimized for different scenarios.
+
+**No free lunch**: note that all options come with trade-offs. Pick the one most appropriate for your project.
+
+## Active solutions
+
+These solutions require actively monitoring multiple chains. These solutions require more computation resources and are more complex, but have lower trust assumptions.
+
+This is possible by leveraging:
+1. EVM: [Parallel EVM funnel](../../300-react-to-events/3-funnel-types/500-parallel-evm-funnel.mdx)
+2. Cardano: [Carp funnel](../../300-react-to-events/3-funnel-types/500-carp-funnel.md)
+
+### Chain → Game
+
+Chain to Game is useful if you want to connect an existing NFT collection on an existing blockchain into your game.
+
+1. *Guaranteed ownership*: sometimes it's important to guarantee the user currently owns the NFT right at this moment. For this, [projected NFTs](./2-projected-nfts/1-basics.mdx) work best
+2. *Delayed ownership*: sometimes it's okay if the ownership information is not entirely up-to-date. In this case, use
+- EVM: [erc721 primitive](../../300-react-to-events/2-primitive-catalogue/10-evm/3-ERC721.md)
+- Cardano: [delayed utxo primitive](../../300-react-to-events/2-primitive-catalogue/20-cardano/20-delayed-state.md)
+
+### Game → Chain
+
+Game to Chain ("Inverse projections") are useful when you want game state to be tradable as an NFT on an existing blockchain.
+
+1. EVM: [prc-3](../../20000-PRCs/prc-3.md)
+2. Cardano: in development
+
+## Passive solutions
+
+Passive solutions do not require actively monitoring other chains (instead, outsourcing this to a separate mechanism). These are simpler at the cost of relying on an external mechanism.
+
+Paima Engine currently doesn't support passive solutions, but solutions like this exist:
+- Storage proofs
+- Bridges (NFT or simply message passing)
+
+We plan to add passive solutions to Paima as part of our roadmap
+
+## Centralized solutions
+
+Centralized solutions like oracles or mirroring are also possible with different tradeoffs. These options are computationally cheap (both onchain and offchain) but require additional trust and devops overhead.
+
+We do not provide these solutions built into Paima Engine itself at the moment, but adding them is part of our roadmap.
+

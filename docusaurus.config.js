@@ -4,6 +4,45 @@
 const { themes } = require('prism-react-renderer');
 const math = require('remark-math');
 const katex = require('rehype-katex');
+const https = require('https');
+const stream = require('stream');
+
+/** @returns (url: string) => Promise<string> */
+function httpsRequest(url) {
+  return new Promise((resolve, reject) => { 
+    const options = {
+      hostname: new URL(url).hostname,
+      path: new URL(url).pathname,
+      headers: {
+        'User-Agent': 'curl/7.81.0',
+        'Content-Type': 'application/json',
+        'Accept': 'application/vnd.github+json',
+        'X-GitHub-Api-Version': '2022-11-28'
+        // 'Authorization': 'Bearer ___',
+      }
+    };
+    https.get(options, res => {
+      res.setEncoding('utf8');
+
+      let content = '';
+      res.on('data', function(chunk) {
+        content += chunk;
+      }).on('end', function() {
+        resolve(content);
+      })
+    }).on('error', reject);
+  });
+}
+/** @returns () => Promise<string[]> */
+async function getMarkdownFiles() {
+  if (process.env.npm_lifecycle_script !== 'docusaurus download-remote-prc') {
+    return [];
+  }
+  const data = await httpsRequest('https://api.github.com/repos/PaimaStudios/PRC/contents/PRCS');
+  /** @type Array<{ name: string }> */
+  const result = JSON.parse(data);
+  return result.map(file => file.name);
+}
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -127,6 +166,30 @@ const config = {
         },
       }
     ],
+    [
+      // we use this plugin instead of using iframes so that the content is all statically searchable
+      "docusaurus-plugin-remote-content",
+      {
+          // run `yarn update:prc` to update the files
+          name: "prc", // used by CLI, must be path safe
+          sourceBaseUrl: "https://raw.githubusercontent.com/PaimaStudios/PRC/main/PRCS/",
+          outDir: "docs/home/20000-PRCs", // the base directory to output to.
+          documents: (async () => getMarkdownFiles())(), // the file names to download
+          modifyContent(filename, content) {
+            // replace (../ so that relative URLS turn into absolute URLs
+            let modifiedContent = content;
+            const fileWithoutExtension = filename.replace(/.md$/, '');
+            modifiedContent = modifiedContent.replace(/title: (.*)(?=\r?\n)/g, `title: ${fileWithoutExtension}：$1`);
+            modifiedContent = modifiedContent.replace(/\(\.\.\//g, "(https://raw.githubusercontent.com/PaimaStudios/PRC/main/");
+            return {
+              filename,
+              content: modifiedContent,
+            };
+          },
+          // otherwise this updates too often and you run into the github api limit
+          noRuntimeDownloads: true
+      },
+    ]
   ],
   stylesheets: [
     {
@@ -146,7 +209,20 @@ const config = {
         respectPrefersColorScheme: false,
       },
       mermaid: {
-        theme: {light: 'neutral', dark: 'forest'},
+        theme: { light: 'base', dark: 'base' },
+        options: {
+          themeVariables: {
+            'primaryColor': '#12271F',
+            'primaryTextColor': '#fff',
+            'lineColor': '#aaa',
+            'edgeLabelBackground': '#030909',
+            'tertiaryColor': '#fff',
+            'clusterBkg': '#00130C',
+            'clusterBorder': '000',
+            'titleColor': '#aaa',
+            'activationBkgColor': '#003320',
+          }
+        }
       },
       image: 'img/paima-banner.png',
       navbar: {

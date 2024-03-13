@@ -92,7 +92,7 @@ Although apps may not always need sequencers, they can still improve scalability
 
 Thanks to the flexibility of the batcher system, Paima can even support games built without an enshrined sequencer - that is to say environments with multiple sequencers where anybody can choose to run their own decentralized sequencer for the game and monetize it how they want. This give the benefit of sequencing without the centralization or censorship concerns.
 
-### Cross-chain NFTs: Projected NFTs
+### Cross-chain NFTs
 
 Projects may want to allow users to play games with NFTs hosted on chains separate from where the app was deployed. For example, the game is deployed on a DA layer, but is playable from NFT living on separate L1.
 
@@ -103,9 +103,9 @@ The goal, therefore, is to try and support connecting these NFTs to state machin
 - NFT bridging
 - Message passing
 
-However, given that no system is instantaneous (even when monitoring multiple chains as different chains have different block times and finality), we need special handling when we need to assert the user still holds the NFT (in other words, they haven't sold the NFT since the last time we got an update from the different chain about the ownership status). To enable this, we have built a way to time-lock their NFTs (self-custodial) which gives the game time to detect if the user is trying to move their NFT. 
+Paima Engine helps developers overcome problems with connecting multiple ecosystems (even when monitoring multiple chains,  different chains have different block times and finality making solutions non-trivial) by providing a wide-variety of options to different use-cases including special handling of cases where we need to assert the user still holds the NFT (in other words, they haven't sold the NFT since the last time we got an update from the different chain about the ownership status).
 
-You can find more about the idea [here](../700-multichain-support/1-projected-nfts/1-introduction.mdx)
+You can find more about the idea [here](../700-multichain-support/1-nfts/1-introduction.mdx)
 
 ## Non-custodial L2s
 

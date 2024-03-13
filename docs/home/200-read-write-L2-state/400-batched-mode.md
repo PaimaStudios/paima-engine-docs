@@ -44,21 +44,6 @@ Key notes:
 The diagram below lays out the general architecture of Paima Batcher.
 
 ```mermaid
-%%{
-  init: {
-    'theme': 'base',
-    'themeVariables': {
-      'primaryColor': '#12271F',
-      'primaryTextColor': '#fff',
-      'lineColor': '#aaa',
-      'secondaryColor': '#030909',
-      'tertiaryColor': '#fff',
-      'clusterBkg': '#00130C',
-      'clusterBorder': '000',
-      'titleColor': '#aaa'
-    }
-  }
-}%%
 graph TD
     C[User] -->|submits from wallet| Server
     subgraph Server

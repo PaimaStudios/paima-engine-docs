@@ -36,7 +36,7 @@ if on the main chain we have blocks with timestamps <span style={{ color: "red" 
 and on the parallel chain we have blocks with timestamps <span style={{ color: "green" }}>4</span> and <span style={{ color: "green" }}>5</span>,<br />
 the events in the parallel chain will <span style={{ color: "lightblue" }}>look as if</span> they happened in the main chain's block that has timestamp <span style={{ color: "red" }}>5</span>.
 And this is always the same regardless of the time of the sync, since the chains are always processed in tandem.
-Note that is possible that there may not be blocks to merge at a certain point.
+Note that it is possible that there are no blocks to merge at a certain point (if no events we're monitoring occur in these blocks).
 
 <Merge className="img-full" style={{ height: "auto" }} />
 

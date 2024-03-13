@@ -197,6 +197,16 @@ img {
   overflow: hidden;  /* To ensure the SVG inside respects the rounded corners */
 }
 
+[id^="mermaid-svg-"] > line[id^="actor"][stroke="#999"] {
+  stroke: grey !important;
+}
+[id^="mermaid-svg-"] > g > line[id^="actor"][stroke="#999"] {
+  stroke: grey !important;
+}
+.actor-man > line {
+  stroke: #12271F !important;
+}
+
 .code-block-alternate-color-line {
   background-color: #2D2836;
   display: block;

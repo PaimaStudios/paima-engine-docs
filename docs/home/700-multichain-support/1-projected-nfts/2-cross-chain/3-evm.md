@@ -1,3 +1,0 @@
-# EVM
-
-Docs will be coming soon, but you can find the work-in-progress specification for this [here](https://github.com/PaimaStudios/PRC/blob/2114d6085bc9fb0f5828b4007b6bbc2ba9c843a6/PRCS/prc-2.md), the code for this [here](https://github.com/dcSpark/projected-nft-whirlpool/tree/main/evm) and the see a video of the dApp we're building that implements it [here](https://twitter.com/PaimaStudios/status/1723083018493989254).
