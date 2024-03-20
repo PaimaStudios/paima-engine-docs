@@ -207,6 +207,10 @@ img {
   stroke: #12271F !important;
 }
 
+.loopLine {
+  stroke: grey !important;
+}
+
 .code-block-alternate-color-line {
   background-color: #2D2836;
   display: block;
