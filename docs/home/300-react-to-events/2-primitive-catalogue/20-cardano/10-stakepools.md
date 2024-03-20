@@ -12,6 +12,7 @@ extensions:
     startSlot: 32815320
     stopSlot: 32815924
     scheduledPrefix: cd
+    network: CardanoNetworkConfigEntryName
 ```
 
 ### Meaning
