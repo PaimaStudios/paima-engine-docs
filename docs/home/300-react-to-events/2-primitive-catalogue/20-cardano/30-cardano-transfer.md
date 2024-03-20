@@ -2,7 +2,7 @@
 # Cardano Transfer {#transfer}
 
 Keeps track of the entire (between the indexed slots) transaction history of a
-particular address.
+payment credential or particular address.
 
 ### Example
 
@@ -10,7 +10,7 @@ particular address.
 extensions:
   - name: "CardanoTransfer"
     type: cardano-transfer
-    credential: addr_test1qp27ms6du9e2fga6njk9ruzprp7gg3uddrnc3htv7mct8kwrwdlnpt07ycmdqyuw7lft338dt33tmr6xdwnn8ezsudpquved20
+    credential: 8200581c55edc34de172a4a3ba9cac51f041187c84478d68e788dd6cf6f0b3d9 
     startSlot: 12472120
     stopSlot: 12500000
     scheduledPrefix: ct
@@ -21,7 +21,10 @@ extensions:
 
 - `startSlot` is required and means that only transactions that happen after that slot (exclusive) will be considered.
 - `stopSlot` is optional, and it stops the indexing at that point.
-- `credential` is the address to track. This can be a bech32 address, or a hex encoded credential.
+- `credential` can be a hex encoded payment credential, in which case all
+associated addresses are indexed, regardless of the staking part. Or it can be
+bech32 address instead, in this case the indexed transactions are those with the
+same exact address (same payment part and staking part).
 
 ### Paima Concise format
 
