@@ -6,6 +6,8 @@ However, not all use-cases care about having the data entirely up-to-date. For e
 
 This delay is also generically unavoidable with chains that don't have instant finality like Cardano as we generally want our app to update only with changes that have been finalized (which takes time).
 
+If you're looking to track when these assets were minted/burned, use the [mint-burn](./40-cardano-mint-burn.md) primitive. 
+
 ## Delayed asset {#delayed-asset}
 
 ### Example

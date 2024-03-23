@@ -1,5 +1,9 @@
 # Cardano Mint and Burn {#mint-burn}
 
+Tracks all the instances of a mint or burn of set of policy IDs.
+
+If you're looking to track these assets after they've been minted, use the [delayed state](./20-delayed-state.md) primitive. 
+
 ### Example
 
 ```yaml
@@ -40,10 +44,17 @@ const cardanoMint: ParserRecord<CardanoMint> = {
   },
 };
 
+interface AssetAmount {
+    policyId: string;
+    assetName: string;
+    amount: string;
+}
 export interface CardanoMint {
   txId: string;
   metadata: string | null;
-  assets: { asset: { policyId: string; assetName: string }; amount: string };
+  assets: { [policyId: string]: { [assetName: string]: string } };
+  inputAddresses: { [address: string]: AssetAmount[] }
+  outputAddresses: { [address: string]: AssetAmount[] }
 }
 ```
 
@@ -51,3 +62,13 @@ export interface CardanoMint {
 form.
 - The `assets` field has the minted or burned assets. The difference between a
 mint and a burn is in the sign of `amount` when interpreted as a number.
+- The `inputAddresses` represents addresses who burned the tracked tokens
+- The `outputAddresses` represents addresses who minted the tracked tokens
+
+### Detecting who minted and who burned
+
+Some key facts about Cardano transactions to help understand how to parse this information:
+- Cardano transactions can contain multiple mints & burns of different tokens in the same transaction
+- Multiple different addresses can mint/burn tokens in the same transactions (txs have multiple inputs & outputs)
+- The same address can mint/burn multiple times in the same transaction (different inputs or different outputs)
+- All mints & burns share the same `metadata` field
