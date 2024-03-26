@@ -62,13 +62,18 @@ export interface CardanoMint {
 form.
 - The `assets` field has the minted or burned assets. The difference between a
 mint and a burn is in the sign of `amount` when interpreted as a number.
-- The `inputAddresses` represents addresses who burned the tracked tokens
-- The `outputAddresses` represents addresses who minted the tracked tokens
+- The `inputAddresses` represents addresses who at least partially burned the tracked tokens
+- The `outputAddresses` represents addresses who at least partially minted the tracked tokens
 
 ### Detecting who minted and who burned
 
 Some key facts about Cardano transactions to help understand how to parse this information:
 - Cardano transactions can contain multiple mints & burns of different tokens in the same transaction
-- Multiple different addresses can mint/burn tokens in the same transactions (txs have multiple inputs & outputs)
+- Different addresses can mint/burn tokens in the same transactions (txs have multiple inputs & outputs)
 - The same address can mint/burn multiple times in the same transaction (different inputs or different outputs)
 - All mints & burns share the same `metadata` field
+
+A consequence of this is that not all the token supply found in the input may have been burned. In other words, the following transaction is possible:
+1. `inputAddresses` contains 50 token X
+2. `assets` contains -30 token X
+3. `outputAddresses` contains 20 token X
