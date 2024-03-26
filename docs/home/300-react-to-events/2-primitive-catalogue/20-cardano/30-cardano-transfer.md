@@ -4,6 +4,8 @@
 Keeps track of the entire (between the indexed slots) transaction history of a
 payment credential or particular address.
 
+This primitive only gets triggered a single time per transaction (even if the transaction contains multiple outputs to the specified address)
+
 ### Example
 
 ```yaml
@@ -62,7 +64,19 @@ interface CardanoTransfer {
 
 - The metadata field is in its binary form, but hex encoded.
 - The entries in `inputCredentials` are also hex encoded. Each one is the binary
-representation of the payment key (64 characters or 32 bytes).
+representation of the payment key (64 characters or 32 bytes). This can give a hint on who made the transaction (see [below](#who-paid) for more on this).
 - `outputs` preserves the same order as in the binary transaction. The `asset`
 will be `null` when the amount is in lovelace.
 
+### Detecting who made the payment  {#who-paid}
+
+Trying to detect who actually made the transaction is difficult because transactions in Cardano can have multiple inputs and multiple outputs.
+
+Example of edge-cases:
+1. Multiple input addresses that don't belong to the user (ex: multiple exchanges addresses)
+2. Script credentials (instead of payment credentials)
+3. Funds coming from other mechanisms like reward withdrawal or pool deposit refunds
+
+Therefore, although we provide access to the list of `inputCredentials`, if possible it is better to define a specific metadata format for your application that includes which address the payment should be credited to. The `metadata` for the transaction is given as part of the primitive.
+
+Additionally, in cases where there are multiple outputs in the same transaction that trigger this primitive, we only trigger this primitive once. It is up to the app if it wants to aggregate multiple output values as a single payment, or keep them separated (possibly with a metadata hint about which address gets credited how much).
