@@ -4,7 +4,11 @@
 Keeps track of the entire (between the indexed slots) transaction history of a
 payment credential or particular address.
 
-This primitive only gets triggered a single time per transaction (even if the transaction contains multiple outputs to the specified address)
+Rules for how this primitive gets triggered:
+- Credential appears in the transaction witness (ex: an input to the transaction)
+- Credential appears in the transaction output
+
+Note: this primitive only gets triggered a single time per transaction (even if the transaction contains multiple outputs to the specified address)
 
 ### Example
 
@@ -80,3 +84,5 @@ Example of edge-cases:
 Therefore, although we provide access to the list of `inputCredentials`, if possible it is better to define a specific metadata format for your application that includes which address the payment should be credited to. The `metadata` for the transaction is given as part of the primitive.
 
 Additionally, in cases where there are multiple outputs in the same transaction that trigger this primitive, we only trigger this primitive once. It is up to the app if it wants to aggregate multiple output values as a single payment, or keep them separated (possibly with a metadata hint about which address gets credited how much).
+
+Also be careful: it's possible the credential you track appears neither in the input or the output. This happens because this primitive triggers whenever the transaction contains the credential as a witness, but witnesses are not limited to just inputs and are used for other features (ex: certificates) and as well as may be entirely extraneous (you can add more witnesses than actually needed).
