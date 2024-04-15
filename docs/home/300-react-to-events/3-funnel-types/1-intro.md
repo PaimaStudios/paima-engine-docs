@@ -53,6 +53,13 @@ When extensions are used, the runtime must start polling from a block height tha
 
 In other words, this function is meant to gather events for [Primitives](../2-primitive-catalogue/1-introduction.md#accessing-the-collected-data) that happened before `START_BLOCKHEIGHT`, or the equivalent point if other primitives from other chains are used.
 
+Any [scheduled events](../1-scheduled-events.md) that are created during this
+phase are expected to be scheduled at the beginning of the _sync_ phase, which
+can be at either `START_BLOCKHEIGHT` or 0, if using emulated block heights. This
+way any state derived from events by the state transition function can still be
+constructed correctly, even if the state transition doesn't actually run during
+the _pre-sync_ phase.
+
 ### getDbTx
 
 Gets the database transaction used when executing this funnel
