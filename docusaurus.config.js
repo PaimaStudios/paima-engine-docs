@@ -105,7 +105,7 @@ const config = {
           rehypePlugins: [katex],
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          editUrl: "https://github.com/PaimaStudios/paima-engine-docs/",
+          editUrl: "https://github.com/PaimaStudios/paima-engine-docs/tree/main",
         },
         // pages: {
         //   path: 'docs/home',
