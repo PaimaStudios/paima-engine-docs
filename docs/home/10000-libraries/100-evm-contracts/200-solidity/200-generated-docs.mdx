@@ -16,6 +16,8 @@ State-annotated contracts
   <li>[AnnotatedMintNft](#AnnotatedMintNft): A standard ERC721 that accepts calldata in the mint function for any initialization data needed in a Paima dApp.</li>
   <li>[InverseBaseProjectedNft](#InverseBaseProjectedNft): Project game state into a ERC721 NFT on an EVM layer initiated on said base layer.</li>
   <li>[InverseAppProjectedNft](#InverseAppProjectedNft): Project game state into a ERC721 NFT on an EVM layer initiated on the app layer.</li>
+  <li>[InverseBaseProjected1155](#InverseBaseProjected1155): Project game state into a ERC1155 on an EVM layer initiated on said base layer.</li>
+  <li>[InverseAppProjected1155](#InverseAppProjected1155): Project game state into a ERC1155 on an EVM layer initiated on the app layer.</li>
 </ul>
 Facilitating monetization
 <ul>
@@ -1136,6 +1138,10 @@ See PRC3 for more.
       category: "",
       lines: [
         {
+          text: "mint(_to, initialData, data)",
+          anchor: "xref-IInverseBaseProjectedNft-mint-address-string-bytes-"
+        },
+        {
           text: "mint(_to, initialData)",
           anchor: "xref-IInverseBaseProjectedNft-mint-address-string-"
         },
@@ -1313,14 +1319,23 @@ See PRC3 for more.
 
 <SolidityDetailBlock
     title="mint"
-    params="(address _to, string initialData) → uint256"
+    params="(address _to, string initialData, bytes data) → uint256"
     visibility="external"
-    anchor="xref-IInverseBaseProjectedNft-mint-address-string-"
+    anchor="xref-IInverseBaseProjectedNft-mint-address-string-bytes-"
 >
     Mints a new token to address `_to`, passing `initialData` to be emitted in the event.
 Increases the `totalSupply` and `currentTokenId`.
 Reverts if `_to` is a zero address or if it refers to smart contract but does not implement IERC721Receiver-onERC721Received.
 Emits the `Minted` event.
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="mint"
+    params="(address _to, string initialData) → uint256"
+    visibility="external"
+    anchor="xref-IInverseBaseProjectedNft-mint-address-string-"
+>
+    Shorthand function that calls the `mint` function with empty `data`.
 </SolidityDetailBlock>
 
 <SolidityDetailBlock
@@ -1372,6 +1387,10 @@ See PRC3 for more.
         {
           text: "supportsInterface(interfaceId)",
           anchor: "xref-InverseBaseProjectedNft-supportsInterface-bytes4-"
+        },
+        {
+          text: "mint(_to, initialData, data)",
+          anchor: "xref-InverseBaseProjectedNft-mint-address-string-bytes-"
         },
         {
           text: "mint(_to, initialData)",
@@ -1847,14 +1866,23 @@ Also sets `currentTokenId` to 1 and `baseExtension` to `".json"`.
 
 <SolidityDetailBlock
     title="mint"
-    params="(address _to, string initialData) → uint256"
+    params="(address _to, string initialData, bytes data) → uint256"
     visibility="public"
-    anchor="xref-InverseBaseProjectedNft-mint-address-string-"
+    anchor="xref-InverseBaseProjectedNft-mint-address-string-bytes-"
 >
     Mints a new token to address `_to`, passing `initialData` to be emitted in the event.
 Increases the `totalSupply` and `currentTokenId`.
 Reverts if `_to` is a zero address or if it refers to smart contract but does not implement IERC721Receiver-onERC721Received.
 Emits the `Minted` event.
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="mint"
+    params="(address _to, string initialData) → uint256"
+    visibility="public"
+    anchor="xref-InverseBaseProjectedNft-mint-address-string-"
+>
+    Shorthand function that calls the `mint` function with empty `data`.
 </SolidityDetailBlock>
 
 <SolidityDetailBlock
@@ -1998,6 +2026,10 @@ See PRC3 for more.
     {
       category: "",
       lines: [
+        {
+          text: "mint(_to, _verificationData, _data)",
+          anchor: "xref-IInverseAppProjectedNft-mint-address-bytes-bytes-"
+        },
         {
           text: "mint(_to, _verificationData)",
           anchor: "xref-IInverseAppProjectedNft-mint-address-bytes-"
@@ -2184,9 +2216,9 @@ See PRC3 for more.
 
 <SolidityDetailBlock
     title="mint"
-    params="(address _to, bytes _verificationData) → uint256"
+    params="(address _to, bytes _verificationData, bytes _data) → uint256"
     visibility="external"
-    anchor="xref-IInverseAppProjectedNft-mint-address-bytes-"
+    anchor="xref-IInverseAppProjectedNft-mint-address-bytes-bytes-"
 >
     Mints a new token to address `_to`
 Increases the `totalSupply` and `currentTokenId`.
@@ -2196,12 +2228,20 @@ Emits the `Minted` event.
 
 <SolidityDetailBlock
     title="mint"
+    params="(address _to, bytes _verificationData) → uint256"
+    visibility="external"
+    anchor="xref-IInverseAppProjectedNft-mint-address-bytes-"
+>
+    Shorthand function that calls the `mint` function with empty `_data`.
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="mint"
     params="(address _to) → uint256"
     visibility="external"
     anchor="xref-IInverseAppProjectedNft-mint-address-"
 >
-    This works identically to the other function with an extra data parameter,
-     except this function just sets data to "".
+    Shorthand function that calls the `mint` function with empty `_verificationData` and empty `_data`.
 </SolidityDetailBlock>
 
 <SolidityDetailBlock
@@ -2272,6 +2312,10 @@ See PRC3 for more.
         {
           text: "validateMint(, )",
           anchor: "xref-InverseAppProjectedNft-validateMint-address-bytes-"
+        },
+        {
+          text: "mint(_to, _verificationData, _data)",
+          anchor: "xref-InverseAppProjectedNft-mint-address-bytes-bytes-"
         },
         {
           text: "mint(_to, _verificationData)",
@@ -2760,7 +2804,7 @@ Also sets `currentTokenId` to 1 and `baseExtension` to `".json"`.
 <SolidityDetailBlock
     title="currentNonce"
     params="(address user) → uint256"
-    visibility="external"
+    visibility="public"
     anchor="xref-InverseAppProjectedNft-currentNonce-address-"
 >
     No description given
@@ -2777,11 +2821,11 @@ Also sets `currentTokenId` to 1 and `baseExtension` to `".json"`.
 
 <SolidityDetailBlock
     title="mint"
-    params="(address _to, bytes _verificationData) → uint256"
+    params="(address _to, bytes _verificationData, bytes _data) → uint256"
     visibility="public"
-    anchor="xref-InverseAppProjectedNft-mint-address-bytes-"
+    anchor="xref-InverseAppProjectedNft-mint-address-bytes-bytes-"
 >
-    Mints a new token to address `_to`.
+    Mints a new token to address `_to`
 Increases the `totalSupply` and `currentTokenId`.
 Reverts if `_to` is a zero address or if it refers to smart contract but does not implement IERC721Receiver-onERC721Received.
 Emits the `Minted` event.
@@ -2789,12 +2833,20 @@ Emits the `Minted` event.
 
 <SolidityDetailBlock
     title="mint"
+    params="(address _to, bytes _verificationData) → uint256"
+    visibility="public"
+    anchor="xref-InverseAppProjectedNft-mint-address-bytes-"
+>
+    Shorthand function that calls the `mint` function with empty `_data`.
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="mint"
     params="(address _to) → uint256"
-    visibility="external"
+    visibility="public"
     anchor="xref-InverseAppProjectedNft-mint-address-"
 >
-    This works identically to the other function with an extra data parameter,
-     except this function just sets data to "".
+    Shorthand function that calls the `mint` function with empty `_verificationData` and empty `_data`.
 </SolidityDetailBlock>
 
 <SolidityDetailBlock
@@ -2936,6 +2988,1981 @@ an update to a single token. Can be overriden in inheriting contract.
     anchor="xref-InverseAppProjectedNft-baseExtension-string"
 >
     Base extension that is used in the `tokenURI` function to form the end of the token URI.
+</SolidityDetailBlock>
+
+<ContractHeader githubLink="https://github.com/PaimaStudios/paima-engine/tree/master/packages/contracts/evm-contracts/contracts/token/IInverseProjected1155.sol" anchor="IInverseProjected1155">
+    ### IInverseProjected1155
+</ContractHeader>
+
+```solidity
+import "@paima/evm-contracts/contracts/token/IInverseProjected1155.sol";
+```
+
+A standard ERC1155 that can be burned and has a special uri function accepting a custom base URI.
+
+<SolidityOutlineBlock
+  type="Functions"
+  lists={[
+    {
+      category: "",
+      lines: [
+        {
+          text: "burn(id, value)",
+          anchor: "xref-IInverseProjected1155-burn-uint256-uint256-"
+        },
+        {
+          text: "burnBatch(ids, values)",
+          anchor: "xref-IInverseProjected1155-burnBatch-uint256---uint256---"
+        },
+        {
+          text: "setBaseURI(_URI)",
+          anchor: "xref-IInverseProjected1155-setBaseURI-string-"
+        },
+        {
+          text: "setBaseExtension(_newBaseExtension)",
+          anchor: "xref-IInverseProjected1155-setBaseExtension-string-"
+        },
+        {
+          text: "uri(id, customBaseUri)",
+          anchor: "xref-IInverseProjected1155-uri-uint256-string-"
+        },
+        {
+          text: "uri(id, customUriInterface)",
+          anchor: "xref-IInverseProjected1155-uri-uint256-contract-IUri-"
+        },
+      ]
+    },
+    {
+      category: "IERC4906Agnostic",
+      lines: [
+      ]
+    },
+    {
+      category: "IERC1155MetadataURI",
+      lines: [
+        {
+          text: "uri(id)",
+          anchor: "xref-IERC1155MetadataURI-uri-uint256-"
+        },
+      ]
+    },
+    {
+      category: "IERC1155",
+      lines: [
+        {
+          text: "balanceOf(account, id)",
+          anchor: "xref-IERC1155-balanceOf-address-uint256-"
+        },
+        {
+          text: "balanceOfBatch(accounts, ids)",
+          anchor: "xref-IERC1155-balanceOfBatch-address---uint256---"
+        },
+        {
+          text: "setApprovalForAll(operator, approved)",
+          anchor: "xref-IERC1155-setApprovalForAll-address-bool-"
+        },
+        {
+          text: "isApprovedForAll(account, operator)",
+          anchor: "xref-IERC1155-isApprovedForAll-address-address-"
+        },
+        {
+          text: "safeTransferFrom(from, to, id, value, data)",
+          anchor: "xref-IERC1155-safeTransferFrom-address-address-uint256-uint256-bytes-"
+        },
+        {
+          text: "safeBatchTransferFrom(from, to, ids, values, data)",
+          anchor: "xref-IERC1155-safeBatchTransferFrom-address-address-uint256---uint256---bytes-"
+        },
+      ]
+    },
+    {
+      category: "IERC165",
+      lines: [
+        {
+          text: "supportsInterface(interfaceId)",
+          anchor: "xref-IERC165-supportsInterface-bytes4-"
+        },
+      ]
+    },
+  ]}
+>
+</SolidityOutlineBlock>
+
+<SolidityOutlineBlock
+  type="Events"
+  lists={[
+    {
+      category: "",
+      lines: [
+        {
+          text: "SetBaseExtension(oldBaseExtension, newBaseExtension)",
+          anchor: "xref-IInverseProjected1155-SetBaseExtension-string-string-"
+        },
+        {
+          text: "SetBaseURI(oldUri, newUri)",
+          anchor: "xref-IInverseProjected1155-SetBaseURI-string-string-"
+        },
+      ]
+    },
+    {
+      category: "IERC4906Agnostic",
+      lines: [
+        {
+          text: "MetadataUpdate(_tokenId)",
+          anchor: "xref-IERC4906Agnostic-MetadataUpdate-uint256-"
+        },
+        {
+          text: "BatchMetadataUpdate(_fromTokenId, _toTokenId)",
+          anchor: "xref-IERC4906Agnostic-BatchMetadataUpdate-uint256-uint256-"
+        },
+      ]
+    },
+    {
+      category: "IERC1155MetadataURI",
+      lines: [
+      ]
+    },
+    {
+      category: "IERC1155",
+      lines: [
+        {
+          text: "TransferSingle(operator, from, to, id, value)",
+          anchor: "xref-IERC1155-TransferSingle-address-address-address-uint256-uint256-"
+        },
+        {
+          text: "TransferBatch(operator, from, to, ids, values)",
+          anchor: "xref-IERC1155-TransferBatch-address-address-address-uint256---uint256---"
+        },
+        {
+          text: "ApprovalForAll(account, operator, approved)",
+          anchor: "xref-IERC1155-ApprovalForAll-address-address-bool-"
+        },
+        {
+          text: "URI(value, id)",
+          anchor: "xref-IERC1155-URI-string-uint256-"
+        },
+      ]
+    },
+    {
+      category: "IERC165",
+      lines: [
+      ]
+    },
+  ]}
+>
+</SolidityOutlineBlock>
+
+<SolidityDetailBlock
+    title="burn"
+    params="(uint256 id, uint256 value)"
+    visibility="external"
+    anchor="xref-IInverseProjected1155-burn-uint256-uint256-"
+>
+    Burns `value` amount of token of ID `id` from transaction sender.
+Reverts if transaction sender's balance of `id` is less than `value`.
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="burnBatch"
+    params="(uint256[] ids, uint256[] values)"
+    visibility="external"
+    anchor="xref-IInverseProjected1155-burnBatch-uint256---uint256---"
+>
+    Burns batch of `values` amounts of tokens of IDs `ids` from transaction sender.
+Reverts if transaction sender's balance of any `id` is less than `value`.
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="setBaseURI"
+    params="(string _URI)"
+    visibility="external"
+    anchor="xref-IInverseProjected1155-setBaseURI-string-"
+>
+    Sets `_URI` as the `baseURI`.
+Callable only by the contract owner.
+Emits the `SetBaseURI` event.
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="setBaseExtension"
+    params="(string _newBaseExtension)"
+    visibility="external"
+    anchor="xref-IInverseProjected1155-setBaseExtension-string-"
+>
+    Sets `_newBaseExtension` as the `baseExtension`.
+Callable only by the contract owner.
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="uri"
+    params="(uint256 id, string customBaseUri) → string"
+    visibility="external"
+    anchor="xref-IInverseProjected1155-uri-uint256-string-"
+>
+    Returns the token URI of specified `id` using a custom base URI.
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="uri"
+    params="(uint256 id, contract IUri customUriInterface) → string"
+    visibility="external"
+    anchor="xref-IInverseProjected1155-uri-uint256-contract-IUri-"
+>
+    Returns the token URI of specified `id` using a call to contract implementing `IUri`.
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="SetBaseExtension"
+    params="(string oldBaseExtension, string newBaseExtension)"
+    visibility="event"
+    anchor="xref-IInverseProjected1155-SetBaseExtension-string-string-"
+>
+    Emitted when `baseExtension` is updated from `oldBaseExtension` to `newBaseExtension`.
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="SetBaseURI"
+    params="(string oldUri, string newUri)"
+    visibility="event"
+    anchor="xref-IInverseProjected1155-SetBaseURI-string-string-"
+>
+    Emitted when `baseUri` is updated from `oldUri` to `newUri`.
+</SolidityDetailBlock>
+
+<ContractHeader githubLink="https://github.com/PaimaStudios/paima-engine/tree/master/packages/contracts/evm-contracts/contracts/token/IInverseBaseProjected1155.sol" anchor="IInverseBaseProjected1155">
+    ### IInverseBaseProjected1155
+</ContractHeader>
+
+```solidity
+import "@paima/evm-contracts/contracts/token/IInverseBaseProjected1155.sol";
+```
+
+A Paima Inverse Projection ERC1155 token where initialization is handled by the base-layer.
+A standard ERC1155 that accepts calldata in the mint function for any initialization data needed in a Paima dApp.
+
+<SolidityOutlineBlock
+  type="Functions"
+  lists={[
+    {
+      category: "",
+      lines: [
+        {
+          text: "mint(value, data, initialData)",
+          anchor: "xref-IInverseBaseProjected1155-mint-uint256-bytes-string-"
+        },
+      ]
+    },
+    {
+      category: "IInverseProjected1155",
+      lines: [
+        {
+          text: "burn(id, value)",
+          anchor: "xref-IInverseProjected1155-burn-uint256-uint256-"
+        },
+        {
+          text: "burnBatch(ids, values)",
+          anchor: "xref-IInverseProjected1155-burnBatch-uint256---uint256---"
+        },
+        {
+          text: "setBaseURI(_URI)",
+          anchor: "xref-IInverseProjected1155-setBaseURI-string-"
+        },
+        {
+          text: "setBaseExtension(_newBaseExtension)",
+          anchor: "xref-IInverseProjected1155-setBaseExtension-string-"
+        },
+        {
+          text: "uri(id, customBaseUri)",
+          anchor: "xref-IInverseProjected1155-uri-uint256-string-"
+        },
+        {
+          text: "uri(id, customUriInterface)",
+          anchor: "xref-IInverseProjected1155-uri-uint256-contract-IUri-"
+        },
+      ]
+    },
+    {
+      category: "IERC4906Agnostic",
+      lines: [
+      ]
+    },
+    {
+      category: "IERC1155MetadataURI",
+      lines: [
+        {
+          text: "uri(id)",
+          anchor: "xref-IERC1155MetadataURI-uri-uint256-"
+        },
+      ]
+    },
+    {
+      category: "IERC1155",
+      lines: [
+        {
+          text: "balanceOf(account, id)",
+          anchor: "xref-IERC1155-balanceOf-address-uint256-"
+        },
+        {
+          text: "balanceOfBatch(accounts, ids)",
+          anchor: "xref-IERC1155-balanceOfBatch-address---uint256---"
+        },
+        {
+          text: "setApprovalForAll(operator, approved)",
+          anchor: "xref-IERC1155-setApprovalForAll-address-bool-"
+        },
+        {
+          text: "isApprovedForAll(account, operator)",
+          anchor: "xref-IERC1155-isApprovedForAll-address-address-"
+        },
+        {
+          text: "safeTransferFrom(from, to, id, value, data)",
+          anchor: "xref-IERC1155-safeTransferFrom-address-address-uint256-uint256-bytes-"
+        },
+        {
+          text: "safeBatchTransferFrom(from, to, ids, values, data)",
+          anchor: "xref-IERC1155-safeBatchTransferFrom-address-address-uint256---uint256---bytes-"
+        },
+      ]
+    },
+    {
+      category: "IERC165",
+      lines: [
+        {
+          text: "supportsInterface(interfaceId)",
+          anchor: "xref-IERC165-supportsInterface-bytes4-"
+        },
+      ]
+    },
+  ]}
+>
+</SolidityOutlineBlock>
+
+<SolidityOutlineBlock
+  type="Events"
+  lists={[
+    {
+      category: "",
+      lines: [
+        {
+          text: "Minted(tokenId, value, initialData)",
+          anchor: "xref-IInverseBaseProjected1155-Minted-uint256-uint256-string-"
+        },
+      ]
+    },
+    {
+      category: "IInverseProjected1155",
+      lines: [
+        {
+          text: "SetBaseExtension(oldBaseExtension, newBaseExtension)",
+          anchor: "xref-IInverseProjected1155-SetBaseExtension-string-string-"
+        },
+        {
+          text: "SetBaseURI(oldUri, newUri)",
+          anchor: "xref-IInverseProjected1155-SetBaseURI-string-string-"
+        },
+      ]
+    },
+    {
+      category: "IERC4906Agnostic",
+      lines: [
+        {
+          text: "MetadataUpdate(_tokenId)",
+          anchor: "xref-IERC4906Agnostic-MetadataUpdate-uint256-"
+        },
+        {
+          text: "BatchMetadataUpdate(_fromTokenId, _toTokenId)",
+          anchor: "xref-IERC4906Agnostic-BatchMetadataUpdate-uint256-uint256-"
+        },
+      ]
+    },
+    {
+      category: "IERC1155MetadataURI",
+      lines: [
+      ]
+    },
+    {
+      category: "IERC1155",
+      lines: [
+        {
+          text: "TransferSingle(operator, from, to, id, value)",
+          anchor: "xref-IERC1155-TransferSingle-address-address-address-uint256-uint256-"
+        },
+        {
+          text: "TransferBatch(operator, from, to, ids, values)",
+          anchor: "xref-IERC1155-TransferBatch-address-address-address-uint256---uint256---"
+        },
+        {
+          text: "ApprovalForAll(account, operator, approved)",
+          anchor: "xref-IERC1155-ApprovalForAll-address-address-bool-"
+        },
+        {
+          text: "URI(value, id)",
+          anchor: "xref-IERC1155-URI-string-uint256-"
+        },
+      ]
+    },
+    {
+      category: "IERC165",
+      lines: [
+      ]
+    },
+  ]}
+>
+</SolidityOutlineBlock>
+
+<SolidityDetailBlock
+    title="mint"
+    params="(uint256 value, bytes data, string initialData) → uint256"
+    visibility="external"
+    anchor="xref-IInverseBaseProjected1155-mint-uint256-bytes-string-"
+>
+    Mints `value` of a new token to transaction sender, passing `initialData` to be emitted in the event.
+Increases the `currentTokenId`.
+Reverts if transaction sender is a smart contract that does not implement IERC1155Receiver-onERC1155Received.
+Emits the `Minted` event.
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="Minted"
+    params="(uint256 indexed tokenId, uint256 value, string initialData)"
+    visibility="event"
+    anchor="xref-IInverseBaseProjected1155-Minted-uint256-uint256-string-"
+>
+    Emitted when `value` amount of globally-enforced `tokenId` is minted, with `initialData` provided in the `mint` function parameters.
+</SolidityDetailBlock>
+
+<ContractHeader githubLink="https://github.com/PaimaStudios/paima-engine/tree/master/packages/contracts/evm-contracts/contracts/token/InverseBaseProjected1155.sol" anchor="InverseBaseProjected1155">
+    ### InverseBaseProjected1155
+</ContractHeader>
+
+```solidity
+import "@paima/evm-contracts/contracts/token/InverseBaseProjected1155.sol";
+```
+
+A Paima Inverse Projection ERC1155 token where initialization is handled by the base-layer.
+A standard ERC1155 that accepts calldata in the mint function for any initialization data needed in a Paima dApp.
+
+<SolidityOutlineBlock
+  type="Functions"
+  lists={[
+    {
+      category: "",
+      lines: [
+        {
+          text: "constructor(_name, _symbol, _owner)",
+          anchor: "xref-InverseBaseProjected1155-constructor-string-string-address-"
+        },
+        {
+          text: "supportsInterface(interfaceId)",
+          anchor: "xref-InverseBaseProjected1155-supportsInterface-bytes4-"
+        },
+        {
+          text: "totalSupply(id)",
+          anchor: "xref-InverseBaseProjected1155-totalSupply-uint256-"
+        },
+        {
+          text: "mint(value, data, initialData)",
+          anchor: "xref-InverseBaseProjected1155-mint-uint256-bytes-string-"
+        },
+        {
+          text: "burn(id, value)",
+          anchor: "xref-InverseBaseProjected1155-burn-uint256-uint256-"
+        },
+        {
+          text: "burnBatch(ids, values)",
+          anchor: "xref-InverseBaseProjected1155-burnBatch-uint256---uint256---"
+        },
+        {
+          text: "uri(id)",
+          anchor: "xref-InverseBaseProjected1155-uri-uint256-"
+        },
+        {
+          text: "uri(id, customBaseUri)",
+          anchor: "xref-InverseBaseProjected1155-uri-uint256-string-"
+        },
+        {
+          text: "uri(id, customUriInterface)",
+          anchor: "xref-InverseBaseProjected1155-uri-uint256-contract-IUri-"
+        },
+        {
+          text: "setBaseURI(_URI)",
+          anchor: "xref-InverseBaseProjected1155-setBaseURI-string-"
+        },
+        {
+          text: "setBaseExtension(_newBaseExtension)",
+          anchor: "xref-InverseBaseProjected1155-setBaseExtension-string-"
+        },
+        {
+          text: "updateMetadataBatch(_fromTokenId, _toTokenId)",
+          anchor: "xref-InverseBaseProjected1155-updateMetadataBatch-uint256-uint256-"
+        },
+        {
+          text: "updateMetadata(_tokenId)",
+          anchor: "xref-InverseBaseProjected1155-updateMetadata-uint256-"
+        },
+        {
+          text: "_update(from, to, ids, values)",
+          anchor: "xref-InverseBaseProjected1155-_update-address-address-uint256---uint256---"
+        },
+        {
+          text: "name()",
+          anchor: "xref-InverseBaseProjected1155-name-string"
+        },
+        {
+          text: "symbol()",
+          anchor: "xref-InverseBaseProjected1155-symbol-string"
+        },
+        {
+          text: "currentTokenId()",
+          anchor: "xref-InverseBaseProjected1155-currentTokenId-uint256"
+        },
+        {
+          text: "baseURI()",
+          anchor: "xref-InverseBaseProjected1155-baseURI-string"
+        },
+        {
+          text: "baseExtension()",
+          anchor: "xref-InverseBaseProjected1155-baseExtension-string"
+        },
+      ]
+    },
+    {
+      category: "Ownable",
+      lines: [
+        {
+          text: "owner()",
+          anchor: "xref-Ownable-owner--"
+        },
+        {
+          text: "_checkOwner()",
+          anchor: "xref-Ownable-_checkOwner--"
+        },
+        {
+          text: "renounceOwnership()",
+          anchor: "xref-Ownable-renounceOwnership--"
+        },
+        {
+          text: "transferOwnership(newOwner)",
+          anchor: "xref-Ownable-transferOwnership-address-"
+        },
+        {
+          text: "_transferOwnership(newOwner)",
+          anchor: "xref-Ownable-_transferOwnership-address-"
+        },
+      ]
+    },
+    {
+      category: "ERC1155",
+      lines: [
+        {
+          text: "balanceOf(account, id)",
+          anchor: "xref-ERC1155-balanceOf-address-uint256-"
+        },
+        {
+          text: "balanceOfBatch(accounts, ids)",
+          anchor: "xref-ERC1155-balanceOfBatch-address---uint256---"
+        },
+        {
+          text: "setApprovalForAll(operator, approved)",
+          anchor: "xref-ERC1155-setApprovalForAll-address-bool-"
+        },
+        {
+          text: "isApprovedForAll(account, operator)",
+          anchor: "xref-ERC1155-isApprovedForAll-address-address-"
+        },
+        {
+          text: "safeTransferFrom(from, to, id, value, data)",
+          anchor: "xref-ERC1155-safeTransferFrom-address-address-uint256-uint256-bytes-"
+        },
+        {
+          text: "safeBatchTransferFrom(from, to, ids, values, data)",
+          anchor: "xref-ERC1155-safeBatchTransferFrom-address-address-uint256---uint256---bytes-"
+        },
+        {
+          text: "_updateWithAcceptanceCheck(from, to, ids, values, data)",
+          anchor: "xref-ERC1155-_updateWithAcceptanceCheck-address-address-uint256---uint256---bytes-"
+        },
+        {
+          text: "_safeTransferFrom(from, to, id, value, data)",
+          anchor: "xref-ERC1155-_safeTransferFrom-address-address-uint256-uint256-bytes-"
+        },
+        {
+          text: "_safeBatchTransferFrom(from, to, ids, values, data)",
+          anchor: "xref-ERC1155-_safeBatchTransferFrom-address-address-uint256---uint256---bytes-"
+        },
+        {
+          text: "_setURI(newuri)",
+          anchor: "xref-ERC1155-_setURI-string-"
+        },
+        {
+          text: "_mint(to, id, value, data)",
+          anchor: "xref-ERC1155-_mint-address-uint256-uint256-bytes-"
+        },
+        {
+          text: "_mintBatch(to, ids, values, data)",
+          anchor: "xref-ERC1155-_mintBatch-address-uint256---uint256---bytes-"
+        },
+        {
+          text: "_burn(from, id, value)",
+          anchor: "xref-ERC1155-_burn-address-uint256-uint256-"
+        },
+        {
+          text: "_burnBatch(from, ids, values)",
+          anchor: "xref-ERC1155-_burnBatch-address-uint256---uint256---"
+        },
+        {
+          text: "_setApprovalForAll(owner, operator, approved)",
+          anchor: "xref-ERC1155-_setApprovalForAll-address-address-bool-"
+        },
+      ]
+    },
+    {
+      category: "IERC1155Errors",
+      lines: [
+      ]
+    },
+    {
+      category: "IInverseBaseProjected1155",
+      lines: [
+      ]
+    },
+    {
+      category: "IInverseProjected1155",
+      lines: [
+      ]
+    },
+    {
+      category: "IERC4906Agnostic",
+      lines: [
+      ]
+    },
+    {
+      category: "IERC1155MetadataURI",
+      lines: [
+      ]
+    },
+    {
+      category: "IERC1155",
+      lines: [
+      ]
+    },
+    {
+      category: "ERC165",
+      lines: [
+      ]
+    },
+    {
+      category: "IERC165",
+      lines: [
+      ]
+    },
+  ]}
+>
+</SolidityOutlineBlock>
+
+<SolidityOutlineBlock
+  type="Events"
+  lists={[
+    {
+      category: "",
+      lines: [
+      ]
+    },
+    {
+      category: "Ownable",
+      lines: [
+        {
+          text: "OwnershipTransferred(previousOwner, newOwner)",
+          anchor: "xref-Ownable-OwnershipTransferred-address-address-"
+        },
+      ]
+    },
+    {
+      category: "ERC1155",
+      lines: [
+      ]
+    },
+    {
+      category: "IERC1155Errors",
+      lines: [
+      ]
+    },
+    {
+      category: "IInverseBaseProjected1155",
+      lines: [
+        {
+          text: "Minted(tokenId, value, initialData)",
+          anchor: "xref-IInverseBaseProjected1155-Minted-uint256-uint256-string-"
+        },
+      ]
+    },
+    {
+      category: "IInverseProjected1155",
+      lines: [
+        {
+          text: "SetBaseExtension(oldBaseExtension, newBaseExtension)",
+          anchor: "xref-IInverseProjected1155-SetBaseExtension-string-string-"
+        },
+        {
+          text: "SetBaseURI(oldUri, newUri)",
+          anchor: "xref-IInverseProjected1155-SetBaseURI-string-string-"
+        },
+      ]
+    },
+    {
+      category: "IERC4906Agnostic",
+      lines: [
+        {
+          text: "MetadataUpdate(_tokenId)",
+          anchor: "xref-IERC4906Agnostic-MetadataUpdate-uint256-"
+        },
+        {
+          text: "BatchMetadataUpdate(_fromTokenId, _toTokenId)",
+          anchor: "xref-IERC4906Agnostic-BatchMetadataUpdate-uint256-uint256-"
+        },
+      ]
+    },
+    {
+      category: "IERC1155MetadataURI",
+      lines: [
+      ]
+    },
+    {
+      category: "IERC1155",
+      lines: [
+        {
+          text: "TransferSingle(operator, from, to, id, value)",
+          anchor: "xref-IERC1155-TransferSingle-address-address-address-uint256-uint256-"
+        },
+        {
+          text: "TransferBatch(operator, from, to, ids, values)",
+          anchor: "xref-IERC1155-TransferBatch-address-address-address-uint256---uint256---"
+        },
+        {
+          text: "ApprovalForAll(account, operator, approved)",
+          anchor: "xref-IERC1155-ApprovalForAll-address-address-bool-"
+        },
+        {
+          text: "URI(value, id)",
+          anchor: "xref-IERC1155-URI-string-uint256-"
+        },
+      ]
+    },
+    {
+      category: "ERC165",
+      lines: [
+      ]
+    },
+    {
+      category: "IERC165",
+      lines: [
+      ]
+    },
+  ]}
+>
+</SolidityOutlineBlock>
+
+<SolidityOutlineBlock
+  type="Errors"
+  lists={[
+    {
+      category: "",
+      lines: [
+      ]
+    },
+    {
+      category: "Ownable",
+      lines: [
+        {
+          text: "OwnableUnauthorizedAccount(account)",
+          anchor: "xref-Ownable-OwnableUnauthorizedAccount-address-"
+        },
+        {
+          text: "OwnableInvalidOwner(owner)",
+          anchor: "xref-Ownable-OwnableInvalidOwner-address-"
+        },
+      ]
+    },
+    {
+      category: "ERC1155",
+      lines: [
+      ]
+    },
+    {
+      category: "IERC1155Errors",
+      lines: [
+        {
+          text: "ERC1155InsufficientBalance(sender, balance, needed, tokenId)",
+          anchor: "xref-IERC1155Errors-ERC1155InsufficientBalance-address-uint256-uint256-uint256-"
+        },
+        {
+          text: "ERC1155InvalidSender(sender)",
+          anchor: "xref-IERC1155Errors-ERC1155InvalidSender-address-"
+        },
+        {
+          text: "ERC1155InvalidReceiver(receiver)",
+          anchor: "xref-IERC1155Errors-ERC1155InvalidReceiver-address-"
+        },
+        {
+          text: "ERC1155MissingApprovalForAll(operator, owner)",
+          anchor: "xref-IERC1155Errors-ERC1155MissingApprovalForAll-address-address-"
+        },
+        {
+          text: "ERC1155InvalidApprover(approver)",
+          anchor: "xref-IERC1155Errors-ERC1155InvalidApprover-address-"
+        },
+        {
+          text: "ERC1155InvalidOperator(operator)",
+          anchor: "xref-IERC1155Errors-ERC1155InvalidOperator-address-"
+        },
+        {
+          text: "ERC1155InvalidArrayLength(idsLength, valuesLength)",
+          anchor: "xref-IERC1155Errors-ERC1155InvalidArrayLength-uint256-uint256-"
+        },
+      ]
+    },
+    {
+      category: "IInverseBaseProjected1155",
+      lines: [
+      ]
+    },
+    {
+      category: "IInverseProjected1155",
+      lines: [
+      ]
+    },
+    {
+      category: "IERC4906Agnostic",
+      lines: [
+      ]
+    },
+    {
+      category: "IERC1155MetadataURI",
+      lines: [
+      ]
+    },
+    {
+      category: "IERC1155",
+      lines: [
+      ]
+    },
+    {
+      category: "ERC165",
+      lines: [
+      ]
+    },
+    {
+      category: "IERC165",
+      lines: [
+      ]
+    },
+  ]}
+>
+</SolidityOutlineBlock>
+
+<SolidityDetailBlock
+    title="constructor"
+    params="(string _name, string _symbol, address _owner)"
+    visibility="public"
+    anchor="xref-InverseBaseProjected1155-constructor-string-string-address-"
+>
+    Sets the NFT's `name`, `symbol`, and transfers ownership to `owner`.
+Also sets `currentTokenId` to 1.
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="supportsInterface"
+    params="(bytes4 interfaceId) → bool"
+    visibility="public"
+    anchor="xref-InverseBaseProjected1155-supportsInterface-bytes4-"
+>
+    Returns true if this contract implements the interface defined by `interfaceId`. See EIP165.
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="totalSupply"
+    params="(uint256 id) → uint256"
+    visibility="public"
+    anchor="xref-InverseBaseProjected1155-totalSupply-uint256-"
+>
+    Returns the total amount of tokens with ID `id` that currently exists.
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="mint"
+    params="(uint256 value, bytes data, string initialData) → uint256"
+    visibility="public"
+    anchor="xref-InverseBaseProjected1155-mint-uint256-bytes-string-"
+>
+    Mints `value` of a new token to transaction sender, passing `initialData` to be emitted in the event.
+Increases the `currentTokenId`.
+Reverts if transaction sender is a smart contract that does not implement IERC1155Receiver-onERC1155Received.
+Emits the `Minted` event.
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="burn"
+    params="(uint256 id, uint256 value)"
+    visibility="public"
+    anchor="xref-InverseBaseProjected1155-burn-uint256-uint256-"
+>
+    Burns `value` amount of token of ID `id` from transaction sender.
+Reverts if transaction sender's balance of `id` is less than `value`.
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="burnBatch"
+    params="(uint256[] ids, uint256[] values)"
+    visibility="public"
+    anchor="xref-InverseBaseProjected1155-burnBatch-uint256---uint256---"
+>
+    Burns batch of `values` amounts of tokens of IDs `ids` from transaction sender.
+Reverts if transaction sender's balance of any `id` is less than `value`.
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="uri"
+    params="(uint256 id) → string"
+    visibility="public"
+    anchor="xref-InverseBaseProjected1155-uri-uint256-"
+>
+    Returns the token URI of specified `id` using the default set base URI.
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="uri"
+    params="(uint256 id, string customBaseUri) → string"
+    visibility="public"
+    anchor="xref-InverseBaseProjected1155-uri-uint256-string-"
+>
+    Returns the token URI of specified `id` using a custom base URI.
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="uri"
+    params="(uint256 id, contract IUri customUriInterface) → string"
+    visibility="public"
+    anchor="xref-InverseBaseProjected1155-uri-uint256-contract-IUri-"
+>
+    Returns the token URI of specified `id` using a call to contract implementing `IUri`.
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="setBaseURI"
+    params="(string _URI)"
+    visibility="public"
+    anchor="xref-InverseBaseProjected1155-setBaseURI-string-"
+>
+    Sets `_URI` as the `baseURI` of the NFT.
+Callable only by the contract owner.
+Emits the `SetBaseURI` event.
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="setBaseExtension"
+    params="(string _newBaseExtension)"
+    visibility="public"
+    anchor="xref-InverseBaseProjected1155-setBaseExtension-string-"
+>
+    Sets `_newBaseExtension` as the `baseExtension` of the NFT.
+Callable only by the contract owner.
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="updateMetadataBatch"
+    params="(uint256 _fromTokenId, uint256 _toTokenId)"
+    visibility="public"
+    anchor="xref-InverseBaseProjected1155-updateMetadataBatch-uint256-uint256-"
+>
+    Function that emits an event to notify third-parties (e.g. NFT marketplaces) about
+an update to consecutive range of tokens. Can be overriden in inheriting contract.
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="updateMetadata"
+    params="(uint256 _tokenId)"
+    visibility="public"
+    anchor="xref-InverseBaseProjected1155-updateMetadata-uint256-"
+>
+    Function that emits an event to notify third-parties (e.g. NFT marketplaces) about
+an update to a single token. Can be overriden in inheriting contract.
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="_update"
+    params="(address from, address to, uint256[] ids, uint256[] values)"
+    visibility="internal"
+    anchor="xref-InverseBaseProjected1155-_update-address-address-uint256---uint256---"
+>
+    See {ERC1155-_update}.
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="name"
+    params="() → string"
+    visibility="public"
+    anchor="xref-InverseBaseProjected1155-name-string"
+>
+    No description given
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="symbol"
+    params="() → string"
+    visibility="public"
+    anchor="xref-InverseBaseProjected1155-symbol-string"
+>
+    No description given
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="currentTokenId"
+    params="() → uint256"
+    visibility="public"
+    anchor="xref-InverseBaseProjected1155-currentTokenId-uint256"
+>
+    The token ID that will be minted when calling the `mint` function.
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="baseURI"
+    params="() → string"
+    visibility="public"
+    anchor="xref-InverseBaseProjected1155-baseURI-string"
+>
+    Base URI that is used in the `uri` function to form the start of the token URI.
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="baseExtension"
+    params="() → string"
+    visibility="public"
+    anchor="xref-InverseBaseProjected1155-baseExtension-string"
+>
+    Base extension that is used in the `uri` function to form the end of the token URI.
+</SolidityDetailBlock>
+
+<ContractHeader githubLink="https://github.com/PaimaStudios/paima-engine/tree/master/packages/contracts/evm-contracts/contracts/token/IInverseAppProjected1155.sol" anchor="IInverseAppProjected1155">
+    ### IInverseAppProjected1155
+</ContractHeader>
+
+```solidity
+import "@paima/evm-contracts/contracts/token/IInverseAppProjected1155.sol";
+```
+
+A Paima Inverse Projection ERC1155 token where initialization is handled by the app-layer.
+A standard ERC1155 that can be freely minted and stores an unique `<minter, userTokenId>` pair (used in `tokenURI`) when minted.
+
+<SolidityOutlineBlock
+  type="Functions"
+  lists={[
+    {
+      category: "",
+      lines: [
+        {
+          text: "currentNonce(user)",
+          anchor: "xref-IInverseAppProjected1155-currentNonce-address-"
+        },
+        {
+          text: "mint(value, data, verificationData)",
+          anchor: "xref-IInverseAppProjected1155-mint-uint256-bytes-bytes-"
+        },
+        {
+          text: "mint(value, data)",
+          anchor: "xref-IInverseAppProjected1155-mint-uint256-bytes-"
+        },
+      ]
+    },
+    {
+      category: "IInverseProjected1155",
+      lines: [
+        {
+          text: "burn(id, value)",
+          anchor: "xref-IInverseProjected1155-burn-uint256-uint256-"
+        },
+        {
+          text: "burnBatch(ids, values)",
+          anchor: "xref-IInverseProjected1155-burnBatch-uint256---uint256---"
+        },
+        {
+          text: "setBaseURI(_URI)",
+          anchor: "xref-IInverseProjected1155-setBaseURI-string-"
+        },
+        {
+          text: "setBaseExtension(_newBaseExtension)",
+          anchor: "xref-IInverseProjected1155-setBaseExtension-string-"
+        },
+        {
+          text: "uri(id, customBaseUri)",
+          anchor: "xref-IInverseProjected1155-uri-uint256-string-"
+        },
+        {
+          text: "uri(id, customUriInterface)",
+          anchor: "xref-IInverseProjected1155-uri-uint256-contract-IUri-"
+        },
+      ]
+    },
+    {
+      category: "IERC4906Agnostic",
+      lines: [
+      ]
+    },
+    {
+      category: "IERC1155MetadataURI",
+      lines: [
+        {
+          text: "uri(id)",
+          anchor: "xref-IERC1155MetadataURI-uri-uint256-"
+        },
+      ]
+    },
+    {
+      category: "IERC1155",
+      lines: [
+        {
+          text: "balanceOf(account, id)",
+          anchor: "xref-IERC1155-balanceOf-address-uint256-"
+        },
+        {
+          text: "balanceOfBatch(accounts, ids)",
+          anchor: "xref-IERC1155-balanceOfBatch-address---uint256---"
+        },
+        {
+          text: "setApprovalForAll(operator, approved)",
+          anchor: "xref-IERC1155-setApprovalForAll-address-bool-"
+        },
+        {
+          text: "isApprovedForAll(account, operator)",
+          anchor: "xref-IERC1155-isApprovedForAll-address-address-"
+        },
+        {
+          text: "safeTransferFrom(from, to, id, value, data)",
+          anchor: "xref-IERC1155-safeTransferFrom-address-address-uint256-uint256-bytes-"
+        },
+        {
+          text: "safeBatchTransferFrom(from, to, ids, values, data)",
+          anchor: "xref-IERC1155-safeBatchTransferFrom-address-address-uint256---uint256---bytes-"
+        },
+      ]
+    },
+    {
+      category: "IERC165",
+      lines: [
+        {
+          text: "supportsInterface(interfaceId)",
+          anchor: "xref-IERC165-supportsInterface-bytes4-"
+        },
+      ]
+    },
+  ]}
+>
+</SolidityOutlineBlock>
+
+<SolidityOutlineBlock
+  type="Events"
+  lists={[
+    {
+      category: "",
+      lines: [
+        {
+          text: "Minted(tokenId, minter, userTokenId, value)",
+          anchor: "xref-IInverseAppProjected1155-Minted-uint256-address-uint256-uint256-"
+        },
+      ]
+    },
+    {
+      category: "IInverseProjected1155",
+      lines: [
+        {
+          text: "SetBaseExtension(oldBaseExtension, newBaseExtension)",
+          anchor: "xref-IInverseProjected1155-SetBaseExtension-string-string-"
+        },
+        {
+          text: "SetBaseURI(oldUri, newUri)",
+          anchor: "xref-IInverseProjected1155-SetBaseURI-string-string-"
+        },
+      ]
+    },
+    {
+      category: "IERC4906Agnostic",
+      lines: [
+        {
+          text: "MetadataUpdate(_tokenId)",
+          anchor: "xref-IERC4906Agnostic-MetadataUpdate-uint256-"
+        },
+        {
+          text: "BatchMetadataUpdate(_fromTokenId, _toTokenId)",
+          anchor: "xref-IERC4906Agnostic-BatchMetadataUpdate-uint256-uint256-"
+        },
+      ]
+    },
+    {
+      category: "IERC1155MetadataURI",
+      lines: [
+      ]
+    },
+    {
+      category: "IERC1155",
+      lines: [
+        {
+          text: "TransferSingle(operator, from, to, id, value)",
+          anchor: "xref-IERC1155-TransferSingle-address-address-address-uint256-uint256-"
+        },
+        {
+          text: "TransferBatch(operator, from, to, ids, values)",
+          anchor: "xref-IERC1155-TransferBatch-address-address-address-uint256---uint256---"
+        },
+        {
+          text: "ApprovalForAll(account, operator, approved)",
+          anchor: "xref-IERC1155-ApprovalForAll-address-address-bool-"
+        },
+        {
+          text: "URI(value, id)",
+          anchor: "xref-IERC1155-URI-string-uint256-"
+        },
+      ]
+    },
+    {
+      category: "IERC165",
+      lines: [
+      ]
+    },
+  ]}
+>
+</SolidityOutlineBlock>
+
+<SolidityDetailBlock
+    title="currentNonce"
+    params="(address user) → uint256"
+    visibility="external"
+    anchor="xref-IInverseAppProjected1155-currentNonce-address-"
+>
+    Useful if you need to either needs to
+     1. Check if the nonce matches the expected value, or if more NFTs need to be minted
+     2. Use a nonce algorithm where the next nonce depends on the current nonce
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="mint"
+    params="(uint256 value, bytes data, bytes verificationData) → uint256"
+    visibility="external"
+    anchor="xref-IInverseAppProjected1155-mint-uint256-bytes-bytes-"
+>
+    Mints `value` of a new token to the transaction sender.
+Increases the `currentTokenId`.
+Reverts if transaction sender is a smart contract that does not implement IERC1155Receiver-onERC1155Received.
+Emits the `Minted` event.
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="mint"
+    params="(uint256 value, bytes data) → uint256"
+    visibility="external"
+    anchor="xref-IInverseAppProjected1155-mint-uint256-bytes-"
+>
+    This works identically to the other function with an extra data parameter,
+     except this function just sets data to "".
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="Minted"
+    params="(uint256 indexed tokenId, address indexed minter, uint256 indexed userTokenId, uint256 value)"
+    visibility="event"
+    anchor="xref-IInverseAppProjected1155-Minted-uint256-address-uint256-uint256-"
+>
+    Emitted when `value` amount of globally-enforced `tokenId` in combination with an unique `<minter, userTokenId>` pair is minted.
+</SolidityDetailBlock>
+
+<ContractHeader githubLink="https://github.com/PaimaStudios/paima-engine/tree/master/packages/contracts/evm-contracts/contracts/token/InverseAppProjected1155.sol" anchor="InverseAppProjected1155">
+    ### InverseAppProjected1155
+</ContractHeader>
+
+```solidity
+import "@paima/evm-contracts/contracts/token/InverseAppProjected1155.sol";
+```
+
+A Paima Inverse Projection ERC1155 token where initialization is handled by the app-layer.
+A standard ERC1155 that can be freely minted and stores an unique `<minter, userTokenId>` pair (used in `tokenURI`) when minted.
+
+<SolidityOutlineBlock
+  type="Functions"
+  lists={[
+    {
+      category: "",
+      lines: [
+        {
+          text: "constructor(_name, _symbol, _owner)",
+          anchor: "xref-InverseAppProjected1155-constructor-string-string-address-"
+        },
+        {
+          text: "supportsInterface(interfaceId)",
+          anchor: "xref-InverseAppProjected1155-supportsInterface-bytes4-"
+        },
+        {
+          text: "currentNonce(user)",
+          anchor: "xref-InverseAppProjected1155-currentNonce-address-"
+        },
+        {
+          text: "validateMint(, )",
+          anchor: "xref-InverseAppProjected1155-validateMint-address-bytes-"
+        },
+        {
+          text: "initialSupply(id)",
+          anchor: "xref-InverseAppProjected1155-initialSupply-uint256-"
+        },
+        {
+          text: "totalSupply(id)",
+          anchor: "xref-InverseAppProjected1155-totalSupply-uint256-"
+        },
+        {
+          text: "mint(value, data, verificationData)",
+          anchor: "xref-InverseAppProjected1155-mint-uint256-bytes-bytes-"
+        },
+        {
+          text: "mint(value, data)",
+          anchor: "xref-InverseAppProjected1155-mint-uint256-bytes-"
+        },
+        {
+          text: "burn(id, value)",
+          anchor: "xref-InverseAppProjected1155-burn-uint256-uint256-"
+        },
+        {
+          text: "burnBatch(ids, values)",
+          anchor: "xref-InverseAppProjected1155-burnBatch-uint256---uint256---"
+        },
+        {
+          text: "uri(id)",
+          anchor: "xref-InverseAppProjected1155-uri-uint256-"
+        },
+        {
+          text: "uri(id, customBaseUri)",
+          anchor: "xref-InverseAppProjected1155-uri-uint256-string-"
+        },
+        {
+          text: "uri(id, customUriInterface)",
+          anchor: "xref-InverseAppProjected1155-uri-uint256-contract-IUri-"
+        },
+        {
+          text: "setBaseURI(_URI)",
+          anchor: "xref-InverseAppProjected1155-setBaseURI-string-"
+        },
+        {
+          text: "setBaseExtension(_newBaseExtension)",
+          anchor: "xref-InverseAppProjected1155-setBaseExtension-string-"
+        },
+        {
+          text: "updateMetadataBatch(_fromTokenId, _toTokenId)",
+          anchor: "xref-InverseAppProjected1155-updateMetadataBatch-uint256-uint256-"
+        },
+        {
+          text: "updateMetadata(_tokenId)",
+          anchor: "xref-InverseAppProjected1155-updateMetadata-uint256-"
+        },
+        {
+          text: "_update(from, to, ids, values)",
+          anchor: "xref-InverseAppProjected1155-_update-address-address-uint256---uint256---"
+        },
+        {
+          text: "name()",
+          anchor: "xref-InverseAppProjected1155-name-string"
+        },
+        {
+          text: "symbol()",
+          anchor: "xref-InverseAppProjected1155-symbol-string"
+        },
+        {
+          text: "tokenToMint()",
+          anchor: "xref-InverseAppProjected1155-tokenToMint-mapping-uint256----struct-MintEntry-"
+        },
+        {
+          text: "mintCount()",
+          anchor: "xref-InverseAppProjected1155-mintCount-mapping-address----uint256-"
+        },
+        {
+          text: "currentTokenId()",
+          anchor: "xref-InverseAppProjected1155-currentTokenId-uint256"
+        },
+        {
+          text: "baseURI()",
+          anchor: "xref-InverseAppProjected1155-baseURI-string"
+        },
+        {
+          text: "baseExtension()",
+          anchor: "xref-InverseAppProjected1155-baseExtension-string"
+        },
+      ]
+    },
+    {
+      category: "Ownable",
+      lines: [
+        {
+          text: "owner()",
+          anchor: "xref-Ownable-owner--"
+        },
+        {
+          text: "_checkOwner()",
+          anchor: "xref-Ownable-_checkOwner--"
+        },
+        {
+          text: "renounceOwnership()",
+          anchor: "xref-Ownable-renounceOwnership--"
+        },
+        {
+          text: "transferOwnership(newOwner)",
+          anchor: "xref-Ownable-transferOwnership-address-"
+        },
+        {
+          text: "_transferOwnership(newOwner)",
+          anchor: "xref-Ownable-_transferOwnership-address-"
+        },
+      ]
+    },
+    {
+      category: "ERC1155",
+      lines: [
+        {
+          text: "balanceOf(account, id)",
+          anchor: "xref-ERC1155-balanceOf-address-uint256-"
+        },
+        {
+          text: "balanceOfBatch(accounts, ids)",
+          anchor: "xref-ERC1155-balanceOfBatch-address---uint256---"
+        },
+        {
+          text: "setApprovalForAll(operator, approved)",
+          anchor: "xref-ERC1155-setApprovalForAll-address-bool-"
+        },
+        {
+          text: "isApprovedForAll(account, operator)",
+          anchor: "xref-ERC1155-isApprovedForAll-address-address-"
+        },
+        {
+          text: "safeTransferFrom(from, to, id, value, data)",
+          anchor: "xref-ERC1155-safeTransferFrom-address-address-uint256-uint256-bytes-"
+        },
+        {
+          text: "safeBatchTransferFrom(from, to, ids, values, data)",
+          anchor: "xref-ERC1155-safeBatchTransferFrom-address-address-uint256---uint256---bytes-"
+        },
+        {
+          text: "_updateWithAcceptanceCheck(from, to, ids, values, data)",
+          anchor: "xref-ERC1155-_updateWithAcceptanceCheck-address-address-uint256---uint256---bytes-"
+        },
+        {
+          text: "_safeTransferFrom(from, to, id, value, data)",
+          anchor: "xref-ERC1155-_safeTransferFrom-address-address-uint256-uint256-bytes-"
+        },
+        {
+          text: "_safeBatchTransferFrom(from, to, ids, values, data)",
+          anchor: "xref-ERC1155-_safeBatchTransferFrom-address-address-uint256---uint256---bytes-"
+        },
+        {
+          text: "_setURI(newuri)",
+          anchor: "xref-ERC1155-_setURI-string-"
+        },
+        {
+          text: "_mint(to, id, value, data)",
+          anchor: "xref-ERC1155-_mint-address-uint256-uint256-bytes-"
+        },
+        {
+          text: "_mintBatch(to, ids, values, data)",
+          anchor: "xref-ERC1155-_mintBatch-address-uint256---uint256---bytes-"
+        },
+        {
+          text: "_burn(from, id, value)",
+          anchor: "xref-ERC1155-_burn-address-uint256-uint256-"
+        },
+        {
+          text: "_burnBatch(from, ids, values)",
+          anchor: "xref-ERC1155-_burnBatch-address-uint256---uint256---"
+        },
+        {
+          text: "_setApprovalForAll(owner, operator, approved)",
+          anchor: "xref-ERC1155-_setApprovalForAll-address-address-bool-"
+        },
+      ]
+    },
+    {
+      category: "IERC1155Errors",
+      lines: [
+      ]
+    },
+    {
+      category: "IInverseAppProjected1155",
+      lines: [
+      ]
+    },
+    {
+      category: "IInverseProjected1155",
+      lines: [
+      ]
+    },
+    {
+      category: "IERC4906Agnostic",
+      lines: [
+      ]
+    },
+    {
+      category: "IERC1155MetadataURI",
+      lines: [
+      ]
+    },
+    {
+      category: "IERC1155",
+      lines: [
+      ]
+    },
+    {
+      category: "ERC165",
+      lines: [
+      ]
+    },
+    {
+      category: "IERC165",
+      lines: [
+      ]
+    },
+  ]}
+>
+</SolidityOutlineBlock>
+
+<SolidityOutlineBlock
+  type="Events"
+  lists={[
+    {
+      category: "",
+      lines: [
+      ]
+    },
+    {
+      category: "Ownable",
+      lines: [
+        {
+          text: "OwnershipTransferred(previousOwner, newOwner)",
+          anchor: "xref-Ownable-OwnershipTransferred-address-address-"
+        },
+      ]
+    },
+    {
+      category: "ERC1155",
+      lines: [
+      ]
+    },
+    {
+      category: "IERC1155Errors",
+      lines: [
+      ]
+    },
+    {
+      category: "IInverseAppProjected1155",
+      lines: [
+        {
+          text: "Minted(tokenId, minter, userTokenId, value)",
+          anchor: "xref-IInverseAppProjected1155-Minted-uint256-address-uint256-uint256-"
+        },
+      ]
+    },
+    {
+      category: "IInverseProjected1155",
+      lines: [
+        {
+          text: "SetBaseExtension(oldBaseExtension, newBaseExtension)",
+          anchor: "xref-IInverseProjected1155-SetBaseExtension-string-string-"
+        },
+        {
+          text: "SetBaseURI(oldUri, newUri)",
+          anchor: "xref-IInverseProjected1155-SetBaseURI-string-string-"
+        },
+      ]
+    },
+    {
+      category: "IERC4906Agnostic",
+      lines: [
+        {
+          text: "MetadataUpdate(_tokenId)",
+          anchor: "xref-IERC4906Agnostic-MetadataUpdate-uint256-"
+        },
+        {
+          text: "BatchMetadataUpdate(_fromTokenId, _toTokenId)",
+          anchor: "xref-IERC4906Agnostic-BatchMetadataUpdate-uint256-uint256-"
+        },
+      ]
+    },
+    {
+      category: "IERC1155MetadataURI",
+      lines: [
+      ]
+    },
+    {
+      category: "IERC1155",
+      lines: [
+        {
+          text: "TransferSingle(operator, from, to, id, value)",
+          anchor: "xref-IERC1155-TransferSingle-address-address-address-uint256-uint256-"
+        },
+        {
+          text: "TransferBatch(operator, from, to, ids, values)",
+          anchor: "xref-IERC1155-TransferBatch-address-address-address-uint256---uint256---"
+        },
+        {
+          text: "ApprovalForAll(account, operator, approved)",
+          anchor: "xref-IERC1155-ApprovalForAll-address-address-bool-"
+        },
+        {
+          text: "URI(value, id)",
+          anchor: "xref-IERC1155-URI-string-uint256-"
+        },
+      ]
+    },
+    {
+      category: "ERC165",
+      lines: [
+      ]
+    },
+    {
+      category: "IERC165",
+      lines: [
+      ]
+    },
+  ]}
+>
+</SolidityOutlineBlock>
+
+<SolidityOutlineBlock
+  type="Errors"
+  lists={[
+    {
+      category: "",
+      lines: [
+      ]
+    },
+    {
+      category: "Ownable",
+      lines: [
+        {
+          text: "OwnableUnauthorizedAccount(account)",
+          anchor: "xref-Ownable-OwnableUnauthorizedAccount-address-"
+        },
+        {
+          text: "OwnableInvalidOwner(owner)",
+          anchor: "xref-Ownable-OwnableInvalidOwner-address-"
+        },
+      ]
+    },
+    {
+      category: "ERC1155",
+      lines: [
+      ]
+    },
+    {
+      category: "IERC1155Errors",
+      lines: [
+        {
+          text: "ERC1155InsufficientBalance(sender, balance, needed, tokenId)",
+          anchor: "xref-IERC1155Errors-ERC1155InsufficientBalance-address-uint256-uint256-uint256-"
+        },
+        {
+          text: "ERC1155InvalidSender(sender)",
+          anchor: "xref-IERC1155Errors-ERC1155InvalidSender-address-"
+        },
+        {
+          text: "ERC1155InvalidReceiver(receiver)",
+          anchor: "xref-IERC1155Errors-ERC1155InvalidReceiver-address-"
+        },
+        {
+          text: "ERC1155MissingApprovalForAll(operator, owner)",
+          anchor: "xref-IERC1155Errors-ERC1155MissingApprovalForAll-address-address-"
+        },
+        {
+          text: "ERC1155InvalidApprover(approver)",
+          anchor: "xref-IERC1155Errors-ERC1155InvalidApprover-address-"
+        },
+        {
+          text: "ERC1155InvalidOperator(operator)",
+          anchor: "xref-IERC1155Errors-ERC1155InvalidOperator-address-"
+        },
+        {
+          text: "ERC1155InvalidArrayLength(idsLength, valuesLength)",
+          anchor: "xref-IERC1155Errors-ERC1155InvalidArrayLength-uint256-uint256-"
+        },
+      ]
+    },
+    {
+      category: "IInverseAppProjected1155",
+      lines: [
+      ]
+    },
+    {
+      category: "IInverseProjected1155",
+      lines: [
+      ]
+    },
+    {
+      category: "IERC4906Agnostic",
+      lines: [
+      ]
+    },
+    {
+      category: "IERC1155MetadataURI",
+      lines: [
+      ]
+    },
+    {
+      category: "IERC1155",
+      lines: [
+      ]
+    },
+    {
+      category: "ERC165",
+      lines: [
+      ]
+    },
+    {
+      category: "IERC165",
+      lines: [
+      ]
+    },
+  ]}
+>
+</SolidityOutlineBlock>
+
+<SolidityDetailBlock
+    title="constructor"
+    params="(string _name, string _symbol, address _owner)"
+    visibility="public"
+    anchor="xref-InverseAppProjected1155-constructor-string-string-address-"
+>
+    Sets the token's `_name`, `_symbol`, and transfers ownership to `_owner`.
+Also sets `currentTokenId` to 1.
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="supportsInterface"
+    params="(bytes4 interfaceId) → bool"
+    visibility="public"
+    anchor="xref-InverseAppProjected1155-supportsInterface-bytes4-"
+>
+    Returns true if this contract implements the interface defined by `interfaceId`. See EIP165.
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="currentNonce"
+    params="(address user) → uint256"
+    visibility="public"
+    anchor="xref-InverseAppProjected1155-currentNonce-address-"
+>
+    Useful if you need to either needs to
+     1. Check if the nonce matches the expected value, or if more NFTs need to be minted
+     2. Use a nonce algorithm where the next nonce depends on the current nonce
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="validateMint"
+    params="(address, bytes) → bool"
+    visibility="internal"
+    anchor="xref-InverseAppProjected1155-validateMint-address-bytes-"
+>
+    No description given
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="initialSupply"
+    params="(uint256 id) → uint256"
+    visibility="public"
+    anchor="xref-InverseAppProjected1155-initialSupply-uint256-"
+>
+    Returns the amount of token with ID `id` that had been initially minted.
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="totalSupply"
+    params="(uint256 id) → uint256"
+    visibility="public"
+    anchor="xref-InverseAppProjected1155-totalSupply-uint256-"
+>
+    Returns the total amount of tokens with ID `id` that currently exists.
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="mint"
+    params="(uint256 value, bytes data, bytes verificationData) → uint256"
+    visibility="public"
+    anchor="xref-InverseAppProjected1155-mint-uint256-bytes-bytes-"
+>
+    Mints `value` of a new token to the transaction sender.
+Increases the `currentTokenId`.
+Reverts if transaction sender is a smart contract that does not implement IERC1155Receiver-onERC1155Received.
+Emits the `Minted` event.
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="mint"
+    params="(uint256 value, bytes data) → uint256"
+    visibility="public"
+    anchor="xref-InverseAppProjected1155-mint-uint256-bytes-"
+>
+    This works identically to the other function with an extra data parameter,
+     except this function just sets data to "".
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="burn"
+    params="(uint256 id, uint256 value)"
+    visibility="public"
+    anchor="xref-InverseAppProjected1155-burn-uint256-uint256-"
+>
+    Burns `value` amount of token of ID `id` from transaction sender.
+Reverts if transaction sender's balance of `id` is less than `value`.
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="burnBatch"
+    params="(uint256[] ids, uint256[] values)"
+    visibility="public"
+    anchor="xref-InverseAppProjected1155-burnBatch-uint256---uint256---"
+>
+    Burns batch of `values` amounts of tokens of IDs `ids` from transaction sender.
+Reverts if transaction sender's balance of any `id` is less than `value`.
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="uri"
+    params="(uint256 id) → string"
+    visibility="public"
+    anchor="xref-InverseAppProjected1155-uri-uint256-"
+>
+    Returns the token URI of specified `id` using the default set base URI.
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="uri"
+    params="(uint256 id, string customBaseUri) → string"
+    visibility="public"
+    anchor="xref-InverseAppProjected1155-uri-uint256-string-"
+>
+    Returns the token URI of specified `id` using a custom base URI.
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="uri"
+    params="(uint256 id, contract IUri customUriInterface) → string"
+    visibility="public"
+    anchor="xref-InverseAppProjected1155-uri-uint256-contract-IUri-"
+>
+    Returns the token URI of specified `id` using a call to contract implementing `IUri`.
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="setBaseURI"
+    params="(string _URI)"
+    visibility="public"
+    anchor="xref-InverseAppProjected1155-setBaseURI-string-"
+>
+    Sets `_URI` as the `baseURI` of the NFT.
+Callable only by the contract owner.
+Emits the `SetBaseURI` event.
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="setBaseExtension"
+    params="(string _newBaseExtension)"
+    visibility="public"
+    anchor="xref-InverseAppProjected1155-setBaseExtension-string-"
+>
+    Sets `_newBaseExtension` as the `baseExtension` of the NFT.
+Callable only by the contract owner.
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="updateMetadataBatch"
+    params="(uint256 _fromTokenId, uint256 _toTokenId)"
+    visibility="public"
+    anchor="xref-InverseAppProjected1155-updateMetadataBatch-uint256-uint256-"
+>
+    Function that emits an event to notify third-parties (e.g. NFT marketplaces) about
+an update to consecutive range of tokens. Can be overriden in inheriting contract.
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="updateMetadata"
+    params="(uint256 _tokenId)"
+    visibility="public"
+    anchor="xref-InverseAppProjected1155-updateMetadata-uint256-"
+>
+    Function that emits an event to notify third-parties (e.g. NFT marketplaces) about
+an update to a single token. Can be overriden in inheriting contract.
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="_update"
+    params="(address from, address to, uint256[] ids, uint256[] values)"
+    visibility="internal"
+    anchor="xref-InverseAppProjected1155-_update-address-address-uint256---uint256---"
+>
+    See {ERC1155-_update}.
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="name"
+    params="() → string"
+    visibility="public"
+    anchor="xref-InverseAppProjected1155-name-string"
+>
+    No description given
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="symbol"
+    params="() → string"
+    visibility="public"
+    anchor="xref-InverseAppProjected1155-symbol-string"
+>
+    No description given
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="tokenToMint"
+    params="() → mapping(uint256 &#x3D;&gt; struct MintEntry)"
+    visibility="public"
+    anchor="xref-InverseAppProjected1155-tokenToMint-mapping-uint256----struct-MintEntry-"
+>
+    No description given
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="mintCount"
+    params="() → mapping(address &#x3D;&gt; uint256)"
+    visibility="public"
+    anchor="xref-InverseAppProjected1155-mintCount-mapping-address----uint256-"
+>
+    No description given
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="currentTokenId"
+    params="() → uint256"
+    visibility="public"
+    anchor="xref-InverseAppProjected1155-currentTokenId-uint256"
+>
+    The token ID that will be minted when calling the `mint` function.
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="baseURI"
+    params="() → string"
+    visibility="public"
+    anchor="xref-InverseAppProjected1155-baseURI-string"
+>
+    Base URI that is used in the `uri` function to form the start of the token URI.
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="baseExtension"
+    params="() → string"
+    visibility="public"
+    anchor="xref-InverseAppProjected1155-baseExtension-string"
+>
+    Base extension that is used in the `uri` function to form the end of the token URI.
 </SolidityDetailBlock>
 
 ## Facilitating monetization
@@ -4104,8 +6131,6 @@ Callable only by the contract owner.
 import "@paima/evm-contracts/contracts/BaseState.sol";
 ```
 
-No description given
-
 <SolidityOutlineBlock
   type="Functions"
   lists={[
@@ -4164,8 +6189,6 @@ No description given
 ```solidity
 import "@paima/evm-contracts/contracts/State.sol";
 ```
-
-No description given
 
 <SolidityOutlineBlock
   type="Functions"
@@ -4257,6 +6280,56 @@ No description given
     Array of addresses of tokens that are accepted as payment for the NFT sale.
 </SolidityDetailBlock>
 
+<ContractHeader githubLink="https://github.com/PaimaStudios/paima-engine/tree/master/packages/contracts/evm-contracts/contracts/token/IERC4906Agnostic.sol" anchor="IERC4906Agnostic">
+    ### IERC4906Agnostic
+</ContractHeader>
+
+```solidity
+import "@paima/evm-contracts/contracts/token/IERC4906Agnostic.sol";
+```
+
+<SolidityOutlineBlock
+  type="Events"
+  lists={[
+    {
+      category: "",
+      lines: [
+        {
+          text: "MetadataUpdate(_tokenId)",
+          anchor: "xref-IERC4906Agnostic-MetadataUpdate-uint256-"
+        },
+        {
+          text: "BatchMetadataUpdate(_fromTokenId, _toTokenId)",
+          anchor: "xref-IERC4906Agnostic-BatchMetadataUpdate-uint256-uint256-"
+        },
+      ]
+    },
+  ]}
+>
+</SolidityOutlineBlock>
+
+<SolidityDetailBlock
+    title="MetadataUpdate"
+    params="(uint256 _tokenId)"
+    visibility="event"
+    anchor="xref-IERC4906Agnostic-MetadataUpdate-uint256-"
+>
+    This event emits when the metadata of a token is changed.
+So that the third-party platforms such as NFT market could
+timely update the images and related attributes of the token.
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="BatchMetadataUpdate"
+    params="(uint256 _fromTokenId, uint256 _toTokenId)"
+    visibility="event"
+    anchor="xref-IERC4906Agnostic-BatchMetadataUpdate-uint256-uint256-"
+>
+    This event emits when the metadata of a range of tokens is changed.
+So that the third-party platforms such as NFT market could
+timely update the images and related attributes of the tokens.
+</SolidityDetailBlock>
+
 <ContractHeader githubLink="https://github.com/PaimaStudios/paima-engine/tree/master/packages/contracts/evm-contracts/contracts/ERC1967.sol" anchor="ERC1967">
     ### ERC1967
 </ContractHeader>
@@ -4317,6 +6390,44 @@ Made as a small subset of https://github.com/OpenZeppelin/openzeppelin-contracts
     anchor="xref-ERC1967-_setImplementation-address-"
 >
     Stores a new address in the EIP1967 implementation slot.
+</SolidityDetailBlock>
+
+<ContractHeader githubLink="https://github.com/PaimaStudios/paima-engine/tree/master/packages/contracts/evm-contracts/contracts/token/IUri.sol" anchor="IUri">
+    ### IUri
+</ContractHeader>
+
+```solidity
+import "@paima/evm-contracts/contracts/token/IUri.sol";
+```
+
+An interface exposing the `uri` function from IERC1155MetadataURI.
+
+<SolidityOutlineBlock
+  type="Functions"
+  lists={[
+    {
+      category: "",
+      lines: [
+        {
+          text: "uri(id)",
+          anchor: "xref-IUri-uri-uint256-"
+        },
+      ]
+    },
+  ]}
+>
+</SolidityOutlineBlock>
+
+<SolidityDetailBlock
+    title="uri"
+    params="(uint256 id) → string"
+    visibility="external"
+    anchor="xref-IUri-uri-uint256-"
+>
+    Returns the URI for token type `id`.
+
+If the `\{id\}` substring is present in the URI, it must be replaced by
+clients with the actual token type ID.
 </SolidityDetailBlock>
 
 <ContractHeader githubLink="https://github.com/PaimaStudios/paima-engine/tree/master/packages/contracts/evm-contracts/contracts/token/ITokenUri.sol" anchor="ITokenUri">
