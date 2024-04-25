@@ -10,7 +10,7 @@ Wallet delegation provides the following [meta primitives](../../../300-react-to
 ```
     delegate            =   &wd|from?|to?|from_signature|to_signature
     migrate             =   &wm|from?|to?|from_signature|to_signature
-    cancelDelegations   =   &wc|to_signature
+    cancelDelegations   =   &wc|to?
 ```
 
 ## STF
@@ -40,6 +40,7 @@ When delegating, you must sign the following message template in 2 steps: once f
 ```
 DELEGATE-WALLET:<other-address-lowercase>:<env-contract-address>
 ```
+* The previous plaintext message can be generated with the builtin helper: `WalletConnectHelper.buildMessageToSign(other-address-lowercase)`
 * `other-address-lowercase`: the address not signing this step
 * `env-contract-address`: is defined in [.env](../../../1-setup/4-environment-config-values.md) (`CONTRACT_ADDRESS`)
 * *Note:* the address signing for a given step is not explicitly added since its address & signature are implicitly part of the transaction
@@ -59,17 +60,13 @@ function walletConnect(
 ### Cancel delegation
 
 This function removes any current delegation to the sender address.
-The message has the format:
-```js
-DELEGATE-WALLET::<env-contract-address>
-```
-
-*Note*: address is omitted. You can do this by using `buildMessageToSign` with an empty string (`buildMessageToSign('')`)
+If `to` is an empty string, it will remove all delegations.
+If `to` is a valid address, it will remove the delegation to that single address.
 
 ```js
 function walletConnectCancelDelegations(
-  to_signature: string
-): Promise<SuccessfulResult<PostDataResponse> | FailedResult> {
+  to: string
+): Promise<SuccessfulResult<PostDataResponse> | FailedResult>
 ```
 
 ### Migrate wallet
