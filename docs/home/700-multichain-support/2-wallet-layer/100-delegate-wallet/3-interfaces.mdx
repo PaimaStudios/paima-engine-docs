@@ -38,11 +38,10 @@ This function delegates `from` your main wallet `to` your burner wallet
 
 When delegating, you must sign the following message template in 2 steps: once for each key (`from` key & `to` key):
 ```
-DELEGATE-WALLET:<other-address-lowercase>:<env-contract-address>
+DELEGATE-WALLET:<other-address-lowercase>
 ```
 * The previous plaintext message can be generated with the builtin helper: `WalletConnectHelper.buildMessageToSign(other-address-lowercase)`
 * `other-address-lowercase`: the address not signing this step
-* `env-contract-address`: is defined in [.env](../../../1-setup/4-environment-config-values.md) (`CONTRACT_ADDRESS`)
 * *Note:* the address signing for a given step is not explicitly added since its address & signature are implicitly part of the transaction
 
 
