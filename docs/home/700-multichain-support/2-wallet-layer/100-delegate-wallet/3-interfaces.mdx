@@ -1,0 +1,93 @@
+# Effect on Interfaces
+
+Enabling wallet delegation has implications on the interfaces of multiple different parts of your application.
+
+## Meta Primitive
+
+The user must (using a [concise](../../../200-read-write-L2-state/1-base-format.md) command) send a transaction to delegate their wallet address to another wallet address
+
+Wallet delegation provides the following [meta primitives](../../../300-react-to-events/2-primitive-catalogue/5-meta/100-introduction.md):
+```
+    delegate            =   &wd|from?|to?|from_signature|to_signature
+    migrate             =   &wm|from?|to?|from_signature|to_signature
+    cancelDelegations   =   &wc|to_signature
+```
+
+## STF
+
+[STF](../../../200-read-write-L2-state/10-read-data.md#stf-function) data is slightly changed:
+* `userAddress`: contains the main wallet address.
+* `realAddress`: contains the real wallet address that sent the transaction.
+* `userId`: contains the user id, which is the same for all wallets of the same user.
+
+`userAddress` and `realAddress` will be the same for the main wallet or if there are no delegations.
+
+## Indexer Database
+
+There are 2 tables tracked in the indexer to manage delegations:
+* `addresses`: *(always present)* maps a unique user id to each wallet address.
+* `delegations`: *(new for delegations)* maps delegated wallet addresses using IDs from the *addresses* table.
+
+## Middleware
+
+There are multiple files part of `@paima/sdk/mw-core` to help integrate wallet delegation
+
+### Connect two wallets
+
+This function delegates `from` your main wallet `to` your burner wallet
+
+When delegating, you must sign the following message template in 2 steps: once for each key (`from` key & `to` key):
+```
+DELEGATE-WALLET:<other-address-lowercase>:<env-contract-address>
+```
+* `other-address-lowercase`: the address not signing this step
+* `env-contract-address`: is defined in [.env](../../../1-setup/4-environment-config-values.md) (`CONTRACT_ADDRESS`)
+* *Note:* the address signing for a given step is not explicitly added since its address & signature are implicitly part of the transaction
+
+
+```js
+function walletConnect(
+  // If from/to are null
+  // they gets replaced by the wallet that sends (or signs if using the batcher) the tx
+  from: string | null,
+  to: string | null,
+  from_signature: string,
+  to_signature: string
+): Promise<SuccessfulResult<PostDataResponse> | FailedResult>
+```
+
+### Cancel delegation
+
+This function removes any current delegation to the sender address.
+The message has the format:
+```js
+DELEGATE-WALLET::<env-contract-address>
+```
+
+*Note*: address is omitted. You can do this by using `buildMessageToSign` with an empty string (`buildMessageToSign('')`)
+
+```js
+function walletConnectCancelDelegations(
+  to_signature: string
+): Promise<SuccessfulResult<PostDataResponse> | FailedResult> {
+```
+
+### Migrate wallet
+
+This function migrates the address `from` to `to`.
+
+```js
+function walletConnectMigrate(
+  // null gets replaced by the wallet that signs the tx
+  from: string | null,
+  to: string | null,
+  from_signature: string,
+  to_signature: string
+): Promise<SuccessfulResult<PostDataResponse> | FailedResult> 
+```
+
+### Helper
+
+The `WalletConnectHelper` class contains helper functions to sign with injected or generate the message for local wallets:
+1. `buildMessageToSign` to generate the correct concise notation to sign for an action
+2. `connectExternalWalletAndSign` to connect an external wallet and delegate from it at the same time.

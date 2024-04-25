@@ -1,0 +1,23 @@
+# Introduction
+
+Delegate Wallet allows for a wallet address to be delegated to another wallet address.
+
+In practice, a user can use wallet address `A` to play, but their real wallet address is `B`
+
+Some use cases:
+* **Better UX**: By using a "Local Wallet" within the browser and sending transactions through the "Batcher", so each transaction gets signed automatically.
+* **Security**: Allowing players to have a "Burner Wallet" with limited funds to play on.
+* **Security**: Reduce interaction with real wallet.
+* **Account Recovery**: account can be re-delegated to a new wallet address.
+
+This feature is optional and you can implement at any time.
+However, it's good practice use `user_id` in the STF to identify the user, and not the wallet address in case you end up implementing wallet delegation later.
+
+Feature notes:
+- Delegation can be done after-the-fact (ex: you can play on a burner wallet, and connect it to a main wallet later)
+- Delegations can be cancelled
+- [Cycles](https://en.wikipedia.org/wiki/Cycle_(graph_theory)) are not allowed
+- Main wallet state can be delegated to multiple burner wallets (ex: playing on multiple devices at once)
+
+Security risk:
+- Somebody could trick you into delegating your game state to them (steal all your in-game progress). To avoid this, the delegation transaction uses human-readable strings so the user can easily see what they are signing.

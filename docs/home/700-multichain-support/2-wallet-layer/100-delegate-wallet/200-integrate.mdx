@@ -1,40 +1,51 @@
-# Getting Started
+# Integrate into your game
 
-We are going to implement a workflow to delegate a Local Wallet to an EVM Wallet. 
+Here we share all the steps to integrate the wallet delegation system into a game
+
+For this example, we will be delegating a locally generated keypair (using the [thirdweb](https://www.npmjs.com/package/@thirdweb-dev/wallets) wrapper for [ethers](https://www.npmjs.com/package/ethers)) to a user's EVM wallet (ex: [Rabby](https://rabby.io/))
 
 
 ## In your middleware
 
-1. First implement a [Local Wallet](../wallet-layer/introduction#thirdweb-support) 
+1. First implement a [Local Wallet](../../2-wallet-layer/1-introduction.mdx#thirdweb-support) 
 
-2. Create a function to sign messages with your local wallet. `WalletConnectHelper` and `getActiveAddress` is provided by @paima/sdk. `LocalWallet` is provided by `thirdweb`.
+2. Create a function to sign messages with your local wallet. 
 ```js
+import { getActiveAddress, WalletConnectHelper } from '@paima/sdk/mw-core';
+
 const signMessageWithLocalWallet = async (message: string) => {
+  // wraps the message with the correct Paima Concise notation
   const toSign = new WalletConnectHelper().buildMessageToSign(message);
 
   return {
     message: toSign,
+    // assumes you've called `userWalletLogin` on the local Ethers wallet from step (1)
     walletAddress: getActiveAddress(WalletMode.EvmEthers).toLocaleLowerCase(),
-    /* localWallet is an instance of LocalWallet from the previous step */
+    /* localWallet is an instance of LocalWallet from thirdweb from step (1) */
     signedMessage: await localWallet.signMessage(message),
   };
 };
 ```
 
-3. Now create a function to get User Wallets. `allInjectedWallets` is provided by `@paima/sdk`.
+3. Now create a function to get User Wallets
 ```js
+import { allInjectedWallets } from '@paima/sdk/providers';
+
 const getWallets = async () => {
   /* "wallets" is a map of connected wallets */
   const wallets = await allInjectedWallets({
-    gameName: 'GameName',
+    gameName: 'GameName', // replace with your game's name
     gameChainId: undefined,
   });
   return wallets;
 }
 ```
 
-4. Create a final function to sign messages with an external wallet. `WalletConnectHelper` is provided by `@paima/sdk`.
+4. Create a final function to sign messages with an external wallet.
 ```js
+import { AddressType } from '@paima/sdk/utils';
+import { WalletConnectHelper } from '@paima/sdk/mw-core';
+
 const connectAndSignExternalWallet = async (
   walletType: AddressType,
   walletName: string, /* Provided in wallets[WalletMode].metadata.name */
@@ -44,8 +55,11 @@ const connectAndSignExternalWallet = async (
 };
 ```
 
-5. Put it all together. `walletConnectPromise` is provided by `@paima/sdk`.
+5. Put it all together.
 ```js
+import { walletConnect } from '@paima/sdk/mw-core';
+import { WalletMode } from '@paima/sdk/providers';
+
 const localWalletMessage = await signMessageWithLocalWallet();
 const wallets = getWallets();
 
@@ -54,11 +68,11 @@ const wallets = getWallets();
 const injectedWalletMessage = await connectAndSignExternalWallet(
   AddressType.EVM,
   wallets[WalletMode.EvmInjected].metadata.name,
-  localWalletSignedMessage.walletAddress
+  localWalletMessage.walletAddress
 );
 
 // Send message to blockchain.
-await walletConnectPromise(
+await walletConnect(
     injectedWalletMessage.walletAddress,
     null, // localWalletMessage.walletAddress,
     injectedWalletMessage.signedMessage,
@@ -78,28 +92,35 @@ clearDelegateWalletCacheOnChanges(requirePersistentConnection());
 ```
 This allows to clear the API cache when the user changes the wallet connection.
 
-2. STF Changes
+2. [STF](../../../200-read-write-L2-state/10-read-data.md#stf-function) Changes
+
 As user wallet might change over time, as they can delegate, migrate and cancel delegations, we need to use `userId` instead of `userAddress` or `realAddress` for user identification in our STF.
 ```js
+// main entry point for your game's state machine
 export default async function (
   inputData: SubmittedChainData,
   blockHeight: number,
   randomnessGenerator: Prando,
   dbConn: Pool
 ): Promise<SQLUpdate[]> {
+  // highlight-start
+  /* use this user to identify the player instead of userAddress or realAddress */
   const user = String(inputData.userId);
-  /* use user to identify user instead of userAddress or realAddress */
+  // highlight-end
   ...
 }
 ```
-* userAddress: contains the main wallet address.
-* realAddress: contains the real wallet address that sent the transaction.
-* userId: contains the user id, which is the same for all wallets of the same user.
+* `userAddress`: contains the main wallet address.
+* `realAddress`: contains the real wallet address that sent the transaction.
+* `userId`: contains the user id, which is the same for all wallets of the same user.
 
 
 3. API Controllers
 In your API, if receiving user wallet address, convert them into the USER ID.
 ```js
+import { getMainAddress } from '@paima/node-sdk/db';
+
+// example query for a game that gets items for a user
 @Route('items')
 export class ItemController extends Controller {
   @Get('/user')
@@ -107,9 +128,18 @@ export class ItemController extends Controller {
     @Query() wallet: string
   ): Promise<{ items: IGetAllItemsForUserResult[] }> {
     const pool = requirePool();
+    
+    // highlight-start
+    // this is the main line (everything else is just an example context)
     const address = await getMainAddress(wallet, pool);
-    /* now use address, instead of wallet */
-    const items = await getAllItemsForUser.run({ wallet: address }, pool);
+    // highlight-end
+
+    /* now use address (instead of wallet) */
+    const items = await getAllItemsForUser.run(
+      // highlight-next-line
+      { wallet: address },
+      pool
+    );
     return { items };
   }
 }

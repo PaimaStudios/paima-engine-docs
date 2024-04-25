@@ -20,7 +20,7 @@ function parse(s: string): ParsedSubmittedInput {
 }
 ```
 
-## Calling the parser from your STF
+## Calling the parser from your STF {#stf-function}
 
 Paima works by updating your state machine whenever happens onchain - the most common case being that somebody interacted with your Paima L2 contract. The set of actions your state machine can react to are called the [Paima Primitives](../300-react-to-events/2-primitive-catalogue/1-introduction.md).
 

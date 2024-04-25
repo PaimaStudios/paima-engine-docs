@@ -1,7 +1,5 @@
 # Auto-signing for apps
 
-**Note**: wallets that use this feature are still in development
-
 Requiring users to manually sign every transaction for every game is a terrible user experience not just because it breaks immersion constantly, but because it's incompatible with games where users play with a controller (which is how many users play games)
 
 However, auto-signing can be dangerous. A game could steal all funds in your wallet without you explicitly approving it (either because the game was malicious, or because the game was hacked)
@@ -56,13 +54,13 @@ namespace:
 ### Wallets that plan to support this format
 
 - MetaMask through the [Paima Session Snap](https://github.com/PaimaStudios/paima-session-snap)
-- Flint Wallet ([link](https://flint-wallet.com/)) (for Milkomeda C1 only)
+- Any wallet for a cryptocurrency supported by Paima's [wallet layer](../700-multichain-support/2-wallet-layer/1-introduction.mdx) through the [delegate functionality](../700-multichain-support/2-wallet-layer/100-delegate-wallet/1-introduction.mdx)
 
 ## 2. Game-specific auto-signing transactions
 
 For games that do not have a batcher, or in cases where users prefer submitting transactions themselves, we still want to enable safe auto-sign behavior.
 
-However, in this case, adding the security namespace would add a lot of useless data on-chain, so instead wallets will auto-sign and transaction where the `to` field is the contract hash of the game's L2 contract with some measure to avoid these dApps slowly draining the user's L1 balance.
+However, in this case, adding the security namespace would add a lot of useless data on-chain, so instead wallets will auto-sign any transaction where the `to` field is the contract hash of the game's L2 contract (with some measure to avoid these dApps slowly draining the user's L1 balance).
 
 ### Wallets that plan to support this format
 
@@ -72,7 +70,4 @@ However, in this case, adding the security namespace would add a lot of useless 
 
 For some apps, simply auto-signing data may not be enough. Instead, to safely sign transactions for the app, you want some kind of session key for the game.
 
-To do this, we plan to generate a deterministic session key for each game.
-
-Wallets that plan to support this format:
-- MetaMask through the [Paima Session Snap](https://github.com/PaimaStudios/paima-session-snap)
+This can be achieved through the [delegate functionality](../700-multichain-support/2-wallet-layer/100-delegate-wallet/1-introduction.mdx). Since Paima's [wallet layer](../700-multichain-support/2-wallet-layer/1-introduction.mdx) supports raw private key formats for some chains like EVM, you can use persistent session key login systems like the one provided by [thirdweb](https://thirdweb.com/) with Paima Engine and have the user delegate their primary wallet to the session key.
