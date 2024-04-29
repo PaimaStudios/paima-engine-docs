@@ -1,10 +1,10 @@
 # Generic Primitives
 
-- [Generic](#generic), allowing you to provide an arbitrary contract ABI and the signature of the event to track, allowing you to collect data even from smart contracts not directly supported by the above types.
+- [Generic](#generic), allowing you to provide an arbitrary contract address to track any [event / action](https://docs.minaprotocol.com/zkapps/o1js/fetch-events-and-actions) it emits, allowing you to collect data even from smart contract standards not directly supported by other primitives.
 
 ## Generic
 
-Generic primitives allow getting all of the events or all the actions provided the address of a zkapp.
+Generic primitives allow getting all of the events or all the actions provided the address of a zkApp.
 
 ### Example configuration
 

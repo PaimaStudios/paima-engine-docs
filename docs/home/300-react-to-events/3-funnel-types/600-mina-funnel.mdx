@@ -19,7 +19,7 @@ Mina:
 
 - `delay` is in seconds.
 - `confirmationDepth` is in number of blocks. If not provided then the archive's
-node configuration is used (blocks with a chain_status of 'canonical').
+node configuration is used (blocks with a chain_status of *canonical*).
 
 ## Conceptually
 
@@ -31,7 +31,7 @@ can be a collection of wrapped funnels involving multiple networks.
 2. Fetch the latest canonical Mina block timestamp. If `confirmationDepth` has a
 value in the configuration, this is done by getting the block at that particular
 height. Otherwise this is done by querying the `blocks` table to get the latest
-block which has `'canonical'` status. In this case the block confirmation
+block which has `canonical` status. In this case the block confirmation
 parameters are defined by the archive's configuration.
 4. Query the database for events and actions in a certain timestamp range. The
 upper bound of this timestamp range is defined by the blocks fetched at step 1.
@@ -71,9 +71,9 @@ propagated to the archive node, or in case there is a re-org.
 Internally this is done by querying the `blocks` table for the latest block with
 a status of `canonical`.
 
-## Database
+## Indexer Database
 
-The database schema is not changed in any way. The following tables are used to
+This funnel requires no change to the Mina archive node database schema. The following tables are used to
 retrieve the necessary information:
 
 - account_identifiers
