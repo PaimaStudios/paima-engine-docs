@@ -1,0 +1,95 @@
+import Merge from "./mina-funnel-merge.svg";
+
+# Mina funnel
+
+## Configuration
+
+The Mina funnel requires access to historical chain data which is acquired
+through an [archive
+node](https://docs.minaprotocol.com/node-operators/archive-node). A connection
+to the database is required. 
+
+```yaml
+Mina:
+  type: mina
+  archiveConnectionString: "postgresql://postgres:postgres@localhost:5432/archive"
+  confirmationDepth: 15
+  delay: 3600
+```
+
+- `delay` is in seconds.
+- `confirmationDepth` is in number of blocks. If not provided then the archive's
+node configuration is used (blocks with a chain_status of *canonical*).
+
+## Conceptually
+
+This funnel has the following steps in the readData function:
+
+1. Fetch blocks & timestamps from the underlying funnel. This can be either a
+funnel for a single chain, like the [block funnel](300-block-funnel.md), or it
+can be a collection of wrapped funnels involving multiple networks.
+2. Fetch the latest canonical Mina block timestamp. If `confirmationDepth` has a
+value in the configuration, this is done by getting the block at that particular
+height. Otherwise this is done by querying the `blocks` table to get the latest
+block which has `canonical` status. In this case the block confirmation
+parameters are defined by the archive's configuration.
+4. Query the database for events and actions in a certain timestamp range. The
+upper bound of this timestamp range is defined by the blocks fetched at step 1.
+The lower bound is the upper bound on the previous round.
+5. Merge the primitives with the underlying funnel.
+
+### Presync
+
+The presync phase finishes after indexing all the blocks with a timestamp
+strictly lower than `START_BLOCK_HEIGHT - delay`.  Each primitive is paginated
+individually, and progress is tracked in the `cde_tracking_cursor_pagination`
+table. The presync finishes when there are no more events in the range for any
+of the configured extensions.
+
+## Determinism
+
+The merging of events with the underlying funnel works similarly to the
+[parallel evm funnel](500-parallel-evm-funnel.mdx). The events from the Mina
+chain are delayed by the `delay` configuration instead, to account for
+probabilistic finality. This is done by subtracting the delay from the main evm
+chain for the merging process (without affecting the timestamp of the merged
+`ChainData`). This has the effect that if the main evm chain is running in real
+time, the events that are merged into the current block are `delay` seconds old.
+
+<Merge className="img-full" style={{ height: "auto" }} />
+
+## Finalizing blocks
+
+Since events parsed by the state transition are final, we need to be sure that
+we have processed all the Mina events that are associated with a certain block
+height before supplying those to the state transition. To guarantee this, the
+Mina funnel will wait for the timestamp of the latest `canonical` block to be
+greater or equal than the timestamp of the target block.  This is necessary
+because otherwise there is no guarantee that the needed blocks are already
+propagated to the archive node, or in case there is a re-org.
+
+Internally this is done by querying the `blocks` table for the latest block with
+a status of `canonical`.
+
+## Indexer Database
+
+This funnel requires no change to the Mina archive node database schema. The following tables are used to
+retrieve the necessary information:
+
+- account_identifiers
+- accounts_accessed
+- blocks
+- blocks_zkapp_commands
+- zkapp_account_update
+- zkapp_account_update_body
+- zkapp_commands
+- zkapp_events
+- zkapp_field
+- zkapp_field_array
+
+Usage is similar to the one used in [Archive-Node-Api](https://github.com/o1-labs/Archive-Node-API) except for the following:
+
+- `blocks` are filtered by the `timestamp` column when needed.
+- `zkapp_commands` is filtered by `hash` to paginate the results during presync.
+- `blocks` is used to find the the latest finalized block, which is not a
+use-case supported by Archive-Node-Api.
