@@ -50,8 +50,8 @@ presyncStepSize: number
 ```
 
 **Note:** These do *not* default to the value in the corresponding
-*environment configuration if not provided. Paima only defaults to the values in
-*the ENV file when the entire config file is missing.
+environment configuration if not provided. Paima only defaults to the values in
+the ENV file when the entire config file is missing.
 
 All the variables except `funnelBlockGroupSize` have the same purpose and
 default values as they have in the environment configuration. Please refer to
@@ -59,6 +59,17 @@ default values as they have in the environment configuration. Please refer to
 
 `funnelBlockGroupSize` it's used to control how many blocks are fetched in a
 single request per network, which helps if a network has a lower rate limit.
+
+For `evm-other` there are also some optional settings:
+
+```js
+delay: number
+confirmationDepth: number
+```
+
+The [parallel evm funnel](./500-parallel-evm-funnel.mdx#delayed-network) page
+has more details on the meaning of these values, but a guideline is to set the
+delay to a value greater than `confirmationDepth * networkBlockProductionSpeed`.
 
 ## Example
 

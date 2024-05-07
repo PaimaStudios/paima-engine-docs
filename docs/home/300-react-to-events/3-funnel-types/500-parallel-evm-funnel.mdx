@@ -1,4 +1,5 @@
 import Merge from "./parallel-evm-funnel-merge.svg";
+import MergeDelayed from "./parallel-evm-funnel-merge-delayed.svg";
 import ParallelToMain from "./parallel-to-main.svg";
 import DataAddition from "./parallel-data-addition.svg";
 import Finalized from "./parallel-finalized.svg";
@@ -40,16 +41,34 @@ Note that it is possible that there are no blocks to merge at a certain point (i
 
 <Merge className="img-full" style={{ height: "auto" }} />
 
+### Delayed network
+
+If the `delay` settings is used, the parallel chain is delayed by this amount of
+seconds. In that case the chart above becomes something like the following (with
+a delay of 60 seconds).
+
+<MergeDelayed className="img-full" style={{ height: "auto" }} />
+
+This has the effect that no events newer than `current time - delay` will be
+processed by the funnel (relative to the main chain's latest synced block).
+
 ## Finalizing blocks
 
 We cannot go back in time to add information to old blocks that have already been parsed by the game's state machine.
 Therefore, it means that a block can only be considered finalized and ready to be given to the state machine once we're certain we have all the information for all chains being monitored.
-The only way for us to know that we have all the information for a block is if the latest timestamp of all networks we're monitoring is more recent (not equal since some networks have multiple blocks with the same timestamp) than the timestamp of the main chain block timestamp we're looking at.
+The only way for us to know that we have all the information for a block is if the _latest_ timestamp of all networks we're monitoring is more recent (not equal since some networks have multiple blocks with the same timestamp) than the timestamp of the main chain block timestamp we're looking at.
 
 *Note*: this behavior helps protect apps built with Paima from getting in a bad state. If an RPC you're connecting to for a network gets stuck, it should stop block production for the entire application.
 Otherwise, it can break determinism because your node (that is missing events from the parallel chain RPC that is stuck) will see a different block history from somebody else running a node connecting to a properly functioning RPC for that parallel chain.
 
 <Finalized className="img-full" style={{ height: "auto" }} />
+
+### Probabilistic finality
+
+If `confirmationDepth` is set, then the above applies with the difference that
+the _latest_ timestamp becomes the timestamp of the block at the height of
+`latestBlock.height - confirmationDepth`. In practice this means that the
+network should also be delayed to compensate for this.
 
 ## Performance implications
 
