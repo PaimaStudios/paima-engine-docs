@@ -90,6 +90,10 @@ img {
   @apply mb-3;
 }
 
+code {
+  vertical-align: unset;
+}
+
 .img-full {
   @apply w-full max-w-full;
 }
