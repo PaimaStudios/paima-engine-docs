@@ -30,6 +30,7 @@ const achievements: Promise<AchievementMetadata> = Promise.resolve({
 });
 
 export default RegisterRoutes;  // The usual default export.
+// highlight-next-line
 export { achievements };  // Include this to enable the achievement API.
 ```
 
@@ -67,16 +68,19 @@ Paima SDK exports `pgtyped` queries to store and retrieve achievement progress.
 They can be imported and used in your API or a state transition function:
 
 ```js
+// highlight-next-line
 import { getAchievementProgress, setAchievementProgress } from '@paima/db';
 // ... other imports ...
 
 async function wonBattle(wallet: number, blockTime: Date, dbConn: Pool): Promise<SQLUpdate[]> {
   // Get user's current achievement progress.
+  // highlight-next-line
   const row = (await getAchievementProgress.run({ wallet, names: ['win-10-battles'] }, dbConn))[0];
   if (!row?.completed_date) {
     // Not complete yet. Add one, mark completed if needed, and store it back.
     const newProgress = (row?.progress ?? 0) + 1;
     return [
+      // highlight-next-line
       [setAchievementProgress, {
         name: 'win-10-battles',
         wallet,
