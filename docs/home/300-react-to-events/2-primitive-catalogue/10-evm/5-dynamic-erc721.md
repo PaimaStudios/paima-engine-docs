@@ -26,7 +26,7 @@ extensions:
 - `contractAdress` is the address of the smart contract that will emit the event that will trigger the erc721 primitive creation.
 - `scheduledPrefix` and `burnScheduledPrefix` are the prefixes used for the
 resulting erc721 events. This primitive won't emit events by itself. See [the
-erc721 section for details](3-ERC721.md#meaning).
+erc721 section for details](ERC721#meaning).
 - `abiPath`, specifying a path to a .json file describing the compiled contract
 &ndash; the only field required in this file is the `abi` field in the top-level
 object;
