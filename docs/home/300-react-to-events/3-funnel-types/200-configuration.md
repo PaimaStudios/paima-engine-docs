@@ -60,16 +60,9 @@ default values as they have in the environment configuration. Please refer to
 `funnelBlockGroupSize` it's used to control how many blocks are fetched in a
 single request per network, which helps if a network has a lower rate limit.
 
-For `evm-other` there are also some optional settings:
-
-```js
-delay: number
-confirmationDepth: number
-```
-
-The [parallel evm funnel](./500-parallel-evm-funnel.mdx#delayed-network) page
-has more details on the meaning of these values, but a guideline is to set the
-delay to a value greater than `confirmationDepth * networkBlockProductionSpeed`.
+Also, for funnels that synchronize a parallel network, there are options to set
+up a delayed state. See [this](common-concepts/parallel-networks#delayed-state)
+for more details.
 
 ## Example
 
@@ -85,7 +78,7 @@ Hardhat1:
   blockTime: 2
   paimaL2ContractAddress: '0x5FbDB2315678afecb367f032d93F642f64180aa3'
 
-Hardat2:
+Hardhat2:
   type: evm-other
   chainUri: 'http://localhost:8546'
   chainId: 31338
