@@ -1,5 +1,3 @@
-import Merge from "./mina-funnel-merge.svg";
-
 # Mina funnel
 
 ## Configuration
@@ -45,18 +43,6 @@ strictly lower than `START_BLOCK_HEIGHT - delay`.  Each primitive is paginated
 individually, and progress is tracked in the `cde_tracking_cursor_pagination`
 table. The presync finishes when there are no more events in the range for any
 of the configured extensions.
-
-## Determinism
-
-The merging of events with the underlying funnel works similarly to the
-[parallel evm funnel](500-parallel-evm-funnel.mdx). The events from the Mina
-chain are delayed by the `delay` configuration instead, to account for
-probabilistic finality. This is done by subtracting the delay from the main evm
-chain for the merging process (without affecting the timestamp of the merged
-`ChainData`). This has the effect that if the main evm chain is running in real
-time, the events that are merged into the current block are `delay` seconds old.
-
-<Merge className="img-full" style={{ height: "auto" }} />
 
 ## Finalizing blocks
 

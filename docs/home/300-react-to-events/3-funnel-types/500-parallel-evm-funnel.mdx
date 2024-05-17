@@ -1,8 +1,3 @@
-import Merge from "./parallel-evm-funnel-merge.svg";
-import MergeDelayed from "./parallel-evm-funnel-merge-delayed.svg";
-import ParallelToMain from "./parallel-to-main.svg";
-import DataAddition from "./parallel-data-addition.svg";
-import Finalized from "./parallel-finalized.svg";
 import Search from "./parallel-search.png";
 
 # Parallel EVM funnel
@@ -17,71 +12,12 @@ For example, this allows you to have your game settle user transactions to a che
 
 ## Conceptually
 
-<ParallelToMain className="img-full" style={{ height: "200px" }} />
-
 This funnel has the following steps:
 
 1. Fetch blocks & timestamps from the underlying funnel (the main chain you are syncing).
 2. Fetch the latest block from the parallel funnel.
 4. Use `eth_getLogs` to get the [primitives](../2-primitive-catalogue/1-introduction.md) configured to this funnel in the block range.
 5. Merge the primitives fetched from the parallel funnel with the block from the underlying funnel.
-
-<DataAddition className="img-full" style={{ marginTop: "8px" }} />
-
-## Determinism
-
-Merging of data is done in a way to ensure that the state transition is deterministic.
-
-For example,<br />
-if on the main chain we have blocks with timestamps <span style={{ color: "red" }}>3</span> and <span style={{ color: "red" }}>5</span>,<br/>
-and on the parallel chain we have blocks with timestamps <span style={{ color: "green" }}>4</span> and <span style={{ color: "green" }}>5</span>,<br />
-the events in the parallel chain will <span style={{ color: "lightblue" }}>look as if</span> they happened in the main chain's block that has timestamp <span style={{ color: "red" }}>5</span>.
-And this is always the same regardless of the time of the sync, since the chains are always processed in tandem.
-Note that it is possible that there are no blocks to merge at a certain point (if no events we're monitoring occur in these blocks).
-
-<Merge className="img-full" style={{ height: "auto" }} />
-
-### Delayed network
-
-If the `delay` settings is used, the parallel chain is delayed by this amount of
-seconds. In that case the chart above becomes something like the following (with
-a delay of 60 seconds).
-
-<MergeDelayed className="img-full" style={{ height: "auto" }} />
-
-This has the effect that no events newer than `current time - delay` will be
-processed by the funnel (relative to the main chain's latest synced block).
-
-## Finalizing blocks
-
-We cannot go back in time to add information to old blocks that have already been parsed by the game's state machine.
-Therefore, it means that a block can only be considered finalized and ready to be given to the state machine once we're certain we have all the information for all chains being monitored.
-The only way for us to know that we have all the information for a block is if the _latest_ timestamp of all networks we're monitoring is more recent (not equal since some networks have multiple blocks with the same timestamp) than the timestamp of the main chain block timestamp we're looking at.
-
-*Note*: this behavior helps protect apps built with Paima from getting in a bad state. If an RPC you're connecting to for a network gets stuck, it should stop block production for the entire application.
-Otherwise, it can break determinism because your node (that is missing events from the parallel chain RPC that is stuck) will see a different block history from somebody else running a node connecting to a properly functioning RPC for that parallel chain.
-
-<Finalized className="img-full" style={{ height: "auto" }} />
-
-### Probabilistic finality
-
-If `confirmationDepth` is set, then the above applies with the difference that
-the _latest_ timestamp becomes the timestamp of the block at the height of
-`latestBlock.height - confirmationDepth`. In practice this means that the
-network should also be delayed to compensate for this.
-
-## Performance implications
-
-Leveraging parallel funnels has multiple performance implications. In some cases the performance impact can be mitigated by [emulated blocks](./400-stable-tick-rate-funnel.mdx),
-but we will cover all performance implications in this section
-
-### Networking overhead
-
-From Paima's perspective, a block can only be considered complete and ready to send to the game's state machine after it's fetched all necessary information.
-That means that fetching blocks is only as fast as your slowest connection when fetching the latest block.
-
-If you're connecting to a public node for a network and receiving data from that node is slow (ex: geographically far from you, running on cheap hardware, etc.),
-the delay in fetching data from that node will delay the final block creation process and cause slowdowns in your game node.
 
 ### Connecting to networks that produce blocks on-demand
 
@@ -92,9 +28,8 @@ The [emulated block funnel](./400-stable-tick-rate-funnel.mdx) can help mitigate
 
 ### Connecting to networks with slow blocks
 
-Many networks such as Ethereum L1 have relatively slow block times, making them hard to use as a parallel EVM without slowing down the whole system.
-
-Improving support for these networks is still a roadmap item.
+Many networks such as Ethereum L1 have relatively slow block times. This can be
+mitigated by relying on a [delayed state](additional-networks#delayed-state).
 
 ## Finding parallel chain blocks
 
