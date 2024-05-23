@@ -73,7 +73,7 @@ export function generateDynamicPrimitiveName(parentName: string, id: number): st
 ```
 
 For example, the first dynamic primitive that gets created will have a name of
-`generateDynamicPrimitiveName(parentCdeName, 0)`, and so on. This name can be
+`generateDynamicPrimitiveName(parentPrimitiveName, 0)`, and so on. This name can be
 then used as an argument to the other utility functions.
 
 There is also a public utility function to get the list of all of the
