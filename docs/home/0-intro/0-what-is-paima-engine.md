@@ -10,10 +10,10 @@ Paima is a Web3 Engine optimized for games, gamification and autonomous worlds t
 Notably, its key features are that it
 1. Allows building onchain games with web2 skills
 2. Protects users even in the case of hacks allowing brands to build web3 applications without worrying
-3. Enables cross-wallet gameplay, meaning you can deploy your game to one chain yet have it be playable from across many blockchains
+3. Enables you to deploy your game to leverage multiple chains and modular stacks at once in a single unified user and developer experience
 4. Speeds you up to make weekly releases a reality instead of most web3 games which are release-and-pray
 
-Paima supports any EVM chain, and comes with a rich feature set for multichain support as well.
+Paima supports multiple chains out of the box, making it a fully modular rollup framework.
 
 # Key technologies that enable this
 
@@ -74,7 +74,7 @@ Paima state machine L2s are not only significantly more efficient than the EVM, 
 
 ## Cross-chain/multichain and sequencing with Paima Whirlpool
 
-Natively Paima supports users individually submitting inputs onchain on the specific chain the app is hosted on. However, we also support more efficient setups that also work cross-chain with Paima Whirlpool - a suite of tools to help translate complex interactions to something that integrate seamlessly with Paima Engine.
+Paima allows creating rollups that aggregate multiple chains together. Natively, Paima supports users submitting transactions to these underlying chains manually themselves, but this is a high burden for users - especially as the number of chains applications connect to has grown over the years thanks to the growing trend of building modular chains. To tackle this, Paima focuses on *chain abstraction* with Paima Whirlpool - a suite of tools to help translate complex interactions to something that integrate seamlessly with Paima Engine.
 
 ### L2-level Account Abstraction
 
@@ -117,10 +117,6 @@ Additionally, this also helps a lot with user acquisition as empirically most us
 
 Lastly, it also helps with liquidity & composability, as its means you don't have to fracture assets between L1 and L2.
 
-## Financing of decentralized games
-
-Although Paima allows games to subsidize gameplay, games can also choose to specify that users must pay a fee to submit moves in-game (the standard business model for L2s). This allows DAOs to gain funding to drive development of their game or app.
-
 ## Example game
 
 To help visualize how these components help build a game, we will show an example game that settles to an Arbitrum Orbit L3 (Xai Games) as its DA layer as it uses a data availability committee making data cheap. However, since almost no users have assets on Xai, it uses Paima's built-in batcher (sequencer) SDK and account abstraction layer to allow players to play gasless from other chains.
@@ -145,7 +141,7 @@ ZK cryptography is often used in Web3 for two different properties:
 
 Both these use-cases are of interest in games, as being able to prove world state helps with composability of worlds, and private inputs allow games with private state (ex: fog of war) and can also help with compliance (ex: being able to prove you know information without revealing the sensitive information publicly)
 
-Paima is working with [Zeko](http://zeko.io/) (based on Mina Protocol) to implement its first ZK Layer
+Paima is working with [Zeko](http://zeko.io/) (based on Mina Protocol) to implement its first ZK Layer. You can learn more about the architecture of our ZK layer [here](https://blog.paimastudios.com/paima-zk-layer/).
 
 #### Example game
 
@@ -213,22 +209,17 @@ If ZK is enforced or if the whole application needs to be written as one giant Z
 
 ## Sovereign Rollup disadvantages
 
-Unfortunately there is no "free lunch", and so usage of sovereign rollups comes with some disadvantages as well. Keep in mind while reading this that Paima overcome these deficiencies by combining its sovereign rollup layer with its native support for L1 smart contracts and its ZK layer. 
+Unfortunately there is no "free lunch", and so usage of sovereign rollups comes with some disadvantages as well. Keep in mind while reading this that Paima overcome these deficiencies by combining its sovereign rollup layer with its native support for L1 smart contracts and its ZK layer. You can learn more about this in our blog posts [here](https://blog.paimastudios.com/self-sovereign-rollup/).
 
 ### Trickier DeFi support on the L2
 
-Although assets that stay on the L1 are supported, if assets are stored on the L2 it is difficult to trustlessly bridge from the L2 back to the L1 (that is to say, supporting the ability to put \$5 into the L2, make some money, then take \$10 out require extra work). This isn't a requirement to build in-game economies, and this also isn't required for the overwhelming majority of non-DeFi applications and so it's not as problematic as one might think.
-
-If you do want this functionality, there are three key ways to do it:
-1. Provide a centralized "redemption" service. For example, if you build a casino with Paima, players would play the game with chips, and then would turn their chips back into money through a centralized redemption service (that possibly does KYC). This is no different than the way the overwhelming majority of casinos work in the real world.
-2. Simply don't bridge the asset to the L2. Even if the user funds stay on the L1 (non-custodially), you can project the state into the Paima game, which means you can still build in-game economies. In fact, building it this way is significantly safer as it means user funds are not at risk if your game gets hacked!
-3. Write your games using ZK circuits with Zeko or any other ZK layer tha Paima plans to support (in other words, write your game as a zk co-processor)
+Although assets that stay on the L1 are supported, if assets are stored on the L2 it is difficult to trustlessly bridge from the L2 back to the L1 (that is to say, supporting the ability to put \$5 into the L2, make some money, then take \$10 out require extra work). This isn't a requirement to build in-game economies, and this also isn't required for the overwhelming majority of non-DeFi applications and so it's not as problematic as one might think and can be overcome in multiple ways as mentioned in our [blogpost](https://blog.paimastudios.com/self-sovereign-rollup/).
 
 ### Low compatibility with other L1 dApps by default
 
 Paima gains a lot of its strength from shifting game state management into the L2, which cannot be read from other L1 dApps by default. We think this is actually a benefit though, as it avoids web3 developers making the single most common mistake in web3 games: overly focusing on compatibility when they do not have a product-market fit yet.
 
-That is to say, Paima allows you to start by building your entire app / game on the L2 and then, once you know users love the experience, you can migrate parts of your game state to the L1 (which requires you to write it in the L1 language like Solidity) and then projecting its state to the L2. This makes bootstrapping your game significantly faster, cheaper, safer, and makes it easier to update. Only focus on compatibility once users love your system and truly desire connecting it with other experiences.
+That is to say, Paima allows you to start by building your entire app/game on the L2 and then, once you know users love the experience, you can migrate parts of your game state to the L1 (which requires you to write it in the L1 language like Solidity) and then projecting its state to the L2. This makes bootstrapping your game significantly faster, cheaper, safer, and makes it easier to update. Only focus on compatibility once users love your system and truly desire connecting it with other experiences.
 
 ### Trickier cross-game indexing
 
