@@ -141,6 +141,20 @@ export async function getDynamicExtensions(
 ): Promise<{ name: string; config: string }[]>;
 ```
 
+There is also the following function, which can be used to get the parameters
+for a specific primitive by name. This can be used to access the contract
+address in the [state transition
+function](../../../read-write-L2-state/read-data#stf-function), by first getting
+the name from the `inputData.extensionName` field.
+
+```ts
+export async function getDynamicExtensionByName(
+  readonlyDBConn: Pool,
+  name: string
+): Promise<{ contractAddress: string; startBlockHeight: number }[]>;
+```
+
+
 ## Performance implications
 
 During a typical execution, the steps are as follows:
