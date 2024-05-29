@@ -42,7 +42,7 @@ We achieve this in 2 steps:
 ### 1) Find key blocks during startup with binary search 
 
 When booting up Paima Engine, there are 2 blocks we are interested in knowing:
-1. When the [presync](./1-intro.md#readpresyncdata-function) ends (the last block in the parallel chain that appears before the main chain starting block height)
+1. When the [presync](./1-common-concepts/1-intro.md#readpresyncdata-function) ends (the last block in the parallel chain that appears before the main chain starting block height)
 2. The earliest parallel chain block that whose events might be included in the next main chain block we have to sync
 
 Syncing blocks one-by-one until we find these points would be too slow.
