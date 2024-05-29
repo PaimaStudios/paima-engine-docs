@@ -54,7 +54,9 @@ The data collected and functions used to access it are specific to each type of 
 
 Scheduled inputs are triggered by events specific to each extension type, with the circumstances and the format of the scheduled input described in their respective sections. The inputs are always scheduled either for the current blockheight (which enables them to be processed immediately, as scheduled inputs are processed before the state transition function is called), or, if they are triggered before the overall `START_BLOCKHEIGHT` of the game node (specified in the `.env` file), in the so-called _pre-sync_ phase, they are scheduled for `START_BLOCKHEIGHT + 1` (which is the first blockheight for which the state transition function is called). The scheduled inputs will always start with the prefix specified in the config as `scheduledPrefix`.
 
-The [state transition function](../../../read-write-L2-state/read-data#stf-function) call triggered by a scheduled input originating from a Primitive can access the original transaction hash using `inputData.scheduledTxHash`.
+The [state transition function](../../../read-write-L2-state/read-data#stf-function) call triggered by a scheduled input originating from a Primitive can also access:
+- `inputData.scheduledTxHash`: the original transaction hash that triggered this primitive
+- `inputData.extensionName`: the primitive that triggered
 
 To learn by example, please consult the NFT LvlUp game template &ndash; `./paima-engine-linux init template nft-lvlup` to learn more.
 
