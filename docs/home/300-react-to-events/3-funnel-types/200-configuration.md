@@ -50,8 +50,8 @@ presyncStepSize: number
 ```
 
 **Note:** These do *not* default to the value in the corresponding
-*environment configuration if not provided. Paima only defaults to the values in
-*the ENV file when the entire config file is missing.
+environment configuration if not provided. Paima only defaults to the values in
+the ENV file when the entire config file is missing.
 
 All the variables except `funnelBlockGroupSize` have the same purpose and
 default values as they have in the environment configuration. Please refer to
@@ -59,6 +59,10 @@ default values as they have in the environment configuration. Please refer to
 
 `funnelBlockGroupSize` it's used to control how many blocks are fetched in a
 single request per network, which helps if a network has a lower rate limit.
+
+Also, for funnels that synchronize a parallel network, there are options to set
+up a delayed state. See [this](common-concepts/parallel-networks#delayed-state)
+for more details.
 
 ## Example
 
@@ -74,7 +78,7 @@ Hardhat1:
   blockTime: 2
   paimaL2ContractAddress: '0x5FbDB2315678afecb367f032d93F642f64180aa3'
 
-Hardat2:
+Hardhat2:
   type: evm-other
   chainUri: 'http://localhost:8546'
   chainId: 31338
