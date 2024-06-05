@@ -41,7 +41,7 @@ You can use this pattern to generate this effect:
 ### 1. Add a Migration at 1.SQL 
 Create `db/migrations/1.sql` and add an input to execute the first schedule. 
 
-```
+```SQL
 INSERT INTO scheduled_data (block_height, input_data ) VALUES (coalesce((SELECT block_height FROM block_heights order by block_height desc LIMIT 1), 0) + 1, 'hour|0');
 ```
 
@@ -53,7 +53,7 @@ This is possible with Blockchains with known block generation time or with Emula
 Modify `state-transition/src/stf/v1/parser.ts` (or where you have the Paima Concise Grammar).
 
 Add a command to the list a new command:
-```
+```ts
 const myGrammar = `
 ...
  scheduleHourly          = hour|tick
@@ -70,7 +70,7 @@ const parserCommands = {
 ```
 
 Add your interface: (Generally located at `state-transition/src/stf/v1/types.ts`) 
-```
+```ts
 export type ParsedSubmittedInput =
   ...
   | ScheduleHourlyInput
@@ -86,7 +86,7 @@ export interface ScheduleHourlyInput {
 
 Capture the input in the STF and process it (Generally in `state-transition/src/stf/v1/index.ts`)
 
-```
+```ts
 export default async function (
   inputData: STFSubmittedData,
   blockHeight: number,
