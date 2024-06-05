@@ -50,7 +50,7 @@ This is possible with Blockchains with known block generation time or with Emula
 
 
 ### 2. Add a Paima Concise Command
-Modify `backend/state-transition/src/stf/v1/parser.ts` (or where you have the Paima Concise Grammar).
+Modify `state-transition/src/stf/v1/parser.ts` (or where you have the Paima Concise Grammar).
 
 Add a command to the list a new command:
 ```
@@ -69,7 +69,7 @@ const parserCommands = {
 }
 ```
 
-Add your interface: (Generally located at `backend/state-transition/src/stf/v1/types.ts`) 
+Add your interface: (Generally located at `state-transition/src/stf/v1/types.ts`) 
 ```
 export type ParsedSubmittedInput =
   ...
@@ -84,7 +84,7 @@ export interface ScheduleHourlyInput {
 
 ### 3. Add an STF Function to process and create the next event
 
-Capture the input in the STF and process it (Generally in `backend/state-transition/src/stf/v1/index.ts`)
+Capture the input in the STF and process it (Generally in `state-transition/src/stf/v1/index.ts`)
 
 ```
 export default async function (
@@ -97,26 +97,27 @@ export default async function (
   const input = parse(inputData.inputData);
 ...
   if (input.input === 'scheduleHourly') {
- 	// Check if sent by the scheduler. Users might post the same input payload.
-	if (inputData.realAddress === SCHEDULED_DATA_ADDRESS) {
-		const commands: SQLUpdate[] = [];
-		console.log('This message appears each hour!');
-		console.log('This is tick number', input.tick);
-		/* Add your custom logic */
-		
+    // Check if sent by the scheduler. Users might post the same input payload.
+    if (inputData.realAddress === SCHEDULED_DATA_ADDRESS) {
+        const commands: SQLUpdate[] = [];
+        console.log('This message appears each hour!');
+        console.log('This is tick number', input.tick);
+        /* Add your custom logic */
+        
         // Calculate the number of blocks in 1 hour. 
-		const hourSeconds = 60 * 60;
-    	const hourBlocks = hourSeconds / ENV.BLOCK_TIME;
-		
+        const hourSeconds = 60 * 60;
+        const hourBlocks = hourSeconds / ENV.BLOCK_TIME;
+        
         commands.push(createScheduledData(
-        		`hour|${input.tick + 1},
-        		 blockHeight + hourBlocks
-		);
-		
+                `hour|${input.tick + 1},
+                 blockHeight + hourBlocks
+        ));
+        
         return commands;
-	}
+    }
   }
   ...
+}
 ```
 
 You will see in the console:
