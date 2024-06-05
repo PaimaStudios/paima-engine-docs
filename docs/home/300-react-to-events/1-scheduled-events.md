@@ -109,7 +109,7 @@ export default async function (
         const hourBlocks = hourSeconds / ENV.BLOCK_TIME;
         
         commands.push(createScheduledData(
-                `hour|${input.tick + 1},
+                `hour|${input.tick + 1}`,
                  blockHeight + hourBlocks
         ));
         
