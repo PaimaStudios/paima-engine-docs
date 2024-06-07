@@ -80,9 +80,19 @@ As the Paima Batcher posts user submissions, you might want only to allow human 
 1. Create a reCAPTCHA V3 account and get the `site-key` and `secret-key`. (https://www.google.com/recaptcha)
   * Set `RECAPTCHA_V3_BACKEND` in the `.env.<NETWORK>` file with your `secret-key`.
   * Set `RECAPTCHA_V3_FRONTEND` in the `.env.<NETWORK>` file with your `site-key`.
-2. 
-    * Add the reCaptcha3 script `<script src="https://www.google.com/recaptcha/api.js?render=${site_key}" />` into your main HTML. 
-    * Or call `injectReCaptchaToHTML()` in your frontend through the middleware.
+2. Add the reCAPTCHA code to your project
+  * Add the reCaptcha3 script `<script src="https://www.google.com/recaptcha/api.js?render=${site_key}" />` into your main HTML. 
+  * Or call `injectReCaptchaToHTML()` in your frontend through the middleware.
 
+```js
+import { ENV, injectReCaptchaToHTML } from '@paima/sdk/utils';
+
+if (ENV.RECAPTCHA_V3_FRONTEND) {
+  // highlight-next-line
+  injectReCaptchaToHTML().then(() => {
+    console.log('ReCaptcha loaded');
+  });
+}
+```
 Once enabled all batcher calls will be validated and reject calls if no token or non-human activity is detected.
 
