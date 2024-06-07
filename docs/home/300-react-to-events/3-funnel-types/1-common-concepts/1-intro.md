@@ -55,7 +55,7 @@ In other words, this function is meant to gather events for [Primitives](../../2
 
 Any [scheduled events](../../1-scheduled-events.md) that are created during this
 phase are expected to be scheduled at the beginning of the _sync_ phase, which
-can be at either `START_BLOCKHEIGHT` or 0 (if using emulated block heights). This
+can be at either `(START_BLOCKHEIGHT + 1)` (or `0 + 1` if using emulated block heights). This
 way any state derived from events by the state transition function can still be
 constructed correctly, even if the state transition doesn't actually run during
 the _pre-sync_ phase.
