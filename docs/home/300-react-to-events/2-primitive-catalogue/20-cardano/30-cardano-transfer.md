@@ -49,9 +49,7 @@ const cardanoTransfer: ParserRecord<CardanoTransfer> = {
   inputCredentials: PaimaParser.ArrayParser({
     item: PaimaParser.RegexParser(/[a-f0-9]*/),
   }),
-  outputs: (keyName: string, input: string) => {
-    return JSON.parse(input);
-  },
+  outputs: PaimaParser.Json(),
 };
 
 interface CardanoTransfer {

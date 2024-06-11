@@ -39,9 +39,7 @@ It can be parsed with a rule of the form:
 const cardanoMint: ParserRecord<CardanoMint> = {
   txId: PaimaParser.NCharsParser(0, 64),
   metadata: PaimaParser.OptionalParser(null, PaimaParser.RegexParser(/[a-f0-9]*/)),
-  assets: (keyName: string, input: string) => {
-    return JSON.parse(input);
-  },
+  assets: PaimaParser.Json(),
 };
 
 interface AssetAmount {
