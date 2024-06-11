@@ -16,7 +16,7 @@ Note: this primitive only gets triggered a single time per transaction (even if 
 extensions:
   - name: "CardanoTransfer"
     type: cardano-transfer
-    credential: 8200581c55edc34de172a4a3ba9cac51f041187c84478d68e788dd6cf6f0b3d9 
+    credential: 8200581c55edc34de172a4a3ba9cac51f041187c84478d68e788dd6cf6f0b3d9
     startSlot: 12472120
     stopSlot: 12500000
     scheduledPrefix: ct
