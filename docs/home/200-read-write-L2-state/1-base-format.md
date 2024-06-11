@@ -68,7 +68,7 @@ const createdLobby: ParserRecord<CreatedLobbyInput> = {
 };
 ```
 
-Note Paima comes with a `PaimaParser`utility that includes many of the common parsing utility functions you need
+Note Paima comes with a `PaimaParser` utility that includes many of the common parsing utility functions you need:
 ```typescript showLineNumbers
 // alternate-color-start
 ArrayParser(iter: { perItemParser: ParserCommandExec })
@@ -80,6 +80,7 @@ RegexParser(regex: RegExp)
 HexParser()
 WalletAddress()
 EnumParser(values: readonly string[], transform?: (value: string) => string)
+Json()
 // alternate-color-end
 ```
 
