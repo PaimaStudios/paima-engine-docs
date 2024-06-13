@@ -34,15 +34,11 @@ minaGenericAction = mga|data
 
 ```ts
 const minaGenericEvent: ParserRecord<MinaGenericEvent> = {
-  data: (keyName: string, input: string) => {
-    return JSON.parse(input);
-  },
+  data: PaimaParser.Json(),
 };
 
 const minaGenericAction: ParserRecord<MinaGenericAction> = {
-  data: (keyName: string, input: string) => {
-    return JSON.parse(input);
-  },
+  data: PaimaParser.Json(),
 };
 ```
 

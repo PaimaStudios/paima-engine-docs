@@ -2,7 +2,7 @@
 
 Tracks all the instances of a mint or burn of set of policy IDs.
 
-If you're looking to track these assets after they've been minted, use the [delayed state](./20-delayed-state.md) primitive. 
+If you're looking to track these assets after they've been minted, use the [delayed state](./20-delayed-state.md) primitive.
 
 ### Example
 
@@ -10,14 +10,14 @@ If you're looking to track these assets after they've been minted, use the [dela
 extensions:
   - name: "CARDANO-MINT-BURN"
     type: cardano-mint-burn
-    policyIds: 
+    policyIds:
       - "0fc891fb7368d3b7c7b88815c203fda0d6862b0f1d797222672e91fe"
       - "0fc891fb7368d3b7c7b88815c203fda0d6862b0f1d797222672e91ff"
     startSlot: 722300
     stopSlot: 733216
     scheduledPrefix: cmb
     network: CardanoNetworkConfigEntryName
-``` 
+```
 
 ### Meaning
 
@@ -39,9 +39,7 @@ It can be parsed with a rule of the form:
 const cardanoMint: ParserRecord<CardanoMint> = {
   txId: PaimaParser.NCharsParser(0, 64),
   metadata: PaimaParser.OptionalParser(null, PaimaParser.RegexParser(/[a-f0-9]*/)),
-  assets: (keyName: string, input: string) => {
-    return JSON.parse(input);
-  },
+  assets: PaimaParser.Json(),
 };
 
 interface AssetAmount {
