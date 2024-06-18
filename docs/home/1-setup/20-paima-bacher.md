@@ -75,14 +75,20 @@ sh ./shutdown.sh
 
 ## Batcher Security (reCAPTCHA)
 
-As the Paima Batcher posts user submissions, you might want only to allow human users to submit data and avoid bots or malicious agents. This is a difficult task, but Paima Batcher can leverage Google's reCAPTCHA V3 and easily be integrated into games.
+As the Paima Batcher posts user submissions, you might want only to allow human users to submit data and avoid bots or malicious agents. This is a difficult task, but Paima Batcher can leverage Google's reCAPTCHA V3 and easily be integrated into games. 
 
 1. Create a reCAPTCHA V3 account and get the `site-key` and `secret-key`. (https://www.google.com/recaptcha)
   * Set `RECAPTCHA_V3_BACKEND` in the `.env.<NETWORK>` file with your `secret-key`.
   * Set `RECAPTCHA_V3_FRONTEND` in the `.env.<NETWORK>` file with your `site-key`.
+  * Set `ENABLE_RECAPTCHA_V3` in the `.env.<NETWORK>` file as `'true'` If this value is unset, then only a valid recaptcha key is required, but no check is done to validate if the user is human.
+  * (OPTIONAL) Set `RECAPTCHA_V3_SCORE` in the `.env.<NETWORK>` file as a value between `0.0` and `1.0` (default `0.5` is used if not set). reCAPTCHA V3 returns a value between 0.0 and 1.0, where 0.0 is most likely a bot, and 1.0 is most likely a human. Scores < RECAPTCHA_V3_SCORE will be rejected.
+
 2. Add the reCAPTCHA code to your project
   * Add the reCaptcha3 script `<script src="https://www.google.com/recaptcha/api.js?render=${site_key}" />` into your main HTML. 
   * Or call `injectReCaptchaToHTML()` in your frontend through the middleware.
+
+
+NOTE: By default reCAPTCHA actions will be labeled `submit/{key}` where `key` is the prefix of the concise command, e.g., `@j|10|0x9134|z` will be named `submit/j`
 
 ```js
 import { ENV, injectReCaptchaToHTML } from '@paima/sdk/utils';
