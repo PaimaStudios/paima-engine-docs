@@ -24,6 +24,7 @@ Facilitating monetization
   <li>[NativeNftSale](#NativeNftSale): Facilitates selling NFTs that accepts extra data when buying for any initialization data needed in a Paima dApp.</li>
   <li>[GenericPayment](#GenericPayment): Facilitates accepting payment that accepts extra data to know what the payment was for inside a Paima dApp.</li>
   <li>[Erc20NftSale](#Erc20NftSale): Facilitates selling NFTs for specific ERC20s that accepts extra data when buying for any initialization data needed in a Paima dApp.</li>
+  <li>[OrderbookDexProxy](#OrderbookDexProxy): Proxy for the orderbook DEX contract.</li>
   <li>[IOrderbookDex](#IOrderbookDex): Interface to facilitate trading inverse projected ERC1155 tokens.</li>
   <li>[OrderbookDex](#OrderbookDex): Facilitates trading inverse projected ERC1155 tokens.</li>
 </ul>
@@ -6121,6 +6122,65 @@ Callable only by the contract owner.
     anchor="xref-Erc20NftSale-BuyWithToken-uint256-uint256-address-address-"
 >
     Emitted when an NFT of `tokenId` is minted to `receiver` by `buyer` paying `PRICE` in tokens of `supportedCurrencies`.
+</SolidityDetailBlock>
+
+<ContractHeader githubLink="https://github.com/PaimaStudios/paima-engine/tree/master/packages/contracts/evm-contracts/contracts/Proxy/OrderbookDexProxy.sol" anchor="OrderbookDexProxy">
+    ### OrderbookDexProxy
+</ContractHeader>
+
+```solidity
+import "@paima/evm-contracts/contracts/Proxy/OrderbookDexProxy.sol";
+```
+
+<SolidityOutlineBlock
+  type="Functions"
+  lists={[
+    {
+      category: "",
+      lines: [
+        {
+          text: "constructor(_implementation, _owner, _defaultMakerFee, _defaultTakerFee, _orderCreationFee)",
+          anchor: "xref-OrderbookDexProxy-constructor-address-address-uint256-uint256-uint256-"
+        },
+      ]
+    },
+    {
+      category: "ERC1967Proxy",
+      lines: [
+        {
+          text: "_implementation()",
+          anchor: "xref-ERC1967Proxy-_implementation--"
+        },
+      ]
+    },
+    {
+      category: "Proxy",
+      lines: [
+        {
+          text: "_delegate(implementation)",
+          anchor: "xref-Proxy-_delegate-address-"
+        },
+        {
+          text: "_fallback()",
+          anchor: "xref-Proxy-_fallback--"
+        },
+        {
+          text: "fallback()",
+          anchor: "xref-Proxy-fallback--"
+        },
+      ]
+    },
+  ]}
+>
+</SolidityOutlineBlock>
+
+<SolidityDetailBlock
+    title="constructor"
+    params="(address _implementation, address _owner, uint256 _defaultMakerFee, uint256 _defaultTakerFee, uint256 _orderCreationFee)"
+    visibility="public"
+    anchor="xref-OrderbookDexProxy-constructor-address-address-uint256-uint256-uint256-"
+>
+    No description given
 </SolidityDetailBlock>
 
 <ContractHeader githubLink="https://github.com/PaimaStudios/paima-engine/tree/master/packages/contracts/evm-contracts/contracts/orderbook/IOrderbookDex.sol" anchor="IOrderbookDex">
