@@ -24,6 +24,8 @@ Facilitating monetization
   <li>[NativeNftSale](#NativeNftSale): Facilitates selling NFTs that accepts extra data when buying for any initialization data needed in a Paima dApp.</li>
   <li>[GenericPayment](#GenericPayment): Facilitates accepting payment that accepts extra data to know what the payment was for inside a Paima dApp.</li>
   <li>[Erc20NftSale](#Erc20NftSale): Facilitates selling NFTs for specific ERC20s that accepts extra data when buying for any initialization data needed in a Paima dApp.</li>
+  <li>[IOrderbookDex](#IOrderbookDex): Interface to facilitate trading inverse projected ERC1155 tokens.</li>
+  <li>[OrderbookDex](#OrderbookDex): Facilitates trading inverse projected ERC1155 tokens.</li>
 </ul>
 
 ## Core contracts
@@ -1959,7 +1961,7 @@ Callable only by the contract owner.
     anchor="xref-InverseBaseProjectedNft-updateMetadataBatch-uint256-uint256-"
 >
     Function that emits an event to notify third-parties (e.g. NFT marketplaces) about
-an update to consecutive range of tokens. Can be overriden in inheriting contract.
+an update to consecutive range of tokens. Can be overridden in inheriting contract.
 </SolidityDetailBlock>
 
 <SolidityDetailBlock
@@ -1969,7 +1971,7 @@ an update to consecutive range of tokens. Can be overriden in inheriting contrac
     anchor="xref-InverseBaseProjectedNft-updateMetadata-uint256-"
 >
     Function that emits an event to notify third-parties (e.g. NFT marketplaces) about
-an update to a single token. Can be overriden in inheriting contract.
+an update to a single token. Can be overridden in inheriting contract.
 </SolidityDetailBlock>
 
 <SolidityDetailBlock
@@ -2923,7 +2925,7 @@ Callable only by the contract owner.
     anchor="xref-InverseAppProjectedNft-updateMetadataBatch-uint256-uint256-"
 >
     Function that emits an event to notify third-parties (e.g. NFT marketplaces) about
-an update to consecutive range of tokens. Can be overriden in inheriting contract.
+an update to consecutive range of tokens. Can be overridden in inheriting contract.
 </SolidityDetailBlock>
 
 <SolidityDetailBlock
@@ -2933,7 +2935,7 @@ an update to consecutive range of tokens. Can be overriden in inheriting contrac
     anchor="xref-InverseAppProjectedNft-updateMetadata-uint256-"
 >
     Function that emits an event to notify third-parties (e.g. NFT marketplaces) about
-an update to a single token. Can be overriden in inheriting contract.
+an update to a single token. Can be overridden in inheriting contract.
 </SolidityDetailBlock>
 
 <SolidityDetailBlock
@@ -3975,7 +3977,7 @@ Callable only by the contract owner.
     anchor="xref-InverseBaseProjected1155-updateMetadataBatch-uint256-uint256-"
 >
     Function that emits an event to notify third-parties (e.g. NFT marketplaces) about
-an update to consecutive range of tokens. Can be overriden in inheriting contract.
+an update to consecutive range of tokens. Can be overridden in inheriting contract.
 </SolidityDetailBlock>
 
 <SolidityDetailBlock
@@ -3985,7 +3987,7 @@ an update to consecutive range of tokens. Can be overriden in inheriting contrac
     anchor="xref-InverseBaseProjected1155-updateMetadata-uint256-"
 >
     Function that emits an event to notify third-parties (e.g. NFT marketplaces) about
-an update to a single token. Can be overriden in inheriting contract.
+an update to a single token. Can be overridden in inheriting contract.
 </SolidityDetailBlock>
 
 <SolidityDetailBlock
@@ -4880,7 +4882,7 @@ Callable only by the contract owner.
     anchor="xref-InverseAppProjected1155-updateMetadataBatch-uint256-uint256-"
 >
     Function that emits an event to notify third-parties (e.g. NFT marketplaces) about
-an update to consecutive range of tokens. Can be overriden in inheriting contract.
+an update to consecutive range of tokens. Can be overridden in inheriting contract.
 </SolidityDetailBlock>
 
 <SolidityDetailBlock
@@ -4890,7 +4892,7 @@ an update to consecutive range of tokens. Can be overriden in inheriting contrac
     anchor="xref-InverseAppProjected1155-updateMetadata-uint256-"
 >
     Function that emits an event to notify third-parties (e.g. NFT marketplaces) about
-an update to a single token. Can be overriden in inheriting contract.
+an update to a single token. Can be overridden in inheriting contract.
 </SolidityDetailBlock>
 
 <SolidityDetailBlock
@@ -6119,6 +6121,1323 @@ Callable only by the contract owner.
     anchor="xref-Erc20NftSale-BuyWithToken-uint256-uint256-address-address-"
 >
     Emitted when an NFT of `tokenId` is minted to `receiver` by `buyer` paying `PRICE` in tokens of `supportedCurrencies`.
+</SolidityDetailBlock>
+
+<ContractHeader githubLink="https://github.com/PaimaStudios/paima-engine/tree/master/packages/contracts/evm-contracts/contracts/orderbook/IOrderbookDex.sol" anchor="IOrderbookDex">
+    ### IOrderbookDex
+</ContractHeader>
+
+```solidity
+import "@paima/evm-contracts/contracts/orderbook/IOrderbookDex.sol";
+```
+
+Orders are identified by an asset-specific unique incremental `orderId`.
+
+<SolidityOutlineBlock
+  type="Functions"
+  lists={[
+    {
+      category: "",
+      lines: [
+        {
+          text: "balances(user)",
+          anchor: "xref-IOrderbookDex-balances-address-"
+        },
+        {
+          text: "claim()",
+          anchor: "xref-IOrderbookDex-claim--"
+        },
+        {
+          text: "currentOrderId(asset)",
+          anchor: "xref-IOrderbookDex-currentOrderId-address-"
+        },
+        {
+          text: "collectedFees()",
+          anchor: "xref-IOrderbookDex-collectedFees--"
+        },
+        {
+          text: "defaultMakerFee()",
+          anchor: "xref-IOrderbookDex-defaultMakerFee--"
+        },
+        {
+          text: "defaultTakerFee()",
+          anchor: "xref-IOrderbookDex-defaultTakerFee--"
+        },
+        {
+          text: "orderCreationFee()",
+          anchor: "xref-IOrderbookDex-orderCreationFee--"
+        },
+        {
+          text: "maxFee()",
+          anchor: "xref-IOrderbookDex-maxFee--"
+        },
+        {
+          text: "getAssetFeeInfo(asset)",
+          anchor: "xref-IOrderbookDex-getAssetFeeInfo-address-"
+        },
+        {
+          text: "getAssetAppliedFees(asset)",
+          anchor: "xref-IOrderbookDex-getAssetAppliedFees-address-"
+        },
+        {
+          text: "setAssetFeeInfo(asset, makerFee, takerFee)",
+          anchor: "xref-IOrderbookDex-setAssetFeeInfo-address-uint256-uint256-"
+        },
+        {
+          text: "setDefaultFeeInfo(makerFee, takerFee)",
+          anchor: "xref-IOrderbookDex-setDefaultFeeInfo-uint256-uint256-"
+        },
+        {
+          text: "setOrderCreationFee(fee)",
+          anchor: "xref-IOrderbookDex-setOrderCreationFee-uint256-"
+        },
+        {
+          text: "getOrder(asset, orderId)",
+          anchor: "xref-IOrderbookDex-getOrder-address-uint256-"
+        },
+        {
+          text: "createSellOrder(asset, assetId, assetAmount, pricePerAsset)",
+          anchor: "xref-IOrderbookDex-createSellOrder-address-uint256-uint256-uint256-"
+        },
+        {
+          text: "createBatchSellOrder(asset, assetIds, assetAmounts, pricesPerAssets)",
+          anchor: "xref-IOrderbookDex-createBatchSellOrder-address-uint256---uint256---uint256---"
+        },
+        {
+          text: "fillOrdersExactEth(asset, minimumAsset, orderIds)",
+          anchor: "xref-IOrderbookDex-fillOrdersExactEth-address-uint256-uint256---"
+        },
+        {
+          text: "fillOrdersExactAsset(asset, assetAmount, orderIds)",
+          anchor: "xref-IOrderbookDex-fillOrdersExactAsset-address-uint256-uint256---"
+        },
+        {
+          text: "cancelSellOrder(asset, orderId)",
+          anchor: "xref-IOrderbookDex-cancelSellOrder-address-uint256-"
+        },
+        {
+          text: "cancelBatchSellOrder(asset, orderIds)",
+          anchor: "xref-IOrderbookDex-cancelBatchSellOrder-address-uint256---"
+        },
+        {
+          text: "withdrawFees()",
+          anchor: "xref-IOrderbookDex-withdrawFees--"
+        },
+      ]
+    },
+    {
+      category: "IERC1155Receiver",
+      lines: [
+        {
+          text: "onERC1155Received(operator, from, id, value, data)",
+          anchor: "xref-IERC1155Receiver-onERC1155Received-address-address-uint256-uint256-bytes-"
+        },
+        {
+          text: "onERC1155BatchReceived(operator, from, ids, values, data)",
+          anchor: "xref-IERC1155Receiver-onERC1155BatchReceived-address-address-uint256---uint256---bytes-"
+        },
+      ]
+    },
+    {
+      category: "IERC165",
+      lines: [
+        {
+          text: "supportsInterface(interfaceId)",
+          anchor: "xref-IERC165-supportsInterface-bytes4-"
+        },
+      ]
+    },
+  ]}
+>
+</SolidityOutlineBlock>
+
+<SolidityOutlineBlock
+  type="Events"
+  lists={[
+    {
+      category: "",
+      lines: [
+        {
+          text: "BalanceClaimed(user, amount)",
+          anchor: "xref-IOrderbookDex-BalanceClaimed-address-uint256-"
+        },
+        {
+          text: "FeeInfoChanged(asset, makerFee, takerFee)",
+          anchor: "xref-IOrderbookDex-FeeInfoChanged-address-uint256-uint256-"
+        },
+        {
+          text: "OrderCreated(asset, assetId, orderId, seller, assetAmount, pricePerAsset, makerFee, takerFee)",
+          anchor: "xref-IOrderbookDex-OrderCreated-address-uint256-uint256-address-uint256-uint256-uint256-uint256-"
+        },
+        {
+          text: "OrderFilled(asset, assetId, orderId, seller, buyer, assetAmount, pricePerAsset, makerFeeCollected, takerFeeCollected)",
+          anchor: "xref-IOrderbookDex-OrderFilled-address-uint256-uint256-address-address-uint256-uint256-uint256-uint256-"
+        },
+        {
+          text: "OrderCancelled(asset, assetId, orderId)",
+          anchor: "xref-IOrderbookDex-OrderCancelled-address-uint256-uint256-"
+        },
+        {
+          text: "OrderCreationFeeChanged(oldFee, newFee)",
+          anchor: "xref-IOrderbookDex-OrderCreationFeeChanged-uint256-uint256-"
+        },
+        {
+          text: "FeesWithdrawn(receiver, amount)",
+          anchor: "xref-IOrderbookDex-FeesWithdrawn-address-uint256-"
+        },
+      ]
+    },
+    {
+      category: "IERC1155Receiver",
+      lines: [
+      ]
+    },
+    {
+      category: "IERC165",
+      lines: [
+      ]
+    },
+  ]}
+>
+</SolidityOutlineBlock>
+
+<SolidityDetailBlock
+    title="balances"
+    params="(address user) → uint256"
+    visibility="external"
+    anchor="xref-IOrderbookDex-balances-address-"
+>
+    No description given
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="claim"
+    params="()"
+    visibility="external"
+    anchor="xref-IOrderbookDex-claim--"
+>
+    No description given
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="currentOrderId"
+    params="(address asset) → uint256"
+    visibility="external"
+    anchor="xref-IOrderbookDex-currentOrderId-address-"
+>
+    No description given
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="collectedFees"
+    params="() → uint256"
+    visibility="external"
+    anchor="xref-IOrderbookDex-collectedFees--"
+>
+    No description given
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="defaultMakerFee"
+    params="() → uint256"
+    visibility="external"
+    anchor="xref-IOrderbookDex-defaultMakerFee--"
+>
+    No description given
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="defaultTakerFee"
+    params="() → uint256"
+    visibility="external"
+    anchor="xref-IOrderbookDex-defaultTakerFee--"
+>
+    No description given
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="orderCreationFee"
+    params="() → uint256"
+    visibility="external"
+    anchor="xref-IOrderbookDex-orderCreationFee--"
+>
+    No description given
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="maxFee"
+    params="() → uint256"
+    visibility="external"
+    anchor="xref-IOrderbookDex-maxFee--"
+>
+    No description given
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="getAssetFeeInfo"
+    params="(address asset) → struct IOrderbookDex.FeeInfo"
+    visibility="external"
+    anchor="xref-IOrderbookDex-getAssetFeeInfo-address-"
+>
+    No description given
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="getAssetAppliedFees"
+    params="(address asset) → uint256 makerFee, uint256 takerFee"
+    visibility="external"
+    anchor="xref-IOrderbookDex-getAssetAppliedFees-address-"
+>
+    No description given
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="setAssetFeeInfo"
+    params="(address asset, uint256 makerFee, uint256 takerFee)"
+    visibility="external"
+    anchor="xref-IOrderbookDex-setAssetFeeInfo-address-uint256-uint256-"
+>
+    MUST revert if `makerFee` or `takerFee` exceeds `maxFee`.
+MUST revert if called by unauthorized account.
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="setDefaultFeeInfo"
+    params="(uint256 makerFee, uint256 takerFee)"
+    visibility="external"
+    anchor="xref-IOrderbookDex-setDefaultFeeInfo-uint256-uint256-"
+>
+    MUST revert if `makerFee` or `takerFee` exceeds `maxFee`.
+MUST revert if called by unauthorized account.
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="setOrderCreationFee"
+    params="(uint256 fee)"
+    visibility="external"
+    anchor="xref-IOrderbookDex-setOrderCreationFee-uint256-"
+>
+    MUST revert if called by unauthorized account.
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="getOrder"
+    params="(address asset, uint256 orderId) → struct IOrderbookDex.Order"
+    visibility="external"
+    anchor="xref-IOrderbookDex-getOrder-address-uint256-"
+>
+    No description given
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="createSellOrder"
+    params="(address asset, uint256 assetId, uint256 assetAmount, uint256 pricePerAsset) → uint256"
+    visibility="external"
+    anchor="xref-IOrderbookDex-createSellOrder-address-uint256-uint256-uint256-"
+>
+    The order information is saved in a mapping `asset -> orderId -> Order`, with `orderId` being an asset-specific unique incremental identifier.
+MUST transfer the `assetAmount` of `asset` with ID `assetId` from the seller to the contract.
+MUST emit `OrderCreated` event.
+MUST revert if `msg.value` is less than `orderCreationFee`.
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="createBatchSellOrder"
+    params="(address asset, uint256[] assetIds, uint256[] assetAmounts, uint256[] pricesPerAssets) → uint256[]"
+    visibility="external"
+    anchor="xref-IOrderbookDex-createBatchSellOrder-address-uint256---uint256---uint256---"
+>
+    This is a batched version of `createSellOrder` that simply iterates through the arrays to call said function.
+MUST revert if `msg.value` is less than `orderCreationFee * assetIds.length`.
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="fillOrdersExactEth"
+    params="(address asset, uint256 minimumAsset, uint256[] orderIds)"
+    visibility="external"
+    anchor="xref-IOrderbookDex-fillOrdersExactEth-address-uint256-uint256---"
+>
+    Transfers portions of msg.value to the orders' sellers according to the price.
+The sum of asset amounts of filled orders MUST be at least `minimumAsset`.
+If msg.value is more than the sum of orders' prices, it MUST refund the excess back to `msg.sender`.
+MUST decrease the `assetAmount` parameter for the specified order according to how much of it was filled,
+and transfer that amount of the order's `asset` with ID `assetId` to the buyer.
+MUST emit `OrderFilled` event for each order accordingly.
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="fillOrdersExactAsset"
+    params="(address asset, uint256 assetAmount, uint256[] orderIds)"
+    visibility="external"
+    anchor="xref-IOrderbookDex-fillOrdersExactAsset-address-uint256-uint256---"
+>
+    Transfers portions of msg.value to the orders' sellers according to the price.
+The sum of asset amounts of filled orders MUST be exactly `assetAmount`. Excess ETH MUST be returned back to `msg.sender`.
+MUST decrease the `assetAmount` parameter for the specified order according to how much of it was filled,
+and transfer that amount of the order's `asset` with ID `assetId` to the buyer.
+MUST emit `OrderFilled` event for each order accordingly.
+If msg.value is more than the sum of orders' prices, it MUST refund the difference back to `msg.sender`.
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="cancelSellOrder"
+    params="(address asset, uint256 orderId)"
+    visibility="external"
+    anchor="xref-IOrderbookDex-cancelSellOrder-address-uint256-"
+>
+    MUST revert if the order's seller is not `msg.sender`.
+MUST change the `assetAmount` parameter for the specified order to `0`.
+MUST emit `OrderCancelled` event.
+MUST transfer the order's `assetAmount` of `asset` with `assetId` back to the seller.
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="cancelBatchSellOrder"
+    params="(address asset, uint256[] orderIds)"
+    visibility="external"
+    anchor="xref-IOrderbookDex-cancelBatchSellOrder-address-uint256---"
+>
+    This is a batched version of `cancelSellOrder` that simply iterates through the array to call said function.
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="withdrawFees"
+    params="()"
+    visibility="external"
+    anchor="xref-IOrderbookDex-withdrawFees--"
+>
+    MUST transfer the entire contract balance to the owner.
+MUST revert if called by unauthorized account.
+MUST emit `FeesWithdrawn` event.
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="BalanceClaimed"
+    params="(address indexed user, uint256 amount)"
+    visibility="event"
+    anchor="xref-IOrderbookDex-BalanceClaimed-address-uint256-"
+>
+    No description given
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="FeeInfoChanged"
+    params="(address indexed asset, uint256 makerFee, uint256 takerFee)"
+    visibility="event"
+    anchor="xref-IOrderbookDex-FeeInfoChanged-address-uint256-uint256-"
+>
+    No description given
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="OrderCreated"
+    params="(address indexed asset, uint256 indexed assetId, uint256 indexed orderId, address seller, uint256 assetAmount, uint256 pricePerAsset, uint256 makerFee, uint256 takerFee)"
+    visibility="event"
+    anchor="xref-IOrderbookDex-OrderCreated-address-uint256-uint256-address-uint256-uint256-uint256-uint256-"
+>
+    No description given
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="OrderFilled"
+    params="(address indexed asset, uint256 indexed assetId, uint256 indexed orderId, address seller, address buyer, uint256 assetAmount, uint256 pricePerAsset, uint256 makerFeeCollected, uint256 takerFeeCollected)"
+    visibility="event"
+    anchor="xref-IOrderbookDex-OrderFilled-address-uint256-uint256-address-address-uint256-uint256-uint256-uint256-"
+>
+    No description given
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="OrderCancelled"
+    params="(address indexed asset, uint256 indexed assetId, uint256 indexed orderId)"
+    visibility="event"
+    anchor="xref-IOrderbookDex-OrderCancelled-address-uint256-uint256-"
+>
+    No description given
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="OrderCreationFeeChanged"
+    params="(uint256 oldFee, uint256 newFee)"
+    visibility="event"
+    anchor="xref-IOrderbookDex-OrderCreationFeeChanged-uint256-uint256-"
+>
+    No description given
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="FeesWithdrawn"
+    params="(address indexed receiver, uint256 amount)"
+    visibility="event"
+    anchor="xref-IOrderbookDex-FeesWithdrawn-address-uint256-"
+>
+    No description given
+</SolidityDetailBlock>
+
+<ContractHeader githubLink="https://github.com/PaimaStudios/paima-engine/tree/master/packages/contracts/evm-contracts/contracts/orderbook/OrderbookDex.sol" anchor="OrderbookDex">
+    ### OrderbookDex
+</ContractHeader>
+
+```solidity
+import "@paima/evm-contracts/contracts/orderbook/OrderbookDex.sol";
+```
+
+Orders are identified by an asset-specific unique incremental `orderId`.
+
+<SolidityOutlineBlock
+  type="Functions"
+  lists={[
+    {
+      category: "",
+      lines: [
+        {
+          text: "constructor()",
+          anchor: "xref-OrderbookDex-constructor--"
+        },
+        {
+          text: "initialize(_owner, _defaultMakerFee, _defaultTakerFee, _orderCreationFee)",
+          anchor: "xref-OrderbookDex-initialize-address-uint256-uint256-uint256-"
+        },
+        {
+          text: "claim()",
+          anchor: "xref-OrderbookDex-claim--"
+        },
+        {
+          text: "getAssetFeeInfo(asset)",
+          anchor: "xref-OrderbookDex-getAssetFeeInfo-address-"
+        },
+        {
+          text: "getAssetAppliedFees(asset)",
+          anchor: "xref-OrderbookDex-getAssetAppliedFees-address-"
+        },
+        {
+          text: "setAssetFeeInfo(asset, makerFee, takerFee)",
+          anchor: "xref-OrderbookDex-setAssetFeeInfo-address-uint256-uint256-"
+        },
+        {
+          text: "setDefaultFeeInfo(makerFee, takerFee)",
+          anchor: "xref-OrderbookDex-setDefaultFeeInfo-uint256-uint256-"
+        },
+        {
+          text: "setOrderCreationFee(fee)",
+          anchor: "xref-OrderbookDex-setOrderCreationFee-uint256-"
+        },
+        {
+          text: "getOrder(asset, orderId)",
+          anchor: "xref-OrderbookDex-getOrder-address-uint256-"
+        },
+        {
+          text: "createSellOrder(asset, assetId, assetAmount, pricePerAsset)",
+          anchor: "xref-OrderbookDex-createSellOrder-address-uint256-uint256-uint256-"
+        },
+        {
+          text: "createBatchSellOrder(asset, assetIds, assetAmounts, pricesPerAssets)",
+          anchor: "xref-OrderbookDex-createBatchSellOrder-address-uint256---uint256---uint256---"
+        },
+        {
+          text: "fillOrdersExactEth(asset, minimumAsset, orderIds)",
+          anchor: "xref-OrderbookDex-fillOrdersExactEth-address-uint256-uint256---"
+        },
+        {
+          text: "fillOrdersExactAsset(asset, assetAmount, orderIds)",
+          anchor: "xref-OrderbookDex-fillOrdersExactAsset-address-uint256-uint256---"
+        },
+        {
+          text: "cancelSellOrder(asset, orderId)",
+          anchor: "xref-OrderbookDex-cancelSellOrder-address-uint256-"
+        },
+        {
+          text: "cancelBatchSellOrder(asset, orderIds)",
+          anchor: "xref-OrderbookDex-cancelBatchSellOrder-address-uint256---"
+        },
+        {
+          text: "withdrawFees()",
+          anchor: "xref-OrderbookDex-withdrawFees--"
+        },
+        {
+          text: "supportsInterface(interfaceId)",
+          anchor: "xref-OrderbookDex-supportsInterface-bytes4-"
+        },
+        {
+          text: "_authorizeUpgrade()",
+          anchor: "xref-OrderbookDex-_authorizeUpgrade-address-"
+        },
+        {
+          text: "_createSellOrder(asset, assetId, assetAmount, pricePerAsset)",
+          anchor: "xref-OrderbookDex-_createSellOrder-address-uint256-uint256-uint256-"
+        },
+        {
+          text: "_cancelSellOrder(asset, orderId)",
+          anchor: "xref-OrderbookDex-_cancelSellOrder-address-uint256-"
+        },
+        {
+          text: "maxFee()",
+          anchor: "xref-OrderbookDex-maxFee-uint256"
+        },
+        {
+          text: "balances()",
+          anchor: "xref-OrderbookDex-balances-mapping-address----uint256-"
+        },
+        {
+          text: "currentOrderId()",
+          anchor: "xref-OrderbookDex-currentOrderId-mapping-address----uint256-"
+        },
+        {
+          text: "collectedFees()",
+          anchor: "xref-OrderbookDex-collectedFees-uint256"
+        },
+        {
+          text: "defaultMakerFee()",
+          anchor: "xref-OrderbookDex-defaultMakerFee-uint256"
+        },
+        {
+          text: "defaultTakerFee()",
+          anchor: "xref-OrderbookDex-defaultTakerFee-uint256"
+        },
+        {
+          text: "orderCreationFee()",
+          anchor: "xref-OrderbookDex-orderCreationFee-uint256"
+        },
+      ]
+    },
+    {
+      category: "ReentrancyGuardUpgradeable",
+      lines: [
+        {
+          text: "__ReentrancyGuard_init()",
+          anchor: "xref-ReentrancyGuardUpgradeable-__ReentrancyGuard_init--"
+        },
+        {
+          text: "__ReentrancyGuard_init_unchained()",
+          anchor: "xref-ReentrancyGuardUpgradeable-__ReentrancyGuard_init_unchained--"
+        },
+        {
+          text: "_reentrancyGuardEntered()",
+          anchor: "xref-ReentrancyGuardUpgradeable-_reentrancyGuardEntered--"
+        },
+      ]
+    },
+    {
+      category: "UUPSUpgradeable",
+      lines: [
+        {
+          text: "__UUPSUpgradeable_init()",
+          anchor: "xref-UUPSUpgradeable-__UUPSUpgradeable_init--"
+        },
+        {
+          text: "__UUPSUpgradeable_init_unchained()",
+          anchor: "xref-UUPSUpgradeable-__UUPSUpgradeable_init_unchained--"
+        },
+        {
+          text: "proxiableUUID()",
+          anchor: "xref-UUPSUpgradeable-proxiableUUID--"
+        },
+        {
+          text: "upgradeToAndCall(newImplementation, data)",
+          anchor: "xref-UUPSUpgradeable-upgradeToAndCall-address-bytes-"
+        },
+        {
+          text: "_checkProxy()",
+          anchor: "xref-UUPSUpgradeable-_checkProxy--"
+        },
+        {
+          text: "_checkNotDelegated()",
+          anchor: "xref-UUPSUpgradeable-_checkNotDelegated--"
+        },
+        {
+          text: "UPGRADE_INTERFACE_VERSION()",
+          anchor: "xref-UUPSUpgradeable-UPGRADE_INTERFACE_VERSION-string"
+        },
+      ]
+    },
+    {
+      category: "IERC1822Proxiable",
+      lines: [
+      ]
+    },
+    {
+      category: "OwnableUpgradeable",
+      lines: [
+        {
+          text: "__Ownable_init(initialOwner)",
+          anchor: "xref-OwnableUpgradeable-__Ownable_init-address-"
+        },
+        {
+          text: "__Ownable_init_unchained(initialOwner)",
+          anchor: "xref-OwnableUpgradeable-__Ownable_init_unchained-address-"
+        },
+        {
+          text: "owner()",
+          anchor: "xref-OwnableUpgradeable-owner--"
+        },
+        {
+          text: "_checkOwner()",
+          anchor: "xref-OwnableUpgradeable-_checkOwner--"
+        },
+        {
+          text: "renounceOwnership()",
+          anchor: "xref-OwnableUpgradeable-renounceOwnership--"
+        },
+        {
+          text: "transferOwnership(newOwner)",
+          anchor: "xref-OwnableUpgradeable-transferOwnership-address-"
+        },
+        {
+          text: "_transferOwnership(newOwner)",
+          anchor: "xref-OwnableUpgradeable-_transferOwnership-address-"
+        },
+      ]
+    },
+    {
+      category: "ContextUpgradeable",
+      lines: [
+        {
+          text: "__Context_init()",
+          anchor: "xref-ContextUpgradeable-__Context_init--"
+        },
+        {
+          text: "__Context_init_unchained()",
+          anchor: "xref-ContextUpgradeable-__Context_init_unchained--"
+        },
+        {
+          text: "_msgSender()",
+          anchor: "xref-ContextUpgradeable-_msgSender--"
+        },
+        {
+          text: "_msgData()",
+          anchor: "xref-ContextUpgradeable-_msgData--"
+        },
+        {
+          text: "_contextSuffixLength()",
+          anchor: "xref-ContextUpgradeable-_contextSuffixLength--"
+        },
+      ]
+    },
+    {
+      category: "ERC1155HolderUpgradeable",
+      lines: [
+        {
+          text: "__ERC1155Holder_init()",
+          anchor: "xref-ERC1155HolderUpgradeable-__ERC1155Holder_init--"
+        },
+        {
+          text: "__ERC1155Holder_init_unchained()",
+          anchor: "xref-ERC1155HolderUpgradeable-__ERC1155Holder_init_unchained--"
+        },
+        {
+          text: "onERC1155Received(, , , , )",
+          anchor: "xref-ERC1155HolderUpgradeable-onERC1155Received-address-address-uint256-uint256-bytes-"
+        },
+        {
+          text: "onERC1155BatchReceived(, , , , )",
+          anchor: "xref-ERC1155HolderUpgradeable-onERC1155BatchReceived-address-address-uint256---uint256---bytes-"
+        },
+      ]
+    },
+    {
+      category: "IOrderbookDex",
+      lines: [
+      ]
+    },
+    {
+      category: "IERC1155Receiver",
+      lines: [
+      ]
+    },
+    {
+      category: "ERC165Upgradeable",
+      lines: [
+        {
+          text: "__ERC165_init()",
+          anchor: "xref-ERC165Upgradeable-__ERC165_init--"
+        },
+        {
+          text: "__ERC165_init_unchained()",
+          anchor: "xref-ERC165Upgradeable-__ERC165_init_unchained--"
+        },
+      ]
+    },
+    {
+      category: "IERC165",
+      lines: [
+      ]
+    },
+    {
+      category: "Initializable",
+      lines: [
+        {
+          text: "_checkInitializing()",
+          anchor: "xref-Initializable-_checkInitializing--"
+        },
+        {
+          text: "_disableInitializers()",
+          anchor: "xref-Initializable-_disableInitializers--"
+        },
+        {
+          text: "_getInitializedVersion()",
+          anchor: "xref-Initializable-_getInitializedVersion--"
+        },
+        {
+          text: "_isInitializing()",
+          anchor: "xref-Initializable-_isInitializing--"
+        },
+      ]
+    },
+  ]}
+>
+</SolidityOutlineBlock>
+
+<SolidityOutlineBlock
+  type="Events"
+  lists={[
+    {
+      category: "",
+      lines: [
+      ]
+    },
+    {
+      category: "ReentrancyGuardUpgradeable",
+      lines: [
+      ]
+    },
+    {
+      category: "UUPSUpgradeable",
+      lines: [
+      ]
+    },
+    {
+      category: "IERC1822Proxiable",
+      lines: [
+      ]
+    },
+    {
+      category: "OwnableUpgradeable",
+      lines: [
+        {
+          text: "OwnershipTransferred(previousOwner, newOwner)",
+          anchor: "xref-OwnableUpgradeable-OwnershipTransferred-address-address-"
+        },
+      ]
+    },
+    {
+      category: "ContextUpgradeable",
+      lines: [
+      ]
+    },
+    {
+      category: "ERC1155HolderUpgradeable",
+      lines: [
+      ]
+    },
+    {
+      category: "IOrderbookDex",
+      lines: [
+        {
+          text: "BalanceClaimed(user, amount)",
+          anchor: "xref-IOrderbookDex-BalanceClaimed-address-uint256-"
+        },
+        {
+          text: "FeeInfoChanged(asset, makerFee, takerFee)",
+          anchor: "xref-IOrderbookDex-FeeInfoChanged-address-uint256-uint256-"
+        },
+        {
+          text: "OrderCreated(asset, assetId, orderId, seller, assetAmount, pricePerAsset, makerFee, takerFee)",
+          anchor: "xref-IOrderbookDex-OrderCreated-address-uint256-uint256-address-uint256-uint256-uint256-uint256-"
+        },
+        {
+          text: "OrderFilled(asset, assetId, orderId, seller, buyer, assetAmount, pricePerAsset, makerFeeCollected, takerFeeCollected)",
+          anchor: "xref-IOrderbookDex-OrderFilled-address-uint256-uint256-address-address-uint256-uint256-uint256-uint256-"
+        },
+        {
+          text: "OrderCancelled(asset, assetId, orderId)",
+          anchor: "xref-IOrderbookDex-OrderCancelled-address-uint256-uint256-"
+        },
+        {
+          text: "OrderCreationFeeChanged(oldFee, newFee)",
+          anchor: "xref-IOrderbookDex-OrderCreationFeeChanged-uint256-uint256-"
+        },
+        {
+          text: "FeesWithdrawn(receiver, amount)",
+          anchor: "xref-IOrderbookDex-FeesWithdrawn-address-uint256-"
+        },
+      ]
+    },
+    {
+      category: "IERC1155Receiver",
+      lines: [
+      ]
+    },
+    {
+      category: "ERC165Upgradeable",
+      lines: [
+      ]
+    },
+    {
+      category: "IERC165",
+      lines: [
+      ]
+    },
+    {
+      category: "Initializable",
+      lines: [
+        {
+          text: "Initialized(version)",
+          anchor: "xref-Initializable-Initialized-uint64-"
+        },
+      ]
+    },
+  ]}
+>
+</SolidityOutlineBlock>
+
+<SolidityOutlineBlock
+  type="Errors"
+  lists={[
+    {
+      category: "",
+      lines: [
+        {
+          text: "FeeTooHigh()",
+          anchor: "xref-OrderbookDex-FeeTooHigh--"
+        },
+        {
+          text: "OrderDoesNotExist(orderId)",
+          anchor: "xref-OrderbookDex-OrderDoesNotExist-uint256-"
+        },
+        {
+          text: "InsufficientEndAmount(expectedAmount, actualAmount)",
+          anchor: "xref-OrderbookDex-InsufficientEndAmount-uint256-uint256-"
+        },
+        {
+          text: "InsufficientPayment()",
+          anchor: "xref-OrderbookDex-InsufficientPayment--"
+        },
+        {
+          text: "InvalidArrayLength()",
+          anchor: "xref-OrderbookDex-InvalidArrayLength--"
+        },
+        {
+          text: "InvalidInput(input)",
+          anchor: "xref-OrderbookDex-InvalidInput-uint256-"
+        },
+        {
+          text: "Unauthorized(sender)",
+          anchor: "xref-OrderbookDex-Unauthorized-address-"
+        },
+      ]
+    },
+    {
+      category: "ReentrancyGuardUpgradeable",
+      lines: [
+        {
+          text: "ReentrancyGuardReentrantCall()",
+          anchor: "xref-ReentrancyGuardUpgradeable-ReentrancyGuardReentrantCall--"
+        },
+      ]
+    },
+    {
+      category: "UUPSUpgradeable",
+      lines: [
+        {
+          text: "UUPSUnauthorizedCallContext()",
+          anchor: "xref-UUPSUpgradeable-UUPSUnauthorizedCallContext--"
+        },
+        {
+          text: "UUPSUnsupportedProxiableUUID(slot)",
+          anchor: "xref-UUPSUpgradeable-UUPSUnsupportedProxiableUUID-bytes32-"
+        },
+      ]
+    },
+    {
+      category: "IERC1822Proxiable",
+      lines: [
+      ]
+    },
+    {
+      category: "OwnableUpgradeable",
+      lines: [
+        {
+          text: "OwnableUnauthorizedAccount(account)",
+          anchor: "xref-OwnableUpgradeable-OwnableUnauthorizedAccount-address-"
+        },
+        {
+          text: "OwnableInvalidOwner(owner)",
+          anchor: "xref-OwnableUpgradeable-OwnableInvalidOwner-address-"
+        },
+      ]
+    },
+    {
+      category: "ContextUpgradeable",
+      lines: [
+      ]
+    },
+    {
+      category: "ERC1155HolderUpgradeable",
+      lines: [
+      ]
+    },
+    {
+      category: "IOrderbookDex",
+      lines: [
+      ]
+    },
+    {
+      category: "IERC1155Receiver",
+      lines: [
+      ]
+    },
+    {
+      category: "ERC165Upgradeable",
+      lines: [
+      ]
+    },
+    {
+      category: "IERC165",
+      lines: [
+      ]
+    },
+    {
+      category: "Initializable",
+      lines: [
+        {
+          text: "InvalidInitialization()",
+          anchor: "xref-Initializable-InvalidInitialization--"
+        },
+        {
+          text: "NotInitializing()",
+          anchor: "xref-Initializable-NotInitializing--"
+        },
+      ]
+    },
+  ]}
+>
+</SolidityOutlineBlock>
+
+<SolidityDetailBlock
+    title="constructor"
+    params="()"
+    visibility="public"
+    anchor="xref-OrderbookDex-constructor--"
+>
+    No description given
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="initialize"
+    params="(address _owner, uint256 _defaultMakerFee, uint256 _defaultTakerFee, uint256 _orderCreationFee)"
+    visibility="public"
+    anchor="xref-OrderbookDex-initialize-address-uint256-uint256-uint256-"
+>
+    No description given
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="claim"
+    params="()"
+    visibility="external"
+    anchor="xref-OrderbookDex-claim--"
+>
+    No description given
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="getAssetFeeInfo"
+    params="(address asset) → struct IOrderbookDex.FeeInfo"
+    visibility="public"
+    anchor="xref-OrderbookDex-getAssetFeeInfo-address-"
+>
+    No description given
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="getAssetAppliedFees"
+    params="(address asset) → uint256 makerFee, uint256 takerFee"
+    visibility="public"
+    anchor="xref-OrderbookDex-getAssetAppliedFees-address-"
+>
+    No description given
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="setAssetFeeInfo"
+    params="(address asset, uint256 makerFee, uint256 takerFee)"
+    visibility="public"
+    anchor="xref-OrderbookDex-setAssetFeeInfo-address-uint256-uint256-"
+>
+    MUST revert if `makerFee` or `takerFee` exceeds `maxFee`.
+MUST revert if called by unauthorized account.
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="setDefaultFeeInfo"
+    params="(uint256 makerFee, uint256 takerFee)"
+    visibility="public"
+    anchor="xref-OrderbookDex-setDefaultFeeInfo-uint256-uint256-"
+>
+    MUST revert if `makerFee` or `takerFee` exceeds `maxFee`.
+MUST revert if called by unauthorized account.
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="setOrderCreationFee"
+    params="(uint256 fee)"
+    visibility="public"
+    anchor="xref-OrderbookDex-setOrderCreationFee-uint256-"
+>
+    MUST revert if called by unauthorized account.
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="getOrder"
+    params="(address asset, uint256 orderId) → struct IOrderbookDex.Order"
+    visibility="public"
+    anchor="xref-OrderbookDex-getOrder-address-uint256-"
+>
+    No description given
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="createSellOrder"
+    params="(address asset, uint256 assetId, uint256 assetAmount, uint256 pricePerAsset) → uint256"
+    visibility="external"
+    anchor="xref-OrderbookDex-createSellOrder-address-uint256-uint256-uint256-"
+>
+    The order information is saved in a mapping `asset -> orderId -> Order`, with `orderId` being an asset-specific unique incremental identifier.
+MUST transfer the `assetAmount` of `asset` with ID `assetId` from the seller to the contract.
+MUST emit `OrderCreated` event.
+MUST revert if `msg.value` is less than `orderCreationFee`.
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="createBatchSellOrder"
+    params="(address asset, uint256[] assetIds, uint256[] assetAmounts, uint256[] pricesPerAssets) → uint256[]"
+    visibility="external"
+    anchor="xref-OrderbookDex-createBatchSellOrder-address-uint256---uint256---uint256---"
+>
+    This is a batched version of `createSellOrder` that simply iterates through the arrays to call said function.
+MUST revert if `msg.value` is less than `orderCreationFee * assetIds.length`.
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="fillOrdersExactEth"
+    params="(address asset, uint256 minimumAsset, uint256[] orderIds)"
+    visibility="external"
+    anchor="xref-OrderbookDex-fillOrdersExactEth-address-uint256-uint256---"
+>
+    Transfers portions of msg.value to the orders' sellers according to the price.
+The sum of asset amounts of filled orders MUST be at least `minimumAsset`.
+If msg.value is more than the sum of orders' prices, it MUST refund the excess back to `msg.sender`.
+MUST decrease the `assetAmount` parameter for the specified order according to how much of it was filled,
+and transfer that amount of the order's `asset` with ID `assetId` to the buyer.
+MUST emit `OrderFilled` event for each order accordingly.
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="fillOrdersExactAsset"
+    params="(address asset, uint256 assetAmount, uint256[] orderIds)"
+    visibility="external"
+    anchor="xref-OrderbookDex-fillOrdersExactAsset-address-uint256-uint256---"
+>
+    Transfers portions of msg.value to the orders' sellers according to the price.
+The sum of asset amounts of filled orders MUST be exactly `assetAmount`. Excess ETH MUST be returned back to `msg.sender`.
+MUST decrease the `assetAmount` parameter for the specified order according to how much of it was filled,
+and transfer that amount of the order's `asset` with ID `assetId` to the buyer.
+MUST emit `OrderFilled` event for each order accordingly.
+If msg.value is more than the sum of orders' prices, it MUST refund the difference back to `msg.sender`.
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="cancelSellOrder"
+    params="(address asset, uint256 orderId)"
+    visibility="external"
+    anchor="xref-OrderbookDex-cancelSellOrder-address-uint256-"
+>
+    MUST revert if the order's seller is not `msg.sender`.
+MUST change the `assetAmount` parameter for the specified order to `0`.
+MUST emit `OrderCancelled` event.
+MUST transfer the order's `assetAmount` of `asset` with `assetId` back to the seller.
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="cancelBatchSellOrder"
+    params="(address asset, uint256[] orderIds)"
+    visibility="external"
+    anchor="xref-OrderbookDex-cancelBatchSellOrder-address-uint256---"
+>
+    This is a batched version of `cancelSellOrder` that simply iterates through the array to call said function.
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="withdrawFees"
+    params="()"
+    visibility="external"
+    anchor="xref-OrderbookDex-withdrawFees--"
+>
+    MUST transfer the entire contract balance to the owner.
+MUST revert if called by unauthorized account.
+MUST emit `FeesWithdrawn` event.
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="supportsInterface"
+    params="(bytes4 interfaceId) → bool"
+    visibility="public"
+    anchor="xref-OrderbookDex-supportsInterface-bytes4-"
+>
+    Returns true if this contract implements the interface defined by `interfaceId`. See EIP165.
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="_authorizeUpgrade"
+    params="(address)"
+    visibility="internal"
+    anchor="xref-OrderbookDex-_authorizeUpgrade-address-"
+>
+    No description given
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="_createSellOrder"
+    params="(address asset, uint256 assetId, uint256 assetAmount, uint256 pricePerAsset) → uint256"
+    visibility="internal"
+    anchor="xref-OrderbookDex-_createSellOrder-address-uint256-uint256-uint256-"
+>
+    No description given
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="_cancelSellOrder"
+    params="(address asset, uint256 orderId)"
+    visibility="internal"
+    anchor="xref-OrderbookDex-_cancelSellOrder-address-uint256-"
+>
+    No description given
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="maxFee"
+    params="() → uint256"
+    visibility="public"
+    anchor="xref-OrderbookDex-maxFee-uint256"
+>
+    No description given
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="balances"
+    params="() → mapping(address &#x3D;&gt; uint256)"
+    visibility="public"
+    anchor="xref-OrderbookDex-balances-mapping-address----uint256-"
+>
+    No description given
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="currentOrderId"
+    params="() → mapping(address &#x3D;&gt; uint256)"
+    visibility="public"
+    anchor="xref-OrderbookDex-currentOrderId-mapping-address----uint256-"
+>
+    No description given
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="collectedFees"
+    params="() → uint256"
+    visibility="public"
+    anchor="xref-OrderbookDex-collectedFees-uint256"
+>
+    No description given
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="defaultMakerFee"
+    params="() → uint256"
+    visibility="public"
+    anchor="xref-OrderbookDex-defaultMakerFee-uint256"
+>
+    No description given
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="defaultTakerFee"
+    params="() → uint256"
+    visibility="public"
+    anchor="xref-OrderbookDex-defaultTakerFee-uint256"
+>
+    No description given
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="orderCreationFee"
+    params="() → uint256"
+    visibility="public"
+    anchor="xref-OrderbookDex-orderCreationFee-uint256"
+>
+    No description given
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="FeeTooHigh"
+    params="()"
+    visibility="error"
+    anchor="xref-OrderbookDex-FeeTooHigh--"
+>
+    No description given
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="OrderDoesNotExist"
+    params="(uint256 orderId)"
+    visibility="error"
+    anchor="xref-OrderbookDex-OrderDoesNotExist-uint256-"
+>
+    No description given
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="InsufficientEndAmount"
+    params="(uint256 expectedAmount, uint256 actualAmount)"
+    visibility="error"
+    anchor="xref-OrderbookDex-InsufficientEndAmount-uint256-uint256-"
+>
+    No description given
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="InsufficientPayment"
+    params="()"
+    visibility="error"
+    anchor="xref-OrderbookDex-InsufficientPayment--"
+>
+    No description given
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="InvalidArrayLength"
+    params="()"
+    visibility="error"
+    anchor="xref-OrderbookDex-InvalidArrayLength--"
+>
+    No description given
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="InvalidInput"
+    params="(uint256 input)"
+    visibility="error"
+    anchor="xref-OrderbookDex-InvalidInput-uint256-"
+>
+    No description given
+</SolidityDetailBlock>
+
+<SolidityDetailBlock
+    title="Unauthorized"
+    params="(address sender)"
+    visibility="error"
+    anchor="xref-OrderbookDex-Unauthorized-address-"
+>
+    No description given
 </SolidityDetailBlock>
 
 ## Utilities
