@@ -158,7 +158,7 @@ Your wallet must have enough funds to
 local $> echo DEPLOYER_PRIVATE_KEY="4ba99...c098" > .env.testnet
 ```
 
-Edit hardhat.config.ts to add the correct blockchain id and RPC.
+Edit `hardhat.config.ts` to add the correct blockchain id and RPC.
 We recommend using a private RPC and not a public one, due to rate limits and availability.
 
 ```ts
@@ -220,7 +220,7 @@ Edit `config.production.yml` file, make sure your chain setup is correct and upd
 
 Edit `extensions.yml` file, update the `abiPath`(s) to match your rsync'd files and the `contractAddress`(es) to match the deployed contracts, and set the current `startBlockheight`(s) as the current block of the target blockchain(s)
 ```yml
-    contractAddress: "0x0165878A594ca255338adfa4d48449f69242Eb8F"
+    contractAddress: "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512"
     abiPath: "./IInverseAppProjected1155.json"
     startBlockHeight: 120000
 ```
