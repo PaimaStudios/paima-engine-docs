@@ -18,7 +18,7 @@ We recommend using a cloud provider to create a virtual machine, as they will pr
 * DNS Provider
 * Additional Software
     * Docker (https://docs.docker.com/engine/install/ubuntu/)
-    * Nginx (https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-22-04)
+    * Nginx (https://ubuntu.com/tutorials/install-and-configure-nginx)
 
 
 ## Backend 
