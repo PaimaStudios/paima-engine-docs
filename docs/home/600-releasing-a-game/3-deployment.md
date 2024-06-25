@@ -10,7 +10,7 @@ We recommend using a cloud provider to create a virtual machine, as they will pr
 
 * Your game must be working locally.
 * Server with:
-    * Ubuntu 22.04 LTS Linux
+    * Ubuntu 24.04 LTS Linux
     * Public IP
     * Sudo Access
     * SSH Access
@@ -23,39 +23,47 @@ We recommend using a cloud provider to create a virtual machine, as they will pr
 
 ## Backend 
 
+Before starting we recommend you create a user, and do not use the root account.
+We will be using a user called `paima` for all examples.
+
 ### Software Verification
 #### ssh
 Let's verify you can connect to your machine via `ssh`.  
 From your terminal you must be able to connect your server.
 
-* For these examples we will just `10.0.0.1` as the `server public IP`, you must use your own `IP`.
+* For these examples we will just `paima@10.0.0.1` as the `server public IP`, you must use your own `IP`.
 * The user name `user-name` must be updated with the machine's user-name
 * `my-game` is used as example for the game name.
 
 Commands that are ran in your local machine are marked as `local $>` the commands that are run in the remote server are labeled `server $>`
 
 ```bash
-local $> ssh 10.0.0.1
+local $> ssh paima@10.0.0.1
 ```
 You should see something as:
 ```bash
-Welcome to Ubuntu 22.04.1 LTS (GNU/Linux 5.15.0-50-generic x86_64)
+Welcome to Ubuntu 24.04 LTS (GNU/Linux 6.8.0-31-generic x86_64)
 ...
-user-name@server-name:~$
+paima@server-name:~$
 ```
 #### ubuntu
 Let's check you have `Ubuntu` installed
 ```bash
 server $> lsb_release -a
 ```
-Shows the Linux Distribution and the Version `Description: Ubuntu 22.04.1 LTS`
+Shows the Linux Distribution and the Version `Description: Ubuntu 24.04 LTS`
 
 #### nginx
 To verify your `nginx` setup run: (This might change depending on your nginx setup)
 ```bash
 local $> curl http://10.0.0.1
 ```
-You should see some HTML that mentions nginx if all went OK.
+The response will be a webpage that contains:
+```
+<h1>Welcome to nginx!</h1>
+<p>If you see this page, the nginx web server is successfully installed and
+working. Further configuration is required.</p>
+```
 
 #### docker
 To verify your `docker` setup run
@@ -78,27 +86,24 @@ server $> mkdir my-game
 Now let's copy the main files we will need
 
 ```bash
-# Create Folder
-server $> cd game-project-folder
-
 # Copy DB Files
-local $> rsync db/migrations/init/init.sql 10.0.0.1:/home/user-name/my-game
-local $> rsync db/docker/docker-compose.yml 10.0.0.1:/home/user-name/my-game
+local $> rsync db/migrations/init/init.sql paima@10.0.0.1:/home/paima/my-game
+local $> rsync db/docker/docker-compose.yml paima@10.0.0.1:/home/paima/my-game
 
 # Copy .env, config & extension files
-local $> rsync .env.production 10.0.0.1:/home/user-name/my-game
-local $> rsync config.prod.yml 10.0.0.1:/home/user-name/my-game
-local $> rsync extensions.yml 10.0.0.1:/home/user-name/my-game
+local $> rsync .env.production paima@10.0.0.1:/home/paima/my-game
+local $> rsync config.prod.yml paima@10.0.0.1:/home/paima/my-game
+local $> rsync extensions.yml paima@10.0.0.1:/home/paima/my-game
 
 # If your extensions.yml has ABI extensions, copy them as well
 # For example:
-local $> rsync contracts/evm/abi/@paima/evm-contracts/contracts/token/IInverseAppProjected1155.sol/IInverseAppProjected1155.json 10.0.0.1:/home/user-name/my-game
+local $> rsync contracts/evm/abi/@paima/evm-contracts/contracts/token/IInverseAppProjected1155.sol/IInverseAppProjected1155.json paima@10.0.0.1:/home/paima/my-game
 
 # Copy Paima Engine
-local $> rsync paima-engine-linux 10.0.0.1:/home/user-name/my-game
+local $> rsync paima-engine-linux paima@10.0.0.1:/home/paima/my-game
 
 # Finally copy your Game Files
-local $> rsync -r packaged 10.0.0.1:/home/user-name/my-game
+local $> rsync -r packaged paima@10.0.0.1:/home/paima/my-game
 ```
 
 ### Run Database
@@ -109,15 +114,20 @@ First we will edit the `docker-compose.yml`
 
 ```bash
 # Use your favorite editor (We are using vi)
-server $> cd my-game
+server $> cd $HOME/my-game
 server $> vi docker-compose.yml 
 ```
 
-and modify the volumes entry:
+and modify the service-postgres-volumes entry:
+```yml
+    volumes:
+        - my-game-db:/var/lib/postgresql/data
+        - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+```
+and root volumes entry:
 ```yml
 volumes:
-    - generic-1718997537463-db:/var/lib/postgresql/data
-    - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+  my-game-db:
 ```
 
 We recommend to update the password as well:
@@ -129,13 +139,13 @@ environment:
 
 Start the database
 ```bash
-server $> cd my-game
+server $> cd $HOME/my-game
 server $> docker compose up -d
 ```
 
 To view the database activity:
 ```bash
-server $> cd my-game
+server $> cd $HOME/my-game
 server $> docker compose logs -f
 ```
 
@@ -152,7 +162,7 @@ LOG:  database system is ready to accept connections
 To deploy the contracts in your target blockchain, first obtain the private key and 
 create a file named `.env.testnet` in your project root.
 
-Your wallet must have enough funds to 
+Your wallet must have enough funds to deploy the contracts
 
 ```bash
 local $> echo DEPLOYER_PRIVATE_KEY="4ba99...c098" > .env.testnet
@@ -182,6 +192,7 @@ local $> npx hardhat ignition deploy contracts/evm/ignition/modules/deploy_facto
 ```
 
 You will see a message similar to this, depending on the contracts you deploy.
+
 Copy these addresses, we will be using them later.
 ```
 Deployed Addresses
@@ -282,9 +293,9 @@ StartLimitIntervalSec=0
 
 [Service]
 Type=simple
-User=user-name
-Group=user-name
-Environment=HOME=/home/user-name
+User=paima
+Group=paima
+Environment=HOME=/home/paima
 Environment=NODE_ENV=production
 Environment=NETWORK=testnet
 Restart=on-failure
@@ -293,8 +304,8 @@ SuccessExitStatus=143
 KillMode=process
 KillSignal=SIGINT
 TimeoutStopSec=90
-WorkingDirectory=/home/user-name/my-game
-ExecStart=/home/user-name/my-game/paima-engine-linux run
+WorkingDirectory=/home/paima/my-game
+ExecStart=/home/paima/my-game/paima-engine-linux run
 
 [Install]
 WantedBy=multi-user.target
@@ -303,7 +314,7 @@ WantedBy=multi-user.target
 Let's copy the service to the service folder
 ``` bash
 server $> cd /etc/systemd/system/
-sudo ln -s /home/user-name/my-game/my-game.service
+server $> sudo ln -s /home/paima/my-game/my-game.service
 ```
 
 Now to start the service
@@ -359,7 +370,7 @@ server $> sudo chgrp user-name my-game-frontend
 
 And now let's upload your build to this folder
 ```bash
-local $> rsync -r build/* 10.0.0.1:/var/www/html/my-game-frontend
+local $> rsync -r build/* paima@10.0.0.1:/var/www/html/my-game-frontend
 ```
 
 Next setup nginx file server.
@@ -421,14 +432,14 @@ server $> sudo systemctl stop my-game.service
 
 ## Apply any database migrations your updated code might require.
 
-local $> rsync -r packaged 10.0.0.1:/home/user-name/my-game
+local $> rsync -r packaged paima@10.0.0.1:/home/paima/my-game
 server $> sudo systemctl start my-game.service
 ```
 
 #### Update Frontend Code
 To update the frontend code, rebuild your middleware `npm run pack:middleware`, then rebuild your frontend and upload:
 ```bash
-local $> rsync -r build/* 10.0.0.1:/var/www/html/my-game-frontend
+local $> rsync -r build/* paima@10.0.0.1:/var/www/html/my-game-frontend
 ```
 
 The server will generate backups, we recommend you keep them in a safe place, outside this same server to recover your state at any time.
