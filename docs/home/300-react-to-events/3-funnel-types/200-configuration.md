@@ -15,13 +15,17 @@ Each entry should have a `type` variable, which can be one of
 - `evm-main`
 - `evm-other`
 - `cardano`
+- `mina`
+- `avail-main`
+- `avail-other`
 
-There can be only one entry with the `evm-main` type. This network is the one
-that has the Paima contract deployed. Currently also there should only be one
-entry of type `cardano`.
+There can be only one entry of the `main` type. In the case of `evm-main`, this
+network is the one that has the Paima contract deployed. 
 
-There can be multiple entries of the `evm-other` type. A funnel is instantiated
-for each one of these.
+Currently also there should only be one entry of type `cardano` and `mina`.
+
+There can be multiple entries of the `evm-other` or `avail-other` types. A
+funnel is instantiated for each one of these.
 
 ## Variables
 
@@ -95,6 +99,15 @@ Cardano:
   network: preview
   confirmationDepth: 10
   paginationLimit: 2
+
+Avail:
+  type: avail-other
+  lightClient: 'http://localhost:7007'
+  rpc: ws://127.0.0.1:9944
+  delay: 200 
+  confirmationDepth: 10
+  funnelBlockGroupSize: 100
+  presyncStepSize: 1000
 ```
 
 ## Extensions
