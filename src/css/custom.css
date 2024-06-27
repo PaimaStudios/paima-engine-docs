@@ -55,10 +55,15 @@
   --ifm-background-color: #030909 !important;
 }
 
-
 .navbar {
     background: rgb(1, 10, 18, 0.5);
-    backdrop-filter: blur(20px);
+}
+
+@media (min-width: 1000px) {
+  nav.navbar.navbar--fixed-top {
+    backdrop-filter: blur(25px);
+    background: var(--ifm-top-menu-color);
+  }
 }
 
 .footer {
