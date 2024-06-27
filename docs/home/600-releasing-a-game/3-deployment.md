@@ -31,11 +31,12 @@ We will be using a user called `paima` for all examples.
 Let's verify you can connect to your machine via `ssh`.  
 From your terminal you must be able to connect your server.
 
-* For these examples we will just `paima@10.0.0.1` as the `server public IP`, you must use your own `IP`.
-* The user name `user-name` must be updated with the machine's user-name
-* `my-game` is used as example for the game name.
-
-Commands that are ran in your local machine are marked as `local $>` the commands that are run in the remote server are labeled `server $>`
+For these examples, we will use the follow naming:
+* `paima@10.0.0.1` as the `server public IP`. You must use your own `IP`.
+* `user-name` as the username. Must be updated with the machine's user-name
+* `my-game` as the game's name.
+* `local $>` for commands that are ran in your local machine
+* `server $>` for commands that are run in the remote server
 
 ```bash
 local $> ssh paima@10.0.0.1
@@ -159,41 +160,9 @@ LOG:  database system is ready to accept connections
 
 ### Deploy Contracts
 
-To deploy the contracts in your target blockchain, first obtain the private key and 
-create a file named `.env.testnet` in your project root.
+For EVM, you can find the deployment steps [here](https://docs.paimastudios.com/home/smart-contracts/evm/introduction#deploying-to-a-testnet-or-mainnet).
 
-Your wallet must have enough funds to deploy the contracts
-
-```bash
-local $> echo DEPLOYER_PRIVATE_KEY="4ba99...c098" > .env.testnet
-```
-
-Edit `hardhat.config.ts` to add the correct blockchain id and RPC.
-We recommend using a private RPC and not a public one, due to rate limits and availability.
-
-```ts
-networks: {
-    hardhat: {
-      ...
-    },
-    testnet: {
-      chainId: 421614,
-      url: 'https://sepolia-rollup.arbitrum.io/rpc',
-      accounts: testnet.DEPLOYER_PRIVATE_KEY == null ? [] : [testnet.DEPLOYER_PRIVATE_KEY],
-      allowUnlimitedContractSize: true,
-    },
-```
-
-Check your `contracts/evm/ignition/modules/deploy_factory.ts` to ensure that no values are hardcoded, as contract addresses will change.
-
-Now deploy the contracts:
-```bash
-local $> npx hardhat ignition deploy contracts/evm/ignition/modules/deploy_factory.ts --parameters ./contracts/evm/ignition/parameters.json --network testnet
-```
-
-You will see a message similar to this, depending on the contracts you deploy.
-
-Copy these addresses, we will be using them later.
+Copy the addresses from the deploy steps, as we will be using them later.
 ```
 Deployed Addresses
 
