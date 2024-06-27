@@ -14,12 +14,15 @@ Paima comes with multiple contracts for the basic use-cases. You can find all th
 
 By default, Hardhat will spin up a local EVM chain for you to interact with (learn more [here](https://hardhat.org/hardhat-network/docs/overview)). If you want to use a real network (testnet or mainnet), the following steps will help you get set up:
 
+1. Make sure you have the correct network setup in your `hardhat.config.ts`
+1. Ensure that you have a good RPC provider for the network (free RPC providers will typically rate limit and enforce other limitations making them too limited for Paima)
 1. Fund a (non-hardware wallet) EVM account on your target chain with enough to cover the cost of deploying a contract (this is your deployment account).
-2. Export the private key of the account from your wallet software (MetaMask supports this in the "Account details" section).
-3. Set the deployment account private key to an environment variable called `DEPLOYER_PRIVATE_KEY` and export it. For example, in Bash, run `export DEPLOYER_PRIVATE_KEY=...` with your private key (without an `0x` prefix) instead of the ellipsis.
-4. Deploy the contract by running `npm run chain:deploy`
-5. Hardhat will proceed forward with doing all of the steps required to get the contract compiled and deployed, using the wallet you specified the `DEPLOYER_PRIVATE_KEY` for.
-6. Once finished you will get a summary of the deployment which includes the address of the newly deployed contract
+1. Export the private key of the account from your wallet software (MetaMask supports this in the "Account details" section).
+1. Set the deployment account private key to an environment variable called `DEPLOYER_PRIVATE_KEY` and export it. For example, in Bash, run `export DEPLOYER_PRIVATE_KEY=...` with your private key (without an `0x` prefix) instead of the ellipsis.
+1. Make sure you've set any parameters for your deployment in `./contracts/evm/ignition/parameters.json`
+1. Deploy the contract by running `npm run chain:deploy`
+1. Hardhat will proceed forward with doing all of the steps required to get the contract compiled and deployed, using the wallet you specified the `DEPLOYER_PRIVATE_KEY` for.
+1. Once finished you will get a summary of the deployment which includes the address of the newly deployed contract
 
 ## Adding New Contracts
 
