@@ -17,14 +17,15 @@
   },
   "dependencies": {
     "@crowdin/cli": "^3.15.0",
-    "@docusaurus/core": "^3.1.0",
-    "@docusaurus/plugin-client-redirects": "^3.1.0",
-    "@docusaurus/plugin-content-pages": "^3.1.0",
-    "@docusaurus/preset-classic": "^3.1.0",
-    "@docusaurus/theme-mermaid": "^3.1.0",
-    "@easyops-cn/docusaurus-search-local": "^0.40.1",
-    "@mdx-js/react": "^3.0.0",
-    "clsx": "^2.0.0",
+    "@docusaurus/core": "^3.4.0",
+    "@docusaurus/plugin-client-redirects": "^3.4.0",
+    "@docusaurus/plugin-content-pages": "^3.4.0",
+    "@docusaurus/preset-classic": "^3.4.0",
+    "@docusaurus/theme-mermaid": "^3.4.0",
+    "@easyops-cn/docusaurus-search-local": "^0.44.2",
+    "@mdx-js/react": "^3.0.1",
+    "@paima/aiken-mdx": "^1.0.0",
+    "clsx": "^2.1.1",
     "docusaurus-plugin-remote-content": "^4.0.0",
     "hast-util-is-element": "^3.0.0",
     "prism-react-renderer": "^2.1.0",
@@ -34,7 +35,7 @@
     "remark-math": "^6.0.0"
   },
   "devDependencies": {
-    "@docusaurus/module-type-aliases": "^3.1.0",
+    "@docusaurus/module-type-aliases": "^3.4.0",
     "autoprefixer": "^10.4.16",
     "postcss": "^8.4.33",
     "tailwindcss": "^3.4.1"

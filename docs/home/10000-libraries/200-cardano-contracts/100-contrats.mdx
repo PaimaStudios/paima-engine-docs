@@ -1,0 +1,199 @@
+import { AikenBaseType } from '@paima/aiken-mdx';
+import { AikenConstructorMap } from '@paima/aiken-mdx';
+import { AikenConstructorMapField } from '@paima/aiken-mdx';
+import { AikenConstructorSimple } from '@paima/aiken-mdx';
+import { AikenConstructorTuple } from '@paima/aiken-mdx';
+import { AikenDefinitionBlock } from '@paima/aiken-mdx';
+import { AikenEnum } from '@paima/aiken-mdx';
+import { AikenProject } from '@paima/aiken-mdx';
+import { AikenListType } from '@paima/aiken-mdx';
+import { AikenMapType } from '@paima/aiken-mdx';
+import { AikenParameter } from '@paima/aiken-mdx';
+import { AikenRedeemer } from '@paima/aiken-mdx';
+import { AikenValidator } from '@paima/aiken-mdx';
+import { AikenDatum } from '@paima/aiken-mdx';
+import { AikenValidators } from '@paima/aiken-mdx';
+import { AikenDefinitions } from '@paima/aiken-mdx';
+import { AikenTupleType } from '@paima/aiken-mdx';
+
+# Aiken Contracts
+
+Aiken contracts provided as part of Paima Engine.
+
+Core contracts
+
+<ul>
+  <li>[Inverse Whirlpool](#paima-inverse-whirlpool): Inverse whirlpool Aiken contract.</li>
+</ul>
+
+## Core contracts
+
+<AikenProject
+  anchor="paima-inverse-whirlpool"
+  namespace="paima/inverse-whirlpool"
+  description="Aiken contracts for project Paima Inverse Whirlpool"
+  plutusVersion="v2"
+  githubLink="https://github.com/PaimaStudios/paima-engine/tree/master/packages/cardano-contracts/inverse-whirlpool"
+>
+  <>
+    ### inverse-whirlpool
+  </>
+  
+  <AikenValidators>
+    <>
+      #### Validators
+    </>
+    <AikenValidator
+      title="whirl.minter"
+      description=""
+      redeemer={
+        <AikenRedeemer
+          title="rdmr"
+          description="Foo redeemer"
+        >
+                  <AikenBaseType value="MintActions" />
+        </AikenRedeemer>
+      }
+      parameters={[
+          <AikenParameter
+            title="init_ref"
+            description=""
+          >
+                    <AikenBaseType value="OutputReference" />
+          </AikenParameter>,
+      ]}
+    />
+    <AikenValidator
+      title="whirl.validate"
+      description=""
+      datum={
+        <AikenDatum
+          title="datum"
+          description=""
+        >
+                  <AikenBaseType value="State" />
+        </AikenDatum>
+      }
+      redeemer={
+        <AikenRedeemer
+          title="rdmr"
+          description=""
+        >
+                  <AikenBaseType value="WrappedRedeemer" />
+        </AikenRedeemer>
+      }
+      parameters={[
+          <AikenParameter
+            title="init_ref"
+            description=""
+          >
+                    <AikenBaseType value="OutputReference" />
+          </AikenParameter>,
+      ]}
+    />
+  </AikenValidators>
+
+  <AikenDefinitions>
+    <>
+      #### Definitions
+    </>
+    <AikenDefinitionBlock
+      scope="inverse_whirlpool/validation"
+      isLocal={ true }
+    >
+                  <AikenEnum title="MintActions" description="">
+                            <AikenConstructorSimple title="InitMerkle" description="" />
+                            <AikenConstructorMap title="CreateAccount" description="">
+                                <AikenConstructorMapField mapKey="account">
+                                          <AikenBaseType value="Credential" />
+                                </AikenConstructorMapField>
+                                <AikenConstructorMapField mapKey="merkle_proof_block">
+                                          <AikenBaseType value="MerkleProofBlock" />
+                                </AikenConstructorMapField>
+                                <AikenConstructorMapField mapKey="output_index">
+                                          <AikenBaseType value="Int" />
+                                </AikenConstructorMapField>
+                            </AikenConstructorMap>
+                            <AikenConstructorSimple title="BurnAccount" description="" />
+                            <AikenConstructorMap title="TupleTest" description="Test comment">
+                                <AikenConstructorMapField mapKey="val">
+                                          <AikenTupleType>
+                                                    <AikenBaseType value="Int" />
+                                                    <AikenBaseType value="ByteArray" />
+                                          </AikenTupleType>
+                                </AikenConstructorMapField>
+                            </AikenConstructorMap>
+                            <AikenConstructorMap title="PairTest" description="">
+                                <AikenConstructorMapField mapKey="val">
+                                          <AikenBaseType value="Pair$Int_ByteArray" />
+                                </AikenConstructorMapField>
+                            </AikenConstructorMap>
+                            <AikenConstructorMap title="PairsTest" description="">
+                                <AikenConstructorMapField mapKey="val">
+                                          <AikenMapType mapKey={       <AikenBaseType value="Int" />
+                                     }>
+                                                    <AikenBaseType value="ByteArray" />
+                                          </AikenMapType>
+                                </AikenConstructorMapField>
+                            </AikenConstructorMap>
+                            <AikenConstructorMap title="ListTest" description="">
+                                <AikenConstructorMapField mapKey="val">
+                                          <AikenListType>
+                                                    <AikenBaseType value="Int" />
+                                          </AikenListType>
+                                </AikenConstructorMapField>
+                            </AikenConstructorMap>
+                  </AikenEnum>
+                  <AikenEnum title="State" description="">
+                            <AikenConstructorMap title="Merkle" description="">
+                                <AikenConstructorMapField mapKey="root">
+                                          <AikenBaseType value="ByteArray" />
+                                </AikenConstructorMapField>
+                                <AikenConstructorMapField mapKey="own_hash">
+                                          <AikenBaseType value="ByteArray" />
+                                </AikenConstructorMapField>
+                            </AikenConstructorMap>
+                            <AikenConstructorTuple title="Account" description="">
+                                      <AikenBaseType value="Credential" />
+                                      <AikenMapType mapKey={       <AikenBaseType value="Int" />
+                                 }>
+                                                <AikenBaseType value="ByteArray" />
+                                      </AikenMapType>
+                            </AikenConstructorTuple>
+                  </AikenEnum>
+                  <AikenEnum title="ValidateActions" description="">
+                            <AikenConstructorSimple title="SpendMerkleRoot" description="" />
+                            <AikenConstructorTuple title="IncrementAccount" description="">
+                                      <AikenBaseType value="Int" />
+                            </AikenConstructorTuple>
+                            <AikenConstructorSimple title="DestroyAccount" description="" />
+                  </AikenEnum>
+    </AikenDefinitionBlock>
+    <AikenDefinitionBlock
+      scope="RedeemerWrapper"
+      isLocal={ false }
+    >
+            <AikenBaseType value="WrappedRedeemer" />
+    </AikenDefinitionBlock>
+    <AikenDefinitionBlock
+      scope="aiken/sparse_merkle_tree/merkle_blake256"
+      isLocal={ false }
+    >
+            <AikenBaseType value="MerkleProofBlock" />
+    </AikenDefinitionBlock>
+    <AikenDefinitionBlock
+      scope="aiken/transaction"
+      isLocal={ false }
+    >
+            <AikenBaseType value="OutputReference" />
+            <AikenBaseType value="TransactionId" />
+    </AikenDefinitionBlock>
+    <AikenDefinitionBlock
+      scope="aiken/transaction/credential"
+      isLocal={ false }
+    >
+            <AikenBaseType value="Credential" />
+    </AikenDefinitionBlock>
+  </AikenDefinitions>
+</AikenProject>
+

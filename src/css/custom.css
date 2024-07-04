@@ -9,6 +9,10 @@
     font-family: 'Manrope', sans-serif;
 }
 
+* {
+  scroll-behavior: smooth;
+}
+
 .img-center {
   display: flex;
   justify-content: center;
@@ -56,7 +60,7 @@
 }
 
 .navbar {
-    background: rgb(1, 10, 18, 0.5);
+    backdrop-filter: none !important;
 }
 
 @media (min-width: 1000px) {
