@@ -34,7 +34,7 @@ We achieve this in 2 steps:
 
 ### 1) Find key blocks during startup with binary search 
 
-When booting up Paima engine we need to know wwhat's the earliest parallel chain
+When booting up Paima engine we need to know what's the earliest parallel chain
 block whose events might be included in the next main chain block we have to
 sync.
 
