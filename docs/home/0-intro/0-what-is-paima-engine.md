@@ -125,13 +125,17 @@ Similarly, to give additional liquidity for NFTs for the game, it natively suppo
 
 ![](./paima-tarochi-docs.png)
 
-## Ongoing work
+### Data availability (DA) layer support
 
-### Data availability layer support
+Paima supports the following as DA layers:
+- EVM (default)
+- [Avail](../300-react-to-events/3-funnel-types/800-avail-block-funnel.md)
 
-Paima, by default, uses EVM both as the settlement and Data Availability (DA) layer. However, some games may want to separate these concerns by using a different layers for settlement and DA (either as a volition or a validium)
+We provide the choice, because using a DA layer makes resync of rollup state significantly cheaper & faster.
+- **EVM**: syncing rollup state requires running an EVM fullnode (expensive & heavy)
+- **DA**: syncing rollup state, thanks to *data availability sampling*, just requires running a light-client (still gives fullnode-like security), and it only downloads the subset of information required for your rollup state!
 
-To enable this, Paima will facilitate storing state machine inputs on a DA layer, significantly lowering costs for data-hungry use-cases. We plan to integrate Avail and Celestia for this
+More technically speaking, we support not just typical rollups, but also building both volition and validiums.
 
 ### ZK (Zero-Knowledge Cryptography)
 
@@ -141,13 +145,19 @@ ZK cryptography is often used in Web3 for two different properties:
 
 Both these use-cases are of interest in games, as being able to prove world state helps with composability of worlds, and private inputs allow games with private state (ex: fog of war) and can also help with compliance (ex: being able to prove you know information without revealing the sensitive information publicly)
 
-Paima is working with [Zeko](http://zeko.io/) (based on Mina Protocol) to implement its first ZK Layer. You can learn more about the architecture of our ZK layer [here](https://blog.paimastudios.com/paima-zk-layer/).
+Paima already comes with [ZK layer](../300-react-to-events/3-funnel-types/600-mina-funnel.mdx) support, and we are working with [Zeko](http://zeko.io/) (based on Mina Protocol) to enable app-specific ZK rollups as well. You can learn more about the architecture of our ZK layer [here](https://blog.paimastudios.com/paima-zk-layer/).
 
 #### Example game
 
 This game is a team battle game that leverages recursive SNARKs provided by the Mina blockchain for private state and state-channel-like scalability. However, Mina has very few users. To get around this issue, it allows users to deposit funds into the game from Ethereum and unlocks winnings using a ZK proof of victory. However, since ZK proofs only settle to Ethereum once a match is over (plus a few minutes of overhead). To allow writing a smooth UX where the whole game logic is a unified experience, the game is written using Paima Engine that monitors both Mina for the gameplay and Ethereum for the deposits and payouts.
 
 ![](./paima-mina-docs.png)
+
+## Ongoing work
+
+### Storage proofs
+
+We plan to integrate storage proof mechanisms natively into Paima Engine. This will allow you to have optimistic (fast) UI updates shown to users of your rollup, while on the backend settling proofs across chains where required.
 
 ### State Channels (Short-lived Shards)
 
@@ -211,22 +221,18 @@ If ZK is enforced or if the whole application needs to be written as one giant Z
 
 Unfortunately there is no "free lunch", and so usage of sovereign rollups comes with some disadvantages as well. Keep in mind while reading this that Paima overcome these deficiencies by combining its sovereign rollup layer with its native support for L1 smart contracts and its ZK layer. You can learn more about this in our blog posts [here](https://blog.paimastudios.com/self-sovereign-rollup/).
 
-### Trickier DeFi support on the L2
+### Extra work for trading L2 assets on the L1
 
-Although assets that stay on the L1 are supported, if assets are stored on the L2 it is difficult to trustlessly bridge from the L2 back to the L1 (that is to say, supporting the ability to put \$5 into the L2, make some money, then take \$10 out require extra work). This isn't a requirement to build in-game economies, and this also isn't required for the overwhelming majority of non-DeFi applications and so it's not as problematic as one might think and can be overcome in multiple ways as mentioned in our [blogpost](https://blog.paimastudios.com/self-sovereign-rollup/).
+Although assets that stay on the L1 are supported, if assets are stored on the L2, extra work is required to make these assets from the L2 available on the L1 (that is to say, supporting the ability to put \$5 into the L2, make some money, then take \$10 out require extra work). Paima Engine supports this through its concept of *inverse projections* which supports both [NFT](../20000-PRCs/prc-3.md) and [fungible tokens](../20000-PRCs/prc-5.md). You can learn more about this in our [blogpost](https://blog.paimastudios.com/self-sovereign-rollup/).
 
-### Low compatibility with other L1 dApps by default
+### Optional compatibility with other L1 dApps
 
-Paima gains a lot of its strength from shifting game state management into the L2, which cannot be read from other L1 dApps by default. We think this is actually a benefit though, as it avoids web3 developers making the single most common mistake in web3 games: overly focusing on compatibility when they do not have a product-market fit yet.
+Paima gains a lot of its strength from shifting game state management into the L2. This state can be accessed on the L1 depending on how you create your game (ex: by using the ZK layer), but isn't required.
 
-That is to say, Paima allows you to start by building your entire app/game on the L2 and then, once you know users love the experience, you can migrate parts of your game state to the L1 (which requires you to write it in the L1 language like Solidity) and then projecting its state to the L2. This makes bootstrapping your game significantly faster, cheaper, safer, and makes it easier to update. Only focus on compatibility once users love your system and truly desire connecting it with other experiences.
+This gives developers using Paima a choice: do they want focus on compatibility with other L1 apps (requires extra work/cost even though they do not have a product-market fit yet), or focus on building their decentralized game and improve composability after.
 
-### Trickier cross-game indexing
+### Custom indexing for rollup state
 
-Unless the game is built as one giant recursive SNARK circuit, it is hard to succinctly prove a summary of game state. Additionally, unlike optimistic rollups, it's harder to leverage any L1 light client infrastructure to prove game state. This is a consequence of Paima being a pessimistic rollup by default.
+Games in Paima do not necessarily run a single stack, so depending on how an app is built, leveraging a single L1's tooling may not be sufficient to get proper insight into the rollup state.
 
-This makes it harder to do things like peer-discovery of RPC nodes for a game and build cross-game indexing services like a platform to see all achievements earned across games written with Paima. We do, however, have some standards planned to help alleviate this issue.
-
-# Architecture overview
-
-See [this page](https://paimastudios.com/paima-engine) for more.
+To tackle this, Paima Engine comes with many standards and its own indexer system to allow you to easily visualize and explore your rollup's state.
