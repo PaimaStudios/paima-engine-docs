@@ -27,10 +27,9 @@ These these variables are used if you only need to synchronize a single network 
   - `DEFAULT_PRESYNC_STEP_SIZE`: number of blocks to process in each step during initial presync phase. If not provided, a value of 1000 is used. Generally no need to change this value.
   - `CDE_CONFIG_PATH`: allows you to specify a custom location for your `extensions.yml` that is used to initialize primitive catalogue entries
 - Cardano extensions
-  - `CARP_URL`: The URL of a Carp instace, required when using Cardano primitives.
+  - `CARP_URL`: The URL of a Carp instance, required when using Cardano primitives.
   - `CARDANO_NETWORK`: One of `preview`, `preprod`, `mainnet`. It needs to match the network indexed by the Carp instance.
-  - `BATCHER_CARDANO_ENABLED_POOLS`: A comma separated list of pool credentials, only users delegating to one of these pools will be able to post to the batcher. The expected format is the public key hash (28 bytes) as a hexadecimal string (56 characters).
-- `DEFAULT_FUNNEL_GROUP_SIZE`: The number of blocks queried in one funnel sync step. If not set, a value of 100 is used. Generally no need to change this value.
+  - `DEFAULT_FUNNEL_GROUP_SIZE`: The number of blocks queried in one funnel sync step. If not set, a value of 100 is used. Generally no need to change this value.
 
 ## Others
 
