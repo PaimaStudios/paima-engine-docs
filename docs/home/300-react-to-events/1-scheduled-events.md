@@ -13,10 +13,12 @@ There are three common usages of timers in Paima
 ## 1. Durations
 
 There are two functions for scheduling events
-- `createScheduledData(inputData: string, blockHeight: number): SQLUpdate`
+- `createScheduledData(inputData: string, blockHeight: number, precompileName: string ): SQLUpdate`
 - `deleteScheduledData(inputData: string, blockHeight: number | null): SQLUpdate`
 
-These can be used to schedule an event that happens in 5 minutes (ex: a potion whose status wears off eventually)
+These can be used to schedule an event that happens in 5 minutes (ex: a potion whose status wears off eventually).
+
+The `precompileName` argument in `createScheduledData` needs to be one of the keys of the object defined through [paima precompiles](../50-smart-contracts/300-precompiles/100-introduction.md). The associated address will be used as the `userAddress` when the event is triggered.
 
 ### Time limits
 
