@@ -9,10 +9,9 @@ Avail:
   type: avail-other
   lightClient: 'http://localhost:7007'
   rpc: ws://127.0.0.1:9944
-  delay: 200 
-  confirmationDepth: 10
+  delay: 60 
   funnelBlockGroupSize: 100
-  presyncStepSize: 1000
+  genesisHash: "0xdd60847daa1119ecc9bdd006b140087737ac03d260ce110ecd7cb33cf721be35"
 ```
 
 ## Conceptually
