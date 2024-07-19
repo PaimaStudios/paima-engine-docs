@@ -3,6 +3,7 @@ import MergeDelayed from "./parallel-funnel-merge-delayed.svg";
 import ParallelToMain from "./parallel-to-main.svg";
 import DataAddition from "./parallel-data-addition.svg";
 import Finalized from "./parallel-finalized.svg";
+import OrderExample from "./order-example.svg";
 
 # Parallel funnels
 
@@ -16,10 +17,10 @@ synchronizing additional networks in parallel:
 
 - [parallel evm funnel](../parallel-evm-funnel)
 - [carp funnel](../carp-funnel)
-- [mina funnel](../mina-funnel) 
+- [mina funnel](../mina-funnel)
 
 Conceptually these funnels are independent from each other, so there can be as
-many as needed, but they all depend on the block funnel. 
+many as needed, but they all depend on the block funnel.
 
 <ParallelToMain className="img-full" style={{ height: "200px" }} />
 
@@ -45,6 +46,44 @@ Note that it is possible that there are no blocks to merge at a certain point (i
 Visually:
 
 <Merge className="img-full" style={{ height: "auto" }} />
+
+### Order of state transition function
+
+As a consequence of the merging procedure, it's possible for the *state
+transition function* to get called in the same block by the effect of
+multiple primitives from different chains. In this case the order is
+deterministic and is given by the following rules:
+
+1. The events of the main chain funnel will be first.
+2. The order of events from parallel funnels depend on the order the networks
+are defined in the configuration file.
+3. Events coming from the same funnel will be contiguous.
+4. When merging multiple blocks from the same network into a single main block,
+the order is that of the block number.
+5. For events coming from the same funnel and in the same block, the order is
+given by the order of the extensions configuration file.
+
+It's worth noting that as a consequence of the third item, it's possible for the
+order to not coincide with the order of the timestamps
+*across* different parallel chains.
+
+To illustrate this, let's see follow the order of events for block 2 (main
+chain) in the following scenario:
+
+<OrderExample className="img-full" style={{ height: "auto" }} />
+
+The final order of STF calls would be:
+
+1. Transactions in main chain, block 2.
+2. Transactions in parallel chain 1, block 1.
+3. Transactions in parallel chain 1, block 2.
+4. Transactions in parallel chain 2, block 1.
+5. Transactions in parallel chain 2, block 2.
+
+In this case the state transition function will see some events with an original
+timestamp of 4 (in parallel chain 1) before the events with an original
+timestamp of 3 (in parallel chain 2), but the timestamp it's only used to
+deterministically decide which blocks to merge, and not to sort the transactions.
 
 ## Finalizing blocks
 
