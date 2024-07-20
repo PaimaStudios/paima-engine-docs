@@ -4,7 +4,7 @@ sidebar_position: 1
 
 # Scheduling Events and Timers
 
-Games heavily rely on passive time to trigger events, such as limits on the length of a match or the duration of status effects. Paima supports these through a generic system called `scheduledData` that keeps track of which inputs (that conform to your app's grammar) to trigger at which block height (used instead of timestamps).
+Games heavily rely on passive time to trigger events (often based on *ticks*), such as limits on the length of a match or the duration of status effects. Paima supports these through a generic system called `scheduledData` that keeps track of which inputs (that conform to your app's grammar) to trigger at which block height (used instead of timestamps).
 
 Paima will fetch, execute and commit the result of any scheduled data for a block BEFORE it considers any regular input inside the block.
 
