@@ -49,9 +49,92 @@ First, ensure you have a config file `.env.*` ready in the root directory of you
 cat .env.mainnet >> ../.env.mainnet
 ```
 
-Of note, one key variable that needs to be set manually to use the batcher is the `BATCHER_PRIVATE_KEY`. This needs to be set as the private key of the wallet intended to be used for creating and posting the batched transactions (note, the wallet needs sufficient funds for posting to the contract). The expected format of the variable is a hex string without the `0x` prefix (ie. exactly what you get from MetaMask under Account details -> Export private key).
+## Configuration
+
+Many of the environment variables used by the batcher are shared with the
+engine, and these are already documented [here](4-environment-config-values.md).
+
+### Common settings
+
+The batcher supports submitting transactions to more than one network.  This
+section talks about settings that apply in both cases, and then follow the
+specific ones.
+
+#### Required settings
+
+Of note, one key variable that needs to be set manually to use the batcher is
+the `BATCHER_PRIVATE_KEY`.
+
+For evm based chains this needs to be set as the
+private key of the wallet intended to be used for creating and posting the
+batched transactions (note, the wallet needs sufficient funds for posting to the
+contract). The expected format of the variable is a hex string without the `0x`
+prefix (ie. exactly what you get from MetaMask under Account details -> Export
+private key).
+
+For Avail the format is that of a [Substrate
+uri](https://polkadot.js.org/docs/keyring/start/suri/).  Note this is only used
+for self signed inputs, otherwise it's handled by the light client.
+
+- `CHAIN_URI`: The URI of the chain (rpc endpoint).
+- `BATCHER_PORT`: The port to listen for submissions from the frontend.
+- `BATCHER_DB_HOST`: Host of the batcher's database.
+- `BATCHER_DB_USER`: User for the batcher's database.
+- `BATCHER_DB_PW`: Password for the batcher's database.
+- `BATCHER_DB_NAME`: Name of the database.
+- `ENABLE_RECAPTCHA_V3`: See [this section](#batcher-security-recaptcha).
+- `RECAPTCHA_V3_BACKEND`: See [this section](#batcher-security-recaptcha)
+- `BATCHED_MESSAGE_SIZE_LIMIT`: Max size limit (in characters) for batched
+transactions in a single round.
+- `MAX_USER_INPUTS_PER_MINUTE`: Per user input submission limit.
+- `MAX_USER_INPUTS_PER_DAY`: Per user input submission limit.
+- `SECURITY_NAMESPACE`: [See this section for details](../200-read-write-L2-state/600-autosign.md#defining-your-namespace).
+
+#### Optional settings
+
+- `BATCHED_TRANSACTION_POSTER_PERIOD`: Delay for the transaction poster loop
+when there are no inputs in the queue.
+- `GAME_NODE_URI`: Used for input validation.
+- `DEFAULT_VALIDATION_ACTIVE`: Whether input validation is active or not. This
+requires `GAME_NODE_URI` to also be set.
+- `GAME_INPUT_VALIDATOR_PERIOD`: Throttle for the input validator.
 
 If you plan to use the batcher in web 2.5 environment, you also need to turn on the self signing feature by setting `SELF_SIGNING_ENABLED="true"` and filling in `API_KEY` value of your choice in `SELF_SIGNING_API_KEY` variable. You'll use this key afterwards on the server communicating with the batcher.
+
+- `BATCHER_CARDANO_ENABLED_POOLS`: A comma separated list of pool credentials,
+only users delegating to one of these pools will be able to post to the batcher.
+The expected format is the public key hash (28 bytes) as a hexadecimal string
+(56 characters).
+- `CARP_URL`: The URL of a Carp instance. This is required if
+`BATCHER_CARDANO_ENABLED_POOLS` is used.
+
+### Network dependent settings
+
+- `BATCHER_NETWORK` can be used to choose the type of network the batcher submits
+to. Possible values are: `evm` and `avail`. If not set it will default to `evm`.
+
+#### Evm
+
+##### Required settings
+
+- `CONTRACT_ADDRESS`: The address of your Paima L2 contract.
+- `DEFAULT_FEE`: The fee for the contract call.
+
+##### Optional settings
+
+- `MAX_BASE_GAS`: For gas estimation. Defaults to 50000.
+- `MAX_GAS_PER_BYTE`: For gas estimation: Defaults to 32.
+
+#### Avail
+
+##### Required
+
+- `BATCHER_AVAIL_LIGHT_CLIENT`: for the Avail's light client rest api. This is
+used for the transaction poster. [Reference](https://docs.availproject.org/docs/operate-a-node/run-a-light-client/light-client-api-reference#v2submit).
+- `SECURITY_NAMESPACE`: There is no contract address in this case, so this is
+required in this case. [See this section for
+details](../200-read-write-L2-state/600-autosign.md#defining-your-namespace).
+
 
 ## Usage
 
@@ -75,7 +158,7 @@ sh ./shutdown.sh
 
 ## Batcher Security (reCAPTCHA)
 
-As the Paima Batcher posts user submissions, you might want only to allow human users to submit data and avoid bots or malicious agents. This is a difficult task, but Paima Batcher can leverage Google's reCAPTCHA V3 and easily be integrated into games. 
+As the Paima Batcher posts user submissions, you might want only to allow human users to submit data and avoid bots or malicious agents. This is a difficult task, but Paima Batcher can leverage Google's reCAPTCHA V3 and easily be integrated into games.
 
 1. Create a reCAPTCHA V3 account and get the `site-key` and `secret-key`. (https://www.google.com/recaptcha)
   * Set `RECAPTCHA_V3_BACKEND` in the `.env.<NETWORK>` file with your `secret-key`.
@@ -84,7 +167,7 @@ As the Paima Batcher posts user submissions, you might want only to allow human 
   * (OPTIONAL) Set `RECAPTCHA_V3_SCORE` in the `.env.<NETWORK>` file as a value between `0.0` and `1.0` (default `0.5` is used if not set). reCAPTCHA V3 returns a value between 0.0 and 1.0, where 0.0 is most likely a bot, and 1.0 is most likely a human. Scores < RECAPTCHA_V3_SCORE will be rejected.
 
 2. Add the reCAPTCHA code to your project
-  * Add the reCaptcha3 script `<script src="https://www.google.com/recaptcha/api.js?render=${site_key}" />` into your main HTML. 
+  * Add the reCaptcha3 script `<script src="https://www.google.com/recaptcha/api.js?render=${site_key}" />` into your main HTML.
   * Or call `injectReCaptchaToHTML()` in your frontend through the middleware.
 
 

@@ -20,7 +20,7 @@ Each entry should have a `type` variable, which can be one of
 - `avail-other`
 
 There can be only one entry of the `main` type. In the case of `evm-main`, this
-network is the one that has the Paima contract deployed. 
+network is the one that has the Paima contract deployed.
 
 Currently also there should only be one entry of type `cardano` and `mina`.
 
@@ -108,6 +108,7 @@ Avail:
   confirmationDepth: 10
   funnelBlockGroupSize: 100
   presyncStepSize: 1000
+  genesisHash: "0xdd60847daa1119ecc9bdd006b140087737ac03d260ce110ecd7cb33cf721be35"
 ```
 
 ## Extensions
