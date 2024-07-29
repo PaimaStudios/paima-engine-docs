@@ -58,12 +58,25 @@ This example generates the topic `app/foo/bar/{playerId}`
 
 ## Debugging
 
-To debug MQTT calls to see if they work correctly, you can use the following tool
+To debug MQTT calls to see if they work correctly, you can use the following tools
+
+### mqtt-client-cli
 
 ```bash
 npm i -g mqtt-client-cli; # only need to install once
 
-mqtt-client-cli ws://localhost:8883;
+mqtt-client-cli ws://localhost:8883
 # example subscription
 sub node/block/#
 ```
+
+#### mqtt.js
+
+```bash
+# subscribe to topic
+mqtt sub -t 'node/block/#' -h 'ws://localhost:8883' -v
+# public to topic
+mqtt pub -t 'node/block/#' -h 'ws://localhost:8883' -m '{ msg: "test message" }'
+```
+
+See docs [here](https://github.com/mqttjs/MQTT.js/?tab=readme-ov-file#command-line-tools)
