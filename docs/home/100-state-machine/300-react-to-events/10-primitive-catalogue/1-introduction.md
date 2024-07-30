@@ -57,6 +57,7 @@ Scheduled inputs are triggered by events specific to each extension type, with t
 The [state transition function](../../../read-write-L2-state/read-data#stf-function) call triggered by a scheduled input originating from a Primitive can also access:
 - `inputData.scheduledTxHash`: the original transaction hash that triggered this primitive
 - `inputData.extensionName`: the primitive that triggered
+- `caip2`: the [caip2](https://github.com/ChainAgnostic/CAIPs/blob/main/CAIPs/caip-2.md) id of the chain that triggered the event
 
 To learn by example, please consult the NFT LvlUp game template &ndash; `./paima-engine-linux init template nft-lvlup` to learn more.
 

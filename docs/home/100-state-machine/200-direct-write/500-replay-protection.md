@@ -1,6 +1,6 @@
 # Replay protection
 
-Given that games made with Paima Engine are technically "open" (meaning anyone can submit valid game input), one thing which we need to look out for is replaying attacks. Replaying attacks are situations classically in blockchains (but liable to any openly accessible state machine) where a previous valid input is resubmitted to the state machine/blockchain. Usually this is done by bad actors, and can cause various issues.
+Given that games made with Paima Engine are technically "open" (meaning anyone can submit valid game input), one thing which we need to look out for is [replay attacks](https://en.wikipedia.org/wiki/Replay_attack). Replay attacks are situations classically in blockchains (but liable to any openly accessible state machine) where a previous valid input is resubmitted to the state machine/blockchain. Usually this is done by bad actors, and can cause various issues.
 
 In our case, there are a few scenarios where replays can happen:
 

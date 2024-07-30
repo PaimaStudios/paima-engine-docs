@@ -1,5 +1,9 @@
 # Introduction
 
+Typically, when using Paima, you are [reacting to events](../../300-react-to-events/2-primitive-catalogue/1-introduction.md) created by underlying [funnels](../../300-react-to-events/3-funnel-types/1-common-concepts/1-intro.md). There are cases, however, where you want your rollup to react to events emitted by your rollup itself, and this case is supported through ["ticks" (scheduled events)](../../300-react-to-events/1-scheduled-events.md). **However, what if you want your rollup to emit events purely for external applications to connect to, as opposed to triggering a state transition in your rollup? This is the goal of event logs.**
+
+## Core concept
+
 When writing a application, being able to easily know usage patterns is crucial to:
 1. As the core developers, to know what is working and what isn't
 2. As an external developer, to be able to build interesting projects on top of the core protocol
