@@ -35,7 +35,7 @@ keccak_256(
 ```js
 '0x' +
 keccak_256(
-  userAddress
+  userAddress |
   keccak_256(data.input_data) |
   scheduledBlockHeight |
   timerIndexRelativeToBlock
