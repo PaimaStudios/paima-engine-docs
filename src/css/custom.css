@@ -13,14 +13,18 @@
   scroll-behavior: smooth;
 }
 
-ul.theme-doc-sidebar-menu > li:nth-child(2) {
-  margin-top: 16px !important;
+ul.theme-doc-sidebar-menu > li:nth-child(2)::before {
+  color: rgba(25, 177, 123, 0.5);
+  content: "- - - - - - - - - - - - -";
 }
-ul.theme-doc-sidebar-menu > li:nth-last-child(5) {
-  margin-top: 32px !important;
+
+ul.theme-doc-sidebar-menu > li:nth-last-child(5)::before {
+  color: rgba(25, 177, 123, 0.5);
+  content: "- - - - - - - - - - - - -";
 }
-ul.theme-doc-sidebar-menu > li:nth-last-child(3) {
-  margin-top: 32px !important;
+ul.theme-doc-sidebar-menu > li:nth-last-child(3)::before {
+  color: rgba(25, 177, 123, 0.5);
+  content: "- - - - - - - - - - - - -";
 }
 
 .img-center {
