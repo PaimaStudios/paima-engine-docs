@@ -92,7 +92,7 @@ clearDelegateWalletCacheOnChanges(requirePersistentConnection());
 ```
 This allows to clear the API cache when the user changes the wallet connection.
 
-2. [STF](../../../200-read-write-L2-state/10-read-data.md#stf-function) Changes
+2. [STF](../../../100-state-machine/100-define-machine/10-read-data.md#stf-function) Changes
 
 As user wallet might change over time, as they can delegate, migrate and cancel delegations, we need to use `userId` instead of `userAddress` or `realAddress` for user identification in our STF.
 ```js

@@ -12,15 +12,19 @@ The owner of the deployed L2 smart contract has the ability to:
 
 ## Deploying the Contract
 
-Generally the L2 contract requires no modification, and so you can simply follow the [general steps for deploying](./100-introduction.md).
+Typically, deploying the L2 contract for your app simply requires running (learn more in the [general steps for deploying](./100-introduction.md))
 
-More concretely, you can use the following in your Hardhat Ignition deploy file
+```
+npm run chain:deploy
+```
+
+However, if you want to modify the contract logic, you can use the following in your Hardhat Ignition deploy file
 
 ```ts
 const deploy = m.contract('PaimaL2Contract', [owner, fee]);
 ```
 
-## Interacting with the Contract
+## Interacting with the L2 Contract via CLI
 
 Paima comes with some built-in tasks to easily interact with the Paima L2 contract. You can find all these commands by running `npx hardhat paima` or see the docs in the [@paima/evm-contracts](../../10000-libraries/100-evm-contracts/300-hardhat-tasks.md) NPM package.
 

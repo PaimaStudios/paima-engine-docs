@@ -20,7 +20,7 @@ As such, these are the pieces of data which we can start to build randomness fro
 1. Use `interimSeed` to randomly add in bits of the block like user addresses, nonces and submitted data during that block
 1. Return `base64(sha256([...selectedChainData, latestChainData.blockHash, ...blockSeeds].join(',')))`
 
-The goal of this algorithm including bits of `ChainData` for the block is because Paima may have multiple [funnels](../300-react-to-events/3-funnel-types/1-intro.md) that aggregate data from multiple locations and so this would ensure some parts of every funnel get included in the randomness generation. However, most likely we'll improve this seed generation process in the future.
+The goal of this algorithm including bits of `ChainData` for the block is because Paima may have multiple [funnels](../100-state-machine/300-react-to-events/3-funnel-types/1-common-concepts/1-intro.md) that aggregate data from multiple locations and so this would ensure some parts of every funnel get included in the randomness generation. However, most likely we'll improve this seed generation process in the future.
 
 ## Prando (deterministic stateful randomness generation from a seed)
 
@@ -28,7 +28,7 @@ Seeds such as those stored in blocks can be combined with a utility class called
 
 `Prando` takes inspiration from the same randomness generation trick [used in old video games](https://www.gamedeveloper.com/programming/how-classic-games-make-smart-use-of-random-number-generation), where actions taken by the player updates internal state of the randomness generator which modifies its subsequent actions. That means calling Prando twice given the same block seed will give different (yet still deterministic) results.
 
-Note this also means that you have to be careful using Prando if your game is leveraging [parallelism](../200-read-write-L2-state/200-parallelism.md) or optimistic updates.
+Note this also means that you have to be careful using Prando if your game is leveraging [parallelism](../100-state-machine/100-define-machine/200-parallelism.md) or optimistic updates.
 
 ```typescript
 import Prando from '@paima/sdk/prando';

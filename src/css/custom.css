@@ -13,6 +13,16 @@
   scroll-behavior: smooth;
 }
 
+ul.theme-doc-sidebar-menu > li:nth-child(2) {
+  margin-top: 16px !important;
+}
+ul.theme-doc-sidebar-menu > li:nth-last-child(5) {
+  margin-top: 32px !important;
+}
+ul.theme-doc-sidebar-menu > li:nth-last-child(3) {
+  margin-top: 32px !important;
+}
+
 .img-center {
   display: flex;
   justify-content: center;
