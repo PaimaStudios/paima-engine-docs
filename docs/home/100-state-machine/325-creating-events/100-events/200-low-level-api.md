@@ -34,7 +34,7 @@ const QuestCompletionEvent = genEvent({
 
 Note that all events starts with a prefix depending on its origin (`TopicPrefix`):
 - `app` for events defined by the user
-- `batcher` for events coming from the [batcher](../../200-read-write-L2-state/400-batched-mode.md)
+- `batcher` for events coming from the [batcher](../../200-direct-write/400-batched-mode.md)
 - `node` for events that come from the Paima Engine node
 
 ## Manually writing MQTT

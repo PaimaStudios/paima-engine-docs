@@ -16,8 +16,8 @@ Paima Engine allows connecting NFTs to games without requiring an NFT bridge - e
 These solutions require actively monitoring multiple chains. These solutions require more computation resources and are more complex, but have lower trust assumptions.
 
 This is possible by leveraging:
-1. EVM: [Parallel EVM funnel](../../300-react-to-events/3-funnel-types/500-parallel-evm-funnel.mdx)
-2. Cardano: [Carp funnel](../../300-react-to-events/3-funnel-types/500-carp-funnel.md)
+1. EVM: [Parallel EVM funnel](../../100-state-machine/300-react-to-events/3-funnel-types/500-parallel-evm-funnel.mdx)
+2. Cardano: [Carp funnel](../../100-state-machine/300-react-to-events/3-funnel-types/500-carp-funnel.md)
 
 ### Chain → Game
 
@@ -25,8 +25,8 @@ Chain to Game is useful if you want to connect an existing NFT collection on an 
 
 1. *Guaranteed ownership*: sometimes it's important to guarantee the user currently owns the NFT right at this moment. For this, [projected NFTs](./2-projected-nfts/1-basics.mdx) work best
 2. *Delayed ownership*: sometimes it's okay if the ownership information is not entirely up-to-date. In this case, use
-- EVM: [erc721 primitive](../../300-react-to-events/2-primitive-catalogue/10-evm/3-ERC721.md)
-- Cardano: [delayed utxo primitive](../../300-react-to-events/2-primitive-catalogue/20-cardano/20-delayed-state.md)
+- EVM: [erc721 primitive](../../100-state-machine/300-react-to-events/10-primitive-catalogue/10-evm/3-ERC721.md)
+- Cardano: [delayed utxo primitive](../../100-state-machine/300-react-to-events/10-primitive-catalogue/20-cardano/20-delayed-state.md)
 
 ### Game → Chain
 

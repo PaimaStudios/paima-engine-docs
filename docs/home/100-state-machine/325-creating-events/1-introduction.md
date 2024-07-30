@@ -1,6 +1,6 @@
 # Introduction
 
-Typically, when using Paima, you are [reacting to events](../../300-react-to-events/2-primitive-catalogue/1-introduction.md) created by underlying [funnels](../../300-react-to-events/3-funnel-types/1-common-concepts/1-intro.md). There are cases, however, where you want your rollup itself to be emitting events.
+Typically, when using Paima, you are [reacting to events](../300-react-to-events/10-primitive-catalogue/1-introduction.md) created by underlying [funnels](../300-react-to-events/3-funnel-types/1-common-concepts/1-intro.md). There are cases, however, where you want your rollup itself to be emitting events.
 
 ## Event types
 
@@ -12,6 +12,6 @@ Within this, there are two types of events your rollup may want to emit:
 
 ## Differentiating events
 
-Typically, when processing events in Paima, the event is uniquely is uniquely defined by the underlying [funnel](../../300-react-to-events/3-funnel-types/1-common-concepts/1-intro.md) that fetched the data (ex: which user sent the transaction? Which smart contract triggered the event?), which makes it easy to query and process this information. Equivalently, we need a way to differentiate events created by Paima itself.
+Typically, when processing events in Paima, the event is uniquely is uniquely defined by the underlying [funnel](../300-react-to-events/3-funnel-types/1-common-concepts/1-intro.md) that fetched the data (ex: which user sent the transaction? Which smart contract triggered the event?), which makes it easy to query and process this information. Equivalently, we need a way to differentiate events created by Paima itself.
 
 [Precompiles](./300-precompiles/100-introduction.md) play this role in Paima, by allowing you to attach a [namespace](https://en.wikipedia.org/wiki/Namespace) to events that are created to make it easier to filter through them.

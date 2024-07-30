@@ -12,7 +12,7 @@ Furthermore, batcher support is fully integrated into Paima Engine, including th
 
 Of note, because Paima Engine games are full fledged Sovereign Rollups, this means we have a built-in mechanism for democratization & decentralization of batching (unlike the majority of rollups today). In other words, anyone can run a batcher for any game built with Paima Engine, opening up opportunities for your community & 3rd party developers to create their own web/mobile game clients, tools, websites, and services that provide players with completely novel gameplay experiences!
 
-You can learn more about the architecture of the batcher [here](../200-read-write-L2-state/400-batched-mode.md)
+You can learn more about the architecture of the batcher [here](../100-state-machine/200-direct-write/400-batched-mode.md)
 
 ## Benefits
 
@@ -88,7 +88,7 @@ for self signed inputs, otherwise it's handled by the light client.
 transactions in a single round.
 - `MAX_USER_INPUTS_PER_MINUTE`: Per user input submission limit.
 - `MAX_USER_INPUTS_PER_DAY`: Per user input submission limit.
-- `SECURITY_NAMESPACE`: [See this section for details](../200-read-write-L2-state/600-autosign.md#defining-your-namespace).
+- `SECURITY_NAMESPACE`: [See this section for details](../100-state-machine/200-direct-write/600-autosign.md#defining-your-namespace).
 
 #### Optional settings
 
@@ -133,7 +133,7 @@ to. Possible values are: `evm` and `avail`. If not set it will default to `evm`.
 used for the transaction poster. [Reference](https://docs.availproject.org/docs/operate-a-node/run-a-light-client/light-client-api-reference#v2submit).
 - `SECURITY_NAMESPACE`: There is no contract address in this case, so this is
 required in this case. [See this section for
-details](../200-read-write-L2-state/600-autosign.md#defining-your-namespace).
+details](../100-state-machine/200-direct-write/600-autosign.md#defining-your-namespace).
 
 
 ## Usage

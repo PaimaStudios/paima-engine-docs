@@ -1,6 +1,6 @@
 # Delayed State
 
-Different blockchains may have different block times & finality, so trying to guarantee the state of blockchain A from blockchain B often requires timelock systems like [projected data](../../../700-multichain-support/1-nfts/2-projected-nfts/1-basics.mdx).
+Different blockchains may have different block times & finality, so trying to guarantee the state of blockchain A from blockchain B often requires timelock systems like [projected data](../../../../700-multichain-support/1-nfts/2-projected-nfts/1-basics.mdx).
 
 However, not all use-cases care about having the data entirely up-to-date. For example, NFT-gated features should work even if your knowledge of whether or not the user owns an NFT is 5 minutes delayed. That is to say, delayed data is **not** guaranteed to be up-to-date (hence *delayed*)
 

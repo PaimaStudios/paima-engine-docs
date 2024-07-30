@@ -16,7 +16,7 @@ Deploying Paima to a chain with a chain without a predictable block time leads t
 
 1. **Correlating block numbers to time**: Calculations that correlate block number (block height) and time will not work, and so developers cannot make estimations by using the block number and `ENV.BLOCK_TIME`.
 1. **Scheduling inputs**: Scheduled inputs may not work as expected, as the target block number does not represent a specific time.
-1. **Reacting timely**: Reacting to events in a timely manner is difficult if L2 batches are in-frequent (remember, most L2s only post batches if there is at least 1 tx to post on the L1). However, you may want your game on a L2 to react quickly to [Primitives](../2-primitive-catalogue/1-introduction.md) coming from the L1.
+1. **Reacting timely**: Reacting to events in a timely manner is difficult if L2 batches are in-frequent (remember, most L2s only post batches if there is at least 1 tx to post on the L1). However, you may want your game on a L2 to react quickly to [Primitives](../10-primitive-catalogue/1-introduction.md) coming from the L1.
 
 For example, if you are trying to build onchain chess where users have a limited amount of time to make a move, it would be good to show them in the UI if they ran out of time right away instead of having to wait for the next L2 block for your game's state machine to update.
 
@@ -93,7 +93,7 @@ Paima will stop generating emulated blocks if the connection to your RPC node fa
 
 Be careful of the timestamp associated with blocks. Some L2s may be special non-trivial interpretation of block timestamps, such as having the L2 block timestamp be the timestamp of the L1 block where it was included (meaning multiple L2 blocks have the same timestamp)
 
-See [here](../3-L2-quirks.md) for more information.
+See [here](../100-L2-quirks.md) for more information.
 
 ## Block hash
 

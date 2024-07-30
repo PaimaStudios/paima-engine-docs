@@ -2,7 +2,7 @@
 
 ## Concise Builder
 
-Now that you've defined you grammar in the [previous section](./1-base-format.md), you can programmatically interact with it.
+Now that you've defined you grammar in the [previous section](../100-define-machine/1-base-format.md), you can programmatically interact with it.
 
 
 1. Generate the data to submit

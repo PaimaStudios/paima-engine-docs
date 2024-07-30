@@ -1,6 +1,6 @@
 # Cardano Projected NFT
 
-Different blockchains may have different block times & finality, so trying to guarantee the state of blockchain A from blockchain B often requires timelock systems like [projected data](../../../700-multichain-support/1-nfts/2-projected-nfts/1-basics.mdx).
+Different blockchains may have different block times & finality, so trying to guarantee the state of blockchain A from blockchain B often requires timelock systems like [projected data](../../../../700-multichain-support/1-nfts/2-projected-nfts/1-basics.mdx).
 
 This primitive implements the Projected NFT system and, given Cardano NFTs are treated the same as any other asset in a UTXO, is seamlessly extended to be a general projected asset system (it is not limited to NFTs).
 

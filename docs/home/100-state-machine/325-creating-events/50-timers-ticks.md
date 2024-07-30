@@ -18,7 +18,7 @@ There are two functions for scheduling events
 
 These can be used to schedule an event that happens in 5 minutes (ex: a potion whose status wears off eventually).
 
-The `precompileName` argument in `createScheduledData` needs to be one of the keys of the object defined through [paima precompiles](../50-smart-contracts/300-precompiles/100-introduction.md). The associated precompile address will be used as the `userAddress` when the event is triggered.
+The `precompileName` argument in `createScheduledData` needs to be one of the keys of the object defined through [paima precompiles](../325-creating-events/300-precompiles/100-introduction.md). The associated precompile address will be used as the `userAddress` when the event is triggered.
 
 ### Time limits
 
@@ -64,7 +64,7 @@ VALUES (
 ```
 
 NOTE: You can replace the value for the `block_height` if you need to run this at a specific time  
-This is possible with blockchains with known block generation time or with [Emulated Blocks mode](./3-funnel-types/400-stable-tick-rate-funnel.mdx).
+This is possible with blockchains with known block generation time or with [Emulated Blocks mode](../300-react-to-events/3-funnel-types/400-stable-tick-rate-funnel.mdx).
 
 
 2. Add a Paima Concise Command
@@ -155,7 +155,7 @@ IMPORTANT: It is very important that the scheduler does NOT return an SQL statem
 
 ## 2. Synchronizing access to a shared state
 
-See [parallelism](../200-read-write-L2-state/200-parallelism.md)
+See [parallelism](../100-define-machine/200-parallelism.md)
 
 ## 3. Primitives
 

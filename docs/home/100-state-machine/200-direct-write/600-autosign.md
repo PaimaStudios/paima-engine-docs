@@ -8,7 +8,7 @@ To tackle this, Paima introduces three different auto-sign methods that all guar
 
 ## 1. Data-only auto-signing
 
-For apps that run [Paima batchers](../1-setup/20-paima-bacher.md) or similar systems (meta-transactions, account-abstraction or sequencers), signing data is often enough for the game 
+For apps that run [Paima batchers](../../1-setup/20-paima-bacher.md) or similar systems (meta-transactions, account-abstraction or sequencers), signing data is often enough for the game 
 
 Concrete examples of cases where this is sufficient:
 - Blockchains with zero transaction fees (Immutable, Oasys, etc.) where you can simply have somebody submit the transaction for you
@@ -54,7 +54,7 @@ namespace:
 ### Wallets that plan to support this format
 
 - MetaMask through the [Paima Session Snap](https://github.com/PaimaStudios/paima-session-snap)
-- Any wallet for a cryptocurrency supported by Paima's [wallet layer](../700-multichain-support/2-wallet-layer/1-introduction.mdx) through the [delegate functionality](../700-multichain-support/2-wallet-layer/100-delegate-wallet/1-introduction.mdx)
+- Any wallet for a cryptocurrency supported by Paima's [wallet layer](../../700-multichain-support/2-wallet-layer/1-introduction.mdx) through the [delegate functionality](../../700-multichain-support/2-wallet-layer/100-delegate-wallet/1-introduction.mdx)
 
 ## 2. Game-specific auto-signing transactions
 
@@ -70,4 +70,4 @@ However, in this case, adding the security namespace would add a lot of useless 
 
 For some apps, simply auto-signing data may not be enough. Instead, to safely sign transactions for the app, you want some kind of session key for the game.
 
-This can be achieved through the [delegate functionality](../700-multichain-support/2-wallet-layer/100-delegate-wallet/1-introduction.mdx). Since Paima's [wallet layer](../700-multichain-support/2-wallet-layer/1-introduction.mdx) supports raw private key formats for some chains like EVM, you can use persistent session key login systems like the one provided by [thirdweb](https://thirdweb.com/) with Paima Engine and have the user delegate their primary wallet to the session key.
+This can be achieved through the [delegate functionality](../../700-multichain-support/2-wallet-layer/100-delegate-wallet/1-introduction.mdx). Since Paima's [wallet layer](../../700-multichain-support/2-wallet-layer/1-introduction.mdx) supports raw private key formats for some chains like EVM, you can use persistent session key login systems like the one provided by [thirdweb](https://thirdweb.com/) with Paima Engine and have the user delegate their primary wallet to the session key.

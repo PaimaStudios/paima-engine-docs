@@ -3,7 +3,7 @@
 On startup, Paima Engine will look for a file name either
 `config.${NETWORK}.yml` or `config.${NETWORK}.yaml` for this. If this is not
 provided, the config defaults to the one provided with the environment
-variables (learn more [here](../../1-setup/4-environment-config-values.md))
+variables (learn more [here](../../../1-setup/4-environment-config-values.md))
 
 ## Format
 
@@ -59,7 +59,7 @@ the ENV file when the entire config file is missing.
 
 All the variables except `funnelBlockGroupSize` have the same purpose and
 default values as they have in the environment configuration. Please refer to
-[that section](../../1-setup/4-environment-config-values.md) for details.
+[that section](../../../1-setup/4-environment-config-values.md) for details.
 
 `funnelBlockGroupSize` it's used to control how many blocks are fetched in a
 single request per network, which helps if a network has a lower rate limit.
@@ -113,7 +113,7 @@ Avail:
 
 ## Extensions
 
-If the config file is present, then the extensions should use the `network` key to assign the primitive to a particular funnel. Learn more about extensions [here](../2-primitive-catalogue/1-introduction.md#configuration)
+If the config file is present, then the extensions should use the `network` key to assign the primitive to a particular funnel. Learn more about extensions [here](../10-primitive-catalogue/1-introduction.md#configuration)
 
 ```yaml
 # extensions.yml

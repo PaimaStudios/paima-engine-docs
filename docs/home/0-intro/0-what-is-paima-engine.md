@@ -129,7 +129,7 @@ Similarly, to give additional liquidity for NFTs for the game, it natively suppo
 
 Paima supports the following as DA layers:
 - EVM (default)
-- [Avail](../300-react-to-events/3-funnel-types/800-avail-block-funnel.md)
+- [Avail](../100-state-machine/300-react-to-events/3-funnel-types/800-avail-block-funnel.md)
 
 We provide the choice, because using a DA layer makes resync of rollup state significantly cheaper & faster.
 - **EVM**: syncing rollup state requires running an EVM fullnode (expensive & heavy)
@@ -145,7 +145,7 @@ ZK cryptography is often used in Web3 for two different properties:
 
 Both these use-cases are of interest in games, as being able to prove world state helps with composability of worlds, and private inputs allow games with private state (ex: fog of war) and can also help with compliance (ex: being able to prove you know information without revealing the sensitive information publicly)
 
-Paima already comes with [ZK layer](../300-react-to-events/3-funnel-types/600-mina-funnel.mdx) support, and we are working with [Zeko](http://zeko.io/) (based on Mina Protocol) to enable app-specific ZK rollups as well. You can learn more about the architecture of our ZK layer [here](https://blog.paimastudios.com/paima-zk-layer/).
+Paima already comes with [ZK layer](../100-state-machine/300-react-to-events/3-funnel-types/600-mina-funnel.mdx) support, and we are working with [Zeko](http://zeko.io/) (based on Mina Protocol) to enable app-specific ZK rollups as well. You can learn more about the architecture of our ZK layer [here](https://blog.paimastudios.com/paima-zk-layer/).
 
 #### Example game
 

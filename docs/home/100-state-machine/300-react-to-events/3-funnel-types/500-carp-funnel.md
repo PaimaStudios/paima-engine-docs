@@ -1,6 +1,6 @@
 # Carp Funnel
 
-This funnel allows using Cardano Primitives leveraging [Carp](https://dcspark.github.io/carp/docs/intro). It's enabled when either Cardano is specified in the [settings](./200-configuration.md) or [.env](../../1-setup/4-environment-config-values.md).
+This funnel allows using Cardano Primitives leveraging [Carp](https://dcspark.github.io/carp/docs/intro). It's enabled when either Cardano is specified in the [settings](./200-configuration.md) or [.env](../../../1-setup/4-environment-config-values.md).
 
 ## Configuration
 

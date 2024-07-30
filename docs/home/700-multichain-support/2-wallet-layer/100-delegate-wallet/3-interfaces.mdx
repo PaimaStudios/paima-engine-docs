@@ -4,9 +4,9 @@ Enabling wallet delegation has implications on the interfaces of multiple differ
 
 ## Meta Primitive
 
-The user must (using a [concise](../../../200-read-write-L2-state/1-base-format.md) command) send a transaction to delegate their wallet address to another wallet address
+The user must (using a [concise](../../../100-state-machine/100-define-machine/1-base-format.md) command) send a transaction to delegate their wallet address to another wallet address
 
-Wallet delegation provides the following [meta primitives](../../../300-react-to-events/2-primitive-catalogue/5-meta/100-introduction.md):
+Wallet delegation provides the following [meta primitives](../../../100-state-machine/300-react-to-events/10-primitive-catalogue/5-meta/100-introduction.md):
 ```
     delegate            =   &wd|from?|to?|from_signature|to_signature
     migrate             =   &wm|from?|to?|from_signature|to_signature
@@ -15,7 +15,7 @@ Wallet delegation provides the following [meta primitives](../../../300-react-to
 
 ## STF
 
-[STF](../../../200-read-write-L2-state/10-read-data.md#stf-function) data is slightly changed:
+[STF](../../../100-state-machine/100-define-machine/10-read-data.md#stf-function) data is slightly changed:
 * `userAddress`: contains the main wallet address.
 * `realAddress`: contains the real wallet address that sent the transaction.
 * `userId`: contains the user id, which is the same for all wallets of the same user.

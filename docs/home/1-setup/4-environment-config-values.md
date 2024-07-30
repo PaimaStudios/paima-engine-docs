@@ -4,7 +4,7 @@ The following is a list of possible environment variables that can be configured
 
 ## Funnel Configuration
 
-These these variables are used if you only need to synchronize a single network for your application. If you need to synchronize multiple networks, learn more about funnel configuration [here](../300-react-to-events/3-funnel-types/200-configuration.md)
+These these variables are used if you only need to synchronize a single network for your application. If you need to synchronize multiple networks, learn more about funnel configuration [here](../100-state-machine/300-react-to-events/3-funnel-types/200-configuration.md)
 
 ### Required variables
 
@@ -23,7 +23,7 @@ These these variables are used if you only need to synchronize a single network 
 
 #### Optional variables
 
-- [Primitive Catalogue](../300-react-to-events/2-primitive-catalogue/1-introduction.md):
+- [Primitive Catalogue](../100-state-machine/300-react-to-events/10-primitive-catalogue/1-introduction.md):
   - `DEFAULT_PRESYNC_STEP_SIZE`: number of blocks to process in each step during initial presync phase. If not provided, a value of 1000 is used. Generally no need to change this value.
   - `CDE_CONFIG_PATH`: allows you to specify a custom location for your `extensions.yml` that is used to initialize primitive catalogue entries
 - Cardano extensions

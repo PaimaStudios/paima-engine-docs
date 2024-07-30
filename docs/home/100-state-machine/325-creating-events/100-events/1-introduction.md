@@ -1,6 +1,6 @@
 # Introduction
 
-Typically, when using Paima, you are [reacting to events](../../300-react-to-events/2-primitive-catalogue/1-introduction.md) created by underlying [funnels](../../300-react-to-events/3-funnel-types/1-common-concepts/1-intro.md). There are cases, however, where you want your rollup to react to events emitted by your rollup itself, and this case is supported through ["ticks" (scheduled events)](../../300-react-to-events/1-scheduled-events.md). **However, what if you want your rollup to emit events purely for external applications to connect to, as opposed to triggering a state transition in your rollup? This is the goal of event logs.**
+Typically, when using Paima, you are [reacting to events](../../300-react-to-events/10-primitive-catalogue/1-introduction.md) created by underlying [funnels](../../300-react-to-events/3-funnel-types/1-common-concepts/1-intro.md). There are cases, however, where you want your rollup to react to events emitted by your rollup itself, and this case is supported through ["ticks" (scheduled events)](../50-timers-ticks.md). **However, what if you want your rollup to emit events purely for external applications to connect to, as opposed to triggering a state transition in your rollup? This is the goal of event logs.**
 
 ## Core concept
 
@@ -10,7 +10,7 @@ When writing a application, being able to easily know usage patterns is crucial 
 
 Although there are cases where having [relational databases](https://en.wikipedia.org/wiki/Relational_database) can provide a lot of speed, clarity and usability benefits, in a lot of cases [non-relational databases](https://en.wikipedia.org/wiki/NoSQL) are significantly easier to write and much easier to consume externally. This is especially true in cases where use-generated content plays a key role in the protocol, as you often cannot know which relational structures best fit user behavior ahead of time. You can see this in practice for example with blockchains, where often there are relational database options for parts that seldom change (the core protocol itself), whereas user-generated content (ex: dApps) are often indexed using general logging systems (ex: [event logs](https://docs.alchemy.com/docs/deep-dive-into-eth_getlogs) for Solidity).
 
-Similarly, for Paima Engine, we provide [database management](../../500-database-management/100-introduction.md) of rollup state out of the box, but also provide a simpler logging system for cases where it makes sense.
+Similarly, for Paima Engine, we provide [database management](../../../500-database-management/100-introduction.md) of rollup state out of the box, but also provide a simpler logging system for cases where it makes sense.
 
 Notably, for Paima's event system, we had the following desirable properties:
 1. **Events should be customizable**

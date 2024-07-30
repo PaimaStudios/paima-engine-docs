@@ -172,13 +172,13 @@ The `PaimaParser` grammar supports UTF8, but generally has the following reserve
 - `*` See [parallelism](./200-parallelism.md)
 - `@` Implicitly use the address that submitted the wallet for [parallelism](./200-parallelism.md). That is, for parallelism purposes, `@x|a` is equivalent to `x|*wallet|a`, but no actual modifications is done to the onchain format
 - `?` Optional entry
-- `&` At the start of a message for [wallet delegation](../700-multichain-support/2-wallet-layer/100-delegate-wallet/1-introduction.mdx)
+- `&` At the start of a message for [wallet delegation](../../700-multichain-support/2-wallet-layer/100-delegate-wallet/1-introduction.mdx)
 - `|` , `=` Used to define the grammar
 - `-` Used for PaimaParser array notation
-- ASCII 0x02 and 0x03. Use for [batched-mode](./400-batched-mode.md)
+- ASCII 0x02 and 0x03. Use for [batched-mode](../200-direct-write/400-batched-mode.md)
 
 ## Conclusion
 
 Now that you've created your parser, you can
 - [read with it](./10-read-data.md)
-- [write with it](./20-write-data.md)
+- [write with it](../200-direct-write/20-write-data.md)

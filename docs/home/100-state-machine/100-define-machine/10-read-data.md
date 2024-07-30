@@ -22,7 +22,7 @@ function parse(s: string): ParsedSubmittedInput {
 
 ## Calling the parser from your STF {#stf-function}
 
-Paima works by updating your state machine whenever happens onchain - the most common case being that somebody interacted with your Paima L2 contract. The set of actions your state machine can react to are called the [Paima Primitives](../300-react-to-events/2-primitive-catalogue/1-introduction.md).
+Paima works by updating your state machine whenever happens onchain - the most common case being that somebody interacted with your Paima L2 contract. The set of actions your state machine can react to are called the [Paima Primitives](../300-react-to-events/10-primitive-catalogue/1-introduction.md).
 
 Your parser can then be used in the _stf_ (state transition function) of your application
 
@@ -61,7 +61,7 @@ Paima comes with a Hardhat plugin as part of [@paima/evm-contracts](https://www.
 
 To use it, make sure you have `import @paima/evm-contracts/plugin` at the top of your `hardhat.config.ts`
 
-For reading inputs submitted to your L2 contract directly (instead of implicitly through another [Paima Primitive](../300-react-to-events/2-primitive-catalogue/1-introduction.md)), you can run `npx hardhat paima PaimaL2Contract:recentInputs`.
+For reading inputs submitted to your L2 contract directly (instead of implicitly through another [Paima Primitive](../300-react-to-events/10-primitive-catalogue/1-introduction.md)), you can run `npx hardhat paima PaimaL2Contract:recentInputs`.
 This command helps you see _recent_ inputs to your L2 contract (not the best tool for getting all historic interactions).
 
 ### (Explorer) See historical game inputs
