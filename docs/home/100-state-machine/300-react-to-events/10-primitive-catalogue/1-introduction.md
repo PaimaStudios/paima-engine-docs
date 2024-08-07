@@ -18,7 +18,7 @@ Paima Engine currently supports many different kinds of primitives that you can 
 
 ## Configuration
 
-To specify which Primitives you are using for your game, you need to provide a configuration file. By default, a file named `extensions.yml` in your root directory (same place as the `.env` file) is expected, but you may adjust this path using the `CDE_CONFIG_PATH` environment variable.
+To specify which Primitives you are using for your game, you need to provide a configuration file. By default, a file named `extensions.yml` in your root directory (same place as the `.env` file) is expected, but you may adjust this path using the `CDE_CONFIG_PATH` environment variable. We recommend using `extensions.$NETWORK.yml` to have different files depending on which network you're deploying your rollup to (ex: `localhost` or `mainnet`)
 
 Here is an example `extensions.yml` that you can copy paste into the root folder of your project:
 

@@ -413,4 +413,12 @@ local $> rsync -r build/* paima@10.0.0.1:/var/www/html/my-game-frontend
 
 The server will generate backups, we recommend you keep them in a safe place, outside this same server to recover your state at any time.
 
+#### Reset the database
 
+If you need to wipe the database to reset from scratch, you can use the following
+
+```bash
+docker compose --env-file=.env.testnet down
+docker volume rm my-game-db
+docker compose --env-file=.env.testnet up -d
+```

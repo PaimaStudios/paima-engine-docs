@@ -9,7 +9,7 @@ variables (learn more [here](../../../1-setup/4-environment-config-values.md))
 
 The format of the config file is a yaml object mapping of a network name to the
 config object. The name is used then in the `extensions.yml` configuration in
-order to associate Paima Primitives with a particular network.
+order to associate Paima Primitives with a particular network. You can use `extensions.$NETWORK.yml` to have different extension files for different deployments (ex: `localhost` or `mainnet`)
 
 Each entry should have a `type` variable, which can be one of
 - `evm-main`
