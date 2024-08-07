@@ -11,7 +11,7 @@ When using the templates, these can be defined in a `precompiles/` directory
 
 ## Definitions
 
-All the precompiles for your application should be put into `precompiles/index.ts`
+All the precompiles for your application should be put into `precompiles/src/index.ts`
 
 ```ts
 import { generatePrecompiles } from '@paima/sdk/precompiles';
