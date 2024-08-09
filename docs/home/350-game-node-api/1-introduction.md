@@ -30,4 +30,6 @@ You can access the wrapper API at `http://localhost:3333/rpc/evm`
 
 *NOTE*: this feature is still experimental, and we will update which endpoints work and which ones don't as well as subtle differences at a later time
 
+## (JSON) Precompile information
 
+You can find information about all the [precompiles](../100-state-machine/325-creating-events/300-precompiles/100-introduction.md) of the node at `http://localhost:3333/docs/precompiles`

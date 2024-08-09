@@ -44,8 +44,19 @@ To do this we can set up a "recursive" scheduled event
 
 <details>
     <summary>Example</summary>
-  
-1. Add a Migration at 1.SQL 
+
+1. Register your precompile
+
+You can learn more about precompiles [here](./300-precompiles/100-introduction.md).
+
+You can find the precompiles for your node at http://localhost:3333/docs/precompiles, but if you cannot run it, you can generate it yourself using the following code even on [typescript playgrounds](https://playcode.io/typescript-playground)
+
+```ts
+import { generatePrecompile } from '@paima/precompiles';
+console.log(generatePrecompile("game-tick"));
+```
+
+2. Add a Migration at `1.SQL`
 
 Create `db/migrations/1.sql` and add an input to execute the first schedule. 
 
@@ -58,16 +69,20 @@ VALUES (
     FROM block_heights
     ORDER BY block_height DESC
     LIMIT 1
-  ), 0) + 1,
-  'hour|0'
+  ), 0) + 2,
+  'tick|0',
+) RETURNING id;
+INSERT INTO scheduled_data_precompile (id, precompile)
+VALUES (
+  id,
+  'precompile_hash_here'
 );
 ```
 
-NOTE: You can replace the value for the `block_height` if you need to run this at a specific time  
-This is possible with blockchains with known block generation time or with [Emulated Blocks mode](../300-react-to-events/3-funnel-types/400-stable-tick-rate-funnel.mdx).
+*NOTE*: You can replace the value for the `block_height` if you need to run this at a specific time  
+This is possible with blockchains with known block generation time or with [Emulated Blocks mode](../300-react-to-events/3-funnel-types/400-stable-tick-rate-funnel.mdx). 
 
-
-2. Add a Paima Concise Command
+3. Add a Paima Concise Command
 Modify `state-transition/src/stf/v1/parser.ts` (or where you have the Paima Concise Grammar).
 
 Add a command to the list a new command:
@@ -96,14 +111,19 @@ export interface ScheduleHourlyInput {
 }
 ```
 
-3. Add an STF Function to process and create the next event
+4. Add an STF Function to process and create the next event
 
 Capture the input in the STF and process it (Generally in `state-transition/src/stf/v1/index.ts`)
 
 ```ts
+import type { type SubmittedChainData } from '@paima/sdk/utils';
+import type Prando from '@paima/sdk/prando';
+import type { Pool } from 'pg';
+import type { BlockHeader } from '@paima/sdk/utils';
+
 export default async function (
   inputData: STFSubmittedData,
-  blockHeight: number,
+  blockHeader: BlockHeader,
   randomnessGenerator: Prando,
   dbConn: Pool
 ): Promise<SQLUpdate[]> {
@@ -127,7 +147,7 @@ export default async function (
         // highlight-start
         commands.push(createScheduledData(
                 `hour|${input.tick + 1}`,
-                 blockHeight + hourBlocks
+                 blockHeader.blockHeight + hourBlocks
         ));
         // highlight-end
         

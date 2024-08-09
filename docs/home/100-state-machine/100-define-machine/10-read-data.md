@@ -27,9 +27,14 @@ Paima works by updating your state machine whenever happens onchain - the most c
 Your parser can then be used in the _stf_ (state transition function) of your application
 
 ```typescript
+import type { type SubmittedChainData } from '@paima/sdk/utils';
+import type Prando from '@paima/sdk/prando';
+import type { Pool } from 'pg';
+import type { BlockHeader } from '@paima/sdk/utils';
+
 export default async function (
   inputData: SubmittedChainData,
-  blockHeight: number,
+  blockHeader: BlockHeader,
   randomnessGenerator: Prando,
   dbConn: Pool
 ): Promise<SQLUpdate[]> {
