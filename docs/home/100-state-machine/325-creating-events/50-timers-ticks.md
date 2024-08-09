@@ -49,34 +49,30 @@ To do this we can set up a "recursive" scheduled event
 
 You can learn more about precompiles [here](./300-precompiles/100-introduction.md).
 
-You can find the precompiles for your node at http://localhost:3333/docs/precompiles, but if you cannot run it, you can generate it yourself using the following code even on [typescript playgrounds](https://playcode.io/typescript-playground)
-
-```ts
-import { generatePrecompile } from '@paima/precompiles';
-console.log(generatePrecompile("game-tick"));
-```
-
 2. Add a Migration at `1.SQL`
 
 Create `db/migrations/1.sql` and add an input to execute the first schedule. 
 
+For example, imagine we created a precompile called `reset-leaderboard`
+
 ```SQL wordWrap=true
-INSERT INTO scheduled_data (block_height, input_data )
-VALUES (
-  -- get the latest block + 1
-  coalesce((
-    SELECT block_height
-    FROM block_heights
-    ORDER BY block_height DESC
-    LIMIT 1
-  ), 0) + 2,
-  'tick|0',
-) RETURNING id;
+WITH new_ticks AS (
+  INSERT INTO scheduled_data (block_height, input_data )
+  VALUES (
+    -- get the latest block + 1
+    coalesce((
+      SELECT block_height
+      FROM block_heights
+      ORDER BY block_height DESC
+      LIMIT 1
+    ), 0) + 2,
+    'tick|0'
+  )
+  RETURNING id
+)
 INSERT INTO scheduled_data_precompile (id, precompile)
-VALUES (
-  id,
-  'precompile_hash_here'
-);
+SELECT id, 'reset-leaderboard'
+FROM new_ticks
 ```
 
 *NOTE*: You can replace the value for the `block_height` if you need to run this at a specific time  
