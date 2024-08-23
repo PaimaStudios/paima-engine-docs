@@ -37,7 +37,7 @@ export default async function (
   blockHeader: BlockHeader,
   randomnessGenerator: Prando,
   dbConn: Pool
-): Promise<SQLUpdate[]> {
+): Promise<{ stateTransitions: SQLUpdate[], events: [] }> {
   console.log(inputData, 'parsing input data');
   const user = inputData.userAddress.toLowerCase();
 
@@ -53,7 +53,7 @@ export default async function (
     case 'createLobby':
       // handle this input however you need (but needs to be deterministic)
     default:
-      return [];
+      return { stateTransitions: [], events: [] };
   }
 }
 ```

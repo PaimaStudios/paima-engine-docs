@@ -33,7 +33,7 @@ const QuestCompletionEvent = genEvent({
 - The content of the MQTT messages is `{ questId: number }`
 
 Note that all events starts with a prefix depending on its origin (`TopicPrefix`):
-- `app` for events defined by the user
+- `app/{signatureHash}` for events defined by the user. The `signatureHash` is explained [here](./100-general-interface.md#signature-hash).
 - `batcher` for events coming from the [batcher](../../200-direct-write/400-batched-mode.md)
 - `node` for events that come from the Paima Engine node
 

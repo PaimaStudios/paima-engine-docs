@@ -102,7 +102,7 @@ export default async function (
   blockHeight: number,
   randomnessGenerator: Prando,
   dbConn: Pool
-): Promise<SQLUpdate[]> {
+): Promise<{ stateTransitions: SQLUpdate[], events: [] }> {
   // highlight-start
   /* use this user to identify the player instead of userAddress or realAddress */
   const user = String(inputData.userId);
