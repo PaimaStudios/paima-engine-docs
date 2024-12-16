@@ -203,6 +203,18 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
+      announcementBar: {
+        id: 'v2-announcement',
+        content: `
+      <div class="custom-banner">
+        <p><strong>You are looking at Paima Engine v1 docs</strong></p>
+        <p>Paima Engine v2 is still under construction🚧</p>
+      </div>
+    `,
+        backgroundColor: '#2B3831', 
+        textColor: '#ffffff',
+        isCloseable: false,
+      },
       colorMode: {
         defaultMode: 'dark',
         disableSwitch: true,

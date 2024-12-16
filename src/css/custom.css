@@ -41,7 +41,26 @@ ul.theme-doc-sidebar-menu > li:nth-last-child(3)::before {
   width: 100%,
 }
 
+/* Style for the multi-line announcement banner */
+.custom-banner {
+  font-size: 1.2rem; /* Increase font size */
+  line-height: 1.8; /* Adjust line spacing */
+  padding: 20px; /* Add padding for more height */
+  text-align: center; /* Center-align the content */
+}
+
+.custom-banner a {
+  color: #1d4ed8; /* Link color */
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+.custom-banner p {
+  margin: 0; /* Remove default paragraph margins for consistency */
+}
+
 :root {
+  --docusaurus-announcement-bar-height: 75px !important;
   --ifm-color-primary: #356ddb;
   --ifm-color-primary-dark: #356ddb;
   --ifm-color-primary-darker: #356ddb;
