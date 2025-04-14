@@ -156,6 +156,42 @@ At any point after stopping the batcher, you can clean up via the following comm
 sh ./shutdown.sh
 ```
 
+## Batcher Wallet Balance
+
+The Batcher can be set to only post transactions if the wallet has a positive balance for your specific batcher.
+
+Paima Engine always keeps track of individual wallet address for batcher gas fees.
+
+
+To active this functionality the Batcher's .env file must include:
+```
+BATCHER_PAYMENT_ENABLED="true"
+```
+
+You can setup a batcher for any Paima-Engine game, and only post if the wallet has a positive balance.
+
+```mermaid
+flowchart LR
+    Player -->|Game Input| Batcher-A
+    Player -->|"PayBatcher(Batcher-A)"| PaimaL2Contract
+    PaimaEngine -->|Updated Wallet Balance| Batcher-A
+    PaimaL2Contract -->|Events| PaimaEngine
+    Batcher-A -->|Post TX| PaimaL2Contract
+    Batcher-B -->|Post TX| PaimaL2Contract
+    Batcher-C -->|Post TX| PaimaL2Contract
+```
+
+### Batcher Payment Workflow
+* Player deposits funds by calling `PaimaL2Contract` function `payBatcher(batcherAddress)` with some arbitrary value of native chain tokens.
+* Paima-Engine registers the wallet's funds for the `batcherAddress` wallet.
+* The Player submits an game-input through the Batcher.
+* The Batcher checks if the Player's Wallet has a positive balance.
+* The Batcher Posts in behalf of the Player.
+* Once the transaction is written Paima-Engine discounts the transaction gas cost (NOTE: One Batcher Post can contain the data of multiple Players, in this case the total fee gets divided between the Players)
+
+To allow Players sending funds for your batcher, you can add a Web Frontend button following this [example](./21-paima-batcher-payments.md)
+
+
 ## Batcher Security (reCAPTCHA)
 
 As the Paima Batcher posts user submissions, you might want only to allow human users to submit data and avoid bots or malicious agents. This is a difficult task, but Paima Batcher can leverage Google's reCAPTCHA V3 and easily be integrated into games.
